@@ -1,0 +1,122 @@
+package top.zywork.vo;
+
+import java.util.Date;
+
+public class CooperationCompanyVo {
+    private Long id;
+
+    private Long shopManagerId;
+
+    private String name;
+
+    private String address;
+
+    private String contact;
+
+    private String tel;
+
+    private String phone;
+
+    private String description;
+
+    private Date createTime;
+
+    private Byte isActive;
+
+    public CooperationCompanyVo(Long id, Long shopManagerId, String name, String address, String contact, String tel, String phone, String description, Date createTime, Byte isActive) {
+        this.id = id;
+        this.shopManagerId = shopManagerId;
+        this.name = name;
+        this.address = address;
+        this.contact = contact;
+        this.tel = tel;
+        this.phone = phone;
+        this.description = description;
+        this.createTime = createTime;
+        this.isActive = isActive;
+    }
+
+    public CooperationCompanyVo() {
+        super();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getShopManagerId() {
+        return shopManagerId;
+    }
+
+    public void setShopManagerId(Long shopManagerId) {
+        this.shopManagerId = shopManagerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact == null ? null : contact.trim();
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Byte getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Byte isActive) {
+        this.isActive = isActive;
+    }
+}
