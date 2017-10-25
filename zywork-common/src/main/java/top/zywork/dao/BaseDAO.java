@@ -1,7 +1,6 @@
 package top.zywork.dao;
 
 
-import top.zywork.dos.BaseDO;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * @version 1.0
  * @param <T> DAO操作的实体类型，具体的DO类
  */
-public interface BaseDAO<T extends BaseDO> {
+public interface BaseDAO<T> {
 
     /**
      * 添加数据到数据库中

@@ -49,7 +49,7 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
-    public void remove(Long id) {
+    public void removeById(Long id) {
 
     }
 
@@ -74,8 +74,13 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
-    public PagerDTO<RoleDTO> listPage(PageQuery pageQuery) {
+    public List<RoleDTO> listPage(PageQuery pageQuery) {
         return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
     }
 
     @Resource

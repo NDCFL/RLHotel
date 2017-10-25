@@ -42,7 +42,7 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void removeById(Long id) {
 
     }
 
@@ -67,8 +67,13 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public PagerDTO<TemplateDTO> listPage(PageQuery pageQuery) {
+    public List<TemplateDTO> listPage(PageQuery pageQuery) {
         return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
     }
 
     @Resource

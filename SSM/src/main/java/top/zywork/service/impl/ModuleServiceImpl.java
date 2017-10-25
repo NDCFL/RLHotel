@@ -37,7 +37,7 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
     }
 
     @Override
-    public void remove(Long id) {
+    public void removeById(Long id) {
 
     }
 
@@ -66,8 +66,13 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
     }
 
     @Override
-    public PagerDTO<ModuleDTO> listPage(PageQuery pageQuery) {
+    public List<ModuleDTO> listPage(PageQuery pageQuery) {
         return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
     }
 
     @Resource

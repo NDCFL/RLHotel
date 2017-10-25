@@ -10,6 +10,7 @@
     </settings>
 
     <typeAliases>
+        <package name="top.zywork.vo"/>
         <package name="top.zywork.dos"/>
     </typeAliases>
 

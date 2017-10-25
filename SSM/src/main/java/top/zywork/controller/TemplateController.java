@@ -9,7 +9,6 @@ import org.springframework.web.servlet.support.RequestContext;
 import top.zywork.common.EncryptUtils;
 import top.zywork.common.ExceptionUtils;
 import top.zywork.dto.TemplateDTO;
-import top.zywork.exception.AppException;
 import top.zywork.exception.ServiceException;
 import top.zywork.service.TemplateService;
 

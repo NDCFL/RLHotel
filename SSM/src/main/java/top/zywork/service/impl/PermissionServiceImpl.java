@@ -69,7 +69,7 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
     }
 
     @Override
-    public void remove(Long id) {
+    public void removeById(Long id) {
 
     }
 
@@ -94,8 +94,13 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
     }
 
     @Override
-    public PagerDTO<PermissionDTO> listPage(PageQuery pageQuery) {
+    public List<PermissionDTO> listPage(PageQuery pageQuery) {
         return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
     }
 
     @Resource

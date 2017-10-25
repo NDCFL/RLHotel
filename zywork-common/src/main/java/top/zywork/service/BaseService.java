@@ -1,7 +1,6 @@
 package top.zywork.service;
 
 
-import top.zywork.dto.BaseDTO;
 import top.zywork.dto.PagerDTO;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
@@ -17,7 +16,7 @@ import java.util.List;
  * @version 1.0
  * @param <T> Service操作的数据传输对象，具体的DTO类
  */
-public interface BaseService<T extends BaseDTO> {
+public interface BaseService<T> {
 
     /**
      * 添加数据到数据库中
@@ -35,7 +34,7 @@ public interface BaseService<T extends BaseDTO> {
      * 根据主键从数据库中删除数据
      * @param id 主键ID
      */
-    void remove(Long id);
+    void removeById(Long id);
 
     /**
      * 根据对象更新数据库中的数据
@@ -67,5 +66,7 @@ public interface BaseService<T extends BaseDTO> {
      * @param pageQuery 分页查询对象
      * @return 分页数据DTO对象所组成的List列表
      */
-    PagerDTO<T> listPage(PageQuery pageQuery);
+    List<T> listPage(PageQuery pageQuery);
+
+    long count();
 }

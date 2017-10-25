@@ -52,7 +52,7 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     }
 
     @Override
-    public void remove(Long id) {
+    public void removeById(Long id) {
 
     }
 
@@ -77,8 +77,13 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     }
 
     @Override
-    public PagerDTO<UserDTO> listPage(PageQuery pageQuery) {
+    public List<UserDTO> listPage(PageQuery pageQuery) {
         return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
     }
 
     @Resource
