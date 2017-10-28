@@ -3,15 +3,11 @@ package top.zywork.service.impl;
 import org.springframework.stereotype.Service;
 import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.UserDAO;
-import top.zywork.dos.UserDO;
-import top.zywork.dto.PagerDTO;
-import top.zywork.dto.UserDTO;
-import top.zywork.exception.DAOException;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.query.UserAccountPasswordQuery;
-import top.zywork.service.AbstractBaseService;
 import top.zywork.service.UserService;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,70 +20,74 @@ import java.util.List;
  * @version 1.0
  */
 @Service
-public class UserServiceImpl extends AbstractBaseService implements UserService {
+public class UserServiceImpl  implements UserService {
 
+    @Resource
     private UserDAO userDAO;
 
     @Override
-    public UserDTO getByAccountPassword(UserAccountPasswordQuery userAccountPasswordQuery) {
+    public UserVo getByAccountPassword(UserAccountPasswordQuery userAccountPasswordQuery) {
         try {
-            UserDO userDO = userDAO.getByAccountPassword(userAccountPasswordQuery);
-            if (userDO != null) {
-                return getDozerMapper().map(userDO, UserDTO.class);
-            }
-            return null;
+            UserVo userVo = userDAO.getByAccountPassword(userAccountPasswordQuery);
+            return userVo;
         } catch (RuntimeException e) {
             throw ExceptionUtils.serviceException(e);
         }
     }
 
     @Override
-    public void save(UserDTO userDTO) {
-
+    public int checkReg(String phone) {
+        return userDAO.checkReg(phone);
     }
 
     @Override
-    public void remove(UserDTO userDTO) {
+    public int checkLogin(String account) {
+        return userDAO.checkLogin(account);
+    }
 
+    @Override
+    public void save(UserVo userVo) {
+        userDAO.save(userVo);
+    }
+
+    @Override
+    public void remove(UserVo userVo) {
+        userDAO.remove(userVo);
     }
 
     @Override
     public void removeById(Long id) {
-
+        userDAO.removeById(id);
     }
 
     @Override
-    public void update(UserDTO userDTO) {
-
+    public void update(UserVo userVo) {
+        userDAO.update(userVo);
     }
 
     @Override
     public void updateStatus(StatusQuery statusQuery) {
-
+        userDAO.updateStatus(statusQuery);
     }
 
     @Override
-    public UserDTO getById(Long id) {
-        return null;
+    public UserVo getById(Long id) {
+        return userDAO.getById(id);
     }
 
     @Override
-    public List<UserDTO> listAll() {
-        return null;
+    public List<UserVo> listAll() {
+        return userDAO.listAll();
     }
 
     @Override
-    public List<UserDTO> listPage(PageQuery pageQuery) {
-        return null;
+    public List<UserVo> listPage(PageQuery pageQuery) {
+        return userDAO.listPage(pageQuery);
     }
 
     @Override
     public long count() {
-        return 0;
+        return userDAO.count();
     }
 
-    @Resource
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
 }

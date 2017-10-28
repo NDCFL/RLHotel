@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import top.zywork.dto.RoleDTO;
 import top.zywork.service.RoleService;
+import top.zywork.vo.RoleVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,9 +26,9 @@ public class RoleServiceTest {
 
     @Test
     public void testListByAccount() {
-        List<RoleDTO> roleDTOList = roleService.listByAccount("13672297775");
-        for (RoleDTO roleDTO : roleDTOList) {
-            System.out.println(roleDTO.getTitle());
+        List<RoleVo> roleVoList = roleService.listByAccount("13672297775");
+        for (RoleVo roleVo : roleVoList) {
+            System.out.println(roleVo.getTitle());
         }
     }
 

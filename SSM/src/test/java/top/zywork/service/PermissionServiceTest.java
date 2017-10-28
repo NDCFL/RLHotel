@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import top.zywork.dto.PermissionDTO;
 import top.zywork.service.PermissionService;
+import top.zywork.vo.PermissionVo;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -30,17 +30,17 @@ public class PermissionServiceTest {
         List<Long> roleIds = new ArrayList<>();
         roleIds.add(1L);
         roleIds.add(2L);
-        List<PermissionDTO> permissionDTOList = permissionService.listByRoleIds(roleIds);
-        for (PermissionDTO permissionDTO : permissionDTOList) {
-            System.out.println(permissionDTO.getTitle());
+        List<PermissionVo> permissionVoList = permissionService.listByRoleIds(roleIds);
+        for (PermissionVo permissionVo : permissionVoList) {
+            System.out.println(permissionVo.getTitle());
         }
     }
 
     @Test
     public void testListByAccount() {
-        List<PermissionDTO> permissionDTOList = permissionService.listByAccount("13672297775");
-        for (PermissionDTO permissionDTO : permissionDTOList) {
-            System.out.println(permissionDTO.getTitle());
+        List<PermissionVo> permissionVoList = permissionService.listByAccount("13672297775");
+        for (PermissionVo permissionVo : permissionVoList) {
+            System.out.println(permissionVo.getTitle());
         }
     }
 

@@ -2,6 +2,7 @@ package top.zywork.dao;
 
 import org.springframework.stereotype.Repository;
 import top.zywork.dos.ModuleDO;
+import top.zywork.vo.ModuleVo;
 
 /**
  * 模块DAO接口<br />
@@ -11,5 +12,5 @@ import top.zywork.dos.ModuleDO;
  * @version 1.0
  */
 @Repository
-public interface ModuleDAO extends BaseDAO<ModuleDO> {
+public interface ModuleDAO extends BaseDAO<ModuleVo> {
 }

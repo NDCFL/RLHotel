@@ -3,13 +3,12 @@ package top.zywork.service.impl;
 import org.springframework.stereotype.Service;
 import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.ModuleDAO;
-import top.zywork.dto.ModuleDTO;
-import top.zywork.dto.PagerDTO;
 import top.zywork.exception.DAOException;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.ModuleService;
+import top.zywork.vo.ModuleVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,12 +26,12 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
     private ModuleDAO moduleDAO;
 
     @Override
-    public void save(ModuleDTO moduleDTO) {
+    public void save(ModuleVo moduleVo) {
 
     }
 
     @Override
-    public void remove(ModuleDTO moduleDTO) {
+    public void remove(ModuleVo moduleVo) {
 
     }
 
@@ -42,7 +41,7 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
     }
 
     @Override
-    public void update(ModuleDTO moduleDTO) {
+    public void update(ModuleVo moduleVo) {
 
     }
 
@@ -52,21 +51,21 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
     }
 
     @Override
-    public ModuleDTO getById(Long id) {
+    public ModuleVo getById(Long id) {
         try {
-            return getDozerMapper().map(moduleDAO.getById(id), ModuleDTO.class);
+            return getDozerMapper().map(moduleDAO.getById(id), ModuleVo.class);
         } catch (DAOException e) {
             throw ExceptionUtils.serviceException(e);
         }
     }
 
     @Override
-    public List<ModuleDTO> listAll() {
+    public List<ModuleVo> listAll() {
         return null;
     }
 
     @Override
-    public List<ModuleDTO> listPage(PageQuery pageQuery) {
+    public List<ModuleVo> listPage(PageQuery pageQuery) {
         return null;
     }
 

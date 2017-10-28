@@ -5,13 +5,11 @@ import top.zywork.common.DozerMapperUtils;
 import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.RoleDAO;
 import top.zywork.dos.RoleDO;
-import top.zywork.dto.PagerDTO;
-import top.zywork.dto.RoleDTO;
-import top.zywork.exception.DAOException;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.RoleService;
+import top.zywork.vo.RoleVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,22 +27,22 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     private RoleDAO roleDAO;
 
     @Override
-    public List<RoleDTO> listByAccount(String account) {
+    public List<RoleVo> listByAccount(String account) {
         try {
-            List<RoleDO> roleDOList = roleDAO.listByAccount(account);
-            return DozerMapperUtils.map(getDozerMapper(), roleDOList, RoleDTO.class);
+            List<RoleVo> roleDOList = roleDAO.listByAccount(account);
+            return DozerMapperUtils.map(getDozerMapper(), roleDOList, RoleVo.class);
         } catch (RuntimeException e) {
             throw ExceptionUtils.serviceException(e);
         }
     }
 
     @Override
-    public void save(RoleDTO roleDTO) {
+    public void save(RoleVo roleVo) {
 
     }
 
     @Override
-    public void remove(RoleDTO roleDTO) {
+    public void remove(RoleVo roleVo) {
 
     }
 
@@ -54,7 +52,7 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
-    public void update(RoleDTO roleDTO) {
+    public void update(RoleVo roleVo) {
 
     }
 
@@ -64,17 +62,17 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
-    public RoleDTO getById(Long id) {
+    public RoleVo getById(Long id) {
         return null;
     }
 
     @Override
-    public List<RoleDTO> listAll() {
+    public List<RoleVo> listAll() {
         return null;
     }
 
     @Override
-    public List<RoleDTO> listPage(PageQuery pageQuery) {
+    public List<RoleVo> listPage(PageQuery pageQuery) {
         return null;
     }
 

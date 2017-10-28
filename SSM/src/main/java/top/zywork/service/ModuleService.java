@@ -1,6 +1,7 @@
 package top.zywork.service;
 
 import top.zywork.dto.ModuleDTO;
+import top.zywork.vo.ModuleVo;
 
 /**
  * 模块Service接口<br />
@@ -9,5 +10,5 @@ import top.zywork.dto.ModuleDTO;
  * @author 王振宇
  * @version 1.0
  */
-public interface ModuleService extends BaseService<ModuleDTO> {
+public interface ModuleService extends BaseService<ModuleVo> {
 }

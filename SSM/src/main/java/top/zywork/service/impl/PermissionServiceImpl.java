@@ -6,12 +6,12 @@ import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.PermissionDAO;
 import top.zywork.dos.PermissionDO;
 import top.zywork.dto.PagerDTO;
-import top.zywork.dto.PermissionDTO;
 import top.zywork.exception.DAOException;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.PermissionService;
+import top.zywork.vo.PermissionVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,42 +29,42 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
     private PermissionDAO permissionDAO;
 
     @Override
-    public List<PermissionDTO> listByModuleId(String moduleId) {
+    public List<PermissionVo> listByModuleId(String moduleId) {
         return null;
     }
 
     @Override
-    public List<PermissionDTO> listByRoleId(String roleId) {
+    public List<PermissionVo> listByRoleId(String roleId) {
         return null;
     }
 
     @Override
-    public List<PermissionDTO> listByRoleIds(List<Long> roleIds) {
+    public List<PermissionVo> listByRoleIds(List<Long> roleIds) {
         try {
-            List<PermissionDO> permissionDOList = permissionDAO.listByRoleIds(roleIds);
-            return DozerMapperUtils.map(getDozerMapper(), permissionDOList, PermissionDTO.class);
+            List<PermissionVo> permissionDOList = permissionDAO.listByRoleIds(roleIds);
+            return DozerMapperUtils.map(getDozerMapper(), permissionDOList, PermissionVo.class);
         } catch (RuntimeException e) {
             throw ExceptionUtils.serviceException(e);
         }
     }
 
     @Override
-    public List<PermissionDTO> listByAccount(String account) {
+    public List<PermissionVo> listByAccount(String account) {
         try {
-            List<PermissionDO> permissionDOList = permissionDAO.listByAccount(account);
-            return DozerMapperUtils.map(getDozerMapper(), permissionDOList, PermissionDTO.class);
+            List<PermissionVo> permissionDOList = permissionDAO.listByAccount(account);
+            return DozerMapperUtils.map(getDozerMapper(), permissionDOList, PermissionVo.class);
         } catch (RuntimeException e) {
             throw ExceptionUtils.serviceException(e);
         }
     }
 
     @Override
-    public void save(PermissionDTO permissionDTO) {
+    public void save(PermissionVo permissionDTO) {
 
     }
 
     @Override
-    public void remove(PermissionDTO permissionDTO) {
+    public void remove(PermissionVo permissionDTO) {
 
     }
 
@@ -74,7 +74,7 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
     }
 
     @Override
-    public void update(PermissionDTO permissionDTO) {
+    public void update(PermissionVo permissionDTO) {
 
     }
 
@@ -84,17 +84,17 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
     }
 
     @Override
-    public PermissionDTO getById(Long id) {
+    public PermissionVo getById(Long id) {
         return null;
     }
 
     @Override
-    public List<PermissionDTO> listAll() {
+    public List<PermissionVo> listAll() {
         return null;
     }
 
     @Override
-    public List<PermissionDTO> listPage(PageQuery pageQuery) {
+    public List<PermissionVo> listPage(PageQuery pageQuery) {
         return null;
     }
 

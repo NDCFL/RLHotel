@@ -27,7 +27,7 @@ public class UserServiceTest {
     @Test
     public void testGetByAccountPassword() {
         UserAccountPasswordQuery query = new UserAccountPasswordQuery("wgssmarter@126.com", "123456");
-        UserDTO userDTO = userService.getByAccountPassword(query);
-        System.out.println(userDTO.getId());
+//        UserDTO userDTO = userService.getByAccountPassword(query);
+//        System.out.println(userDTO.getId());
     }
 }

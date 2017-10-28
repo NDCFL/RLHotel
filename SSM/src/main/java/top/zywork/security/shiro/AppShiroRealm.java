@@ -9,13 +9,13 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
-import top.zywork.dto.PermissionDTO;
-import top.zywork.dto.RoleDTO;
-import top.zywork.dto.UserDTO;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.service.PermissionService;
 import top.zywork.service.RoleService;
 import top.zywork.service.UserService;
+import top.zywork.vo.PermissionVo;
+import top.zywork.vo.RoleVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,13 +38,13 @@ public class AppShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        List<RoleDTO> roleDTOList = roleService.listByAccount(username);
-        for (RoleDTO roleDTO : roleDTOList) {
-            authorizationInfo.addRole(roleDTO.getTitle());
+        List<RoleVo> roleVoList = roleService.listByAccount(username);
+        for (RoleVo roleVo : roleVoList) {
+            authorizationInfo.addRole(roleVo.getTitle());
         }
-        List<PermissionDTO> permissionDTOList = permissionService.listByAccount(username);
-        for (PermissionDTO permissionDTO : permissionDTOList) {
-            authorizationInfo.addStringPermission(permissionDTO.getPermission());
+        List<PermissionVo> permissionVoList = permissionService.listByAccount(username);
+        for (PermissionVo permissionVo : permissionVoList) {
+            authorizationInfo.addStringPermission(permissionVo.getPermission());
         }
         return authorizationInfo;
     }
@@ -53,8 +53,8 @@ public class AppShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = authenticationToken.getPrincipal().toString();
         String password = String.valueOf((char[])authenticationToken.getCredentials());
-        UserDTO userDTO = userService.getByAccountPassword(new UserAccountPasswordQuery(username, password));
-        if (userDTO != null) {
+        UserVo userVo = userService.getByAccountPassword(new UserAccountPasswordQuery(username, password));
+        if (userVo != null) {
             return new SimpleAuthenticationInfo(authenticationToken.getPrincipal(), authenticationToken.getCredentials(), getName());
         }
         return null;

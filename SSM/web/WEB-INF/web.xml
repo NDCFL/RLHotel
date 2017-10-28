@@ -102,7 +102,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>/index</welcome-file>
+        <welcome-file>/user/loginPage</welcome-file>
     </welcome-file-list>
 
     <error-page>

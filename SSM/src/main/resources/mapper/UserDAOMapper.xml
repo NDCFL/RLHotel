@@ -3,14 +3,93 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="top.zywork.dao.UserDAO">
-	<resultMap type="userDO" id="userMap">
+	<resultMap type="userVo" id="userMap">
 	</resultMap>
-
-	<select id="getByAccountPassword" resultType="userDO">
+	<sql id="Base_Column_List">id, email,phone,account_name,nickname,identity,realname,gender,age,address</sql>
+	<select id="getByAccountPassword" resultType="userVo">
 		<![CDATA[
-			select * from t_user where password = #{query.password} and
-			(email = #{query.account} or phone = #{query.account} or account_name = #{query.account})
+			select * from t_user where password = #{password} and
+			(email = #{account} or phone = #{account} or account_name = #{account})
 		]]>
 	</select>
-
+	<select id="getById" resultMap="userMap" parameterType="long">
+		select
+			<include refid="Base_Column_List"/> 
+		from t_user where id = #{id}
+	</select>
+	<select id="checkLogin" resultType="int" parameterType="string">
+		select count(*) from t_user where phone=#{account} or email=#{account} or account_name=#{account}
+	</select>
+	<select id="checkReg" resultType="int" parameterType="string">
+		select  count(*) from t_user where phone = #{phone}
+	</select>
+	<delete id="removeById" parameterType="long">
+		delete from t_user where id = #{id}
+	</delete>
+	<select id="listPage" resultMap="userMap">
+		select * from t_user limit #{pageNo},#{pageSize}
+	</select>
+	<select id="listAll" resultMap="userMap">
+		select * from t_user
+	</select>
+	<select id="count" resultType="long">
+		select count(*) from t_user
+	</select>
+	<insert id="save" parameterType="userVo">
+		insert into t_user (phone,password,gender,is_active) values ( #{phone},#{password},#{gender},#{isActive})
+	</insert>
+	<update id="updateStatus">
+		update t_user set is_active=#{status} where id=#{id}
+	</update>
+	<update id="update">
+		update t_user
+		<set>
+			<if test="email!=null and email!=''">
+				email = #{email},
+			</if>
+			<if test="phone!=null and phone!=''">
+				phone = #{phone},
+			</if>
+			<if test="account_name!=null and account_name!=''">
+				account_name = #{accountName},
+			</if>
+			<if test="password!=null and password!=''">
+				password = #{password},
+			</if>
+			<if test="nickname!=null and nickname!=''">
+				nickname = #{nickname},
+			</if>
+			<if test="identity!=null and identity!=''">
+				identity = #{identity},
+			</if>
+			<if test="realname!=null and realname!=''">
+				realname = #{realname},
+			</if>
+			<if test="gender!=-1">
+				gender = #{gender},
+			</if>
+			<if test="age!=-1">
+				age = #{age},
+			</if>
+			<if test="address!=null and address!='' ">
+				address = #{address},
+			</if>
+			<if test="qq!=null and qq!='' ">
+				qq = #{qq},
+			</if>
+			<if test="wechar!=null and wechar!='' ">
+				wechar = #{wechar},
+			</if>
+			<if test="alipay!=null and alipay!='' ">
+				alipay = #{alipay},
+			</if>
+			<if test="headicon!=null and headicon!='' ">
+				headicon = #{headicon},
+			</if>
+			<if test="description!=null and description!='' ">
+				description = #{description},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 </mapper>
