@@ -1,8 +1,12 @@
 package top.zywork.service;
 
+import org.apache.ibatis.annotations.Param;
 import top.zywork.dto.UserDTO;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
+
+import java.util.List;
 
 /**
  * 用户Service接口<br />
@@ -21,4 +25,8 @@ public interface UserService extends BaseService<UserVo> {
     UserVo getByAccountPassword(UserAccountPasswordQuery userAccountPasswordQuery);
     int checkReg(String phone);
     int checkLogin(String account);
+    void updatePwd(long id, String pwd);
+    void updatePhone(long id,String phone);
+    String getPassword(long id);
+    List<Select2Vo> getUserIdAndName();
 }

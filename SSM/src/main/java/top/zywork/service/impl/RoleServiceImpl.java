@@ -10,6 +10,7 @@ import top.zywork.query.StatusQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.RoleService;
 import top.zywork.vo.RoleVo;
+import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,48 +38,53 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
-    public void save(RoleVo roleVo) {
+    public List<Select2Vo> getRoleIdAndTitle() {
+        return roleDAO.getRoleIdAndTitle();
+    }
 
+    @Override
+    public void save(RoleVo roleVo) {
+        roleDAO.save(roleVo);
     }
 
     @Override
     public void remove(RoleVo roleVo) {
-
+        roleDAO.remove(roleVo);
     }
 
     @Override
     public void removeById(Long id) {
-
+        roleDAO.removeById(id);
     }
 
     @Override
     public void update(RoleVo roleVo) {
-
+        roleDAO.update(roleVo);
     }
 
     @Override
     public void updateStatus(StatusQuery statusQuery) {
-
+        roleDAO.updateStatus(statusQuery);
     }
 
     @Override
     public RoleVo getById(Long id) {
-        return null;
+        return roleDAO.getById(id);
     }
 
     @Override
     public List<RoleVo> listAll() {
-        return null;
+        return roleDAO.listAll();
     }
 
     @Override
     public List<RoleVo> listPage(PageQuery pageQuery) {
-        return null;
+        return roleDAO.listPage(pageQuery);
     }
 
     @Override
     public long count() {
-        return 0;
+        return roleDAO.count();
     }
 
     @Resource

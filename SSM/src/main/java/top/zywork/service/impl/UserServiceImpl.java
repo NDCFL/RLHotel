@@ -7,6 +7,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.service.UserService;
+import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
@@ -43,6 +44,26 @@ public class UserServiceImpl  implements UserService {
     @Override
     public int checkLogin(String account) {
         return userDAO.checkLogin(account);
+    }
+
+    @Override
+    public void updatePwd(long id, String pwd) {
+        userDAO.updatePwd(id,pwd);
+    }
+
+    @Override
+    public void updatePhone(long id, String phone) {
+        userDAO.updatePhone(id, phone);
+    }
+
+    @Override
+    public String getPassword(long id) {
+        return userDAO.getPassword(id);
+    }
+
+    @Override
+    public List<Select2Vo> getUserIdAndName() {
+        return userDAO.getUserIdAndName();
     }
 
     @Override

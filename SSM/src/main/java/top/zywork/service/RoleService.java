@@ -2,6 +2,7 @@ package top.zywork.service;
 
 import top.zywork.dto.RoleDTO;
 import top.zywork.vo.RoleVo;
+import top.zywork.vo.Select2Vo;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface RoleService extends BaseService<RoleVo> {
      * @return 指定用户账户对应的所有角色组成的列表
      */
     List<RoleVo> listByAccount(String account);
-
+    List<Select2Vo> getRoleIdAndTitle();
 }

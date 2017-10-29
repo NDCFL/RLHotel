@@ -43,16 +43,10 @@
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
-                            </li>
-                            <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                            </li>
-                            <li><a class="J_menuItem" href="contacts.html">联系我们</a>
-                            </li>
-                            <li><a class="J_menuItem" href="mailbox.html">信箱</a>
+                            <li><a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="login.html">安全退出</a>
+                            <li><a href="<%=path%>/user/exit">安全退出</a>
                             </li>
                         </ul>
                     </div>
@@ -66,16 +60,10 @@
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
-                        </li>
-                        <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                        </li>
-                        <li><a class="J_menuItem" href="contacts.html">联系我们</a>
-                        </li>
-                        <li><a class="J_menuItem" href="mailbox.html">信箱</a>
+                        <li><a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html">安全退出</a>
+                        <li><a href="<%=path%>/user/exit">安全退出</a>
                         </li>
                     </ul>
                 </li>
@@ -108,13 +96,11 @@
                 </li>
 
                 <li>
-                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
+                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">房东管理 </span><span class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="mailbox.html">收件箱</a>
+                        <li><a class="J_menuItem" href="mailbox.html">房东列表</a>
                         </li>
-                        <li><a class="J_menuItem" href="mail_detail.html">查看邮件</a>
-                        </li>
-                        <li><a class="J_menuItem" href="mail_compose.html">写信</a>
+                        <li><a class="J_menuItem" href="mail_detail.html">新增房东</a>
                         </li>
                     </ul>
                 </li>
@@ -356,9 +342,13 @@
                     <a class="J_menuItem" href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS动画</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">工具 </span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">权限管理 </span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="form_builder.html">表单构建器</a>
+                        <li>
+                            <a class="J_menuItem" href="/role/rolePage">角色管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="/userRole/userRolePage">用户角色管理</a>
                         </li>
                     </ul>
                 </li>
@@ -489,13 +479,13 @@
                     </li>
                 </ul>
             </div>
-            <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a href="<%=path%>/user/exit" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v2.html?v=4.0" frameborder="0" data-id="index_v2.html" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 2014-2015 <a href="http://www.zi-han.net/" target="_blank">zihan's blog</a>
+            <div class="pull-right">&copy; 2017-2018 <a href="http://www.zi-han.net/" target="_blank">瑞蓝酒店</a>
             </div>
         </div>
     </div>

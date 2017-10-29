@@ -4,7 +4,10 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.zywork.dos.UserDO;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
+
+import java.util.List;
 
 /**
  * UserDAO接口<br />
@@ -24,4 +27,8 @@ public interface UserDAO extends BaseDAO<UserVo> {
     UserVo getByAccountPassword(UserAccountPasswordQuery userAccountPasswordQuery);
     int checkReg(String phone);
     int checkLogin(String account);
+    void updatePwd(@Param("id") long id,@Param("pwd") String pwd);
+    void updatePhone(@Param("id") long id,@Param("phone") String phone);
+    String getPassword(long id);
+    List<Select2Vo> getUserIdAndName();
 }

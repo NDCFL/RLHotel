@@ -5,6 +5,8 @@
 <mapper namespace="top.zywork.dao.UserDAO">
 	<resultMap type="userVo" id="userMap">
 	</resultMap>
+    <resultMap type="select2Vo" id="userIdAndNameMap">
+    </resultMap>
 	<sql id="Base_Column_List">id, email,phone,account_name,nickname,identity,realname,gender,age,address</sql>
 	<select id="getByAccountPassword" resultType="userVo">
 		<![CDATA[
@@ -32,64 +34,44 @@
 	<select id="listAll" resultMap="userMap">
 		select * from t_user
 	</select>
+    <!--由于数据表的设计，这里本来需要指明属于哪一个总店长的-->
+    <select id="getUserIdAndName" resultMap="userIdAndNameMap">
+        select id,nickname as text from t_user
+    </select>
 	<select id="count" resultType="long">
 		select count(*) from t_user
 	</select>
+	<select id="getPassword" resultType="string" parameterType="long">
+		select password from t_user where id=#{id}
+	</select>
+    <select id="select2List" resultType="string" parameterType="long">
+        select id,nickname from t_user
+    </select>
 	<insert id="save" parameterType="userVo">
 		insert into t_user (phone,password,gender,is_active) values ( #{phone},#{password},#{gender},#{isActive})
 	</insert>
 	<update id="updateStatus">
 		update t_user set is_active=#{status} where id=#{id}
 	</update>
+	<update id="updatePwd">
+		update t_user set password=#{pwd} where id=#{id}
+	</update>
+	<update id="updatePhone">
+		update t_user set phone=#{phone} where id=#{id}
+	</update>
 	<update id="update">
-		update t_user
-		<set>
-			<if test="email!=null and email!=''">
-				email = #{email},
-			</if>
-			<if test="phone!=null and phone!=''">
-				phone = #{phone},
-			</if>
-			<if test="account_name!=null and account_name!=''">
-				account_name = #{accountName},
-			</if>
-			<if test="password!=null and password!=''">
-				password = #{password},
-			</if>
-			<if test="nickname!=null and nickname!=''">
-				nickname = #{nickname},
-			</if>
-			<if test="identity!=null and identity!=''">
-				identity = #{identity},
-			</if>
-			<if test="realname!=null and realname!=''">
-				realname = #{realname},
-			</if>
-			<if test="gender!=-1">
-				gender = #{gender},
-			</if>
-			<if test="age!=-1">
-				age = #{age},
-			</if>
-			<if test="address!=null and address!='' ">
-				address = #{address},
-			</if>
-			<if test="qq!=null and qq!='' ">
-				qq = #{qq},
-			</if>
-			<if test="wechar!=null and wechar!='' ">
-				wechar = #{wechar},
-			</if>
-			<if test="alipay!=null and alipay!='' ">
-				alipay = #{alipay},
-			</if>
-			<if test="headicon!=null and headicon!='' ">
-				headicon = #{headicon},
-			</if>
-			<if test="description!=null and description!='' ">
-				description = #{description},
-			</if>
-		</set>
+		update t_user set
+			email = #{email},
+			account_name = #{accountName},
+			nickname = #{nickname},
+			identity = #{identity},
+			realname = #{realname},
+			gender = #{gender},
+			age = #{age},
+			address = #{address},
+			qq = #{qq},
+			wechat = #{wechat},
+			description = #{description}
 		where id = #{id}
 	</update>
 </mapper>

@@ -3,7 +3,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url:"/cashSubject/cashSubjectList",//要请求数据的文件路径
+    url:"/userRole/userRoleList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -36,14 +36,14 @@ $('#mytab').bootstrapTable({
             valign:'middle'
         },
         {
-            title:'增值科目名称',
-            field:'title',
+            title:'用户昵称',
+            field:'userVo.nickname',
             align:'center',
             sortable:true
         },
         {
-            title:'基本描述',
-            field:'description',
+            title:'角色名称',
+            field:'roleVo.title',
             align:'center',
             sortable:true
         }
@@ -66,7 +66,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title:'科目状态',
+            title:'角色状态',
             field:'isActive',
             align:'center',
             formatter: function (value, row, index) {
@@ -85,7 +85,7 @@ $('#mytab').bootstrapTable({
             align:'center',
             field:'',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="cashSubject"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="userRole"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del('+row.id+','+row.isActive+')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f='';
                 if(row.isActive==1){
@@ -123,7 +123,7 @@ function queryParams(params){
         pageIndex:this.pageNumber
     }
 }
-function del(cashSubjectid,status){
+function del(userRoleid,status){
     if(status==0){
         layer.msg("删除失败，已经激活的不允许删除!",{icon:2,time:1000});
         return;
@@ -131,7 +131,7 @@ function del(cashSubjectid,status){
     layer.confirm('确认要删除吗？',function(index){
         $.ajax({
             type: 'POST',
-            url: '/cashSubject/deleteCashSubject/'+cashSubjectid,
+            url: '/userRole/deleteUserRole/'+userRoleid,
             dataType: 'json',
             success: function(data){
                 if(data.message=='删除成功!'){
@@ -148,15 +148,25 @@ function del(cashSubjectid,status){
     });
 }
 function edit(name){
-    $.post("/cashSubject/findCashSubject/"+name,
+    $.post("/userRole/findUserRoleVo/"+name,
         function(data){
+            //使用select2选中某一行数据
+            //获取selectid
+            var user = $("#userId").select2();
+            //选中某一行
+            user.val(data.userId).trigger("change");
+            //刷新列表
+            user.change();
+            var role = $("#roleId").select2();//获取selectid
+            role.val(data.roleId).trigger("change");
+            role.change();
             $("#updateform").autofill(data);
         },
         "json"
     );
 }
 function updatestatus(id,status){
-    $.post("/cashSubject/updateStatus/"+id+"/"+status,
+    $.post("/userRole/updateStatus/"+id+"/"+status,
         function(data){
             if(status==0){
                 if(data.message=="ok"){
@@ -178,14 +188,14 @@ function updatestatus(id,status){
 }
 //查询按钮事件
 $('#search_btn').click(function(){
-    $('#mytab').bootstrapTable('refresh', {url: '/cashSubject/cashSubjectList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/userRole/userRoleList'});
 })
 function refush(){
-    $('#mytab').bootstrapTable('refresh', {url: '/cashSubject/cashSubjectList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/userRole/userRoleList'});
 }
 $("#update").click(function(){
     $.post(
-        "/cashSubject/cashSubjectUpdateSave",
+        "/userRole/userRoleUpdateSave",
         $("#updateform").serialize(),
         function(data){
             if(data.message=="修改成功!"){
@@ -200,7 +210,7 @@ $("#update").click(function(){
 });
 $("#add").click(function(){
     $.post(
-        "/cashSubject/cashSubjectAddSave",
+        "/userRole/userRoleAddSave",
         $("#formadd").serialize(),
         function(data){
             if(data.message=="新增成功!"){
@@ -239,7 +249,7 @@ function deleteMany(){
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？',function(index){
         $.post(
-            "/cashSubject/deleteManyCashSubject",
+            "/userRole/deleteManyUserRole",
             {
                 "manyId":$("#deleteId").val()
             },

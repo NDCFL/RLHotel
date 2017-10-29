@@ -13,6 +13,26 @@ public class UserRoleVo {
 
     private Byte isActive;
 
+    private UserVo userVo;
+
+    private RoleVo roleVo;
+
+    public RoleVo getRoleVo() {
+        return roleVo;
+    }
+
+    public void setRoleVo(RoleVo roleVo) {
+        this.roleVo = roleVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
     public UserRoleVo(Long id, Long userId, Long roleId, Date createTime, Byte isActive) {
         this.id = id;
         this.userId = userId;

@@ -11,9 +11,10 @@
 %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合作商家列表</title>
+    <title>角色列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 
@@ -21,7 +22,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>合作商家列表</h5>
+            <h5>角色列表</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -46,7 +47,7 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">商家名称：</label>
+                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">角色名称：</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="Name" id="search_name"/>
                     </div>
@@ -74,7 +75,7 @@
         </div>
     </div>
 </div>
-<%--商家数据的新增--%>
+<%--网站数据的新增--%>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="webAdd" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -84,13 +85,13 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增合作商家科目信息
+                    新增角色
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">合作商家科目：</label>
+                        <label class="col-sm-3 control-label">角色：</label>
                         <div class="col-sm-8">
                             <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                         </div>
@@ -114,8 +115,8 @@
     </div><!-- /.modal -->
 </div>
 <input type="hidden" value=""  id="deleteId"/>
-<%--商家新增结束--%>
-<%--商家信息的修改--%>
+<%--网站新增结束--%>
+<%--网站信息的修改--%>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -124,25 +125,25 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    合作商家科目的修改
+                    角色的修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
                 <div class="modal-body">
 
-                        <input type="hidden" name="id" id="id" value="">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">合作商家科目：</label>
-                            <div class="col-sm-8">
-                                <input  name="title" minlength="2" id="title" maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
-                            </div>
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">角色：</label>
+                        <div class="col-sm-8">
+                            <input  name="title" minlength="2" id="title" maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">说明：</label>
-                            <div class="col-sm-8">
-                                <textarea  name="description" class="form-control" id="description" required="" value="" aria-required="true"></textarea>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">说明：</label>
+                        <div class="col-sm-8">
+                            <textarea  name="description" class="form-control" id="description" required="" value="" aria-required="true"></textarea>
                         </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -155,22 +156,22 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<%--商家信息的修改--%>
+<%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-<script src="<%=path%>/static/js/pageJs/cooperationSubject.js"></script>
+<script src="<%=path%>/static/js/pageJs/role.js"></script>
 </body>
 <%--<script>--%>
-    <%--$(function () {--%>
-        <%--alert("asdflsfa");--%>
-        <%--layer.msg('已发布', {icon:1,time:1000});--%>
-        <%--layer.msg('已发布', {icon:2,time:1000});--%>
-        <%--layer.msg('已发布', {icon:3,time:1000});--%>
-        <%--layer.msg('已发布', {icon:4,time:1000});--%>
-        <%--layer.msg('已发布', {icon:5,time:1000});--%>
-        <%--layer.msg('已发布', {icon:6,time:1000});--%>
-        <%--layer.msg('已发布', {icon:7,time:1000});--%>
-        <%----%>
-    <%--});--%>
+<%--$(function () {--%>
+<%--alert("asdflsfa");--%>
+<%--layer.msg('已发布', {icon:1,time:1000});--%>
+<%--layer.msg('已发布', {icon:2,time:1000});--%>
+<%--layer.msg('已发布', {icon:3,time:1000});--%>
+<%--layer.msg('已发布', {icon:4,time:1000});--%>
+<%--layer.msg('已发布', {icon:5,time:1000});--%>
+<%--layer.msg('已发布', {icon:6,time:1000});--%>
+<%--layer.msg('已发布', {icon:7,time:1000});--%>
+<%----%>
+<%--});--%>
 
 <%--</script>--%>
 </html>

@@ -1,5 +1,7 @@
 package top.zywork.controller;
 
+import com.sun.net.httpserver.HttpsServer;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -10,17 +12,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import top.zywork.common.Message;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.service.UserService;
+import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  * Created by chenfeilong on 2017/10/27.
@@ -99,7 +101,65 @@ public class UserController {
             result.put("valid",false);
             return result;
         }
-
-
     }
+    @RequestMapping("exit")
+    public String exit(HttpSession session){
+        session.invalidate();
+        return "loginRegister/loginPage";
+    }
+    @RequestMapping("bossInfoPage")
+    public String bossInfoPage(){
+        return "user/bossInfoPage";
+    }
+    @RequestMapping("bossInfo")
+    @ResponseBody
+    public UserVo bossInfo(HttpSession session){
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        return userService.getById(userVo.getId());
+    }
+    @RequestMapping("updateBossInfo")
+    public String updateBossInfo(UserVo userVo){
+        userService.update(userVo);
+        return "/index";
+    }
+    @RequestMapping("checkPwd")
+    @ResponseBody
+    public Map<String, Boolean> checkPwd(String password,HttpSession session){
+        System.out.println(password+"=======");
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        Map<String, Boolean> result = new HashMap<String, Boolean>();
+        try{
+            Subject subject = SecurityUtils.getSubject();
+            String pwd = userService.getPassword(userVo.getId());
+            if(pwd.equals(new Md5Hash(password).toString())){
+                result.put("valid",true);
+            }else{
+                result.put("valid",false);
+            }
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            result.put("valid",false);
+            return result;
+        }
+    }
+    @RequestMapping("updatePassword")
+    public String updatePassword(HttpSession session,String newpassword){
+        UserVo userVo = (UserVo)session.getAttribute("userVo");
+        userService.updatePwd(userVo.getId(),new Md5Hash(newpassword).toString());
+        return "/index";
+    }
+    @RequestMapping("changePhone")
+    public String changePhone(HttpSession session,String phone){
+        UserVo userVo = (UserVo)session.getAttribute("userVo");
+        userService.updatePhone(userVo.getId(),phone);
+        return "/index";
+    }
+    @RequestMapping("getUserIdAndName")
+    @ResponseBody
+    public List<Select2Vo> getUserIdAndName(){
+        List<Select2Vo> select2Vo = userService.getUserIdAndName();
+        return select2Vo;
+    }
+
 }

@@ -3,6 +3,8 @@ package top.zywork.dao;
 import org.springframework.stereotype.Repository;
 import top.zywork.dos.RoleDO;
 import top.zywork.vo.RoleVo;
+import top.zywork.vo.Select2Vo;
+import top.zywork.vo.UserVo;
 
 import java.util.List;
 
@@ -22,4 +24,5 @@ public interface RoleDAO extends BaseDAO<RoleVo> {
      * @return 指定用户账户对应的所有角色组成的列表
      */
     List<RoleVo> listByAccount(String account);
+    List<Select2Vo> getRoleIdAndTitle();
 }
