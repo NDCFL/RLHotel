@@ -1,3 +1,7 @@
+create database hotelmanager default charset utf8;
+
+use hotelmanager;
+
 drop table IF EXISTS t_role;
 create table t_role(
   id BIGINT primary key AUTO_INCREMENT,
