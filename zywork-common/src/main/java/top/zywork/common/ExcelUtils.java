@@ -499,18 +499,7 @@ public class ExcelUtils {
      * @see #getXlsPictureData(List, int, int)
      */
     public PictureData getXlsPictureData(Sheet sheet, int rowNo, int colNo) {
-        HSSFPatriarch patriarch = (HSSFPatriarch) sheet.getDrawingPatriarch();
-        List<HSSFShape> shapeList = patriarch.getChildren();
-        for (HSSFShape shape : shapeList) {
-            if (shape instanceof HSSFPicture) {
-                Picture picture = (HSSFPicture) shape;
-                ClientAnchor anchor = picture.getClientAnchor();
-                if (anchor.getRow1() == rowNo && anchor.getCol1() == colNo) {
-                    return picture.getPictureData();
-                }
-            }
-        }
-        return null;
+       return getXlsPictureData(getXlsPictures(sheet), rowNo, colNo);
     }
 
     /**
@@ -523,25 +512,7 @@ public class ExcelUtils {
      * @see #getXlsxPictureData(List, int, int)
      */
     public PictureData getXlsxPictureData(Sheet sheet, int rowNo, int colNo) {
-        XSSFSheet xssfSheet = (XSSFSheet) sheet;
-        List<POIXMLDocumentPart> documentPartList = xssfSheet.getRelations();
-        for (POIXMLDocumentPart documentPart : documentPartList) {
-            if (documentPart instanceof XSSFDrawing) {
-                XSSFDrawing drawing = (XSSFDrawing) documentPart;
-                List<XSSFShape> shapeList = drawing.getShapes();
-                for (XSSFShape shape : shapeList) {
-                    if (shape instanceof XSSFPicture) {
-                        Picture picture = (XSSFPicture) shape;
-                        XSSFClientAnchor anchor = (XSSFClientAnchor) picture.getPreferredSize();
-                        CTMarker marker = anchor.getFrom();
-                        if (marker.getRow() == rowNo && marker.getCol() == colNo) {
-                            return picture.getPictureData();
-                        }
-                    }
-                }
-            }
-        }
-        return null;
+        return getXlsxPictureData(getXlsxPictures(sheet), rowNo, colNo);
     }
 
     /**
