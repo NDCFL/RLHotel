@@ -49,15 +49,35 @@ public class ImageUtils {
     }
 
     /**
+     * 根据图片的字节数组数据生成缓冲图
+     * @param imageData 图片的字节数组数据
+     * @return 缓冲图对象
+     */
+    public static BufferedImage getBufferedImage(byte[] imageData) {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            inputStream.close();
+            return bufferedImage;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * 把指定路径的图片填充到指定的输出流
      * @param imagePath 图片路径
      * @param out 输出流
      */
     public static void writeToOut(String imagePath, OutputStream out) {
-        try {
-            ImageIO.write(getBufferedImage(imagePath), FileUtils.getExtensionWithoutDot(imagePath), out);
-        } catch (IOException e) {
-            e.printStackTrace();
+        BufferedImage bufferedImage = getBufferedImage(imagePath);
+        if (bufferedImage != null) {
+            try {
+                ImageIO.write(bufferedImage, FileUtils.getExtensionWithoutDot(imagePath), out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,10 +88,13 @@ public class ImageUtils {
      * @param imageType 图片类型枚举
      */
     public static void writeToOut(InputStream inputStream, OutputStream out, MIMETypeEnum imageType) {
-        try {
-            ImageIO.write(getBufferedImage(inputStream), imageType.getValue(), out);
-        } catch (IOException e) {
-            e.printStackTrace();
+        BufferedImage bufferedImage = getBufferedImage(inputStream);
+        if (bufferedImage != null) {
+            try {
+                ImageIO.write(bufferedImage, imageType.getValue(), out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -131,4 +154,31 @@ public class ImageUtils {
         return null;
     }
 
+    /**
+     * 把字节数组的图片数据保存到指定路径的图片
+     * @param imageData 图片数据
+     * @param imagePath 图片路径
+     * @param imageType 图片类型枚举
+     */
+    public static void saveImage(byte[] imageData, String imagePath, MIMETypeEnum imageType) {
+        saveImage(imageData, imagePath, imageType.getValue());
+    }
+
+    /**
+     * 把字节数组的图片数据保存到指定路径的图片
+     * @param imageData 图片数据
+     * @param imagePath 图片路径
+     * @param imageType 图片类型字符串，如png
+     */
+    public static void saveImage(byte[] imageData, String imagePath, String imageType) {
+        File imageFile = new File(imagePath);
+        BufferedImage bufferedImage = getBufferedImage(imageData);
+        if (bufferedImage != null) {
+            try {
+                ImageIO.write(bufferedImage, imageType, imageFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
