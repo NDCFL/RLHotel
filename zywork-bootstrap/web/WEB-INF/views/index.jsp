@@ -68,7 +68,25 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="layouts.html"><i class="fa fa-columns"></i> <span class="nav-label">布局</span></a>
+                    <a class="J_menuItem" href="layouts.html">
+                        <i class="fa fa-columns"></i>
+                        <span class="nav-label">员工管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">店长管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">房东管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">审核员管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">录入员管理</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="javascript:void(0);">
