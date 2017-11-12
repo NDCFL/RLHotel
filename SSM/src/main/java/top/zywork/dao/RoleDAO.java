@@ -25,4 +25,5 @@ public interface RoleDAO extends BaseDAO<RoleVo> {
      */
     List<RoleVo> listByAccount(String account);
     List<Select2Vo> getRoleIdAndTitle();
+    RoleVo findByName(String title);
 }

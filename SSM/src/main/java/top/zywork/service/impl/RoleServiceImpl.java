@@ -43,6 +43,11 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
+    public RoleVo findByName(String title) {
+        return roleDAO.findByName(title);
+    }
+
+    @Override
     public void save(RoleVo roleVo) {
         roleDAO.save(roleVo);
     }

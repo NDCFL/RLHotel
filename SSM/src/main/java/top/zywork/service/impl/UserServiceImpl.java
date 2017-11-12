@@ -67,6 +67,21 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
+    public int landlordCount(String title) {
+        return userDAO.landlordCount(title);
+    }
+
+    @Override
+    public List<UserVo> landlordListPage(PageQuery pageQuery, String title) {
+        return userDAO.landlordListPage(pageQuery,title);
+    }
+
+    @Override
+    public UserVo findByPhone(String phone) {
+        return userDAO.findByPhone(phone);
+    }
+
+    @Override
     public void save(UserVo userVo) {
         userDAO.save(userVo);
     }

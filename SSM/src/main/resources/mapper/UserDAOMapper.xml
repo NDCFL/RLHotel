@@ -25,6 +25,9 @@
 	<select id="checkReg" resultType="int" parameterType="string">
 		select  count(*) from t_user where phone = #{phone}
 	</select>
+	<select id="findByPhone" resultMap="userMap" parameterType="string">
+		select * from t_user where phone = #{phone}
+	</select>
 	<delete id="removeById" parameterType="long">
 		delete from t_user where id = #{id}
 	</delete>
@@ -48,7 +51,7 @@
         select id,nickname from t_user
     </select>
 	<insert id="save" parameterType="userVo">
-		insert into t_user (phone,password,gender,is_active) values ( #{phone},#{password},#{gender},#{isActive})
+		insert into t_user (phone,password,gender,is_active,headicon) values ( #{phone},#{password},#{gender},#{isActive},#{headicon})
 	</insert>
 	<update id="updateStatus">
 		update t_user set is_active=#{status} where id=#{id}
@@ -59,6 +62,12 @@
 	<update id="updatePhone">
 		update t_user set phone=#{phone} where id=#{id}
 	</update>
+	<select id="landlordCount" resultType="int" parameterType="string">
+		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title=#{title})
+	</select>
+	<select id="landlordListPage" resultMap="userMap">
+		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title=#{title}) limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+	</select>
 	<update id="update">
 		update t_user set
 			email = #{email},

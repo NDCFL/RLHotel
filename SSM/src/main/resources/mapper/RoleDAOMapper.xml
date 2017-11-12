@@ -33,6 +33,9 @@
 	<select id="getRoleIdAndTitle" resultMap="roleIdAndTitleMap">
 		select id,title as text from t_role
 	</select>
+	<select id="findByName" resultMap="roleMap" parameterType="string">
+		select * from t_role where title=#{title}
+	</select>
 	<select id="count" resultType="long">
 		select count(*) from t_role
 	</select>

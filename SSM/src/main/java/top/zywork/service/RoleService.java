@@ -22,4 +22,5 @@ public interface RoleService extends BaseService<RoleVo> {
      */
     List<RoleVo> listByAccount(String account);
     List<Select2Vo> getRoleIdAndTitle();
+    RoleVo findByName(String title);
 }

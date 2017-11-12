@@ -3,6 +3,7 @@ package top.zywork.dao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.zywork.dos.UserDO;
+import top.zywork.query.PageQuery;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
@@ -31,4 +32,8 @@ public interface UserDAO extends BaseDAO<UserVo> {
     void updatePhone(@Param("id") long id,@Param("phone") String phone);
     String getPassword(long id);
     List<Select2Vo> getUserIdAndName();
+    int landlordCount(String title);
+    UserVo findByPhone(String phone);
+    List<UserVo> landlordListPage(@Param("pageQuery") PageQuery pageQuery,@Param("title") String title);
+
 }

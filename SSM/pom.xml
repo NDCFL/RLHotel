@@ -61,6 +61,7 @@
         <shiro.version>1.4.0</shiro.version>
         <activiti.version>6.0.0</activiti.version>
         <quartz.version>2.3.0</quartz.version>
+        <jstl-version>1.2</jstl-version>
     </properties>
 
     <dependencies>
@@ -225,7 +226,11 @@
             <artifactId>quartz</artifactId>
             <version>${quartz.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl-version}</version>
+        </dependency>
     </dependencies>
     
 </project>

@@ -2,6 +2,7 @@ package top.zywork.service;
 
 import org.apache.ibatis.annotations.Param;
 import top.zywork.dto.UserDTO;
+import top.zywork.query.PageQuery;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
@@ -29,4 +30,7 @@ public interface UserService extends BaseService<UserVo> {
     void updatePhone(long id,String phone);
     String getPassword(long id);
     List<Select2Vo> getUserIdAndName();
+    int landlordCount(String title);
+    List<UserVo> landlordListPage(PageQuery pageQuery, String title);
+    UserVo findByPhone(String phone);
 }
