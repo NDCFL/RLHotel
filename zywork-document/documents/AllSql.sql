@@ -321,4 +321,5 @@ create table t_rent_pay(
   FOREIGN KEY (landlord_id) REFERENCES t_landlord(id)
 )engine=innodb default charset=utf8;
 
-
+select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title='店长')
+select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title='店长') limit 0,10

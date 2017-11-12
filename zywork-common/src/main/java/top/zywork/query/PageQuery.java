@@ -11,6 +11,7 @@ public class PageQuery {
 
     private Integer pageNo;
     private Integer pageSize;
+    private String title;
 
     public PageQuery(){}
 
@@ -38,4 +39,5 @@ public class PageQuery {
     public int getBeginIndex() {
         return (pageNo - 1) * pageSize;
     }
+
 }
