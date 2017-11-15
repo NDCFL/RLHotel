@@ -18,6 +18,7 @@
     <link href="<%=path%>/static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="<%=path%>/static/css/animate.min.css" rel="stylesheet">
     <link href="<%=path%>/static/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link href="<%=path%>/static/css/bootstrapValidator.css" rel="stylesheet">
     <base target="_blank">
 </head>
 <body>

@@ -12,15 +12,13 @@ public class UserAccountPasswordQuery {
     private String account;
     private String password;
 
-    public UserAccountPasswordQuery() {}
+    public String getAccount() {
+        return account;
+    }
 
     public UserAccountPasswordQuery(String account, String password) {
         this.account = account;
         this.password = password;
-    }
-
-    public String getAccount() {
-        return account;
     }
 
     public void setAccount(String account) {

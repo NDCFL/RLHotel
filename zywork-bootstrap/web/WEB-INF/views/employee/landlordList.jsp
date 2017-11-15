@@ -61,12 +61,6 @@
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                </button>
-                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                </button>
                 <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
                 </button>
@@ -92,20 +86,20 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">店长登录账号：</label>
                         <div class="col-sm-8">
-                            <input  name="phone" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="phone" minlength="2" maxlength="20" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">店长登录密码：</label>
                         <div class="col-sm-8">
-                            <input  name="password" minlength="2" maxlength="20" type="password" class="form-control" required="" aria-required="true">
+                            <input  name="password" minlength="2" maxlength="20" type="password" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" id="add" class="btn btn-primary" data-dismiss="modal">
+                    <button type="submit" id="add" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -114,64 +108,13 @@
     </div><!-- /.modal -->
 </div>
 <input type="hidden" value=""  id="deleteId"/>
-<%--网站新增结束--%>
-<%--网站信息的修改--%>
-<%--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--%>
-    <%--<div class="modal-dialog">--%>
-        <%--<div class="modal-content">--%>
-            <%--<div class="modal-header">--%>
-                <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">--%>
-                    <%--&times;--%>
-                <%--</button>--%>
-                <%--<h4 class="modal-title" id="myModalLabel">--%>
-                    <%--店长的修改--%>
-                <%--</h4>--%>
-            <%--</div>--%>
-            <%--<form class="form-horizontal" id="updateform" >--%>
-                <%--<div class="modal-body">--%>
-
-                    <%--<input type="hidden" name="id" id="id" value="">--%>
-                    <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-3 control-label">支付方式：</label>--%>
-                        <%--<div class="col-sm-8">--%>
-                            <%--<input  name="title" minlength="2" id="title" maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-3 control-label">说明：</label>--%>
-                        <%--<div class="col-sm-8">--%>
-                            <%--<textarea  name="description" class="form-control" id="description" required="" value="" aria-required="true"></textarea>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="modal-footer">--%>
-                    <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭--%>
-                    <%--</button>--%>
-                    <%--<button type="button" id="update" class="btn btn-primary" data-dismiss="modal">--%>
-                        <%--确认修改--%>
-                    <%--</button>--%>
-                <%--</div>--%>
-            <%--</form>--%>
-        <%--</div><!-- /.modal-content -->--%>
-    <%--</div><!-- /.modal -->--%>
-<%--</div>--%>
-<%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-
 <script src="<%=path%>/static/js/pageJs/landlordList.js"></script>
 </body>
-<%--<script>--%>
-<%--$(function () {--%>
-<%--alert("asdflsfa");--%>
-<%--layer.msg('已发布', {icon:1,time:1000});--%>
-<%--layer.msg('已发布', {icon:2,time:1000});--%>
-<%--layer.msg('已发布', {icon:3,time:1000});--%>
-<%--layer.msg('已发布', {icon:4,time:1000});--%>
-<%--layer.msg('已发布', {icon:5,time:1000});--%>
-<%--layer.msg('已发布', {icon:6,time:1000});--%>
-<%--layer.msg('已发布', {icon:7,time:1000});--%>
-<%----%>
-<%--});--%>
+<script type="text/javascript">
+    $(function () {
 
-<%--</script>--%>
+    });
+
+</script>
 </html>

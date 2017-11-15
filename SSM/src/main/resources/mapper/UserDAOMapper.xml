@@ -51,7 +51,7 @@
         select id,nickname from t_user
     </select>
 	<insert id="save" parameterType="userVo">
-		insert into t_user (phone,password,gender,is_active,headicon) values ( #{phone},#{password},#{gender},#{isActive},#{headicon})
+		insert into t_user (phone,password,nickname,gender,is_active,headicon,company_id) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon},#{companyId})
 	</insert>
 	<update id="updateStatus">
 		update t_user set is_active=#{status} where id=#{id}
@@ -66,7 +66,7 @@
 		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title=#{title})
 	</select>
 	<select id="landlordListPage" resultMap="userMap">
-		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title=#{title}) limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title=#{title}) order by u.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
 	</select>
 	<update id="update">
 		update t_user set

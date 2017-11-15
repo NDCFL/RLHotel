@@ -5,6 +5,10 @@ import java.util.Date;
 public class CooperationCompanyVo {
     private Long id;
 
+    private Long companyId;
+
+    private Long hotelId;
+
     private Long shopManagerId;
 
     private String name;
@@ -23,8 +27,10 @@ public class CooperationCompanyVo {
 
     private Byte isActive;
 
-    public CooperationCompanyVo(Long id, Long shopManagerId, String name, String address, String contact, String tel, String phone, String description, Date createTime, Byte isActive) {
+    public CooperationCompanyVo(Long id, Long companyId, Long hotelId, Long shopManagerId, String name, String address, String contact, String tel, String phone, String description, Date createTime, Byte isActive) {
         this.id = id;
+        this.companyId = companyId;
+        this.hotelId = hotelId;
         this.shopManagerId = shopManagerId;
         this.name = name;
         this.address = address;
@@ -46,6 +52,22 @@ public class CooperationCompanyVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getShopManagerId() {

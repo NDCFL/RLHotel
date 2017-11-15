@@ -1,7 +1,19 @@
 create database hotelmanager default charset utf8;
 
 use hotelmanager;
-
+drop table IF EXISTS t_company;
+create table t_company(
+  id BIGINT primary key AUTO_INCREMENT,
+  name VARCHAR(20) UNIQUE not null,
+  represent varchar(50),
+  phone varchar(11),
+  tel varchar(11),
+  address varchar(150),
+  description varchar(500),
+  create_time DATETIME,
+  is_active int
+)engine=innodb default charset=utf8;
+insert into t_company values('1','瑞蓝酒店','陈闯','15563906390','15563906390','山东省青岛市','瑞蓝酒店是一个大型具有24个连锁酒店的公司，规模宏大	','2017-11-14 20:41:17','0');
 drop table IF EXISTS t_role;
 create table t_role(
   id BIGINT primary key AUTO_INCREMENT,
@@ -34,7 +46,9 @@ create table t_user(
   headicon VARCHAR(200)  ,
   description VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
-  is_active TINYINT NOT NULL
+  company_id BIGINT not null,
+  is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id)
 )engine=innodb default charset=utf8;
 
 drop table IF EXISTS t_module;
@@ -91,22 +105,20 @@ create table t_process(
   is_active TINYINT NOT NULL
 )engine=innodb default charset=utf8;
 
-drop table IF EXISTS t_landlord;
-create table t_landlord(
+drop table IF EXISTS t_contract_master;
+create table t_contract_master(
   id BIGINT primary key AUTO_INCREMENT ,
-  min_profit DECIMAL(18,2) NOT NULL,
-  profit_rate DOUBLE NOT NULL ,
-  pay_date DATE,
   bank_name VARCHAR(50),
   bank_account_name VARCHAR(50),
   bank_account_no VARCHAR(18)
 )engine=innodb default charset=utf8;
 
-drop table IF EXISTS t_plot;
-create table t_plot(
+drop table IF EXISTS t_contract;
+create table t_contract(
   id BIGINT primary key AUTO_INCREMENT ,
-  landlord_id BIGINT NOT NULL ,
-  contract_plot VARCHAR(500) NOT NULL ,
+  master_id BIGINT not null,
+  company_id BIGINT not null,
+  contract_contract VARCHAR(500) NOT NULL ,
   contract_years int NOT NULL ,
   contract_date DATE NOT NULL ,
   contract_no VARCHAR(100) NOT NULL ,
@@ -116,21 +128,36 @@ create table t_plot(
   pay_date DATE ,
   create_time DATETIME DEFAULT  now() NOT NULL,
   is_active TINYINT NOT NULL,
-  FOREIGN KEY (landlord_id)  REFERENCES t_landlord(id)
+  FOREIGN KEY (master_id)  REFERENCES t_contract_master(id),
+  FOREIGN KEY (company_id)REFERENCES t_company(id)
 )engine=innodb default charset=utf8;
 
 drop table IF EXISTS t_hotel;
 create table t_hotel(
   id BIGINT primary key AUTO_INCREMENT,
-  plot_id BIGINT not null,
-  shop_manager_id BIGINT not null,
+  company_id BIGINT not null,
+  contract_id BIGINT not null,
+  hotel_manager_id BIGINT not null,
   title VARCHAR(100) not null,
   tel VARCHAR(11) not null,
   create_time DATETIME DEFAULT  now(),
   is_active TINYINT NOT NULL ,
-  FOREIGN KEY (plot_id) REFERENCES  t_plot(id),
-  FOREIGN KEY (shop_manager_id) REFERENCES  t_user(id)
+  FOREIGN KEY (company_id) REFERENCES  t_company(id),
+  FOREIGN KEY (contract_id) REFERENCES  t_contract(id),
+  FOREIGN KEY (hotel_manager_id) REFERENCES t_user(id)
 )engine=innodb default charset=utf8;
+
+drop table IF EXISTS t_hotel_employee;
+create table t_hotel_employee(
+  id BIGINT primary key AUTO_INCREMENT,
+  company_id BIGINT not NULL ,
+  hotel_id BIGINT not NULL ,
+  user_id BIGINT not null,
+  FOREIGN KEY (company_id) REFERENCES  t_company(id),
+  FOREIGN KEY (hotel_id) REFERENCES  t_hotel(id),
+  FOREIGN KEY (user_id) REFERENCES t_user(id)
+)engine=innodb default charset=utf8;
+
 
 drop table IF EXISTS t_house;
 create table t_house(
@@ -173,10 +200,11 @@ create table t_cooperation_website(
 drop table IF EXISTS t_customer_order;
 create table t_customer_order(
   id BIGINT primary key AUTO_INCREMENT ,
+  company_id BIGINT not null,
   hotel_id BIGINT not null,
   shop_manager_id BIGINT  not null,
   house_id BIGINT  NOT NULL ,
-  plot_id BIGINT  NOT NULL ,
+  contract_id BIGINT  NOT NULL ,
   customer_name VARCHAR(200) NOT NULL ,
   customer_identity VARCHAR(200) NOT NULL ,
   customer_phone VARCHAR(11) NOT NULL ,
@@ -200,9 +228,10 @@ create table t_customer_order(
   is_check TINYINT NOT NULL ,
   check_remark VARCHAR(500) NOT NULL ,
   is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
   FOREIGN KEY (shop_manager_id) REFERENCES t_user(id),
   FOREIGN KEY (house_id) REFERENCES  t_house(id),
-  FOREIGN KEY (plot_id) REFERENCES t_plot(id),
+  FOREIGN KEY (contract_id) REFERENCES t_contract(id),
   FOREIGN KEY (website_id) REFERENCES  t_cooperation_website(id)
 
 )engine=innodb default charset=utf8;
@@ -220,6 +249,7 @@ drop table IF EXISTS t_customer_service;
 create table t_customer_service(
   id BIGINT primary key AUTO_INCREMENT ,
   order_id BIGINT UNIQUE NOT NULL ,
+  company_id BIGINT not null,
   hotel_id BIGINT not null,
   house_id BIGINT ,
   house_card_title VARCHAR (50) not NULL ,
@@ -233,6 +263,7 @@ create table t_customer_service(
   check_remark VARCHAR(500) NOT NULL ,
   is_active TINYINT NOT NULL,
   FOREIGN KEY (order_id) REFERENCES t_customer_order(id),
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
   FOREIGN KEY (house_id) REFERENCES t_house(id),
   FOREIGN KEY (subject_id) REFERENCES t_service_subject(id),
   FOREIGN KEY (hotel_id) REFERENCES  t_hotel(id)
@@ -244,12 +275,15 @@ create table t_cash_subject(
   title VARCHAR(20) UNIQUE NOT NULL ,
   description VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
-  is_active TINYINT NOT NULL
+  company_id BIGINT not null,
+  is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id)
 )engine=innodb default charset=utf8;
 
 drop table IF EXISTS t_cash_accounts;
 create table t_cash_accounts(
   id BIGINT primary key AUTO_INCREMENT ,
+  company_id BIGINT not null,
   hotel_id BIGINT NOT NULL ,
   shop_manager_id BIGINT  NOT NULL ,
   account_type TINYINT NOT NULL ,
@@ -260,6 +294,7 @@ create table t_cash_accounts(
   remark VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
   is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
   FOREIGN KEY (shop_manager_id) REFERENCES t_user(id),
   FOREIGN KEY (subject_id) REFERENCES t_cash_subject(id),
   FOREIGN KEY (hotel_id) REFERENCES t_hotel(id)
@@ -268,6 +303,7 @@ create table t_cash_accounts(
 drop table IF EXISTS t_cooperation_company;
 create table t_cooperation_company(
   id BIGINT primary key AUTO_INCREMENT ,
+  company_id BIGINT not null,
   hotel_id BIGINT NOT NULL ,
   shop_manager_id BIGINT ,
   name VARCHAR(20) NOT NULL ,
@@ -278,6 +314,7 @@ create table t_cooperation_company(
   description VARCHAR(500),
   create_time DATETIME DEFAULT  now() NOT NULL ,
   is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
   FOREIGN KEY (shop_manager_id) REFERENCES t_user(id),
   FOREIGN KEY (hotel_id) REFERENCES t_hotel(id)
 )engine=innodb default charset=utf8;
@@ -288,12 +325,15 @@ create table t_cooperation_subject(
   title VARCHAR(20) UNIQUE NOT NULL ,
   description VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
-  is_active TINYINT NOT NULL
+  company_id BIGINT not null,
+  is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id)
 )engine=innodb default charset=utf8;
 
 drop table IF EXISTS t_cooperation_accounts;
 create table t_cooperation_accounts(
   id BIGINT primary key AUTO_INCREMENT ,
+  company_id BIGINT not null,
   hotel_id BIGINT NOT NULL ,
   shop_manager_id BIGINT  NOT NULL ,
   account_type TINYINT NOT NULL ,
@@ -305,16 +345,19 @@ create table t_cooperation_accounts(
   cooperation_company_id BIGINT NOT NULL ,
   create_time DATETIME DEFAULT now() NOT NULL ,
   is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
   FOREIGN KEY (shop_manager_id) REFERENCES  t_user(id),
   FOREIGN KEY (subject_id) REFERENCES t_cooperation_company(id),
   FOREIGN KEY (hotel_id) REFERENCES t_hotel(id)
 
 )engine=innodb default charset=utf8;
 
-drop table IF EXISTS t_rent_pay;
+drop table IF EXISTS t_contract_pay;
 create table t_rent_pay(
   id BIGINT primary key AUTO_INCREMENT ,
-  landlord_id BIGINT  NOT NULL ,
+  master_id BIGINT not null,
+  company_id BIGINT not null,
+  contract_id BIGINT not null,
   total_pay DECIMAL(18,2) NOT NULL ,
   pay_time DATETIME NOT NULL ,
   pay_period_start DATE NOT NULL ,
@@ -322,8 +365,26 @@ create table t_rent_pay(
   description VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
   is_active TINYINT NOT NULL,
-  FOREIGN KEY (landlord_id) REFERENCES t_landlord(id)
+  FOREIGN KEY (master_id) REFERENCES t_contract_master(id),
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
+  FOREIGN KEY (contract_id) REFERENCES t_contract(id)
 )engine=innodb default charset=utf8;
 
-select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title='店长')
-select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title='店长') limit 0,10
+
+drop table IF EXISTS t_leave;
+create table t_leave(
+  id BIGINT primary key AUTO_INCREMENT ,
+  company_id BIGINT NOT NULL ,
+  hotel_id BIGINT NOT NULL ,
+  hotel_manager_id BIGINT NOT NULL ,
+  user_id BIGINT NOT NULL ,
+  total_days TINYINT NOT NULL ,
+  reason VARCHAR(100) not null,
+  create_time DATETIME DEFAULT now() NOT NULL ,
+  check_time DATETIME DEFAULT now() NOT NULL ,
+  is_active TINYINT NOT NULL,
+  FOREIGN KEY (company_id) REFERENCES t_company(id),
+  FOREIGN KEY (hotel_id) REFERENCES t_hotel(id),
+  FOREIGN KEY (hotel_manager_id) REFERENCES t_user(id),
+  FOREIGN KEY (user_id) REFERENCES  t_user(id)
+)engine=innodb default charset=utf8;

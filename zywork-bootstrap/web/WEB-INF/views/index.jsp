@@ -54,37 +54,42 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="javascript:void(0);">
                         <i class="fa fa-home"></i>
                         <span class="nav-label">基本资料</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/company/updateCompanyPage">公司资料</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="<%=path%>/user/exit">安全退出</a>
+                        <li>
+                            <a href="<%=path%>/user/exit">安全退出</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="layouts.html">
+                    <a href="javascript:void(0);">
                         <i class="fa fa-columns"></i>
                         <span class="nav-label">员工管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">店长管理</a>
+                            <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">店长管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">房东管理</a>
+                            <a class="J_menuItem" href="<%=path%>/houser/houserListPage">房东管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">审核员管理</a>
+                            <a class="J_menuItem" href="<%=path%>/checker/checkerListPage">审核员管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/user/landlordListPage">录入员管理</a>
+                            <a class="J_menuItem" href="<%=path%>/keyIn/keyInListPage">录入员管理</a>
                         </li>
                     </ul>
                 </li>

@@ -8,6 +8,10 @@ public class CustomerServiceVo {
 
     private Long orderId;
 
+    private Long companyId;
+
+    private Long hotelId;
+
     private Long houseId;
 
     private String houseCardTitle;
@@ -30,9 +34,11 @@ public class CustomerServiceVo {
 
     private Byte isActive;
 
-    public CustomerServiceVo(Long id, Long orderId, Long houseId, String houseCardTitle, Long subjectId, Byte accountType, Date accountTime, BigDecimal totalPay, Byte isPay, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
+    public CustomerServiceVo(Long id, Long orderId, Long companyId, Long hotelId, Long houseId, String houseCardTitle, Long subjectId, Byte accountType, Date accountTime, BigDecimal totalPay, Byte isPay, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
         this.id = id;
         this.orderId = orderId;
+        this.companyId = companyId;
+        this.hotelId = hotelId;
         this.houseId = houseId;
         this.houseCardTitle = houseCardTitle;
         this.subjectId = subjectId;
@@ -64,6 +70,22 @@ public class CustomerServiceVo {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getHouseId() {

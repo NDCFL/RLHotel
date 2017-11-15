@@ -6,6 +6,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.LandlordService;
 import top.zywork.vo.LandlordVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,14 +18,15 @@ import java.util.List;
 public class LandlordServiceImpl implements LandlordService {
     @Resource
     private LandlordDAO landlordDAO;
+
     @Override
-    public void save(LandlordVo landlordVo) {
-        landlordDAO.save(landlordVo);
+    public void save(UserVo userVo) {
+        landlordDAO.save(userVo);
     }
 
     @Override
-    public void remove(LandlordVo landlordVo) {
-        landlordDAO.remove(landlordVo);
+    public void remove(UserVo userVo) {
+        landlordDAO.remove(userVo);
     }
 
     @Override
@@ -33,8 +35,8 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
-    public void update(LandlordVo landlordVo) {
-        landlordDAO.update(landlordVo);
+    public void update(UserVo userVo) {
+        landlordDAO.update(userVo);
     }
 
     @Override
@@ -43,17 +45,17 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
-    public LandlordVo getById(Long id) {
+    public UserVo getById(Long id) {
         return landlordDAO.getById(id);
     }
 
     @Override
-    public List<LandlordVo> listAll() {
+    public List<UserVo> listAll() {
         return landlordDAO.listAll();
     }
 
     @Override
-    public List<LandlordVo> listPage(PageQuery pageQuery) {
+    public List<UserVo> listPage(PageQuery pageQuery) {
         return landlordDAO.listPage(pageQuery);
     }
 

@@ -6,6 +6,10 @@ import java.util.Date;
 public class CooperationAccountsVo {
     private Long id;
 
+    private Long companyId;
+
+    private Long hotelId;
+
     private Long shopManagerId;
 
     private Byte accountType;
@@ -26,8 +30,10 @@ public class CooperationAccountsVo {
 
     private Byte isActive;
 
-    public CooperationAccountsVo(Long id, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Long cooperationCompanyId, Date createTime, Byte isActive) {
+    public CooperationAccountsVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Long cooperationCompanyId, Date createTime, Byte isActive) {
         this.id = id;
+        this.companyId = companyId;
+        this.hotelId = hotelId;
         this.shopManagerId = shopManagerId;
         this.accountType = accountType;
         this.accountTime = accountTime;
@@ -50,6 +56,22 @@ public class CooperationAccountsVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getShopManagerId() {

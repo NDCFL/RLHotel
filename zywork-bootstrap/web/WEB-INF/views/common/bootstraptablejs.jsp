@@ -27,4 +27,6 @@
 <script src="<%=path%>/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="<%=path%>/static/js/plugins/layer/layer.js"></script>
 <script src="<%=path%>/static/js/jquery.formautoFill.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/bootstrapValidator.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/zh_CN.js"></script>
 </html>

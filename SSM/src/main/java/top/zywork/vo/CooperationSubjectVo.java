@@ -11,13 +11,16 @@ public class CooperationSubjectVo {
 
     private Date createTime;
 
+    private Long companyId;
+
     private Byte isActive;
 
-    public CooperationSubjectVo(Long id, String title, String description, Date createTime, Byte isActive) {
+    public CooperationSubjectVo(Long id, String title, String description, Date createTime, Long companyId, Byte isActive) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.createTime = createTime;
+        this.companyId = companyId;
         this.isActive = isActive;
     }
 
@@ -55,6 +58,14 @@ public class CooperationSubjectVo {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public Byte getIsActive() {

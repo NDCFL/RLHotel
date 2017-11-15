@@ -33,7 +33,7 @@
         <div>
             <h1 class="logo-name">RL</h1>
         </div>
-        <form class="m-t" role="form" id="form" action="<%=path%>/index">
+        <form class="m-t" role="form" id="form" action="<%=path%>/index" omsubmit="return check();">
             <div class="form-group">
                 <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入邮箱/手机号/昵称" required="">
             </div>
@@ -111,5 +111,23 @@
         });
 
     });
+</script>
+<script>
+    function check(){
+        $.post(
+            "<%=path%>/admin/login",
+            $("#form").serialise(),
+            function(data){
+                alert(data.code);
+//                if(data.message=="登录成功"){
+//                    return true;
+//                }else{
+//                    return false;
+//                }
+
+            }
+        );
+    }
+
 </script>
 </html>

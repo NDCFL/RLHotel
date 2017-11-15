@@ -1,5 +1,8 @@
 package top.zywork.vo;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+
+import javax.management.relation.Role;
 import java.util.Date;
 
 public class UserRoleVo {
@@ -12,25 +15,14 @@ public class UserRoleVo {
     private Date createTime;
 
     private Byte isActive;
-
-    private UserVo userVo;
-
     private RoleVo roleVo;
-
+    private UserVo userVo;
     public RoleVo getRoleVo() {
         return roleVo;
     }
 
     public void setRoleVo(RoleVo roleVo) {
         this.roleVo = roleVo;
-    }
-
-    public UserVo getUserVo() {
-        return userVo;
-    }
-
-    public void setUserVo(UserVo userVo) {
-        this.userVo = userVo;
     }
 
     public UserRoleVo(Long id, Long userId, Long roleId, Date createTime, Byte isActive) {
@@ -83,5 +75,13 @@ public class UserRoleVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
     }
 }

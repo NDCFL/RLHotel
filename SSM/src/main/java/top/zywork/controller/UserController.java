@@ -46,244 +46,204 @@ public class UserController {
     @Resource
     private RoleService roleService;
     private Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @RequestMapping("regPage")
-    public String regPage(){
+    public String regPage() {
         return "loginRegister/regPage";
     }
+
     @RequestMapping("loginPage")
-    public String loginPage(){
+    public String loginPage() {
         return "loginRegister/loginPage";
     }
+
     @RequestMapping("userReg")
-    public String userReg(UserVo userVo,HttpServletRequest request){
-        try{
-            logger.info("手机号码为："+userVo.getPhone()+"的用户正在通过IP为"+request.getRemoteAddr()+"的设备进行注册操作，当前时间为："+ Calendar.getInstance().getTime());
+    public String userReg(UserVo userVo, HttpServletRequest request) {
+        try {
+            logger.info("手机号码为：" + userVo.getPhone() + "的用户正在通过IP为" + request.getRemoteAddr() + "的设备进行注册操作，当前时间为：" + Calendar.getInstance().getTime());
             //使用shiro进行md5加密
-            userVo.setGender((byte)0);
-            userVo.setIsActive((byte)0);
+            userVo.setGender((byte) 0);
+            userVo.setIsActive((byte) 0);
             userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
+            userVo.setNickname(userVo.getPhone());
+            //这里是注册时，新增公司的id暂时只有一家公司瑞蓝酒店
+            userVo.setCompanyId(1l);
             userService.save(userVo);
+            //通过新增的管理员的手机号获取新增管理员的id
+            UserVo userVo1 = userService.findByPhone(userVo.getPhone());
+            //通过权限名称来获取到权限的id
+            RoleVo roleVo = roleService.findByName("总管理员");
+            UserRoleVo userRoleVo = new UserRoleVo();
+            if(roleVo==null || "".equals(roleVo)){
+                RoleVo roleVo1 = new RoleVo();
+                roleVo1.setTitle("总管理员");
+                roleVo1.setDescription("总管理员");
+                roleVo1.setIsActive((byte)0);
+                roleService.save(roleVo1);
+            }
+            if (roleVo.getId() == 0) {
+
+            } else {
+                //同时把信息保存到用户权限表中
+                userRoleVo.setIsActive((byte) 0);
+                userRoleVo.setUserId(userVo1.getId());
+                userRoleVo.setRoleId(roleVo.getId());
+                userRoleService.save(userRoleVo);
+            }
             return "loginRegister/loginPage";
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "loginRegister/regPage";
         }
     }
+
     @RequestMapping("checkReg")
     @ResponseBody
-    public Map<String, Boolean> checkReg(String phone){
+    public Map<String, Boolean> checkReg(String phone) {
         Map<String, Boolean> result = new HashMap<String, Boolean>();
         int count = userService.checkReg(phone);
-        if(count==0){
+        if (count == 0) {
             result.put("valid", true);
-        }else{
+        } else {
             result.put("valid", false);
         }
         return result;
     }
+
     @RequestMapping("checkLogin")
     @ResponseBody
-    public Map<String, Boolean> checkLogin(String phone){
+    public Map<String, Boolean> checkLogin(String phone) {
         Map<String, Boolean> result = new HashMap<String, Boolean>();
         int count = userService.checkLogin(phone);
-        if(count==0){
+        if (count == 0) {
             result.put("valid", false);
-        }else{
+        } else {
             result.put("valid", true);
         }
         return result;
 
     }
+
     @RequestMapping("checkPhoneAndPwd")
     @ResponseBody
-    public Map<String, Boolean> checkPhoneAndPwd(String phone,String password){
+    public Map<String, Boolean> checkPhoneAndPwd(String phone, String password) {
         Map<String, Boolean> result = new HashMap<String, Boolean>();
-        try{
-            System.out.println(phone);
+        try {
             Subject subject = SecurityUtils.getSubject();
-            UserVo userVo = userService.getByAccountPassword(new UserAccountPasswordQuery(phone,new Md5Hash(password).toString()));
-            subject.login(new UsernamePasswordToken(phone,new Md5Hash(password).toString()));
+            UserVo userVo = userService.getByAccountPassword(new UserAccountPasswordQuery(phone, new Md5Hash(password).toString()));
+            subject.login(new UsernamePasswordToken(phone, new Md5Hash(password).toString()));
             Session session = subject.getSession();
-            session.setAttribute("userVo",userVo);
-            result.put("valid",true);
+            session.setAttribute("userVo", userVo);
+            result.put("valid", true);
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("valid",false);
+            result.put("valid", false);
             return result;
         }
     }
+
     @RequestMapping("exit")
-    public String exit(HttpSession session){
+    public String exit(HttpSession session) {
         session.invalidate();
         return "loginRegister/loginPage";
     }
+
     @RequestMapping("bossInfoPage")
-    public String bossInfoPage(){
+    public String bossInfoPage() {
         return "user/bossInfoPage";
     }
+
     @RequestMapping("bossInfo")
     @ResponseBody
-    public UserVo bossInfo(HttpSession session){
+    public UserVo bossInfo(HttpSession session) {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         return userService.getById(userVo.getId());
     }
+
     @RequestMapping("updateBossInfo")
-    public String updateBossInfo(UserVo userVo){
+    public String updateBossInfo(UserVo userVo) {
         userService.update(userVo);
         return "/index";
     }
+
     @RequestMapping("checkPwd")
     @ResponseBody
-    public Map<String, Boolean> checkPwd(String password,HttpSession session){
+    public Map<String, Boolean> checkPwd(String password, HttpSession session) {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         Map<String, Boolean> result = new HashMap<String, Boolean>();
-        try{
+        try {
             Subject subject = SecurityUtils.getSubject();
             String pwd = userService.getPassword(userVo.getId());
-            if(pwd.equals(new Md5Hash(password).toString())){
-                result.put("valid",true);
-            }else{
-                result.put("valid",false);
+            if (pwd.equals(new Md5Hash(password).toString())) {
+                result.put("valid", true);
+            } else {
+                result.put("valid", false);
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("valid",false);
+            result.put("valid", false);
             return result;
         }
     }
+
     @RequestMapping("updatePassword")
-    public String updatePassword(HttpSession session,String newpassword){
-        UserVo userVo = (UserVo)session.getAttribute("userVo");
-        userService.updatePwd(userVo.getId(),new Md5Hash(newpassword).toString());
+    public String updatePassword(HttpSession session, String newpassword) {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        userService.updatePwd(userVo.getId(), new Md5Hash(newpassword).toString());
         return "/index";
     }
+
     @RequestMapping("changePhone")
-    public String changePhone(HttpSession session,String phone){
-        UserVo userVo = (UserVo)session.getAttribute("userVo");
-        userService.updatePhone(userVo.getId(),phone);
+    public String changePhone(HttpSession session, String phone) {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        userService.updatePhone(userVo.getId(), phone);
         return "/index";
     }
+
     @RequestMapping("getUserIdAndName")
     @ResponseBody
-    public List<Select2Vo> getUserIdAndName(){
+    public List<Select2Vo> getUserIdAndName() {
         List<Select2Vo> select2Vo = userService.getUserIdAndName();
         return select2Vo;
     }
-    /**
-     *
-     * @param userVo 存放房东的账号密码信息
-     * @return
-     */
-    @RequestMapping("addLandlord")
-    @ResponseBody
-    public Message addLandlord(UserVo userVo){
-        try{
-            if(userVo.getPhone()==null || "".equals(userVo.getPhone()) || userVo.getPassword()==null || "".equals(userVo.getPassword())){
-                return Message.fail("房东账号新增失败，账号或密码为空!");
-            }else{
-                if(userVo.getPhone().matches("/^1[3|5|8|7]{1}[0-9]{9}$/")){
-                    return Message.success("房东账号新增失败，请输入正确的手机号!");
-                }else{
-                    int count = userService.checkReg(userVo.getPhone());
-                    if(count==0){
-                        if(userVo.getPassword().matches("/^[a-zA-Z0-9_]+$/")){
-                            return Message.success("房东账号新增失败，密码不能含有特殊字符!");
-                        }else{
-                            userVo.setHeadicon("static/img/face.gif");
-                            userVo.setIsActive((byte)0);
-                            userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
-                            userVo.setNickname(userVo.getPhone());
-                            //保存店长信息
-                            userService.save(userVo);
-                            //通过新增的店长的手机号获取新增店长的id
-                            UserVo userVo1 = userService.findByPhone(userVo.getPhone());
-                            //通过权限名称来获取到权限的id
-                            RoleVo roleVo = roleService.findByName("店长");
-                            UserRoleVo userRoleVo = new UserRoleVo();
-                            if(roleVo.getId()==0){
-                                return Message.fail("房东角色不存在!");
-                            }else{
-                                //同时把信息保存到用户权限表中
-                                userRoleVo.setIsActive((byte)0);
-                                userRoleVo.setUserId(userVo1.getId());
-                                userRoleVo.setRoleId(roleVo.getId());
-                                userRoleService.save(userRoleVo);
-                                return Message.success("房东账号新增成功!");
-                            }
-                        }
-                    }else{
-                        return Message.success("房东账号新增失败，该账号已存在!");
-                    }
-                }
-            }
-        }catch (Exception e){
-            return Message.fail("房东账号新增失败!");
-        }
-    }
-    @RequestMapping("landlordListPage")
-    public String landlordListPage(){
-        return "employee/landlordList";
-    }
-    @RequestMapping("landlordList/{title}")
-    @ResponseBody
-    public PagingBean landlordList(int pageSize,int pageIndex,@PathVariable("title") String title){
-        //TODO 这里需要获取自己的编号，查询属于自己酒店的店长
-        PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(userService.landlordCount(title));
-        pagingBean.setPageSize(pageSize);
-        pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(userService.landlordListPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize()),title));
-        return pagingBean;
-    }
+
     @RequestMapping("updateStatus/{id}/{status}")
     @ResponseBody
-    public Message updateStatus(@PathVariable("id") long id,@PathVariable("status") int status)  throws Exception{
-        try{
-            userService.updateStatus(new StatusQuery(id,status));
+    public Message updateStatus(@PathVariable("id") long id, @PathVariable("status") int status) throws Exception {
+        try {
+            userService.updateStatus(new StatusQuery(id, status));
             return Message.success("ok");
-        }catch (Exception e){
-            return  Message.fail("fail");
+        } catch (Exception e) {
+            return Message.fail("fail");
         }
     }
+
     @RequestMapping("/deleteManyUser")
     @ResponseBody
-    public Message deleteManycashSubject(@Param("manyId") String manyId) throws  Exception{
-        try{
+    public Message deleteManycashSubject(@Param("manyId") String manyId) throws Exception {
+        try {
             String str[] = manyId.split(",");
-            for (String s: str) {
+            for (String s : str) {
                 userService.removeById(Long.parseLong(s));
             }
             return Message.success("删除成功!");
-        }catch (Exception e){
-            e.printStackTrace();
-            return  Message.fail("删除失败!");
-    }
-}
-    @RequestMapping("/deleteUser/{id}")
-    @ResponseBody
-    public Message deletecashSubject(@PathVariable("id") long id) throws  Exception{
-        try{
-            userService.removeById(id);
-            return Message.success("删除成功!");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return Message.fail("删除失败!");
         }
     }
 
-    /**
-     *
-     * @param userVo 存放店长的账号密码信息
-     * @return
-     */
-    public Message addStoreManager(UserVo userVo){
-        try{
-            userService.save(userVo);
-            return Message.success("店长账号新增成功!");
-        }catch (Exception e){
-            return Message.success("店长账号新增失败!");
+    @RequestMapping("/deleteUser/{id}")
+    @ResponseBody
+    public Message deletecashSubject(@PathVariable("id") long id) throws Exception {
+        try {
+            userService.removeById(id);
+            return Message.success("删除成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Message.fail("删除失败!");
         }
     }
 

@@ -45,7 +45,39 @@ public class UserVo {
 
     private Date createTime;
 
+    private Long companyId;
+
     private Byte isActive;
+
+    public UserVo(Long id, String email, String phone, String accountName, String password, String nickname, String identity, String realname, Byte gender, Date birthday, Integer age, String address, String qq, String wechat, String alipay, String qqOpenid, String weiboOpenid, String wechatOpenid, String headicon, String description, Date createTime, Long companyId, Byte isActive) {
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
+        this.accountName = accountName;
+        this.password = password;
+        this.nickname = nickname;
+        this.identity = identity;
+        this.realname = realname;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.age = age;
+        this.address = address;
+        this.qq = qq;
+        this.wechat = wechat;
+        this.alipay = alipay;
+        this.qqOpenid = qqOpenid;
+        this.weiboOpenid = weiboOpenid;
+        this.wechatOpenid = wechatOpenid;
+        this.headicon = headicon;
+        this.description = description;
+        this.createTime = createTime;
+        this.companyId = companyId;
+        this.isActive = isActive;
+    }
+
+    public UserVo() {
+        super();
+    }
 
     public Long getId() {
         return id;
@@ -60,7 +92,7 @@ public class UserVo {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email == null ? null : email.trim();
     }
 
     public String getPhone() {
@@ -68,7 +100,7 @@ public class UserVo {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = phone == null ? null : phone.trim();
     }
 
     public String getAccountName() {
@@ -76,7 +108,7 @@ public class UserVo {
     }
 
     public void setAccountName(String accountName) {
-        this.accountName = accountName;
+        this.accountName = accountName == null ? null : accountName.trim();
     }
 
     public String getPassword() {
@@ -84,7 +116,7 @@ public class UserVo {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 
     public String getNickname() {
@@ -92,7 +124,7 @@ public class UserVo {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname;
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public String getIdentity() {
@@ -100,7 +132,7 @@ public class UserVo {
     }
 
     public void setIdentity(String identity) {
-        this.identity = identity;
+        this.identity = identity == null ? null : identity.trim();
     }
 
     public String getRealname() {
@@ -108,7 +140,7 @@ public class UserVo {
     }
 
     public void setRealname(String realname) {
-        this.realname = realname;
+        this.realname = realname == null ? null : realname.trim();
     }
 
     public Byte getGender() {
@@ -140,7 +172,7 @@ public class UserVo {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address == null ? null : address.trim();
     }
 
     public String getQq() {
@@ -148,7 +180,7 @@ public class UserVo {
     }
 
     public void setQq(String qq) {
-        this.qq = qq;
+        this.qq = qq == null ? null : qq.trim();
     }
 
     public String getWechat() {
@@ -156,7 +188,7 @@ public class UserVo {
     }
 
     public void setWechat(String wechat) {
-        this.wechat = wechat;
+        this.wechat = wechat == null ? null : wechat.trim();
     }
 
     public String getAlipay() {
@@ -164,7 +196,7 @@ public class UserVo {
     }
 
     public void setAlipay(String alipay) {
-        this.alipay = alipay;
+        this.alipay = alipay == null ? null : alipay.trim();
     }
 
     public String getQqOpenid() {
@@ -172,7 +204,7 @@ public class UserVo {
     }
 
     public void setQqOpenid(String qqOpenid) {
-        this.qqOpenid = qqOpenid;
+        this.qqOpenid = qqOpenid == null ? null : qqOpenid.trim();
     }
 
     public String getWeiboOpenid() {
@@ -180,7 +212,7 @@ public class UserVo {
     }
 
     public void setWeiboOpenid(String weiboOpenid) {
-        this.weiboOpenid = weiboOpenid;
+        this.weiboOpenid = weiboOpenid == null ? null : weiboOpenid.trim();
     }
 
     public String getWechatOpenid() {
@@ -188,7 +220,7 @@ public class UserVo {
     }
 
     public void setWechatOpenid(String wechatOpenid) {
-        this.wechatOpenid = wechatOpenid;
+        this.wechatOpenid = wechatOpenid == null ? null : wechatOpenid.trim();
     }
 
     public String getHeadicon() {
@@ -196,7 +228,7 @@ public class UserVo {
     }
 
     public void setHeadicon(String headicon) {
-        this.headicon = headicon;
+        this.headicon = headicon == null ? null : headicon.trim();
     }
 
     public String getDescription() {
@@ -204,7 +236,7 @@ public class UserVo {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
     public Date getCreateTime() {
@@ -213,6 +245,14 @@ public class UserVo {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public Byte getIsActive() {

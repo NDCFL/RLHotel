@@ -6,6 +6,10 @@ import java.util.Date;
 public class CustomerOrderVo {
     private Long id;
 
+    private Long companyId;
+
+    private Long hotelId;
+
     private Long shopManagerId;
 
     private Long houseId;
@@ -58,8 +62,10 @@ public class CustomerOrderVo {
 
     private Byte isActive;
 
-    public CustomerOrderVo(Long id, Long shopManagerId, Long houseId, Long contractId, String customerName, String customerIdentity, String customerPhone, String customerGender, Byte customerFrom, Long websiteId, BigDecimal unitPrice, Byte totalDays, BigDecimal housePay, BigDecimal servicePay, BigDecimal deposit, BigDecimal totalPay, BigDecimal actualReturn, Long paymentTypeId, Date checkinTime, Date checkoutTime, Date checkoutMaxTime, String remark, Byte orderStatus, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
+    public CustomerOrderVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Long houseId, Long contractId, String customerName, String customerIdentity, String customerPhone, String customerGender, Byte customerFrom, Long websiteId, BigDecimal unitPrice, Byte totalDays, BigDecimal housePay, BigDecimal servicePay, BigDecimal deposit, BigDecimal totalPay, BigDecimal actualReturn, Long paymentTypeId, Date checkinTime, Date checkoutTime, Date checkoutMaxTime, String remark, Byte orderStatus, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
         this.id = id;
+        this.companyId = companyId;
+        this.hotelId = hotelId;
         this.shopManagerId = shopManagerId;
         this.houseId = houseId;
         this.contractId = contractId;
@@ -98,6 +104,22 @@ public class CustomerOrderVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getShopManagerId() {

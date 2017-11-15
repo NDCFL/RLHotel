@@ -6,7 +6,11 @@ import java.util.Date;
 public class RentPayVo {
     private Long id;
 
-    private Long landlordId;
+    private Long masterId;
+
+    private Long companyId;
+
+    private Long contractId;
 
     private BigDecimal totalPay;
 
@@ -22,9 +26,11 @@ public class RentPayVo {
 
     private Byte isActive;
 
-    public RentPayVo(Long id, Long landlordId, BigDecimal totalPay, Date payTime, Date payPeriodStart, Date payPeriodEnd, String description, Date createTime, Byte isActive) {
+    public RentPayVo(Long id, Long masterId, Long companyId, Long contractId, BigDecimal totalPay, Date payTime, Date payPeriodStart, Date payPeriodEnd, String description, Date createTime, Byte isActive) {
         this.id = id;
-        this.landlordId = landlordId;
+        this.masterId = masterId;
+        this.companyId = companyId;
+        this.contractId = contractId;
         this.totalPay = totalPay;
         this.payTime = payTime;
         this.payPeriodStart = payPeriodStart;
@@ -46,12 +52,28 @@ public class RentPayVo {
         this.id = id;
     }
 
-    public Long getLandlordId() {
-        return landlordId;
+    public Long getMasterId() {
+        return masterId;
     }
 
-    public void setLandlordId(Long landlordId) {
-        this.landlordId = landlordId;
+    public void setMasterId(Long masterId) {
+        this.masterId = masterId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(Long contractId) {
+        this.contractId = contractId;
     }
 
     public BigDecimal getTotalPay() {

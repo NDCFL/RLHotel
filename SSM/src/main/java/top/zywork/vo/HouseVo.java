@@ -16,7 +16,7 @@ public class HouseVo {
 
     private Byte type;
 
-    private Long plotId;
+    private Long hotelId;
 
     private Long shopManagerId;
 
@@ -30,14 +30,14 @@ public class HouseVo {
 
     private String description;
 
-    public HouseVo(Long id, String cardTitle, Double area, BigDecimal unitPrice, BigDecimal salePrice, Byte type, Long plotId, Long shopManagerId, Long shopAgentId, Byte houseStatus, Date createTime, Byte isActive, String description) {
+    public HouseVo(Long id, String cardTitle, Double area, BigDecimal unitPrice, BigDecimal salePrice, Byte type, Long hotelId, Long shopManagerId, Long shopAgentId, Byte houseStatus, Date createTime, Byte isActive, String description) {
         this.id = id;
         this.cardTitle = cardTitle;
         this.area = area;
         this.unitPrice = unitPrice;
         this.salePrice = salePrice;
         this.type = type;
-        this.plotId = plotId;
+        this.hotelId = hotelId;
         this.shopManagerId = shopManagerId;
         this.shopAgentId = shopAgentId;
         this.houseStatus = houseStatus;
@@ -98,12 +98,12 @@ public class HouseVo {
         this.type = type;
     }
 
-    public Long getPlotId() {
-        return plotId;
+    public Long getHotelId() {
+        return hotelId;
     }
 
-    public void setPlotId(Long plotId) {
-        this.plotId = plotId;
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getShopManagerId() {

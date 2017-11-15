@@ -24,7 +24,7 @@
 		delete from t_user_role where id = #{id}
 	</delete>
 	<select id="listPage" resultMap="userRoleMap">
-		select t.id,t.is_active,t.create_time,u.nickname,r.title from t_user_role t,t_user u,t_role r where t.role_id=r.id and t.user_id=u.id  limit #{pageNo},#{pageSize}
+		select t.id,t.is_active,t.create_time,u.nickname,r.title from t_user_role t,t_user u,t_role r where t.role_id=r.id and t.user_id=u.id order by u.create_time desc limit #{pageNo},#{pageSize}
 	</select>
 	<select id="listAll" resultMap="userRoleMap">
 		select t.id,t.is_active,t.create_time,u.nickname,r.title from t_user_role t,t_user u,t_role r where t.role_id=r.id and t.user_id=u.id
