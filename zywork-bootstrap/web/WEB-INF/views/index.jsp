@@ -75,6 +75,35 @@
                 <li>
                     <a href="javascript:void(0);">
                         <i class="fa fa-columns"></i>
+                        <span class="nav-label">租房管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/contractMaster/contractMasterListPage">房东管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/houser/houserListPage">签约管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--只有店长登录之后才能使用-->
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-columns"></i>
+                        <span class="nav-label">酒店管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">酒店信息管理</a>
+                            <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">房间信息管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-columns"></i>
                         <span class="nav-label">员工管理</span>
                         <span class="fa arrow"></span>
                     </a>
@@ -119,11 +148,16 @@
                 </li>
 
                 <li>
-                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">房东管理 </span><span class="label label-warning pull-right">16</span></a>
+                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">金融管理 </span><span class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="mailbox.html">房东列表</a>
+                        <li>
+                            <a class="J_menuItem" href="mailbox.html">酒店订单</a>
                         </li>
-                        <li><a class="J_menuItem" href="mail_detail.html">新增房东</a>
+                        <li>
+                            <a class="J_menuItem" href="mail_detail.html">增值业务</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="mail_detail.html">现金流水</a>
                         </li>
                     </ul>
                 </li>

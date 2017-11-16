@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="<%=path%>/static/img/favicon.ico">
     <link href="<%=path%>/static/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="<%=path%>/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="<%=path%>/static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">

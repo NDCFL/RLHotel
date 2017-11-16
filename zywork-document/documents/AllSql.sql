@@ -110,7 +110,11 @@ create table t_contract_master(
   id BIGINT primary key AUTO_INCREMENT ,
   bank_name VARCHAR(50),
   bank_account_name VARCHAR(50),
-  bank_account_no VARCHAR(18)
+  bank_account_no VARCHAR(18),
+  create_time datetime default CURRENT_TIMESTAMP null,
+  is_active int null,
+  company_id bigint null,
+  FOREIGN KEY (company_id) REFERENCES t_company(id)
 )engine=innodb default charset=utf8;
 
 drop table IF EXISTS t_contract;

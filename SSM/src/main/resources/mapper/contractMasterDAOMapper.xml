@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.zywork.dao.ContractMasterDAO">
+    <resultMap id="contractMasterMap" type="contractMasterVo"></resultMap>
+    <select id="getById" resultMap="contractMasterMap" parameterType="long">
+        select * from t_contract_master where id = #{id}
+    </select>
+    <delete id="removeById" parameterType="long">
+        delete from t_contract_master where id = #{id}
+    </delete>
+    <select id="listPages" resultMap="contractMasterMap">
+        select * from t_contract_master where company_id=#{companyId} limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+    </select>
+    <select id="listAll" resultMap="contractMasterMap">
+        select * from t_contract_master
+    </select>
+    <select id="counts" resultType="java.lang.Long">
+        select count(*) from t_contract_master where company_id=#{companyId}
+    </select>
+    <insert id="save" parameterType="contractMasterVo">
+        insert into t_contract_master ( bank_name,bank_account_name,bank_account_no,is_active,company_id) values ( #{bankName},#{bankAccountName},#{bankAccountNo},#{isActive},#{companyId})
+    </insert>
+    <update id="updateStatus">
+        update t_contract_master set is_active=#{status} where id=#{id}
+    </update>
+    <update id="update">
+        update t_contract_master set bank_name=#{bankName},bank_account_name=#{bankAccountName},bank_account_no=#{bankAccountNo},is_active=#{isActive} where id = #{id}
+    </update>
+</mapper>
