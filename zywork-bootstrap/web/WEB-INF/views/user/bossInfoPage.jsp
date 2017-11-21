@@ -164,58 +164,58 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户昵称：</label>
                             <div class="col-sm-8">
-                                <input id="nickname" name="nickname" class="form-control" placeholder="请输入用户昵称" type="text" >
+                                <input id="nickname" name="nickname" class="form-control"  type="text" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">真实名字：</label>
                             <div class="col-sm-8">
-                                <input id="realname" name="realname" class="form-control" placeholder="请输入真实姓名" type="text"  >
+                                <input id="realname" name="realname" class="form-control"  type="text"  >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">身份证号：</label>
                             <div class="col-sm-8">
-                                <input id="identity" name="identity" placeholder="请输入18位的身份证号码" class="form-control" type="text">
+                                <input id="identity" name="identity" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户性别：</label>
                             <div class="col-sm-8">
-                                <select class="form-control m-b" name="sex" id="sex">
-                                    <option value="0">男</option>
-                                    <option value="1">女</option>
+                                <select class="form-control m-b" name="gender" id="gender">
+                                    <option value="0" id="gender0">男</option>
+                                    <option value="1" id="gender1">女</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户年龄：</label>
                             <div class="col-sm-8">
-                                <input id="age" name="age" placeholder="请输入用户年龄" class="form-control" type="number">
+                                <input id="age" name="age"  class="form-control" type="number">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户邮箱：</label>
                             <div class="col-sm-8">
-                                <input id="email" name="email" placeholder="请输入用户邮箱" class="form-control" type="email">
+                                <input id="email" name="email" class="form-control" type="email">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户地址：</label>
                             <div class="col-sm-8">
-                                <input id="address" name="address" placeholder="请输入用户地址" class="form-control" type="map">
+                                <input id="address" name="address"  class="form-control" type="map">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用 户q q：</label>
                             <div class="col-sm-8">
-                                <input id="qq" name="qq" placeholder="请输入用户QQ" class="form-control" type="map">
+                                <input id="qq" name="qq"  class="form-control" type="map">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户微信：</label>
                             <div class="col-sm-8">
-                                <input id="wechat" name="wechat" placeholder="请输入用户微信" class="form-control" type="map">
+                                <input id="wechat" name="wechat"  class="form-control" type="map">
                             </div>
                         </div>
                         <div class="form-group">

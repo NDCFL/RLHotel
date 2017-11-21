@@ -83,7 +83,7 @@
                             <a class="J_menuItem" href="<%=path%>/contractMaster/contractMasterListPage">房东管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/houser/houserListPage">签约管理</a>
+                            <a class="J_menuItem" href="<%=path%>/contract/contractListPage">签约管理</a>
                         </li>
                     </ul>
                 </li>
@@ -96,7 +96,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">酒店信息管理</a>
+                            <a class="J_menuItem" href="<%=path%>/hotel/hotelListPage">酒店信息管理</a>
                             <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">房间信息管理</a>
                         </li>
                     </ul>

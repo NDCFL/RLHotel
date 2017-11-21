@@ -21,7 +21,6 @@
     <link href="<%=path%>/static/css/animate.min.css" rel="stylesheet">
     <link href="<%=path%>/static/css/style.min.css" rel="stylesheet">
     <link href="<%=path%>/static/css/bootstrapValidator.css" rel="stylesheet">
-    <base target="_blank">
     <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
 </head>
 <body class="gray-bg">

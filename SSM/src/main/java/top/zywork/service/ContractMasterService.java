@@ -3,6 +3,7 @@ package top.zywork.service;
 import org.apache.ibatis.annotations.Param;
 import top.zywork.query.PageQuery;
 import top.zywork.vo.ContractMasterVo;
+import top.zywork.vo.Select2Vo;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ import java.util.List;
 public interface ContractMasterService extends BaseService<ContractMasterVo> {
     List<ContractMasterVo> listPages(PageQuery pageQuery,long companyId);
     long counts(long companyId);
+    List<Select2Vo> listAlls(long companyId);
 }

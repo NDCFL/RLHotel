@@ -19,6 +19,12 @@ public class HotelVo {
 
     private Byte isActive;
 
+    private ContractVo contractVo;
+
+    private CompanyVo companyVo;
+
+    private UserVo userVo;
+
     public HotelVo(Long id, Long companyId, Long contractId, Long hotelManagerId, String title, String tel, Date createTime, Byte isActive) {
         this.id = id;
         this.companyId = companyId;
@@ -96,5 +102,29 @@ public class HotelVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public ContractVo getContractVo() {
+        return contractVo;
+    }
+
+    public void setContractVo(ContractVo contractVo) {
+        this.contractVo = contractVo;
+    }
+
+    public CompanyVo getCompanyVo() {
+        return companyVo;
+    }
+
+    public void setCompanyVo(CompanyVo companyVo) {
+        this.companyVo = companyVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
     }
 }

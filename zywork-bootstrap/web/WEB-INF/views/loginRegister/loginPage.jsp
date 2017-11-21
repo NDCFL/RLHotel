@@ -21,7 +21,6 @@
     <link href="<%=path%>/static/css/animate.min.css" rel="stylesheet">
     <link href="<%=path%>/static/css/style.min.css?v=4.0.0" rel="stylesheet">
     <link href="<%=path%>/static/css/bootstrapValidator.css" rel="stylesheet">
-    <base target="_blank">
     <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->

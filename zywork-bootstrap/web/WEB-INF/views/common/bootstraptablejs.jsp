@@ -29,4 +29,6 @@
 <script src="<%=path%>/static/js/jquery.formautoFill.js"></script>
 <script type="text/javascript" src="<%=path%>/static/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="<%=path%>/static/js/zh_CN.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/plugins/datapicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/plugins/datapicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 </html>

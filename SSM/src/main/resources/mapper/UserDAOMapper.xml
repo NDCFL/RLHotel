@@ -15,9 +15,7 @@
 		]]>
 	</select>
 	<select id="getById" resultMap="userMap" parameterType="long">
-		select
-			<include refid="Base_Column_List"/> 
-		from t_user where id = #{id}
+		select * from t_user where id = #{id}
 	</select>
 	<select id="checkLogin" resultType="int" parameterType="string">
 		select count(*) from t_user where phone=#{account} or email=#{account} or account_name=#{account}

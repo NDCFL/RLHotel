@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.zywork.query.PageQuery;
 import top.zywork.vo.ContractMasterVo;
+import top.zywork.vo.Select2Vo;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ import java.util.List;
 public interface ContractMasterDAO extends  BaseDAO<ContractMasterVo> {
     List<ContractMasterVo> listPages(@Param("pageQuery") PageQuery pageQuery,@Param("companyId") long companyId);
     long counts(long companyId);
+    List<Select2Vo> listAlls(long companyId);
 }

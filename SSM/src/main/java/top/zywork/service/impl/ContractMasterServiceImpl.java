@@ -6,6 +6,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.ContractMasterService;
 import top.zywork.vo.ContractMasterVo;
+import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -70,5 +71,10 @@ public class ContractMasterServiceImpl implements ContractMasterService{
     @Override
     public long counts(long companyId) {
         return contractMasterDAO.counts(companyId);
+    }
+
+    @Override
+    public List<Select2Vo> listAlls(long companyId) {
+        return contractMasterDAO.listAlls(companyId);
     }
 }

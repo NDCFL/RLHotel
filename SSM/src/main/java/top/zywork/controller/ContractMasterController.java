@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import com.sun.net.httpserver.HttpsServer;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -15,6 +16,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.ContractMasterService;
 import top.zywork.vo.ContractMasterVo;
+import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by chenfeilong on 2017/11/16.
@@ -111,6 +114,13 @@ public class ContractMasterController {
         }catch (Exception e){
             return  Message.fail("fail");
         }
+    }
+    @RequestMapping("findAll")
+    @ResponseBody
+    public List<Select2Vo> findAll(HttpSession session){
+        UserVo user = (UserVo) session.getAttribute("userVo");
+        List<Select2Vo> contractMasterVoList = contractMasterService.listAlls(user.getCompanyId());
+        return contractMasterVoList;
     }
     @InitBinder
     public void initBinder(WebDataBinder binder) {

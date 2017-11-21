@@ -23,6 +23,7 @@ import top.zywork.vo.UserRoleVo;
 import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,11 +57,13 @@ public class LandlordController {
 
     @RequestMapping("addLandlord")
     @ResponseBody
-    public Message addLandlord(UserVo userVo) {
+    public Message addLandlord(UserVo userVo, HttpSession session) {
+        UserVo user = (UserVo) session.getAttribute("userVo");
         userVo.setHeadicon("static/img/face.gif");
         userVo.setIsActive((byte) 0);
         userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
         userVo.setNickname(userVo.getPhone());
+        userVo.setCompanyId(user.getCompanyId());
         //保存店长信息
         userService.save(userVo);
         //通过新增的店长的手机号获取新增店长的id

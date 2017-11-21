@@ -30,6 +30,9 @@ public class ContractVo {
 
     private Byte isActive;
 
+    private ContractMasterVo contractMasterVo;
+
+
     public ContractVo(Long id, Long masterId, Long companyId, String contractContract, Integer contractYears, Date contractDate, String contractNo, BigDecimal minProfit, Double profitRate, BigDecimal monthPay, Date payDate, Date createTime, Byte isActive) {
         this.id = id;
         this.masterId = masterId;
@@ -152,5 +155,13 @@ public class ContractVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public ContractMasterVo getContractMasterVo() {
+        return contractMasterVo;
+    }
+
+    public void setContractMasterVo(ContractMasterVo contractMasterVo) {
+        this.contractMasterVo = contractMasterVo;
     }
 }

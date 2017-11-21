@@ -100,8 +100,8 @@ $('#mytab').bootstrapTable({
                 }else if(row.isActive==0){
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-
-                return e + d+f;
+                var g = '<a title="签约列表" class="J_menuItem" href="/contract/contractByMasterListPage/'+row.id+'\"><i class="glyphicon glyphicon-th-list" alt="签约列表" style="color:green"></i></a> ';
+                return e+d+f+g;
             }
         }
     ],
