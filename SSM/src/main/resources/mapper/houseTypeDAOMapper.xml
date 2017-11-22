@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.zywork.dao.HouseTypeDAO">
+  <resultMap id="houseTypeMap" type="houseTypeVo"></resultMap>
+  <select id="getById" resultMap="houseTypeMap" parameterType="long">
+      select * from t_house_type where id = #{id}
+  </select>
+  <delete id="removeById" parameterType="long">
+        delete from t_house_type where id = #{id}
+  </delete>
+  <select id="listPage" resultMap="houseTypeMap">
+        select * from t_house_type limit #{pageNo},#{pageSize}
+  </select>
+    <select id="listAll" resultMap="houseTypeMap">
+        select * from t_house_type
+    </select>
+    <select id="count" resultType="long">
+        select count(*) from t_house_type
+    </select>
+  <select id=""></select>
+  <insert id="save" parameterType="houseTypeVo">
+        insert into t_house_type ( title,description,is_active,company_id) values ( #{title},#{description},#{isActive},#{companyId})
+  </insert>
+    <update id="updateStatus">
+        update t_house_type set is_active=#{status} where id=#{id}
+    </update>
+  <update id="update">
+        update t_house_type
+        <set>
+            <if test="title!=null and title!=''">
+                title = #{title},
+            </if>
+            <if test="description!=null and description!=''">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+  </update>
+</mapper>

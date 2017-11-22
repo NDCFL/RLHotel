@@ -213,6 +213,12 @@
             <groupId>org.activiti</groupId>
             <artifactId>activiti-engine</artifactId>
             <version>${activiti.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>juel-spi</artifactId>
+                    <groupId>de.odysseus.juel</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

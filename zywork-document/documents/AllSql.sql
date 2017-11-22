@@ -162,6 +162,16 @@ create table t_hotel_employee(
   FOREIGN KEY (user_id) REFERENCES t_user(id)
 )engine=innodb default charset=utf8;
 
+drop table IF EXISTS t_house_type;
+create table t_house_type(
+  id BIGINT primary key AUTO_INCREMENT ,
+  title VARCHAR(20) UNIQUE NOT NULL ,
+  description VARCHAR(500),
+  create_time DATETIME DEFAULT now() NOT NULL ,
+  is_active TINYINT NOT NULL,
+  company_id BIGINT not null,
+  FOREIGN KEY (company_id) REFERENCES t_company(id)
+)engine=innodb default charset=utf8;
 
 drop table IF EXISTS t_house;
 create table t_house(
