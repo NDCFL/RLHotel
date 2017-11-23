@@ -97,7 +97,8 @@
                     <ul class="nav nav-second-level">
                         <li>
                             <a class="J_menuItem" href="<%=path%>/hotel/hotelListPage">酒店信息管理</a>
-                            <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">房间信息管理</a>
+                            <a class="J_menuItem" href="<%=path%>/houseType/houseTypePage">酒店类型管理</a>
+                            <a class="J_menuItem" href="<%=path%>/house/housePage">房间信息管理</a>
                         </li>
                     </ul>
                 </li>

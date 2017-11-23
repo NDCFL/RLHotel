@@ -1,11 +1,11 @@
 package top.zywork.service.impl;
 
 import org.springframework.stereotype.Service;
-import top.zywork.dao.HouserDAO;
+import top.zywork.dao.HouseDAO;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
-import top.zywork.service.HouserService;
-import top.zywork.vo.UserVo;
+import top.zywork.service.HouseService;
+import top.zywork.vo.HouseVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,16 +14,16 @@ import java.util.List;
  * Created by chenfeilong on 2017/11/12.
  */
 @Service
-public class HouserServiceImpl implements HouserService{
+public class HouseServiceImpl implements HouseService {
     @Resource
-    private HouserDAO houserDAO;
+    private HouseDAO houserDAO;
     @Override
-    public void save(UserVo userVo) {
+    public void save(HouseVo userVo) {
         houserDAO.save(userVo);
     }
 
     @Override
-    public void remove(UserVo userVo) {
+    public void remove(HouseVo userVo) {
         houserDAO.remove(userVo);
     }
 
@@ -33,7 +33,7 @@ public class HouserServiceImpl implements HouserService{
     }
 
     @Override
-    public void update(UserVo userVo) {
+    public void update(HouseVo userVo) {
         houserDAO.update(userVo);
     }
 
@@ -43,17 +43,17 @@ public class HouserServiceImpl implements HouserService{
     }
 
     @Override
-    public UserVo getById(Long id) {
+    public HouseVo getById(Long id) {
         return houserDAO.getById(id);
     }
 
     @Override
-    public List<UserVo> listAll() {
+    public List<HouseVo> listAll() {
         return houserDAO.listAll();
     }
 
     @Override
-    public List<UserVo> listPage(PageQuery pageQuery) {
+    public List<HouseVo> listPage(PageQuery pageQuery) {
         return houserDAO.listPage(pageQuery);
     }
 

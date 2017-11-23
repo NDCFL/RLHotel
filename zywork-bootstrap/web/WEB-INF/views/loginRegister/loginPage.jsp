@@ -32,7 +32,7 @@
         <div>
             <h1 class="logo-name">RL</h1>
         </div>
-        <form class="m-t" role="form" id="form" action="<%=path%>/index" omsubmit="return check();">
+        <form class="m-t" role="form" id="form" omsubmit="return check();">
             <div class="form-group">
                 <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入邮箱/手机号/昵称" required="">
             </div>
@@ -107,6 +107,9 @@
                     }
                 }
             }
+        }).on('success.form.bv', function(e) {//点击提交之后
+            e.preventDefault();
+            location.href="<%=path%>/index";
         });
 
     });

@@ -13,14 +13,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>签约列表</title>
+    <title>房型列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>签约列表</h5>
+            <h5>房型列表</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -45,9 +45,9 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">签约名称：</label>
+                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">房型名称：</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="search_name" value="${masterId}"/>
+                        <input type="text" class="form-control" name="Name" id="search_name"/>
                     </div>
                     <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">创建时间：</label>
                     <div class="col-sm-2">
@@ -83,27 +83,21 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增签约
+                    新增房型
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">签约姓名：</label>
+                        <label class="col-sm-3 control-label">房型名称：</label>
                         <div class="col-sm-8">
-                            <input  name="bankAccountName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">银行名称：</label>
+                        <label class="col-sm-3 control-label">说明：</label>
                         <div class="col-sm-8">
-                            <input  name="bankName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">银行卡号：</label>
-                        <div class="col-sm-8">
-                            <input  name="bankAccountNo" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <textarea  name="description" class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>
@@ -129,48 +123,53 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    签约的修改
+                    房型的修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="id" value="">
-                    <div class="modal-body">
+
+                        <input type="hidden" name="id" id="id" value="">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">签约姓名：</label>
+                            <label class="col-sm-3 control-label">房型名称：</label>
                             <div class="col-sm-8">
-                                <input  name="bankAccountName" id="bankAccountName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                                <input  name="title" minlength="2" id="title" maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">银行名称：</label>
+                            <label class="col-sm-3 control-label">说明：</label>
                             <div class="col-sm-8">
-                                <input  name="bankName" id="bankName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                                <textarea  name="description" class="form-control" id="description" required="" value="" aria-required="true"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">银行卡号：</label>
-                            <div class="col-sm-8">
-                                <input  name="bankAccountNo" id="bankAccountNo" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
-                                确认修改
-                            </button>
-                        </div>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
+                        确认修改
+                    </button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<input type="hidden" id="masterId" value="${masterId}" />
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-<script src="<%=path%>/static/js/pageJs/contractByMaster.js"></script>
+<script src="<%=path%>/static/js/pageJs/house.js"></script>
 </body>
+<%--<script>--%>
+    <%--$(function () {--%>
+        <%--alert("asdflsfa");--%>
+        <%--layer.msg('已发布', {icon:1,time:1000});--%>
+        <%--layer.msg('已发布', {icon:2,time:1000});--%>
+        <%--layer.msg('已发布', {icon:3,time:1000});--%>
+        <%--layer.msg('已发布', {icon:4,time:1000});--%>
+        <%--layer.msg('已发布', {icon:5,time:1000});--%>
+        <%--layer.msg('已发布', {icon:6,time:1000});--%>
+        <%--layer.msg('已发布', {icon:7,time:1000});--%>
+        <%----%>
+    <%--});--%>
 
+<%--</script>--%>
 </html>

@@ -2,39 +2,52 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="top.zywork.dao.HouserDAO">
-	<resultMap type="userVo" id="houserMap">
+<mapper namespace="top.zywork.dao.HouseDAO">
+	<resultMap type="houseVo" id="houseMap">
+		<id column="id" property="id"></id>
+		<result column="card_title" property="cardTitle"></result>
+		<result column="area" property="area"></result>
+		<result column="unit_price" property="unitPrice"></result>
+		<result column="sale_price" property="salePrice"></result>
+		<result column="house_status" property="houseStatus"></result>
+		<result column="create_time" property="createTime"></result>
+		<result column="is_active" property="isActive"></result>
+		<association property="houseTypeVo" javaType="top.zywork.vo.HouseTypeVo">
+			<id column="htId" property="id"></id>
+			<result column="title" property="title"></result>
+			<result column="htdescription" property="description"></result>
+		</association>
+		<association property="hotelVo" javaType="top.zywork.vo.HotelVo">
+			<id column="hotelId" property="id"></id>
+			<result column="hotelTitle" property="title"></result>
+		</association>
+		<association property="userVo" javaType="top.zywork.vo.UserVo">
+			<id column="userId" property="id"></id>
+			<result column="nickname" property="nickname"></result>
+		</association>
 	</resultMap>
-	<select id="getById" resultMap="houserMap" parameterType="long">
-		select *  from t_user t where t.id = #{id}
+	<select id="getById" resultMap="houseMap" parameterType="long">
+		select t.*,ht.id as htId,ht.title,ht.description,h.title as hotelTitle,h.id as hotelId,u.id as userId,u.nickname  from t_house t,t_house_type ht,t_hotel h,t_user u where t.type=ht.id and t.hotel_id=h.id and t.shop_agent_id=u.id and t.shop_manager_id=u.id and t.id = #{id}
 	</select>
 	<delete id="removeById" parameterType="long">
-		delete from t_user where id = #{id}
+		delete from t_house where id = #{id}
 	</delete>
-	<select id="listPage" resultMap="houserMap" >
-		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="房东") order by u.create_time desc limit #{pageNo},#{pageSize}
+	<select id="listPage" resultMap="houseMap" >
+		select t.*,ht.id as htId,ht.title,ht.description,h.title as hotelTitle,h.id as hotelId,u.id as userId,u.nickname  from t_house t,t_house_type ht,t_hotel h,t_user u where t.type=ht.id and t.hotel_id=h.id and t.shop_agent_id=u.id and t.shop_manager_id=u.id  order by t.create_time desc limit #{pageNo},#{pageSize}
 	</select>
-	<select id="listAll" resultMap="houserMap">
-		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="房东")
+	<select id="listAll" resultMap="houseMap">
+		select t.*,ht.id as htId,ht.title,ht.description,h.title as hotelTitle,h.id as hotelId,u.id as userId,u.nickname  from t_house t,t_house_type ht,t_hotel h,t_user u where t.type=ht.id and t.hotel_id=h.id and t.shop_agent_id=u.id and t.shop_manager_id=u.id
 	</select>
 	<select id="count" resultType="long">
-		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="房东")	</select>
+		select count(*)  from t_house t,t_house_type ht,t_hotel h,t_user u where t.type=ht.id and t.hotel_id=h.id and t.shop_agent_id=u.id and t.shop_manager_id=u.id
+	</select>
 	<insert id="save" parameterType="userVo">
-		insert into t_user (phone,password,nickname,gender,is_active,headicon) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon})
+		insert into t_house (card_title, area, unit_price, sale_price, type, description, hotel_id, shop_manager_id, shop_agent_id, house_status, is_active) values ( #{cardTitle}, #{area}, #{unitPrice}, #{salePrice}, #{type}, #{description}, #{hotelId}, #{shopManagerId}, #[shopAgentId}, #[houseStatus}, #{isActive})
 	</insert>
 	<update id="updateStatus">
-		update t_user set is_active=#{status} where id=#{id}
+		update t_house set is_active=#{status} where id=#{id}
 	</update>
 	<update id="update">
-		update t_user
-		<set>
-			<if test="userId!=0">
-				user_id = #{userId},
-			</if>
-			<if test="roleId!=0">
-				role_id = #{roleId},
-			</if>
-		</set>
-		where id = #{id}
+		update t_house set card_title=#{cardTitle},area=#{area},unit_price=#{unitPrice},sale_price=#{salePrice},type=#{type},description=#{description},hotel_id=#{hotelId},shop_manager_id=#{shopManagerId},shop_agent_id=#{shopAgentId},house_status=#{houseStatus} where id = #{id}
 	</update>
 </mapper>

@@ -88,10 +88,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if (value == 0) {
                     //表示激活状态
-                    return '<i class="btn btn-primary">激活</i>';
+                    return '<i class="btn btn-primary" style="color: green">激活</i>';
                 } else {
                     //表示激活状态
-                    return '<i class="btn btn-danger">冻结</i>';
+                    return '<i class="btn btn-danger" style="color: red">冻结</i>';
                 }
             }
         }

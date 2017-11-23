@@ -30,6 +30,14 @@ public class HouseVo {
 
     private String description;
 
+    private HouseTypeVo houseTypeVo;
+
+    private HotelVo hotelVo;
+
+    private UserVo userVo;
+
+
+
     public HouseVo(Long id, String cardTitle, Double area, BigDecimal unitPrice, BigDecimal salePrice, Byte type, Long hotelId, Long shopManagerId, Long shopAgentId, Byte houseStatus, Date createTime, Byte isActive, String description) {
         this.id = id;
         this.cardTitle = cardTitle;
@@ -152,5 +160,29 @@ public class HouseVo {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public HouseTypeVo getHouseTypeVo() {
+        return houseTypeVo;
+    }
+
+    public void setHouseTypeVo(HouseTypeVo houseTypeVo) {
+        this.houseTypeVo = houseTypeVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
     }
 }
