@@ -89,7 +89,7 @@ $('#mytab').bootstrapTable({
             field:'houseStatus',
             align:'center',
             formatter: function (value, row, index) {
-                if(value==0){
+                if(value==1){
                     //表示激活状态
                     return '<i style="color: red">已入住</i>';
                 }else{
@@ -123,10 +123,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if(value==0){
                     //表示激活状态
-                    return '<i class="btn btn-primary"  style="color: green">激活</i>';
+                    return '<i class="btn btn-primary"  >激活</i>';
                 }else{
                     //表示激活状态
-                    return '<i class="btn btn-danger" style="color: red">冻结</i>';
+                    return '<i class="btn btn-danger">冻结</i>';
                 }
             }
         }
@@ -136,7 +136,7 @@ $('#mytab').bootstrapTable({
             align:'center',
             field:'',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="house"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="house"   onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del('+row.id+','+row.isActive+')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f='';
                 if(row.isActive==1){
@@ -199,12 +199,7 @@ function del(houseid,status){
     });
 }
 function edit(name){
-    $.post("/house/findHouse/"+name,
-        function(data){
-            $("#updateform").autofill(data);
-        },
-        "json"
-    );
+    location.href="/house/updateHouse/"+name;
 }
 function updatestatus(id,status){
     $.post("/house/updateStatus/"+id+"/"+status,

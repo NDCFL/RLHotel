@@ -6,6 +6,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.HouseService;
 import top.zywork.vo.HouseVo;
+import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -60,5 +61,25 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public long count() {
         return houserDAO.count();
+    }
+
+    @Override
+    public List<Select2Vo> houseTypeList(long companyId) {
+        return houserDAO.houseTypeList(companyId);
+    }
+
+    @Override
+    public List<Select2Vo> hotelList(long companyId) {
+        return houserDAO.hotelList(companyId);
+    }
+
+    @Override
+    public List<Select2Vo> userList(long companyId) {
+        return houserDAO.userList(companyId);
+    }
+
+    @Override
+    public String getHouseCardTitle(long companyId) {
+        return houserDAO.getHouseCardTitle(companyId);
     }
 }

@@ -66,7 +66,7 @@
                 <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
                 </button>
-                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                <button id="btn_add" type="button" class="btn btn-default" onclick="addHouse();">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
                 </button>
             </div>
@@ -170,6 +170,10 @@
         <%--layer.msg('已发布', {icon:7,time:1000});--%>
         <%----%>
     <%--});--%>
-
 <%--</script>--%>
+<script>
+    function addHouse(){
+        location.href="<%=path%>/house/addHousePage";
+    }
+</script>
 </html>
