@@ -13,6 +13,8 @@ public class ServiceSubjectVo {
 
     private Byte isActive;
 
+    private Long companyId;
+
     public ServiceSubjectVo(Long id, String title, String description, Date createTime, Byte isActive) {
         this.id = id;
         this.title = title;
@@ -63,5 +65,13 @@ public class ServiceSubjectVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }

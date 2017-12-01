@@ -58,12 +58,17 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public long count() {
-        return userRoleDAO.count();
+    public long count(PageQuery pageQuery) {
+        return userRoleDAO.count(pageQuery);
     }
 
     @Override
     public List<String> pageListByUserId(String userId) {
         return userRoleDAO.pageListByUserId(userId);
+    }
+
+    @Override
+    public UserRoleVo getRole(Long userId) {
+        return userRoleDAO.getRole(userId);
     }
 }

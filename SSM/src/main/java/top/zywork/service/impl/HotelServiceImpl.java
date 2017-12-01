@@ -15,8 +15,8 @@ public class HotelServiceImpl implements HotelService {
     @Resource
     private HotelDAO hotelDAO;
     @Override
-    public long counts(long companyId) {
-        return hotelDAO.counts(companyId);
+    public long counts(PageQuery pageQuery,long companyId) {
+        return hotelDAO.counts(pageQuery,companyId);
     }
 
     @Override
@@ -32,6 +32,11 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public List<Select2Vo> getLandlord() {
         return hotelDAO.getLandlord();
+    }
+
+    @Override
+    public HotelVo findHotel(long hotelManagerId) {
+        return hotelDAO.findHotel(hotelManagerId);
     }
 
     @Override
@@ -75,7 +80,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public long count() {
-        return hotelDAO.count();
+    public long count(PageQuery pageQuery) {
+        return hotelDAO.count(pageQuery);
     }
 }

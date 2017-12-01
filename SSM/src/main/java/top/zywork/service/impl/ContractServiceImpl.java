@@ -58,8 +58,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public long count() {
-        return contractDAO.count();
+    public long count(PageQuery pageQuery) {
+        return contractDAO.count(pageQuery);
     }
 
     @Override
@@ -68,8 +68,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public long counts(long companyId) {
-        return contractDAO.counts(companyId);
+    public long counts(PageQuery pageQuery,long companyId) {
+        return contractDAO.counts(pageQuery,companyId);
     }
 
     @Override

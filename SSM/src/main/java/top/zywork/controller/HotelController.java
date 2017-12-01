@@ -31,13 +31,13 @@ public class HotelController {
     private HotelService hotelService;
     @RequestMapping("hotelList")
     @ResponseBody
-    public PagingBean hotelList(int pageSize, int pageIndex, HttpSession session) throws  Exception{
+    public PagingBean hotelList(int pageSize, int pageIndex, HttpSession session,String searchVal) throws  Exception{
         UserVo user = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(hotelService.counts(user.getCompanyId()));
+        pagingBean.setTotal(hotelService.counts(new PageQuery(searchVal),user.getCompanyId()));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(hotelService.listPages(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize()),user.getCompanyId()));
+        pagingBean.setrows(hotelService.listPages(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal),user.getCompanyId()));
         return pagingBean;
     }
     @RequestMapping("/hotelAddSave")

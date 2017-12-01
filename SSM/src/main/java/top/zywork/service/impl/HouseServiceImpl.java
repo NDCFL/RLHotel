@@ -59,8 +59,8 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public long count() {
-        return houserDAO.count();
+    public long count(PageQuery pageQuery) {
+        return houserDAO.count(pageQuery);
     }
 
     @Override

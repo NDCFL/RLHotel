@@ -15,8 +15,10 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.CooperationSubjectService;
 import top.zywork.vo.CooperationSubjectVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,19 +33,22 @@ public class CooperationSubjectController {
     private CooperationSubjectService cooperationSubjectService;
     @RequestMapping("cooperationSubjectList")
     @ResponseBody
-    public PagingBean cooperationSubjectList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean cooperationSubjectList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        UserVo userVo =(UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(cooperationSubjectService.count());
+        pagingBean.setTotal(cooperationSubjectService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(cooperationSubjectService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        pagingBean.setrows(cooperationSubjectService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
     @RequestMapping("/cooperationSubjectAddSave")
     @ResponseBody
-    public Message addSavecooperationSubject(CooperationSubjectVo web) throws  Exception {
+    public Message addSavecooperationSubject(CooperationSubjectVo web,HttpSession session) throws  Exception {
         try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
             web.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+            web.setCompanyId(userVo.getCompanyId());
             cooperationSubjectService.save(web);
             return  Message.success("新增成功!");
         }catch (Exception E){

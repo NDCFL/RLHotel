@@ -16,8 +16,10 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.CooperationWebsiteService;
 import top.zywork.vo.CooperationWebsiteVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,19 +34,21 @@ public class CooperationWebsiteController  {
     private CooperationWebsiteService cooperationWebsiteService;
     @RequestMapping("webList")
     @ResponseBody
-    public PagingBean webList(int pageSize, int pageIndex) throws  Exception{
-        System.out.println("================");
+    public PagingBean webList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(cooperationWebsiteService.count());
+        pagingBean.setTotal(cooperationWebsiteService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(cooperationWebsiteService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        pagingBean.setrows(cooperationWebsiteService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
     @RequestMapping("/webAddSave")
     @ResponseBody
-    public Message addSaveWeb(CooperationWebsiteVo web) throws  Exception {
+    public Message addSaveWeb(CooperationWebsiteVo web,HttpSession session) throws  Exception {
         try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            web.setCompanyId(userVo.getCompanyId());
             web.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
             cooperationWebsiteService.save(web);
             return  Message.success("新增成功!");

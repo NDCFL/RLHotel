@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ContractService extends BaseService<ContractVo>{
     List<ContractVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId);
-    long counts(long companyId);
+    long counts(PageQuery pageQuery,long companyId);
     List<ContractVo> listPagesByMaster(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId,@Param("masterId") long masterId);
     long countsByMaster(long companyId,long masterId);
 }

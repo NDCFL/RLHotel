@@ -44,9 +44,9 @@ public class UserRoleController {
     private RoleService roleService;
     @RequestMapping("userRoleList")
     @ResponseBody
-    public PagingBean userRoleList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean userRoleList(int pageSize, int pageIndex,String searchVal) throws  Exception{
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(userRoleService.count());
+        pagingBean.setTotal(userRoleService.count(new PageQuery(searchVal)));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
         pagingBean.setrows(userRoleService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));

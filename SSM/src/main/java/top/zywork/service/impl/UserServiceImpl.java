@@ -122,8 +122,8 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public long count() {
-        return userDAO.count();
+    public long count(PageQuery pageQuery) {
+        return userDAO.count(pageQuery);
     }
 
 }

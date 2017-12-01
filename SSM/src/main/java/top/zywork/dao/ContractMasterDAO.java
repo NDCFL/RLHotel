@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface ContractMasterDAO extends  BaseDAO<ContractMasterVo> {
     List<ContractMasterVo> listPages(@Param("pageQuery") PageQuery pageQuery,@Param("companyId") long companyId);
-    long counts(long companyId);
+    long counts(@Param("companyId") long companyId,@Param("pageQuery") PageQuery pageQuery);
     List<Select2Vo> listAlls(long companyId);
 }

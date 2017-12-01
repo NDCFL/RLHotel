@@ -11,13 +11,39 @@ public class PageQuery {
 
     private Integer pageNo;
     private Integer pageSize;
-    private String title;
+    private String searchVal;
+    private Long userId;
+    private Long hotelId;
+    private Long companyId;
+    private Integer startIndex;
 
-    public PageQuery(){}
+    public PageQuery() {
+    }
+
+    public PageQuery(String searchVal) {
+        this.searchVal = searchVal;
+    }
+    public PageQuery(String searchVal,Long companyId) {
+        this.searchVal = searchVal;
+        this.companyId=companyId;
+    }
+
 
     public PageQuery(Integer pageNo, Integer pageSize) {
         this.pageNo = pageNo;
         this.pageSize = pageSize;
+    }
+
+    public PageQuery(Integer pageNo, Integer pageSize, String searchVal) {
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
+        this.searchVal = searchVal;
+    }
+    public PageQuery(Integer pageNo, Integer pageSize, String searchVal,Long companyId) {
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
+        this.searchVal = searchVal;
+        this.companyId=companyId;
     }
 
     public Integer getPageNo() {
@@ -36,8 +62,36 @@ public class PageQuery {
         this.pageSize = pageSize;
     }
 
-    public int getBeginIndex() {
-        return (pageNo - 1) * pageSize;
+    public String getSearchVal() {
+        return searchVal;
+    }
+
+    public void setSearchVal(String searchVal) {
+        this.searchVal = searchVal;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
 }

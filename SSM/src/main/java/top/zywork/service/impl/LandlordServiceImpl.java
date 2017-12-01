@@ -60,7 +60,17 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
-    public long count() {
-        return landlordDAO.count();
+    public long count(PageQuery pageQuery) {
+        return landlordDAO.count(pageQuery);
+    }
+
+    @Override
+    public List<UserVo> listPages(PageQuery pageQuery, long companyId) {
+        return landlordDAO.listPages(pageQuery,companyId);
+    }
+
+    @Override
+    public List<UserVo> listAlls(long companyId) {
+        return landlordDAO.listAlls(companyId);
     }
 }

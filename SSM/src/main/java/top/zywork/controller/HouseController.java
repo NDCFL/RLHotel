@@ -36,12 +36,18 @@ public class HouseController {
     private HouseService houseService;
     @RequestMapping("houseList")
     @ResponseBody
-    public PagingBean houseList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean houseList(int pageSize, int pageIndex,String searchVal,HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(houseService.count());
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setSearchVal(searchVal);
+        pagingBean.setTotal(houseService.count(pageQuery));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(houseService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pagingBean.setrows(houseService.listPage(pageQuery));
         return pagingBean;
     }
     @RequestMapping("/houseAddSave")

@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface UserRoleService extends BaseDAO<UserRoleVo>{
     List<String> pageListByUserId(String userId);
+    UserRoleVo getRole(Long userId);
 }

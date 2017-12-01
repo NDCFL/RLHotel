@@ -88,8 +88,8 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     }
 
     @Override
-    public long count() {
-        return roleDAO.count();
+    public long count(PageQuery pageQuery) {
+        return roleDAO.count(pageQuery);
     }
 
     @Resource

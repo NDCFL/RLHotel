@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.zywork.enums.AppControllerStatusEnum;
+import top.zywork.query.PageQuery;
 import top.zywork.vo.AdminLoginVO;
 import top.zywork.vo.ControllerStatusVO;
 
@@ -44,7 +45,6 @@ public class AdminController {
     @PostMapping("login")
     @ResponseBody
     public ControllerStatusVO login(AdminLoginVO loginVO) {
-        System.out.println(loginVO.getAccount());
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(loginVO.getAccount(), loginVO.getPassword());
         ControllerStatusVO statusVO = ControllerStatusVO.okStatus(AppControllerStatusEnum.USER_LOGIN_OK.getCode(),

@@ -15,6 +15,7 @@ public class CooperationSubjectVo {
 
     private Byte isActive;
 
+
     public CooperationSubjectVo(Long id, String title, String description, Date createTime, Long companyId, Byte isActive) {
         this.id = id;
         this.title = title;

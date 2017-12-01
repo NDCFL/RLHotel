@@ -71,5 +71,5 @@ public interface BaseDAO<T> {
      * 返回记录数
      * @return 记录数
      */
-    long count();
+    long count(PageQuery pageQuery);
 }

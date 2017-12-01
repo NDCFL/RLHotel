@@ -10,8 +10,9 @@ import java.util.List;
 
 @Repository
 public interface HotelDAO extends BaseDAO<HotelVo>{
-    long counts(long companyId);
+    long counts(@Param("pageQuery") PageQuery pageQuery,@Param("companyId")long companyId);
     List<HotelVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId);
     List<Select2Vo> getContract();
     List<Select2Vo> getLandlord();
+    HotelVo findHotel(long hotelManagerId);
 }

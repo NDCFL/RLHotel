@@ -20,26 +20,38 @@
         </association>
     </resultMap>
     <resultMap id="select2Map" type="select2Vo"></resultMap>
+    <resultMap id="hotelVoMap" type="hotelVo"></resultMap>
+    <sql id="search">
+        <if test="#{pageQuery.searchVal!=null} and #{pageQuery.searchVal!=''}">
+            and (h.title like concat('%${pageQuery.searchVal}%')
+            or h.tel like concat ('%${pageQuery.searchVal}%')
+            or h.create_time like concat ('%${pageQuery.searchVal}%')
+            or h.is_active like concat ('%${pageQuery.searchVal}%'))
+        </if>
+    </sql>
     <select id="getById" resultMap="hotelMap" parameterType="long">
         select h.*,u.id as userId,c.id as companyId,t.id as contractId,u.nickname from t_hotel h,t_user u,t_company c,t_contract t where h.hotel_manager_id=u.id and h.contract_id=t.id and c.id=h.company_id and h.id = #{id}
+    </select>
+    <select id="findHotel" resultMap="hotelVoMap" parameterType="long">
+        select * from t_hotel where hotel_manager_id=#{hotelManagerId}
     </select>
     <delete id="removeById" parameterType="long">
         delete from t_hotel where id = #{id}
     </delete>
     <select id="listPages" resultMap="hotelMap">
-        select h.*,u.id as userId,c.id as companyId,t.id as contractId,u.nickname from t_hotel h,t_user u,t_company c,t_contract t where h.hotel_manager_id=u.id and h.contract_id=t.id and c.id=h.company_id and h.company_id=#{companyId} limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+        select h.*,u.id as userId,c.id as companyId,t.id as contractId,u.nickname from t_hotel h,t_user u,t_company c,t_contract t where h.hotel_manager_id=u.id and h.contract_id=t.id and c.id=h.company_id and h.company_id=#{companyId} <include refid="search"></include> limit #{pageQuery.pageNo},#{pageQuery.pageSize}
     </select>
     <select id="getContract" resultMap="select2Map">
         select id,contract_contract as text from t_contract
     </select>
-    <select id="getLandlord" resultMap="select2Map">
-        select u.id as id,u.nickname as text from t_user u,t_role r,t_user_role ur where r.id=ur.role_id and ur.user_id=u.id and r.title="店长"
+    <select id="getLandlord" resultMap="select2Map">o
+        select u.id as id,u.nickname as text from t_user u,t_role r,t_user_rle ur where r.id=ur.role_id and ur.user_id=u.id and r.title="店长"
     </select>
     <select id="listAll" resultMap="hotelMap">
         select * from t_hotel
     </select>
     <select id="counts" resultType="java.lang.Long">
-        select count(*) from t_hotel where company_id=#{companyId}
+        select count(*) from t_hotel h where h.company_id=#{companyId} <include refid="search"/>
     </select>
     <insert id="save" parameterType="hotelVo">
         insert into t_hotel ( company_id,contract_id,hotel_manager_id,title,tel,is_active) values ( #{companyId},#{contractId},#{hotelManagerId},#{title},#{tel},#{isActive})

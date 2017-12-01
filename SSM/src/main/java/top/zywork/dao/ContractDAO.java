@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ContractDAO extends BaseDAO<ContractVo>{
     List<ContractVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId);
-    long counts(long companyId);
+    long counts(@Param("pageQuery") PageQuery pageQuery,@Param("companyId") long companyId);
     long countsByMaster(@Param("companyId") long companyId,@Param("masterId") long masterId);
     List<ContractVo> listPagesByMaster(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId,@Param("masterId") long masterId);
 }

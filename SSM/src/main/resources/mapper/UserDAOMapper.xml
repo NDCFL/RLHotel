@@ -49,6 +49,9 @@
         select id,nickname from t_user
     </select>
 	<insert id="save" parameterType="userVo">
+		<selectKey keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() as id
+		</selectKey>
 		insert into t_user (phone,password,nickname,gender,is_active,headicon,company_id) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon},#{companyId})
 	</insert>
 	<update id="updateStatus">

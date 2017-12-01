@@ -15,8 +15,10 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.PaymentTypeService;
 import top.zywork.vo.PaymentTypeVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,19 +33,22 @@ public class PaymentTypeController {
     private PaymentTypeService paymentTypeService;
     @RequestMapping("paymentTypeList")
     @ResponseBody
-    public PagingBean paymentTypeList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean paymentTypeList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(paymentTypeService.count());
+        pagingBean.setTotal(paymentTypeService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(paymentTypeService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        pagingBean.setrows(paymentTypeService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
     @RequestMapping("/paymentTypeAddSave")
     @ResponseBody
-    public Message addSavepaymentType(PaymentTypeVo paymentType) throws  Exception {
+    public Message addSavepaymentType(PaymentTypeVo paymentType,HttpSession session) throws  Exception {
         try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
             paymentType.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+            paymentType.setCompanyId(userVo.getCompanyId());
             paymentTypeService.save(paymentType);
             return  Message.success("新增成功!");
         }catch (Exception E){

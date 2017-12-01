@@ -37,13 +37,13 @@ public class ContractMasterController {
     private ContractMasterService contractMasterService;
     @RequestMapping("contractMasterList")
     @ResponseBody
-    public PagingBean contractMasterList(int pageSize, int pageIndex, HttpSession session) throws  Exception{
+    public PagingBean contractMasterList(int pageSize, int pageIndex, HttpSession session,String searchVal) throws  Exception{
         UserVo user = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(contractMasterService.counts(user.getCompanyId()));
+        pagingBean.setTotal(contractMasterService.counts(user.getCompanyId(),new PageQuery(searchVal)));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(contractMasterService.listPages(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize()),user.getCompanyId()));
+        pagingBean.setrows(contractMasterService.listPages(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal),user.getCompanyId()));
         return pagingBean;
     }
     @RequestMapping("/contractMasterAddSave")

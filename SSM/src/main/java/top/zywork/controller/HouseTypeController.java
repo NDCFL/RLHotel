@@ -30,9 +30,9 @@ public class HouseTypeController {
     private HouseTypeService houseTypeService;
     @RequestMapping("houseTypeList")
     @ResponseBody
-    public PagingBean houseTypeList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean houseTypeList(int pageSize, int pageIndex,String searchVal) throws  Exception{
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(houseTypeService.count());
+        pagingBean.setTotal(houseTypeService.count(new PageQuery(searchVal)));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
         pagingBean.setrows(houseTypeService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));

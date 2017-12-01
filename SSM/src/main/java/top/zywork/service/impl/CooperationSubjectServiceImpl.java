@@ -59,7 +59,7 @@ public class CooperationSubjectServiceImpl implements CooperationSubjectService 
     }
 
     @Override
-    public long count() {
-        return cooperationSubjectDAO.count();
+    public long count(PageQuery pageQuery) {
+        return cooperationSubjectDAO.count(pageQuery);
     }
 }

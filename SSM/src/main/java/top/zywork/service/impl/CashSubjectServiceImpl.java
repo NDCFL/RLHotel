@@ -60,7 +60,7 @@ public class CashSubjectServiceImpl implements CashSubjectService {
     }
 
     @Override
-    public long count() {
-        return cashSubjectDAO.count();
+    public long count(PageQuery pageQuery) {
+        return cashSubjectDAO.count(pageQuery);
     }
 }

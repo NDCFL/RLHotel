@@ -16,7 +16,7 @@ public class test {
     public ModelAndView t(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("test");
-        modelAndView.addObject("test","1111");
+        modelAndView.addObject("test","1");
         return  modelAndView;
     }
 }

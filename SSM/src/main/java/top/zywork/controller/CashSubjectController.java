@@ -15,8 +15,10 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.CashSubjectService;
 import top.zywork.vo.CashSubjectVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,19 +34,22 @@ public class CashSubjectController {
     private CashSubjectService cashSubjectService;
     @RequestMapping("cashSubjectList")
     @ResponseBody
-    public PagingBean cashSubjectList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean cashSubjectList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(cashSubjectService.count());
+        pagingBean.setTotal(cashSubjectService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(cashSubjectService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        pagingBean.setrows(cashSubjectService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
     @RequestMapping("/cashSubjectAddSave")
     @ResponseBody
-    public Message addSavecashSubject(CashSubjectVo cashSubject) throws  Exception {
+    public Message addSavecashSubject(CashSubjectVo cashSubject,HttpSession session) throws  Exception {
         try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
             cashSubject.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+            cashSubject.setCompanyId(userVo.getCompanyId());
             cashSubjectService.save(cashSubject);
             return  Message.success("新增成功!");
         }catch (Exception E){

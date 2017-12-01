@@ -14,8 +14,14 @@
 	<select id="listPage" resultMap="landlordMap" >
 		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="店长") order by u.create_time desc limit #{pageNo},#{pageSize}
 	</select>
+	<select id="listPages" resultMap="landlordMap" >
+		select u.* from t_user u,t_role r,t_user_role t where u.company_id=#{companyId} and u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="店长") order by u.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+	</select>
 	<select id="listAll" resultMap="landlordMap">
 		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="店长")
+	</select>
+	<select id="listAlls" resultMap="landlordMap">
+		select u.* from t_user u,t_role r,t_user_role t where u.company_id=#{companyId} and u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="店长")
 	</select>
 	<select id="count" resultType="long">
 		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="店长")	</select>

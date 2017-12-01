@@ -15,8 +15,10 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.ServiceSubjectService;
 import top.zywork.vo.ServiceSubjectVo;
+import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,19 +34,22 @@ public class ServiceSubjectController  {
     private ServiceSubjectService serviceSubjectService;
     @RequestMapping("serviceSubjectList")
     @ResponseBody
-    public PagingBean serviceSubjectList(int pageSize, int pageIndex) throws  Exception{
+    public PagingBean serviceSubjectList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(serviceSubjectService.count());
+        pagingBean.setTotal(serviceSubjectService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(serviceSubjectService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        pagingBean.setrows(serviceSubjectService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
     @RequestMapping("/serviceSubjectAddSave")
     @ResponseBody
-    public Message addSaveserviceSubject(ServiceSubjectVo serviceSubject) throws  Exception {
+    public Message addSaveserviceSubject(ServiceSubjectVo serviceSubject,HttpSession session) throws  Exception {
         try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
             serviceSubject.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+            serviceSubject.setCompanyId(userVo.getCompanyId());
             serviceSubjectService.save(serviceSubject);
             return  Message.success("新增成功!");
         }catch (Exception E){

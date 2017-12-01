@@ -58,7 +58,17 @@ public class CheckerServiceImpl implements CheckerService {
     }
 
     @Override
-    public long count() {
-        return checkerDAO.count();
+    public long count(PageQuery pageQuery) {
+        return checkerDAO.count(pageQuery);
+    }
+
+    @Override
+    public long counts(long userId) {
+        return checkerDAO.counts(userId);
+    }
+
+    @Override
+    public List<UserVo> listPages(PageQuery pageQuery, long userId) {
+        return checkerDAO.listPages(pageQuery,userId);
     }
 }

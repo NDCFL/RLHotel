@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     String path = request.getContextPath();
 %>
@@ -24,7 +25,6 @@
     <jsp:include page="common/css.jsp"></jsp:include>
 
 </head>
-
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
@@ -34,16 +34,22 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element">
+                    <div class="dropdown profile-element" style="text-align: center">
                         <span><img alt="image" class="img-circle" src="<%=path%>/static/img/profile_small1.jpg" /></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs">管理员</span>
-                                <span class="text-muted text-xs block">陈飞龙<b class="caret"></b></span>
+                               <span class="block m-t-xs">${userRole.roleVo.title}</span>
+                                <span class="text-muted text-xs block">${userVo.nickname}<b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
+                            <shiro:hasRole name="总管理员">
+                                <li>
+                                    <a class="J_menuItem" href="<%=path%>/company/updateCompanyPage">公司资料</a>
+                                </li>
+                            </shiro:hasRole>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="<%=path%>/user/exit">安全退出</a>
@@ -60,9 +66,11 @@
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/company/updateCompanyPage">公司资料</a>
-                        </li>
+                        <shiro:hasRole name="总管理员">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/company/updateCompanyPage">公司资料</a>
+                            </li>
+                        </shiro:hasRole>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
                         </li>
@@ -72,21 +80,23 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="fa fa-columns"></i>
-                        <span class="nav-label">租房管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/contractMaster/contractMasterListPage">房东管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/contract/contractListPage">签约管理</a>
-                        </li>
-                    </ul>
-                </li>
+                <shiro:hasRole name="总管理员">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-columns"></i>
+                            <span class="nav-label">租房管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/contractMaster/contractMasterListPage">房东管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/contract/contractListPage">签约管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </shiro:hasRole>
                 <!--只有店长登录之后才能使用-->
                 <li>
                     <a href="javascript:void(0);">
@@ -96,8 +106,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/hotel/hotelListPage">酒店信息管理</a>
-                            <a class="J_menuItem" href="<%=path%>/houseType/houseTypePage">酒店类型管理</a>
+                            <shiro:hasRole name="总管理员">
+                                <a class="J_menuItem" href="<%=path%>/hotel/hotelListPage">酒店信息管理</a>
+                            </shiro:hasRole>
+                            <a class="J_menuItem" href="<%=path%>/houseType/houseTypePage">房型类型管理</a>
                             <a class="J_menuItem" href="<%=path%>/house/housePage">房间信息管理</a>
                         </li>
                     </ul>
@@ -109,12 +121,14 @@
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">店长管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/houser/houserListPage">房东管理</a>
-                        </li>
+                        <shiro:hasRole name="总管理员">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">店长管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/houser/houserListPage">房东管理</a>
+                            </li>
+                        </shiro:hasRole>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/checker/checkerListPage">审核员管理</a>
                         </li>
@@ -123,31 +137,32 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="fa fa fa-bar-chart-o"></i>
-                        <span class="nav-label">科目管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/web/webPage">合作网站管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/paymentType/paymentTypePage">支付类型管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/serviceSubject/serviceSubjectPage">增值科目管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/cashSubject/cashSubjectPage">现金流水科目管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/cooperationSubject/cooperationSubjectPage">合作商家科目管理</a>
-                        </li>
-                    </ul>
-                </li>
-
+                <shiro:hasRole name="总管理员">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">科目管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/web/webPage">合作网站管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/paymentType/paymentTypePage">支付类型管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/serviceSubject/serviceSubjectPage">增值科目管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/cashSubject/cashSubjectPage">现金流水科目管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/cooperationSubject/cooperationSubjectPage">合作商家科目管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </shiro:hasRole>
                 <li>
                     <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">金融管理 </span><span class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
@@ -540,7 +555,7 @@
             <a href="<%=path%>/user/exit" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v2.html?v=4.0" frameborder="0" data-id="index_v2.html" seamless></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<%=path%>/landlord/landlordAllList" frameborder="0" data-id="index_v2.html" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2017-2018 <a href="http://www.zi-han.net/" target="_blank">瑞蓝酒店</a>
@@ -959,5 +974,4 @@
 </div>
 <jsp:include page="common/js.jsp"></jsp:include>
 </body>
-
 </html>

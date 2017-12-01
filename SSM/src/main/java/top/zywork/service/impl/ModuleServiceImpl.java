@@ -70,7 +70,7 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
     }
 
     @Override
-    public long count() {
+    public long count(PageQuery pageQuery) {
         return 0;
     }
 

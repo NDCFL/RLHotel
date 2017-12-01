@@ -58,8 +58,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public long count() {
-        return companyDAO.count();
+    public long count(PageQuery pageQuery) {
+        return companyDAO.count(pageQuery);
     }
 
     @Override

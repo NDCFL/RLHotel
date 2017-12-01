@@ -13,6 +13,8 @@ public class CooperationWebsiteVo {
 
     private Byte isActive;
 
+    private Long companyId;
+
     public CooperationWebsiteVo(Long id, String title, String description, Date createTime, Byte isActive) {
         this.id = id;
         this.title = title;
@@ -63,5 +65,13 @@ public class CooperationWebsiteVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }

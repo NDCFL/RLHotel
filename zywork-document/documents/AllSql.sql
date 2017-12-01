@@ -402,3 +402,12 @@ create table t_leave(
   FOREIGN KEY (hotel_manager_id) REFERENCES t_user(id),
   FOREIGN KEY (user_id) REFERENCES  t_user(id)
 )engine=innodb default charset=utf8;
+drop table IF EXISTS t_employee;
+create table t_employee(
+  id BIGINT PRIMARY KEY not NULL AUTO_INCREMENT,
+  company_id BIGINT,
+  hotel_id BIGINT,
+  user_id BIGINT
+)
+  select count(*) from t_cash_subject t where t.company_id=1 and (t.title like concat('%1%') or t.description like concat ('%1%') or t.is_active like concat ('%1%') or t.create_time like concat ('%1%'));
+  select count(*) from t_cash_subject where company_id=1 and (title like concat('%牙%') or description like concat ('%牙%') or is_active like concat ('%牙%') or create_time like concat ('%牙%'))

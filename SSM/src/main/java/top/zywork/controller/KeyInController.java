@@ -14,9 +14,7 @@ import top.zywork.common.PagingBean;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.*;
-import top.zywork.vo.RoleVo;
-import top.zywork.vo.UserRoleVo;
-import top.zywork.vo.UserVo;
+import top.zywork.vo.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -38,15 +36,17 @@ public class KeyInController  {
     private RoleService roleService;
     @Resource
     private UserRoleService userRoleService;
-
+    @Resource
+    private EmployeeService employeeService;
     @RequestMapping("keyInList")
     @ResponseBody
-    public PagingBean keyInList(int pageSize, int pageIndex) throws Exception {
+    public PagingBean keyInList(int pageSize, int pageIndex,HttpSession session) throws Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(keyInService.count());
+        pagingBean.setTotal(keyInService.counts(userVo.getId()));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(keyInService.listPage(new PageQuery(pagingBean.getStartIndex(), pagingBean.getPageSize())));
+        pagingBean.setrows(keyInService.listPages(new PageQuery(pagingBean.getStartIndex(), pagingBean.getPageSize()),userVo.getId()));
         return pagingBean;
     }
 
@@ -54,28 +54,41 @@ public class KeyInController  {
     @ResponseBody
     public Message addKeyIn(UserVo userVo, HttpSession session) {
         UserVo user = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRole = (UserRoleVo) session.getAttribute("userRole");
         userVo.setHeadicon("static/img/face.gif");
         userVo.setIsActive((byte) 0);
         userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
         userVo.setNickname(userVo.getPhone());
         userVo.setCompanyId(user.getCompanyId());
-        //保存店长信息
         userService.save(userVo);
-        //通过新增的店长的手机号获取新增店长的id
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setCompanyId(userVo.getCompanyId());
+        if(userRole.getRoleVo().getTitle().equals("总管理员")){
+            employeeVo.setHotelId(-1);
+        }else if(userRole.getRoleVo().getTitle().equals("店长")){
+            HotelVo hotelVo = (HotelVo) session.getAttribute("hotelVo");
+            employeeVo.setHotelId(hotelVo.getId());
+        }
+        employeeVo.setUserId(user.getId());
+        employeeVo.setEmployeeId(userVo.getId());
+        employeeService.save(employeeVo);
         UserVo userVo1 = userService.findByPhone(userVo.getPhone());
-        //通过权限名称来获取到权限的id
         RoleVo roleVo = roleService.findByName("录入员");
         UserRoleVo userRoleVo = new UserRoleVo();
-        if (roleVo.getId() == 0) {
-            return Message.fail("录入员角色不存在!");
-        } else {
-            //同时把信息保存到用户权限表中
-            userRoleVo.setIsActive((byte) 0);
-            userRoleVo.setUserId(userVo1.getId());
-            userRoleVo.setRoleId(roleVo.getId());
-            userRoleService.save(userRoleVo);
-            return Message.success("录入员账号新增成功!");
+        if (roleVo==null) {
+            RoleVo roleVo1 = new RoleVo();
+            roleVo1.setIsActive((byte)0);
+            roleVo1.setDescription("录入员");
+            roleVo1.setTitle("录入员");
+            roleService.save(roleVo1);
+            roleVo = roleService.findByName("录入员");
         }
+        //同时把信息保存到用户权限表中
+        userRoleVo.setIsActive((byte) 0);
+        userRoleVo.setUserId(userVo1.getId());
+        userRoleVo.setRoleId(roleVo.getId());
+        userRoleService.save(userRoleVo);
+        return Message.success("录入员账号新增成功!");
     }
     @RequestMapping("/findKeyIn/{id}")
     @ResponseBody

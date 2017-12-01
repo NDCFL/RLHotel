@@ -58,7 +58,17 @@ public class KeyInServiceImpl implements KeyInService {
     }
 
     @Override
-    public long count() {
-        return keyInDAO.count();
+    public long count(PageQuery pageQuery) {
+        return keyInDAO.count(pageQuery);
+    }
+
+    @Override
+    public long counts(long userId) {
+        return keyInDAO.counts(userId);
+    }
+
+    @Override
+    public List<UserVo> listPages(PageQuery pageQuery, long userId) {
+        return keyInDAO.listPages(pageQuery,userId);
     }
 }

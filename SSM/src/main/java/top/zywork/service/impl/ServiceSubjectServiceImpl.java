@@ -59,7 +59,7 @@ public class ServiceSubjectServiceImpl implements ServiceSubjectService {
     }
 
     @Override
-    public long count() {
-        return serviceSubjectDAO.count();
+    public long count(PageQuery pageQuery) {
+        return serviceSubjectDAO.count(pageQuery);
     }
 }

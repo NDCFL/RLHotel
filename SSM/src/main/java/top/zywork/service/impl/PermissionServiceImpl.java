@@ -99,7 +99,7 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
     }
 
     @Override
-    public long count() {
+    public long count(PageQuery pageQuery) {
         return 0;
     }
 

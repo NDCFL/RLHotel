@@ -11,6 +11,9 @@
 	<delete id="removeById" parameterType="long">
 		delete from t_user where id = #{id}
 	</delete>
+	<select id="listPages" resultMap="keyInMap" >
+		select u.* from t_user u,t_role r,t_user_role t,t_employee e where u.id=e.employee_id and e.user_id=#{userId} and u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="录入员") order by u.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+	</select>
 	<select id="listPage" resultMap="keyInMap" >
 		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="录入员") order by u.create_time desc limit #{pageNo},#{pageSize}
 	</select>
@@ -22,6 +25,9 @@
 	<insert id="save" parameterType="userVo">
 		insert into t_user (phone,password,nickname,gender,is_active,headicon) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon})
 	</insert>
+	<select id="counts" resultType="long">
+		select count(*) from t_user u,t_role r,t_user_role t,t_employee e where u.id=e.employee_id and  u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="录入员") and e.user_id=#{userId}
+	</select>
 	<update id="updateStatus">
 		update t_user set is_active=#{status} where id=#{id}
 	</update>

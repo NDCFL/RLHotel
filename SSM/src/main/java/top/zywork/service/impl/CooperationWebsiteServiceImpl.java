@@ -59,7 +59,7 @@ public class CooperationWebsiteServiceImpl implements CooperationWebsiteService 
     }
 
     @Override
-    public long count() {
-        return cooperationWebsiteDAO.count();
+    public long count(PageQuery pageQuery) {
+        return cooperationWebsiteDAO.count(pageQuery);
     }
 }

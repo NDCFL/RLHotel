@@ -14,9 +14,7 @@ import top.zywork.common.PagingBean;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.*;
-import top.zywork.vo.RoleVo;
-import top.zywork.vo.UserRoleVo;
-import top.zywork.vo.UserVo;
+import top.zywork.vo.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -38,15 +36,17 @@ public class CheckerController {
     private RoleService roleService;
     @Resource
     private UserRoleService userRoleService;
-
+    @Resource
+    private EmployeeService employeeService;
     @RequestMapping("checkerList")
     @ResponseBody
-    public PagingBean checkerList(int pageSize, int pageIndex) throws Exception {
+    public PagingBean checkerList(int pageSize, int pageIndex,HttpSession session) throws Exception {
+        UserVo userVo = (UserVo)session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(checkerService.count());
+        pagingBean.setTotal(checkerService.counts(userVo.getId()));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(checkerService.listPage(new PageQuery(pagingBean.getStartIndex(), pagingBean.getPageSize())));
+        pagingBean.setrows(checkerService.listPages(new PageQuery(pagingBean.getStartIndex(), pagingBean.getPageSize()),userVo.getId()));
         return pagingBean;
     }
 
@@ -54,28 +54,41 @@ public class CheckerController {
     @ResponseBody
     public Message addChecker(UserVo userVo, HttpSession session) {
         UserVo user = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRole = (UserRoleVo) session.getAttribute("userRole");
         userVo.setHeadicon("static/img/face.gif");
         userVo.setIsActive((byte) 0);
         userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
         userVo.setNickname(userVo.getPhone());
         userVo.setCompanyId(user.getCompanyId());
-        //保存店长信息
         userService.save(userVo);
-        //通过新增的店长的手机号获取新增店长的id
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setCompanyId(userVo.getCompanyId());
+        if(userRole.getRoleVo().getTitle().equals("总管理员")){
+            employeeVo.setHotelId(-1);
+        }else if(userRole.getRoleVo().getTitle().equals("店长")){
+            HotelVo hotelVo = (HotelVo) session.getAttribute("hotelVo");
+            employeeVo.setHotelId(hotelVo.getId());
+        }
+        employeeVo.setUserId(user.getId());
+        employeeVo.setEmployeeId(userVo.getId());
+        employeeService.save(employeeVo);
         UserVo userVo1 = userService.findByPhone(userVo.getPhone());
-        //通过权限名称来获取到权限的id
         RoleVo roleVo = roleService.findByName("审核员");
         UserRoleVo userRoleVo = new UserRoleVo();
-        if (roleVo.getId() == 0) {
-            return Message.fail("审核员角色不存在!");
-        } else {
-            //同时把信息保存到用户权限表中
-            userRoleVo.setIsActive((byte) 0);
-            userRoleVo.setUserId(userVo1.getId());
-            userRoleVo.setRoleId(roleVo.getId());
-            userRoleService.save(userRoleVo);
-            return Message.success("审核员账号新增成功!");
+        if (roleVo==null) {
+            RoleVo roleVo1 = new RoleVo();
+            roleVo1.setIsActive((byte)0);
+            roleVo1.setDescription("审核员");
+            roleVo1.setTitle("审核员");
+            roleService.save(roleVo1);
+            roleVo = roleService.findByName("审核员");
         }
+        //同时把信息保存到用户权限表中
+        userRoleVo.setIsActive((byte) 0);
+        userRoleVo.setUserId(userVo1.getId());
+        userRoleVo.setRoleId(roleVo.getId());
+        userRoleService.save(userRoleVo);
+        return Message.success("审核员账号新增成功!");
     }
     @RequestMapping("/findChecker/{id}")
     @ResponseBody

@@ -59,7 +59,7 @@ public class PaymentTypeServiceImpl implements PaymentTypeService {
     }
 
     @Override
-    public long count() {
-        return paymentTypeDAO.count();
+    public long count(PageQuery pageQuery) {
+        return paymentTypeDAO.count(pageQuery);
     }
 }

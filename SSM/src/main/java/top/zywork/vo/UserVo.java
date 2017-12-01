@@ -49,6 +49,7 @@ public class UserVo {
 
     private Byte isActive;
 
+
     public UserVo(Long id, String email, String phone, String accountName, String password, String nickname, String identity, String realname, Byte gender, Date birthday, Integer age, String address, String qq, String wechat, String alipay, String qqOpenid, String weiboOpenid, String wechatOpenid, String headicon, String description, Date createTime, Long companyId, Byte isActive) {
         this.id = id;
         this.email = email;

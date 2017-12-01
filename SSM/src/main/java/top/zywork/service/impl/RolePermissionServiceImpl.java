@@ -57,7 +57,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     }
 
     @Override
-    public long count() {
+    public long count(PageQuery pageQuery) {
         return 0;
     }
 

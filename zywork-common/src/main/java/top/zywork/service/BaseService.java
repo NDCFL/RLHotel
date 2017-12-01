@@ -68,5 +68,5 @@ public interface BaseService<T> {
      */
     List<T> listPage(PageQuery pageQuery);
 
-    long count();
+    long count(PageQuery pageQuery);
 }

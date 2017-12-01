@@ -21,7 +21,7 @@ $('#mytab').bootstrapTable({
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign:'right',//工具栏对齐方式
     buttonsAlign:'right',//按钮对齐方式
-    toolbar:'#toolbar',//指定工作栏
+    toolbar:'#toolbar',search:true,
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -115,12 +115,12 @@ $('#mytab').bootstrapTable({
 })
 
 //请求服务数据时所传参数
-function queryParams(params){
+function queryParams(params){var title = "";    $(".search input").each(function () {        title=$(this).val();    });
     return{
         //每页多少条数据
         pageSize: this.pageSize,
         //请求第几页
-        pageIndex:this.pageNumber
+        pageIndex:this.pageNumber,        searchVal:title
     }
 }
 function del(roleid,status){

@@ -14,11 +14,18 @@
 	<select id="listPage" resultMap="checkerMap" >
 		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="审核员") order by u.create_time desc limit #{pageNo},#{pageSize}
 	</select>
+	<select id="listPages" resultMap="checkerMap" >
+		select u.* from t_user u,t_role r,t_user_role t,t_employee e where u.id=e.employee_id and e.user_id=#{userId} and u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="审核员") order by u.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+	</select>
 	<select id="listAll" resultMap="checkerMap">
 		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="审核员")
 	</select>
 	<select id="count" resultType="long">
-		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="审核员")	</select>
+		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="审核员")
+	</select>
+	<select id="counts" resultType="long">
+		select count(*) from t_user u,t_role r,t_user_role t,t_employee e where u.id=e.employee_id and  u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="审核员") and e.user_id=#{userId}
+	</select>
 	<insert id="save" parameterType="userVo">
 		insert into t_user (phone,password,nickname,gender,is_active,headicon) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon})
 	</insert>
