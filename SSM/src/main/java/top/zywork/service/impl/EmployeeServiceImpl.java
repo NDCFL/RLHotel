@@ -61,4 +61,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public long count(PageQuery pageQuery) {
         return employeeDAO.count(pageQuery);
     }
+
+    @Override
+    public EmployeeVo getHotelId(Long employeeId) {
+        return employeeDAO.getHotelId(employeeId);
+    }
 }

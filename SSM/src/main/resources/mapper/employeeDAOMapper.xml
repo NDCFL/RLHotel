@@ -20,5 +20,7 @@
     <insert id="save" parameterType="employeeVo">
         insert into t_employee (company_id, hotel_id, user_id,employee_id) values (#{companyId}, #{hotelId}, #{userId},#{employeeId})
     </insert>
-
+    <select id="getHotelId" parameterType="long" resultMap="employeeMap">
+        select * from t_employee where employee_id=#{employeeId}
+    </select>
 </mapper>

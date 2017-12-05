@@ -7,4 +7,5 @@ import top.zywork.vo.EmployeeVo;
  */
 
 public interface EmployeeService extends BaseService<EmployeeVo> {
+    EmployeeVo getHotelId(Long employeeId);
 }

@@ -8,4 +8,5 @@ import top.zywork.vo.EmployeeVo;
  */
 @Repository
 public interface EmployeeDAO extends BaseDAO<EmployeeVo>{
+    EmployeeVo getHotelId(Long employeeId);
 }

@@ -6,6 +6,10 @@ import java.util.Date;
 public class CashAccountsVo {
     private Long id;
 
+    private Long companyId;
+
+    private Long hotelId;
+
     private Long shopManagerId;
 
     private Byte accountType;
@@ -23,6 +27,19 @@ public class CashAccountsVo {
     private Date createTime;
 
     private Byte isActive;
+
+    private CompanyVo companyVo;
+
+    private HotelVo hotelVo;
+
+    private UserVo userVo;
+
+    private Byte isCash;//是否结算
+    private Byte cashStatus;//支付审核状态
+    private String reason;//审核备注
+    private Long hander;//操作人
+    private String hand;
+    private CashSubjectVo cashSubjectVo;
 
     public CashAccountsVo(Long id, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Date createTime, Byte isActive) {
         this.id = id;
@@ -47,6 +64,22 @@ public class CashAccountsVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getShopManagerId() {
@@ -119,5 +152,77 @@ public class CashAccountsVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public CompanyVo getCompanyVo() {
+        return companyVo;
+    }
+
+    public void setCompanyVo(CompanyVo companyVo) {
+        this.companyVo = companyVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
+    public Byte getIsCash() {
+        return isCash;
+    }
+
+    public void setIsCash(Byte isCash) {
+        this.isCash = isCash;
+    }
+
+    public Byte getCashStatus() {
+        return cashStatus;
+    }
+
+    public void setCashStatus(Byte cashStatus) {
+        this.cashStatus = cashStatus;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Long getHander() {
+        return hander;
+    }
+
+    public void setHander(Long hander) {
+        this.hander = hander;
+    }
+
+    public CashSubjectVo getCashSubjectVo() {
+        return cashSubjectVo;
+    }
+
+    public void setCashSubjectVo(CashSubjectVo cashSubjectVo) {
+        this.cashSubjectVo = cashSubjectVo;
+    }
+
+    public String getHand() {
+        return hand;
+    }
+
+    public void setHand(String hand) {
+        this.hand = hand;
     }
 }
