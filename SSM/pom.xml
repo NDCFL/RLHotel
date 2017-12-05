@@ -61,6 +61,7 @@
         <shiro.version>1.4.0</shiro.version>
         <activiti.version>6.0.0</activiti.version>
         <quartz.version>2.3.0</quartz.version>
+        <javaee.version>7.0</javaee.version>
         <jstl-version>1.2</jstl-version>
     </properties>
 
@@ -237,6 +238,13 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>${quartz.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.version}</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
