@@ -308,6 +308,7 @@ create table t_cash_accounts(
   remark VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
   is_active TINYINT NOT NULL,
+  is_cash BIGINT NOT NULL ,
   FOREIGN KEY (company_id) REFERENCES t_company(id),
   FOREIGN KEY (shop_manager_id) REFERENCES t_user(id),
   FOREIGN KEY (subject_id) REFERENCES t_cash_subject(id),
@@ -409,5 +410,4 @@ create table t_employee(
   hotel_id BIGINT,
   user_id BIGINT
 )
-  select count(*) from t_cash_subject t where t.company_id=1 and (t.title like concat('%1%') or t.description like concat ('%1%') or t.is_active like concat ('%1%') or t.create_time like concat ('%1%'));
-  select count(*) from t_cash_subject where company_id=1 and (title like concat('%牙%') or description like concat ('%牙%') or is_active like concat ('%牙%') or create_time like concat ('%牙%'))
+

@@ -173,7 +173,7 @@
                             <a class="J_menuItem" href="mail_detail.html">增值业务</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="mail_detail.html">现金流水</a>
+                            <a class="J_menuItem" href="<%=path%>/cashAccounts/cashAccountsPage">现金流水账目</a>
                         </li>
                     </ul>
                 </li>
