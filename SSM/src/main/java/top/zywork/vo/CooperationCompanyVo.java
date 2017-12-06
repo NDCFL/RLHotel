@@ -27,6 +27,12 @@ public class CooperationCompanyVo {
 
     private Byte isActive;
 
+    private CompanyVo companyVo;
+
+    private UserVo userVo;
+
+    private HotelVo hotelVo;
+
     public CooperationCompanyVo(Long id, Long companyId, Long hotelId, Long shopManagerId, String name, String address, String contact, String tel, String phone, String description, Date createTime, Byte isActive) {
         this.id = id;
         this.companyId = companyId;
@@ -140,5 +146,29 @@ public class CooperationCompanyVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public CompanyVo getCompanyVo() {
+        return companyVo;
+    }
+
+    public void setCompanyVo(CompanyVo companyVo) {
+        this.companyVo = companyVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
     }
 }

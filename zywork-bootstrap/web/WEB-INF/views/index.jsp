@@ -173,6 +173,12 @@
                             <a class="J_menuItem" href="mail_detail.html">增值业务</a>
                         </li>
                         <li>
+                            <a class="J_menuItem" href="<%=path%>/cooperationCompany/cooperationCompanyPage">合作商家</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/cooperationAccounts/cooperationAccountsPage">合作商家账目</a>
+                        </li>
+                        <li>
                             <a class="J_menuItem" href="<%=path%>/cashAccounts/cashAccountsPage">现金流水账目</a>
                         </li>
                     </ul>

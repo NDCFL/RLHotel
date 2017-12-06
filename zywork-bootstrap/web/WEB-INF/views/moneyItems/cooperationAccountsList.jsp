@@ -13,14 +13,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>现金流水账目列表</title>
+    <title>合作商家账目列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>现金流水账目列表</h5>
+            <h5>合作商家账目列表</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -45,7 +45,7 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">现金流水账目名称：</label>
+                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">合作商家账目名称：</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="Name" id="search_name"/>
                     </div>
@@ -83,20 +83,27 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增现金流水账目
+                    新增合作商家账目
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
+                        <label class="col-sm-3 control-label">所属合作商家：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required id="cooperation_company_id" name="cooperationCompanyId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">所属合作商家科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subject_id" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目类型：</label>
+                        <label class="col-sm-3 control-label">合作商家账目类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -105,7 +112,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目金额：</label>
+                        <label class="col-sm-3 control-label">合作商家账目金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
@@ -146,21 +153,28 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    现金流水账目的修改
+                    合作商家账目的修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
                 <input  id="id" type="hidden" name="id" />
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
+                        <label class="col-sm-3 control-label">所属合作商家：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required id="cooperationCompanyId" name="cooperationCompanyId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">所属合作商家科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subjectId" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目类型：</label>
+                        <label class="col-sm-3 control-label">合作商家账目类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -169,7 +183,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目金额：</label>
+                        <label class="col-sm-3 control-label">合作商家账目金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" id="totalPay" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
@@ -201,7 +215,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="shenheModalLabel">
-                    现金流水账目的审核
+                    合作商家账目的审核
                 </h4>
             </div>
             <form class="form-horizontal" id="shenheform" >
@@ -243,7 +257,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="manyShenheModalLabel">
-                    现金流水账目的批量审核
+                    合作商家账目的批量审核
                 </h4>
             </div>
             <form class="form-horizontal" id="manyshenheform" >
@@ -285,7 +299,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="remarkModalLabel">
-                    现金流水账目的批注
+                    合作商家账目的批注
                 </h4>
             </div>
             <form class="form-horizontal" id="remarkform" >
@@ -312,7 +326,7 @@
 </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-<script src="<%=path%>/static/js/pageJs/cashAccounts.js"></script>
+<script src="<%=path%>/static/js/pageJs/cooperationAccounts.js"></script>
 </body>
 <%--<script>--%>
     <%--$(function () {--%>
@@ -331,12 +345,25 @@
 <script>
     $(function () {
         $.post(
-            "/cashAccounts/getSubject",
+            "/cooperationAccounts/getSubject",
             function(data){
                 $("#subjectId").select2({
                     data: data
                 })
                 $("#subject_id").select2({
+                    data: data
+                })
+            },
+            "json"
+
+        );
+        $.post(
+            "/cooperationAccounts/getCooperationCompany",
+            function(data){
+                $("#cooperation_company_id").select2({
+                    data: data
+                })
+                $("#cooperationCompanyId").select2({
                     data: data
                 })
             },

@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/cashAccounts/cashAccountsList",//要请求数据的文件路径
+    url: "/cooperationAccounts/cooperationAccountsList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -41,8 +41,8 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            title: '酒店店长',
-            field: 'userVo.nickname',
+            title: '合作商家',
+            field: 'cooperationCompanyVo.name',
             align: 'center',
             sortable: true
         },
@@ -77,7 +77,7 @@ $('#mytab').bootstrapTable({
         ,
         {
             title: '所属科目',
-            field: 'cashSubjectVo.title',
+            field: 'cooperationSubjectVo.title',
             align: 'center',
             sortable: true
         }
@@ -180,11 +180,11 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 var g='';
                 if(row.isCash==0){
-                    g = '<a title="审核" id="checker" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green"></i></a>';
+                    g = '<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green"></i></a>';
                 }else{
-                    g = '<a title="批注" id="checker" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green"></i></a>';
+                    g = '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green"></i></a>';
                 }
-                var e = '<a title="编辑" href="javascript:void(0);" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -226,7 +226,7 @@ function queryParams(params) {
         searchVal: title
     }
 }
-function del(cashAccountsid, status) {
+function del(cooperationAccountsid, status) {
     if (status == 0) {
         layer.msg("删除失败，已经激活的不允许删除!", {icon: 2, time: 1000});
         return;
@@ -234,7 +234,7 @@ function del(cashAccountsid, status) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/cashAccounts/deleteCashAccounts/' + cashAccountsid,
+            url: '/cooperationAccounts/deleteCooperationAccounts/' + cooperationAccountsid,
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -251,14 +251,19 @@ function del(cashAccountsid, status) {
     });
 }
 function edit(name) {
-    $.post("/cashAccounts/findCashAccounts/" + name,
+    $.post("/cooperationAccounts/findCooperationAccounts/" + name,
         function (data) {
             $("#updateform").autofill(data);
             var colum = $("#subjectId").select2();
             //选中某一行
             colum.val(data.subjectId).trigger("change");
             colum.change();
+            var colum1 = $("#cooperationCompanyId").select2();
+            //选中某一行
+            colum1.val(data.cooperationCompanyId).trigger("change");
+            colum1.change();
             $("#accountTime").val(data.accountTime);
+
         },
         "json"
     );
@@ -270,7 +275,7 @@ function remark(name) {
     $("#remarkid").val(name);
 }
 function updatestatus(id, status) {
-    $.post("/cashAccounts/updateStatus/" + id + "/" + status,
+    $.post("/cooperationAccounts/updateStatus/" + id + "/" + status,
         function (data) {
             if (status == 0) {
                 if (data.message == "ok") {
@@ -292,14 +297,14 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/cooperationAccountsList'});
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/cooperationAccountsList'});
 }
 $("#remarkAdd").click(function () {
     $.post(
-        "/cashAccounts/cashAccountsUpdateRemark",
+        "/cooperationAccounts/cooperationAccountsUpdateRemark",
         $("#remarkform").serialize(),
         function (data) {
             if (data.message == "批注成功!") {
@@ -314,7 +319,7 @@ $("#remarkAdd").click(function () {
 });
 $("#update").click(function () {
     $.post(
-        "/cashAccounts/cashAccountsUpdateSave",
+        "/cooperationAccounts/cooperationAccountsUpdateSave",
         $("#updateform").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
@@ -329,7 +334,7 @@ $("#update").click(function () {
 });
 $("#shenhe").click(function () {
     $.post(
-        "/cashAccounts/cashAccountsShenHe",
+        "/cooperationAccounts/cooperationAccountsShenHe",
         $("#shenheform").serialize(),
         function (data) {
             if (data.message == "审核成功!") {
@@ -387,7 +392,7 @@ $('#formadd').bootstrapValidator({
     var $form = $(e.target);
     var bv = $form.data('bootstrapValidator');
     $.post(
-        "/cashAccounts/cashAccountsAddSave",
+        "/cooperationAccounts/cooperationAccountsAddSave",
         $("#formadd").serialize(),
         function (data) {
             if (data.message == "新增成功!") {
@@ -430,7 +435,7 @@ function deleteMany() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除现金流水账目数据吗？', function (index) {
         $.post(
-            "/cashAccounts/deleteManyCashAccounts",
+            "/cooperationAccounts/deleteManyCooperationAccounts",
             {
                 "manyId": $("#deleteId").val()
             },
@@ -450,8 +455,8 @@ function getAccounts(){
     $("#accountsshenhe").click(function () {
         var cashStatus = "";
         var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
-            if (row.isCash == 1) {
-                cashStatus += row.isCash;
+            if (row.isCooperation == 1) {
+                cooperationStatus += row.isCooperation;
             }
             return row.id;
         });
@@ -473,7 +478,7 @@ function getAccounts(){
         $("#manyId").val(row);
         layer.confirm('确认要执行批量审核现金流水账目吗？', function (index) {
             $.post(
-                "/cashAccounts/checkerCashAccounts",
+                "/cooperationAccounts/checkerCooperationAccounts",
                 $("#manyshenheform").serialize(),
                 function (data) {
                     if (data.message == "批量审核成功!") {

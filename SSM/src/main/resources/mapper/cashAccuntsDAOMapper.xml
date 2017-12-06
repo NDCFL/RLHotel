@@ -13,7 +13,6 @@
         <result column="is_cash" property="isCash"></result>
         <result column="cash_status" property="cashStatus"></result>
         <result column="reason" property="reason"></result>
-        <result column="is_cash" property="isCash"></result>
         <result column="hand" property="hand"></result>
         <result column="create_time" property="createTime"></result>
         <association property="companyVo" javaType="top.zywork.vo.CompanyVo">

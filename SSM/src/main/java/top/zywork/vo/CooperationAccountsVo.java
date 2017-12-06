@@ -30,6 +30,26 @@ public class CooperationAccountsVo {
 
     private Byte isActive;
 
+    private CompanyVo companyVo;
+
+    private HotelVo hotelVo;
+
+    private UserVo userVo;
+
+    private Byte isCash;//是否结算
+
+    private Byte cashStatus;//支付审核状态
+
+    private String reason;//审核备注
+
+    private Long hander;//操作人
+
+    private String hand;
+
+    private CooperationSubjectVo cooperationSubjectVo;
+
+    private CooperationCompanyVo cooperationCompanyVo;
+
     public CooperationAccountsVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Long cooperationCompanyId, Date createTime, Byte isActive) {
         this.id = id;
         this.companyId = companyId;
@@ -152,5 +172,85 @@ public class CooperationAccountsVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public CompanyVo getCompanyVo() {
+        return companyVo;
+    }
+
+    public void setCompanyVo(CompanyVo companyVo) {
+        this.companyVo = companyVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
+    public Byte getIsCash() {
+        return isCash;
+    }
+
+    public void setIsCash(Byte isCash) {
+        this.isCash = isCash;
+    }
+
+    public Byte getCashStatus() {
+        return cashStatus;
+    }
+
+    public void setCashStatus(Byte cashStatus) {
+        this.cashStatus = cashStatus;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Long getHander() {
+        return hander;
+    }
+
+    public void setHander(Long hander) {
+        this.hander = hander;
+    }
+
+    public String getHand() {
+        return hand;
+    }
+
+    public void setHand(String hand) {
+        this.hand = hand;
+    }
+
+    public CooperationSubjectVo getCooperationSubjectVo() {
+        return cooperationSubjectVo;
+    }
+
+    public void setCooperationSubjectVo(CooperationSubjectVo cooperationSubjectVo) {
+        this.cooperationSubjectVo = cooperationSubjectVo;
+    }
+
+    public CooperationCompanyVo getCooperationCompanyVo() {
+        return cooperationCompanyVo;
+    }
+
+    public void setCooperationCompanyVo(CooperationCompanyVo cooperationCompanyVo) {
+        this.cooperationCompanyVo = cooperationCompanyVo;
     }
 }
