@@ -60,7 +60,7 @@
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
+                <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
                     <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
                 </button>
                 <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
@@ -113,7 +113,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">收支时间：</label>
                         <div class="col-sm-8 date form_datetime">
-                            <input  name="accountTime"  type="date" class="form-control" required="" aria-required="true">
+                            <input  name="accountTime"  type="datetime" class="form-control" required="" aria-required="true">
                             <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                     </div>
@@ -229,6 +229,48 @@
                     </button>
                     <button type="button" id="shenhe" class="btn btn-primary" data-dismiss="modal">
                         确认审核
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div class="modal fade" id="manayShenhe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="manyShenheModalLabel">
+                    现金流水账目的批量审核
+                </h4>
+            </div>
+            <form class="form-horizontal" id="manyshenheform" >
+                <input  id="manyId" type="test" name="manyId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">审核操作：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required name="cashStatus">
+                                <option value="0">未审核</option>
+                                <option value="1">审核通过</option>
+                                <option value="2">审核不通过</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">审核备注：</label>
+                        <div class="col-sm-8">
+                            <textarea  name="reason" class="form-control" id="accountsReason" required="" aria-required="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" id="accountsshenhe" class="btn btn-primary" data-dismiss="modal">
+                        确认批量审核
                     </button>
                 </div>
             </form>

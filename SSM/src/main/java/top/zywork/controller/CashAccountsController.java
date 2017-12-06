@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -123,6 +124,42 @@ public class CashAccountsController {
         }catch (Exception e){
             e.printStackTrace();
             return Message.fail("审核失败!");
+        }
+    }
+    @RequestMapping("/checkerCashAccounts")
+    @ResponseBody
+    public Message checkerCashAccounts(CashAccountsVo cashAccounts,HttpSession session,String manyId) throws  Exception{
+        try{
+            List<CashAccountsVo> cashAccountsVoList = new ArrayList<>();
+            UserVo user = (UserVo) session.getAttribute("userVo");
+            UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
+            String accounts[] =  manyId.split(",");
+            if(userRoleVo.equals("录入员")){
+                return Message.fail("审核失败，你无权限!");
+            }else{
+                for (String str:accounts) {
+                    CashAccountsVo cashAccountsVo = new CashAccountsVo();
+                    cashAccountsVo.setReason(cashAccounts.getReason());
+                    cashAccountsVo.setCashStatus(cashAccounts.getCashStatus());
+                    cashAccountsVo.setReason(cashAccounts.getReason());
+                    if(cashAccounts.getCashStatus()==1){
+                        cashAccountsVo.setIsCash((byte)1);
+                    }else{
+                        cashAccountsVo.setIsCash((byte)0);
+                    }
+                    cashAccountsVo.setHander(user.getId());
+                    if(!str.equals("")){
+                        cashAccountsVo.setId(Long.parseLong(str));
+                    }
+                    cashAccountsVoList.add(cashAccountsVo);
+                }
+                cashAccountsService.checkerManyCashAccount(cashAccountsVoList);
+                return  Message.success("批量审核成功!");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return Message.fail("批量审核失败!");
         }
     }
     @RequestMapping("/cashAccountsUpdateSave")

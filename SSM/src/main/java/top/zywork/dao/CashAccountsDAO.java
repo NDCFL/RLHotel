@@ -15,4 +15,5 @@ public interface CashAccountsDAO extends BaseDAO<CashAccountsVo>{
     void updateCashStatus(CashAccountsVo cashAccountsVo);
     List<Select2Vo> getSubject(Long companyId);
     void updateRemark(CashAccountsVo cashAccountsVo);
+    void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList);
 }

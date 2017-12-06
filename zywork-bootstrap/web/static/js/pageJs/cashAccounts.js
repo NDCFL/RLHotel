@@ -428,7 +428,7 @@ function deleteMany() {
 
     }
     $("#deleteId").val(row);
-    layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
+    layer.confirm('确认要执行批量删除现金流水账目数据吗？', function (index) {
         $.post(
             "/cashAccounts/deleteManyCashAccounts",
             {
@@ -445,4 +445,49 @@ function deleteMany() {
             }, "json"
         );
     });
+}
+function getAccounts(){
+    $("#accountsshenhe").click(function () {
+        var cashStatus = "";
+        var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
+            if (row.isCash == 1) {
+                cashStatus += row.isCash;
+            }
+            return row.id;
+        });
+        if (row == "") {
+            layer.msg('审核失败，请勾选数据!', {
+                icon: 2,
+                time: 2000
+            });
+            return;
+        }
+        if (cashStatus != "") {
+            layer.msg('审核失败，已经审核通过的的不允许再次审核!', {
+                icon: 2,
+                time: 2000
+            });
+            return;
+
+        }
+        $("#manyId").val(row);
+        layer.confirm('确认要执行批量审核现金流水账目吗？', function (index) {
+            alert($("#manyshenheform").serialize());
+            $.post(
+                "/cashAccounts/checkerCashAccounts",
+                $("#manyshenheform").serialize(),
+                function (data) {
+                    if (data.message == "批量审核成功!") {
+                        layer.msg(data.message, {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(data.message, {icon: 2, time: 1000});
+                    }
+                    refush();
+                    $("#manyId").val("");
+                    $("#accountsReason").val("");
+                }, "json"
+            );
+        });
+    });
+
 }

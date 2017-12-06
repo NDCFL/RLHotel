@@ -83,4 +83,9 @@
     <update id="update" parameterType="cashAccountsVo">
         update t_cash_accounts set account_type=#{accountType},total_pay=#{totalPay},subject_id=#{subjectId},description=#{description} where id = #{id}
     </update>
+    <update id="checkerManyCashAccount" parameterType="java.util.List" >
+        <foreach collection="list" item="item" index="index" separator=";" >
+            update t_cash_accounts set is_cash=#{item.isCash},cash_status=#{item.cashStatus},reason=#{item.reason},hander=#{item.hander} where id=#{item.id}
+        </foreach>
+    </update>
 </mapper>

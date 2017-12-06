@@ -78,4 +78,9 @@ public class CashAccountsServiceImpl implements CashAccountsService{
     public void updateRemark(CashAccountsVo cashAccountsVo) {
         cashAccountsDAO.updateRemark(cashAccountsVo);
     }
+
+    @Override
+    public void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList) {
+        cashAccountsDAO.checkerManyCashAccount(cashAccountsVoList);
+    }
 }
