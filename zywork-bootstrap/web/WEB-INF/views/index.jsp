@@ -167,7 +167,7 @@
                     <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">金融管理 </span><span class="label label-warning pull-right">16</span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="mailbox.html">酒店订单</a>
+                            <a class="J_menuItem" href="<%=path%>/customerOrder/customerOrderPage">酒店订单</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="mail_detail.html">增值业务</a>

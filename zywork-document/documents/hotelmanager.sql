@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mac
-Source Server Version : 50719
-Source Host           : 172.20.10.3:3306
+Source Server         : mysql
+Source Server Version : 50717
+Source Host           : localhost:3306
 Source Database       : hotelmanager
 
 Target Server Type    : MYSQL
-Target Server Version : 50719
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-01 20:01:09
+Date: 2017-12-08 17:37:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,10 @@ CREATE TABLE `t_cash_accounts` (
   `remark` varchar(500) DEFAULT NULL,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL,
+  `is_cash` tinyint(4) DEFAULT NULL,
+  `cash_status` tinyint(4) DEFAULT NULL,
+  `reason` varchar(500) DEFAULT NULL,
+  `hander` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   KEY `shop_manager_id` (`shop_manager_id`),
@@ -41,11 +45,13 @@ CREATE TABLE `t_cash_accounts` (
   CONSTRAINT `t_cash_accounts_ibfk_2` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_cash_accounts_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `t_cash_subject` (`id`),
   CONSTRAINT `t_cash_accounts_ibfk_4` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cash_accounts
 -- ----------------------------
+INSERT INTO `t_cash_accounts` VALUES ('1', '1', '2', '7', '0', '2017-12-06 11:25:44', '500.00', '1', '牙刷采购', '暂无批注', '2017-12-06 11:28:00', '0', '0', '0', '', null);
+INSERT INTO `t_cash_accounts` VALUES ('2', '1', '2', '7', '0', '2017-12-06 14:20:13', '600.00', '2', '被套采购', '暂无批注', '2017-12-06 14:22:38', '0', '0', '0', '', null);
 
 -- ----------------------------
 -- Table structure for t_cash_subject
@@ -166,6 +172,10 @@ CREATE TABLE `t_cooperation_accounts` (
   `cooperation_company_id` bigint(20) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL,
+  `is_cash` tinyint(4) DEFAULT NULL,
+  `cash_status` tinyint(4) DEFAULT NULL,
+  `reason` varchar(500) DEFAULT NULL,
+  `hander` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   KEY `shop_manager_id` (`shop_manager_id`),
@@ -175,11 +185,13 @@ CREATE TABLE `t_cooperation_accounts` (
   CONSTRAINT `t_cooperation_accounts_ibfk_2` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_cooperation_accounts_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `t_cooperation_company` (`id`),
   CONSTRAINT `t_cooperation_accounts_ibfk_4` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cooperation_accounts
 -- ----------------------------
+INSERT INTO `t_cooperation_accounts` VALUES ('1', '1', '2', '7', '0', '2017-12-08 05:55:38', '500.00', '1', '茅台收入', '暂无批注', '1', '2017-12-08 08:59:14', '0', '0', '0', '未审核', null);
+INSERT INTO `t_cooperation_accounts` VALUES ('2', '1', '2', '7', '1', '2017-12-08 09:05:47', '400.00', '1', '茅台付款', '暂无批注', '1', '2017-12-08 09:06:06', '0', '0', '0', '未审核', null);
 
 -- ----------------------------
 -- Table structure for t_cooperation_company
@@ -205,11 +217,12 @@ CREATE TABLE `t_cooperation_company` (
   CONSTRAINT `t_cooperation_company_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_cooperation_company_ibfk_2` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_cooperation_company_ibfk_3` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cooperation_company
 -- ----------------------------
+INSERT INTO `t_cooperation_company` VALUES ('1', '1', '2', '7', '茅台', '江西赣州章贡区', '张三', '15679760323', '15679760323', '品质如一如假包换', '2017-12-08 08:57:56', '0');
 
 -- ----------------------------
 -- Table structure for t_cooperation_subject
@@ -314,6 +327,7 @@ CREATE TABLE `t_customer_service` (
   `order_id` bigint(20) NOT NULL,
   `company_id` bigint(20) NOT NULL,
   `hotel_id` bigint(20) NOT NULL,
+  `shop_manager_id` bigint(20) DEFAULT NULL,
   `house_id` bigint(20) DEFAULT NULL,
   `house_card_title` varchar(50) NOT NULL,
   `subject_id` bigint(20) NOT NULL,
@@ -321,10 +335,13 @@ CREATE TABLE `t_customer_service` (
   `account_time` datetime NOT NULL,
   `total_pay` decimal(18,2) NOT NULL,
   `is_pay` tinyint(4) NOT NULL,
+  `remark` varchar(500) DEFAULT NULL,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_check` tinyint(4) NOT NULL,
-  `check_remark` varchar(500) NOT NULL,
   `is_active` tinyint(4) NOT NULL,
+  `is_cash` tinyint(4) DEFAULT NULL,
+  `cash_status` tinyint(4) DEFAULT NULL,
+  `reason` varchar(500) DEFAULT NULL,
+  `hander` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`),
   KEY `company_id` (`company_id`),

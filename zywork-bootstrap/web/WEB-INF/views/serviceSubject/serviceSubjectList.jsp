@@ -92,13 +92,13 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">增值科目名称：</label>
                         <div class="col-sm-8">
-                            <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="required" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">说明：</label>
                         <div class="col-sm-8">
-                            <textarea  name="description" class="form-control" required="" aria-required="true"></textarea>
+                            <textarea  name="description" class="form-control" required="required" aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>

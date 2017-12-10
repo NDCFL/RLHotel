@@ -62,6 +62,26 @@ public class CustomerOrderVo {
 
     private Byte isActive;
 
+    private Long hander;
+
+    private String hand;
+
+    private CompanyVo companyVo;//公司
+
+    private HotelVo hotelVo;//酒店
+
+    private UserVo userVo;//店长
+
+    private HouseVo houseVo;//房号
+
+    private ContractVo contractVo;//签约地块
+
+    private CooperationWebsiteVo cooperationWebsiteVo;//OTA网站
+
+    private PaymentTypeVo paymentTypeVo;//支付类型
+
+    private String web;
+
     public CustomerOrderVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Long houseId, Long contractId, String customerName, String customerIdentity, String customerPhone, String customerGender, Byte customerFrom, Long websiteId, BigDecimal unitPrice, Byte totalDays, BigDecimal housePay, BigDecimal servicePay, BigDecimal deposit, BigDecimal totalPay, BigDecimal actualReturn, Long paymentTypeId, Date checkinTime, Date checkoutTime, Date checkoutMaxTime, String remark, Byte orderStatus, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
         this.id = id;
         this.companyId = companyId;
@@ -328,5 +348,85 @@ public class CustomerOrderVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public CompanyVo getCompanyVo() {
+        return companyVo;
+    }
+
+    public void setCompanyVo(CompanyVo companyVo) {
+        this.companyVo = companyVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
+    public HouseVo getHouseVo() {
+        return houseVo;
+    }
+
+    public void setHouseVo(HouseVo houseVo) {
+        this.houseVo = houseVo;
+    }
+
+    public ContractVo getContractVo() {
+        return contractVo;
+    }
+
+    public void setContractVo(ContractVo contractVo) {
+        this.contractVo = contractVo;
+    }
+
+    public CooperationWebsiteVo getCooperationWebsiteVo() {
+        return cooperationWebsiteVo;
+    }
+
+    public void setCooperationWebsiteVo(CooperationWebsiteVo cooperationWebsiteVo) {
+        this.cooperationWebsiteVo = cooperationWebsiteVo;
+    }
+
+    public PaymentTypeVo getPaymentTypeVo() {
+        return paymentTypeVo;
+    }
+
+    public void setPaymentTypeVo(PaymentTypeVo paymentTypeVo) {
+        this.paymentTypeVo = paymentTypeVo;
+    }
+
+    public Long getHander() {
+        return hander;
+    }
+
+    public void setHander(Long hander) {
+        this.hander = hander;
+    }
+
+    public String getHand() {
+        return hand;
+    }
+
+    public void setHand(String hand) {
+        this.hand = hand;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
     }
 }
