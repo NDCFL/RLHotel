@@ -9,7 +9,7 @@
 <%
     String path = request.getContextPath();
 %>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -340,28 +340,28 @@
                             <input  name="customerIdentity" minlength="2" id="customerIdentity" placeholder="请输入入住人的证件号"  maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
-                    <div class="form-group" id="ffid">
+                    <div class="form-group" class="div" id="ffid">
                         <div class="form-group" id="fid">
                             <div class="col-sm-2">
-                                <input  name="checkinTime" minlength="2" id="checkinTime"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                <input  name="checkinTime" minlength="2" id="checkinTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
                             </div>
                             <div class="col-sm-2">
-                                <input  name="checkoutTime" minlength="2" id="checkoutTime"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                <input  name="checkoutTime" minlength="2" id="checkoutTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,0)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
                             </div>
                             <div class="col-sm-2">
-                                <input  name="totalDays" minlength="2" id="totalDays" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
+                                <input  name="totalDays" minlength="2" id="totalDays0" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control" onchange="getHouse(this.value);" id="housetTypeId" required name="housetTypeId">
+                                <select class="form-control" onchange="getHouse(this.value,0);" id="housetTypeId0" required name="housetTypeId">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <select class="form-control" onchange="getHousePrice(this.value);" id="housetId" required name="housetId">
+                                <select class="form-control" onchange="getHousePrice(this.value,0);" id="housetId0" required name="housetId">
                                 </select>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><i class="glyphicon glyphicon-usd" style="color:blue" id="houseP" onchange="getSum(this.text);"></i></button>
-                                <a onclick="$(this).parent().parent().remove();"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
+                                <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><span class="glyphicon glyphicon-usd" style="color:blue" name="houseP" id="houseP0" onchange="getSum(this.text);"></span></button>
+                                <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
                             </div>
                         </div>
                     </div>
@@ -548,37 +548,68 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<textarea id="divHidden" style="display:none"></textarea>
+<input id="divHidden" type="text" style="display:block" value="0,"></input>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/customerOrder.js"></script>
 <script src="<%=path%>/static/js/pageJs/addOrderItems.js"></script>
+<script src="<%=path%>/static/js/pageJs/addHouseMoney.js"></script>
 </body>
+<%--
 <script>
-    $("#divHidden").text($("#ffid").html());
+    var cnt = 0;
     function addDiv(){
-        $("#ffid").prepend($("#divHidden").text());
+        cnt++;
+        var divHtml = '<div class="form-group" id="fid"> \n' +
+            '\t<div class="col-sm-2">\n' +
+            ' <input  name="checkinTime" minlength="2" id="checkinTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
+            '     </div>\n' +
+            '     <div class="col-sm-2">\n' +
+            '         <input  name="checkoutTime" minlength="2" id="checkoutTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,cnt)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
+            '     </div>\n' +
+            '     <div class="col-sm-2">\n' +
+            '         <input  name="totalDays" minlength="2" id="totalDays'+cnt+'" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">\n' +
+            '     </div>\n' +
+            '     <div class="col-sm-2">\n' +
+            '         <select class="form-control" onchange="getHouse(this.value,cnt);" id="housetTypeId'+cnt+'" required name="housetTypeId">\n' +
+            '         </select>\n' +
+            '     </div>\n' +
+            '     <div class="col-sm-2">\n' +
+            '         <select class="form-control" onchange="getHousePrice(this.value,cnt);" id="housetId'+cnt+'" required name="housetId">\n' +
+            '         </select>\n' +
+            '     </div>\n' +
+            '     <div class="col-sm-2">\n' +
+            '         <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><span class="glyphicon glyphicon-usd" name="houseP" style="color:blue" id="houseP'+cnt+'"></span></button>\n' +
+            '         <a onclick="removeDiv(this);" id="remove'+cnt+'"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>\n' +
+            '     </div>\n' +
+            ' </div>';
+        $("#ffid").append(divHtml);
+        addDivHouse(cnt);
+        $(".form_datetime").datetimepicker({
+            format: "yyyy-mm-dd hh:ii:ss",
+            language: 'zh-CN',
+            autoclose: true,
+            todayHighlight: true
+        });
     }
-</script>
-<script>
     $(function () {
         $.post(
             "/customerOrder/getTypeList",
             function(data){
-                $("#housetTypeId").select2({
+                $("#housetTypeId0").select2({
                     data: data
                 });
                 $.post(
                     "/customerOrder/getHouse/"+data[0].id,
                     function(data){
-                        $("#housetId").select2({
+                        $("#housetId0").select2({
                             data: data
                         });
                         $.post(
                             "/house/findHouse/"+data[0].id,
                             function(data){
-                                $("#houseP").html(data.unitPrice);
-                                $("#sumMoney").html(data.unitPrice);
+                                $("#houseP0").html(data.unitPrice);
+                                $("#sumMoney").html(parseInt($("#houseP0").html()));
                             },
                             "json"
                         );
@@ -621,25 +652,27 @@
             todayHighlight: true
         });
     });
-</script>
-<script>
-    function getHouse(id){
+    function getHouse(id,cnt){
         $.post(
             "/customerOrder/getHouse/"+id,
             function(data){
                 if(data==null || data==""){
-                    $("#housetId").html("<option value='-1'>无数据</option>");
-                    $("#houseP").html(0.0);
+                    $("#housetId"+cnt).html("<option value='-1'>无数据</option>");
+                    $("#houseP"+cnt).html(0.0);
                 }else{
-                    $("#housetId").html("");
-                    $("#housetId").select2({
+                    $("#housetId"+cnt).html("");
+                    $("#housetId"+cnt).select2({
                         data: data
                     });
                     $.post(
                         "/house/findHouse/"+data[0].id,
                         function(data){
-                            $("#houseP").html(data.unitPrice);
-                            $("#sumMoney").html(data.unitPrice);
+                            $("#houseP"+cnt).html(data.unitPrice);
+                            var number = "0";
+                            for(var i=0;i<=cnt;i++){
+                                number=parseInt(number)+parseInt($("#houseP"+i).html());
+                            }
+                            $("#sumMoney").html(parseInt(number));
                         },
                         "json"
                     );
@@ -648,20 +681,28 @@
             "json"
         );
     }
-    function getHousePrice(id){
+    function getHousePrice(id,cnt){
         if(id==-1){
             layer.msg('房间不存在', {icon:2,time:1000});
         }else{
             $.post(
                 "/house/findHouse/"+id,
                 function(data){
-                    var days = $("#totalDays").val();
+                    var days = $("#totalDays"+cnt).val();
                     if(days==""){
-                        $("#houseP").html(data.unitPrice);
-                        $("#sumMoney").html(data.unitPrice);
+                        $("#houseP"+cnt).html(data.unitPrice);
+                        var number = "0";
+                        for(var i=0;i<=cnt;i++){
+                            number+=parseInt($("#houseP"+i).html());
+                        }
+                        $("#sumMoney").html(parseInt(number));
                     }else{
-                        $("#houseP").html(parseInt(days.substring(0,days.length-1))*parseInt(data.unitPrice));
-                        $("#sumMoney").html($("#houseP").html());
+                        $("#houseP"+cnt).html(parseInt(days.substring(0,days.length-1))*parseInt(data.unitPrice));
+                        var number = "0";
+                        for(var i=0;i<=cnt;i++){
+                            number=parseInt(number)+parseInt($("#houseP"+i).html());
+                        }
+                        $("#sumMoney").html(parseInt(number));
                     }
 
                 },
@@ -669,16 +710,20 @@
             );
         }
     }
-    function getDays(val) {
-        var src = $("#checkinTime").val();
+    function getDays(val,cnt) {
+        var src = $("#checkinTime"+cnt).val();
         if(src==""){
             layer.msg('入住时间不能为空', {icon:2,time:1000});
         }else{
             var num = dateDiff(src.substring(0,10),val.substring(0,10))+"天";
             var numberVal = dateDiff(src.substring(0,10),val.substring(0,10))
-            $("#totalDays").val(num);
-            $("#houseP").html(parseInt($("#houseP").html())*numberVal);
-            $("#sumMoney").html($("#houseP").html());
+            $("#totalDays"+cnt).val(num);
+            $("#houseP"+cnt).html(parseInt($("#houseP"+cnt).html())*numberVal);
+            var number = "0";
+            for(var i=0;i<=cnt;i++){
+                number=parseInt(number)+parseInt($("#houseP"+i).html());
+            }
+            $("#sumMoney").html(parseInt(number));
         }
     }
     function getSum(num){
@@ -692,5 +737,44 @@
         var endDate = new Date(endDates[0], endDates[1]-1, endDates[2]);
         return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24);//把相差的毫秒数转换为天数
     };
+    function addDivHouse(id){
+        $.post(
+            "/customerOrder/getTypeList",
+            function(data){
+                $("#housetTypeId"+id).select2({
+                    data: data
+                });
+                $.post(
+                    "/customerOrder/getHouse/"+data[0].id,
+                    function(data){
+                        $("#housetId"+id).select2({
+                            data: data
+                        });
+                        $.post(
+                            "/house/findHouse/"+data[0].id,
+                            function(data){
+                                $("#houseP"+id).html(data.unitPrice);
+                                $("#sumMoney").html(parseInt($("#sumMoney").html())+parseInt($("#houseP"+id).html()));
+                            },
+                            "json"
+                        );
+                    },
+                    "json"
+                );
+            },
+            "json"
+
+        );
+    }
+    function removeDiv(e){
+        $(e).parent().parent().remove();
+        var num="0";
+        var obj = document.getElementsByName("houseP");
+        for(i=0;i<obj.length;i++){
+            num = parseInt(num)+parseInt($("#"+obj[i].id).html());
+        }
+        $("#sumMoney").html(parseInt(num));
+    }
 </script>
+--%>
 </html>
