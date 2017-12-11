@@ -75,6 +75,9 @@
             )
         </if>
     </sql>
+    <select id="getOthersHotel" resultMap="select2VoMap">
+        select id,title as text from t_hotel where company_id=#{companyId}  and id !=#{hotelId}
+    </select>
     <select id="getHouse" resultMap="select2VoMap">
         select id,card_title as text from t_house where  hotel_id=#{pageQuery.hotelId} and type=#{type}
     </select>

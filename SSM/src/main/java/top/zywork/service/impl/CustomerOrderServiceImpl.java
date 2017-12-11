@@ -93,4 +93,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     public void checkerManyCashAccount(List<CustomerOrderVo> customerOrderVoList) {
         customerOrderDAO.checkerManyCashAccount(customerOrderVoList);
     }
+
+    @Override
+    public List<Select2Vo> getOthersHotel(PageQuery pageQuery) {
+        return customerOrderDAO.getOthersHotel(pageQuery);
+    }
 }

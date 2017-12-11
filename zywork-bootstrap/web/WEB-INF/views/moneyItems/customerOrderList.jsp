@@ -373,7 +373,7 @@
                     <div class="form-group">
                         <div class="col-sm-1">
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="1">
+                                <input type="checkbox" name="hotelItemType" id="hotel0" value="0">
                             </label>
                         </div>
                         <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
@@ -391,19 +391,18 @@
                     <div class="form-group">
                         <div class="col-sm-1">
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox2" value="2">
+                                <input type="checkbox" name="hotelItemType" id="hotel1" value="1">
                             </label>
                         </div>
                         <label class="col-sm-2 control-label" style="margin-left: -40px">商家送客：</label>
                         <div class="col-sm-2" style="margin-left:-30px">
-                            <select class="form-control"  required name="paymentTypeId">
-                                <option>A商家</option>
-                                <option>B商家</option>
+                            <select class="form-control"  name="othersHotel_id" required id="othersHotel_id">
+
                             </select>
                         </div>
                         <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
                         <div class="col-sm-2">
-                            <select class="form-control" required name="websiteId" style="margin-left: -30px">
+                            <select class="form-control" required name="isCash0" style="margin-left: -30px">
                                 <option value="0">未结算</option>
                                 <option value="1">已结算</option>
                             </select>
@@ -422,23 +421,21 @@
                         <div  class="form-group col-sm-12">
                             <div class="col-sm-1">
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="inlineCheckbox2" value="2">
+                                    <input type="checkbox" name="hotelItemType" id="hotel2" value="2">
                                 </label>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">借房商家：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control"  required name="paymentTypeId">
-                                    <option>A商家</option>
-                                    <option>B商家</option>
+                                <select class="form-control" id="othersHotelId" required name="othersHotelId">
                                 </select>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算金额：</label>
                             <div class="col-sm-2">
-                                <input  name="totalDays" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="" class="form-control" required="" aria-required="true">
+                                <input  name="otherHotelMoney" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="" class="form-control" required="" aria-required="true">
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">选择房号：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control" id="houseId" required name="paymentTypeId">
+                                <select class="form-control" id="houseId" required name="xnHouse">
                                     <option>虚拟101房间</option>
                                 </select>
                             </div>
@@ -452,16 +449,15 @@
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control"  required name="paymentTypeId">
-                                    <option>A商家</option>
-                                    <option>B商家</option>
+                                <select class="form-control"  required name="isCash1">
+                                    <option value="0">未结算</option>
+                                    <option value="1">已结算</option>
                                 </select>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算账户：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control"  required name="paymentTypeId">
-                                    <option>A商家</option>
-                                    <option>B商家</option>
+                                <select class="form-control" id="otherHotelMoneyType" required name="otherHotelMoneyType">
+
                                 </select>
                             </div>
                         </div>
@@ -483,8 +479,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">
-                        确认修改
+                    <button type="button" id="orderItemAdd" class="btn btn-primary">
+                        录入订单
                     </button>
                 </div>
             </form>
@@ -499,21 +495,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="webAddTitle">
+                <h4 class="modal-title" id="otherMoney">
                     新增客户增值业务款项
                 </h4>
             </div>
-            <form class="form-horizontal" method="post" id="formadd">
+            <form class="form-horizontal" method="post" id="otherMoneyForm">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属房号：</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" required id="subject_id" name="subjectId">
-                                <option>101</option>
-                                <option>101</option>
-                                <option>101</option>
-                            </select>
-                        </div>
+                        <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">所属科目：</label>
@@ -527,7 +516,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">客户订单金额：</label>
                         <div class="col-sm-8">
-                            <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="payMoney" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -540,7 +529,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="submit" id="add" class="btn btn-primary">
+                    <button type="submit" id="otherMoneyAdd" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -548,13 +537,71 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<input id="divHidden" type="text" style="display:block" value="0,"></input>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/customerOrder.js"></script>
 <script src="<%=path%>/static/js/pageJs/addOrderItems.js"></script>
 <script src="<%=path%>/static/js/pageJs/addHouseMoney.js"></script>
 </body>
+<script>
+    $("#orderItemAdd").click(function(){
+        if($("#customerName").val()==""){
+            layer.msg('客户姓名不能为空', {icon:2,time:1500});
+            return;
+        }
+        if($("#customerIdentity").val()==''){
+            layer.msg('客户身份证不能为空', {icon:2,time:1500});
+            return;
+        }
+        if($("#customerPhone").val()==''){
+            layer.msg('客户手机号不能为空', {icon:2,time:1500});
+            return;
+        }
+        if($("#customerPhone").val()==''){
+            layer.msg('客户手机号不能为空', {icon:2,time:1500});
+            return;
+        }
+        var obj = document.getElementsByName("checkinTime");
+        for(i=0;i<obj.length;i++){
+            if(obj[i].value==''){
+                layer.msg('入住时间不能为空', {icon:2,time:1500});
+                return;
+            }
+        }
+        var obj1 = document.getElementsByName("checkoutTime");
+        for(i=0;i<obj1.length;i++){
+            if(obj1[i].value==''){
+                layer.msg('离店时间不能为空', {icon:2,time:1500});
+                return;
+            }
+        }
+        var obj2=document.getElementsByName('hotelItemType');
+        var s='';
+        var val="";
+        for(var i=0; i<obj2.length; i++){
+            if(obj2[i].checked){
+                s++;
+                val=obj2[i].value;
+            }
+        }
+        if(s==''){
+            layer.msg('请勾选操作类别', {icon:2,time:1500});
+            return;
+        }
+        if(s!=1){
+            layer.msg('只允许勾选一个操作类别', {icon:2,time:1500});
+            return;
+        }
+        if(s==1){
+            if(val==2){
+                if($("#otherHotelMoney").val()==''){
+                    layer.msg('结算金额不能为空', {icon:2,time:1500});
+                    return;
+                }
+            }
+        }
+    });
+</script>
 <%--
 <script>
     var cnt = 0;

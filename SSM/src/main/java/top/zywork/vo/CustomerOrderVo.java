@@ -82,6 +82,15 @@ public class CustomerOrderVo {
 
     private String web;
 
+    private Byte isCash;//是否结算
+
+    private Long otherHotel;//往来商家编号
+
+    private BigDecimal otherHotelMoney;//结算金额
+
+    private Long otherHotelMoneyType;//结算支付方式
+
+
     public CustomerOrderVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Long houseId, Long contractId, String customerName, String customerIdentity, String customerPhone, String customerGender, Byte customerFrom, Long websiteId, BigDecimal unitPrice, Byte totalDays, BigDecimal housePay, BigDecimal servicePay, BigDecimal deposit, BigDecimal totalPay, BigDecimal actualReturn, Long paymentTypeId, Date checkinTime, Date checkoutTime, Date checkoutMaxTime, String remark, Byte orderStatus, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
         this.id = id;
         this.companyId = companyId;
@@ -428,5 +437,37 @@ public class CustomerOrderVo {
 
     public void setWeb(String web) {
         this.web = web;
+    }
+
+    public Byte getIsCash() {
+        return isCash;
+    }
+
+    public void setIsCash(Byte isCash) {
+        this.isCash = isCash;
+    }
+
+    public Long getOtherHotel() {
+        return otherHotel;
+    }
+
+    public void setOtherHotel(Long otherHotel) {
+        this.otherHotel = otherHotel;
+    }
+
+    public BigDecimal getOtherHotelMoney() {
+        return otherHotelMoney;
+    }
+
+    public void setOtherHotelMoney(BigDecimal otherHotelMoney) {
+        this.otherHotelMoney = otherHotelMoney;
+    }
+
+    public Long getOtherHotelMoneyType() {
+        return otherHotelMoneyType;
+    }
+
+    public void setOtherHotelMoneyType(Long otherHotelMoneyType) {
+        this.otherHotelMoneyType = otherHotelMoneyType;
     }
 }

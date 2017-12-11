@@ -92,6 +92,24 @@ public class CustomerOrderController {
 
     }
     //获取房间类型列表，返回select2对象的数据
+    @RequestMapping("getOthersHotel")
+    @ResponseBody
+    public List<Select2Vo> getOthersHotel(HttpSession session){
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        if(userRoleVo.getRoleVo().getTitle().equals("店长")){
+            HotelVo hotelVo = hotelService.findHotel(userVo.getId());
+            pageQuery.setHotelId(hotelVo.getId());
+        }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
+            EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+            pageQuery.setHotelId(employeeVo.getHotelId());
+        }
+        List<Select2Vo> typeList=customerOrderService.getOthersHotel(pageQuery);
+        return  typeList;
+    }
+    //获取房间类型列表，返回select2对象的数据
     @RequestMapping("getTypeList")
     @ResponseBody
     public List<Select2Vo> getTypeList(HttpSession session){

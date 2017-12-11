@@ -69,6 +69,23 @@ $.post(
         });
         $("#paymentType_Id").select2({
             data: data
+        });
+        $("#otherHotelMoneyType").select2({
+            data: data
+        });
+    },
+    "json"
+
+);
+//往来商家列表
+$.post(
+    "/customerOrder/getOthersHotel",
+    function(data){
+        $("#othersHotel_id").select2({
+            data: data
+        });
+        $("#othersHotelId").select2({
+            data: data
         })
     },
     "json"

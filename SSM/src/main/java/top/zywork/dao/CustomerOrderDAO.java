@@ -22,4 +22,5 @@ public interface CustomerOrderDAO extends BaseDAO<CustomerOrderVo>{
     void updateCashStatus(CustomerOrderVo customerOrderVo);
     void updateRemark(CustomerOrderVo customerOrderVo);
     void checkerManyCashAccount(List<CustomerOrderVo> customerOrderVoList);
+    List<Select2Vo> getOthersHotel(PageQuery pageQuery);
 }
