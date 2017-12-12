@@ -313,7 +313,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal fade bs-example-modal-lg"  id="itemsModule" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -469,6 +469,10 @@
                     <div class="form-group">
                         <table id="mytab1" name="mytab1" class="table table-hover"></table>
                     </div>
+                    <div  class="form-group" style="margin-top: -30px;">
+                        <hr height="5px"/>
+                        <a data-toggle="modal" data-target="#orderAdd"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增款项</i></a>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">备注：</label>
                         <div class="col-sm-11">
@@ -544,6 +548,9 @@
 <script src="<%=path%>/static/js/pageJs/addHouseMoney.js"></script>
 </body>
 <script>
+    $('#orderAdd').on('hidden.bs.modal', function() {
+        $('#itemsModule').css({'overflow-y':'scroll'});
+    });
     $("#orderItemAdd").click(function(){
         if($("#customerName").val()==""){
             layer.msg('客户姓名不能为空', {icon:2,time:1500});
