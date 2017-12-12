@@ -324,46 +324,50 @@
                     订单入住
                 </h4>
             </div>
-            <form class="form-horizontal" id="updateorderform" >
+            <div class="form-horizontal" id="updateorderform" >
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">姓名：</label>
-                        <div class="col-sm-3">
-                            <input  name="customerName" minlength="2" id="customerName"  maxlength="20" type="text" placeholder="请输入入住人的姓名" value="" class="form-control" required="" aria-required="true">
+                    <form id="basedata" class="form-horizontal" >
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">姓名：</label>
+                            <div class="col-sm-3">
+                                <input  name="customerName" minlength="2" id="customerName"  maxlength="20" type="text"  value="" class="form-control" >
+                            </div>
+                            <label class="col-sm-1 control-label">手机：</label>
+                            <div class="col-sm-3">
+                                <input  name="customerPhone" minlength="2" id="customerPhone"  maxlength="20" type="text" placeholder="请输入入住人的联系方式" value="" class="form-control">
+                            </div>
+                            <label class="col-sm-1 control-label">证件：</label>
+                            <div class="col-sm-3">
+                                <input  name="customerIdentity" minlength="2" id="customerIdentity" placeholder="请输入入住人的证件号"  maxlength="20" type="text" value="" class="form-control">
+                            </div>
                         </div>
-                        <label class="col-sm-1 control-label">手机：</label>
-                        <div class="col-sm-3">
-                            <input  name="customerPhone" minlength="2" id="customerPhone"  maxlength="20" type="text" placeholder="请输入入住人的联系方式" value="" class="form-control" required="" aria-required="true">
-                        </div>
-                        <label class="col-sm-1 control-label">证件：</label>
-                        <div class="col-sm-3">
-                            <input  name="customerIdentity" minlength="2" id="customerIdentity" placeholder="请输入入住人的证件号"  maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
-                        </div>
-                    </div>
+                    </form>
                     <div class="form-group" class="div" id="ffid">
-                        <div class="form-group" id="fid">
-                            <div class="col-sm-2">
-                                <input  name="checkinTime" minlength="2" id="checkinTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                        <form id="houseInfo">
+                            <div class="form-group" id="fid">
+                                <div class="col-sm-2">
+                                    <input  name="first" minlength="2" id="checkinTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input  name="first" minlength="2" id="checkoutTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,0)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input  name="first" minlength="2" id="totalDays0" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" onchange="getHouse(this.value,0);" id="houseTypeId0" required name="first">
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" onchange="getHousePrice(this.value,0);" id="houseId0" required name="first">
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><span class="glyphicon glyphicon-usd" style="color:blue" name="houseP0" id="houseP0" onchange="getSum(this.text);"></span></button>
+                                    <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
+                                </div>
                             </div>
-                            <div class="col-sm-2">
-                                <input  name="checkoutTime" minlength="2" id="checkoutTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,0)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
-                            </div>
-                            <div class="col-sm-2">
-                                <input  name="totalDays" minlength="2" id="totalDays0" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
-                            </div>
-                            <div class="col-sm-2">
-                                <select class="form-control" onchange="getHouse(this.value,0);" id="housetTypeId0" required name="housetTypeId">
-                                </select>
-                            </div>
-                            <div class="col-sm-2">
-                                <select class="form-control" onchange="getHousePrice(this.value,0);" id="housetId0" required name="housetId">
-                                </select>
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><span class="glyphicon glyphicon-usd" style="color:blue" name="houseP" id="houseP0" onchange="getSum(this.text);"></span></button>
-                                <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div  class="form-group" style="margin-top: -30px;">
                         <hr height="5px"/>
@@ -371,100 +375,106 @@
                         <i class="glyphicon glyphicon-usd" style="color:green;float:right;margin-top: -16px">房费总计：<span id="sumMoney"></span></i>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-1">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="hotelItemType" id="hotel0" value="0">
-                            </label>
-                        </div>
-                        <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
-                        <div class="col-sm-2" style="margin-left:-30px">
-                            <select class="form-control" id="paymentTypeId" required name="paymentTypeId">
-
-                            </select>
-                        </div>
-                        <label class="col-sm-2 control-label" style="margin-left: -40px">渠道选择：</label>
-                        <div class="col-sm-2">
-                            <select class="form-control" id="websiteId" required name="websiteId" style="margin-left: -30px">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="hotelItemType" id="hotel1" value="1">
-                            </label>
-                        </div>
-                        <label class="col-sm-2 control-label" style="margin-left: -40px">商家送客：</label>
-                        <div class="col-sm-2" style="margin-left:-30px">
-                            <select class="form-control"  name="othersHotel_id" required id="othersHotel_id">
-
-                            </select>
-                        </div>
-                        <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
-                        <div class="col-sm-2">
-                            <select class="form-control" required name="isCash0" style="margin-left: -30px">
-                                <option value="0">未结算</option>
-                                <option value="1">已结算</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
-                        <div class="col-sm-2" style="margin-left:-30px">
-                            <select class="form-control" id="paymentType_Id" required name="paymentTypeId">
-
-                            </select>
-                        </div>
-                    </div>
-                    <div  class="form-group" style="margin-top: -30px;">
-                        <hr height="5px"/>
-                    </div>
-                    <div class="form-group">
-                        <div  class="form-group col-sm-12">
+                        <form id="form0">
                             <div class="col-sm-1">
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" name="hotelItemType" id="hotel2" value="2">
+                                    <input type="checkbox" name="hotelItemType" id="hotel0" value="0">
                                 </label>
                             </div>
-                            <label class="col-sm-2 control-label" style="margin-left: -40px">借房商家：</label>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control" id="othersHotelId" required name="othersHotelId">
+                                <select class="form-control" id="paymentTypeId" required name="paymentTypeId">
+
                                 </select>
                             </div>
-                            <label class="col-sm-2 control-label" style="margin-left: -40px">结算金额：</label>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">渠道选择：</label>
                             <div class="col-sm-2">
-                                <input  name="otherHotelMoney" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="" class="form-control" required="" aria-required="true">
-                            </div>
-                            <label class="col-sm-2 control-label" style="margin-left: -40px">选择房号：</label>
-                            <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control" id="houseId" required name="xnHouse">
-                                    <option>虚拟101房间</option>
+                                <select class="form-control" id="websiteId" required name="websiteId" style="margin-left: -30px">
                                 </select>
                             </div>
-                        </div>
-
-                        <div  class="form-group col-sm-12">
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <form id="form1">
                             <div class="col-sm-1">
                                 <label class="checkbox-inline">
-
+                                    <input type="checkbox" name="hotelItemType" id="hotel1" value="1">
                                 </label>
+                            </div>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">商家送客：</label>
+                            <div class="col-sm-2" style="margin-left:-30px">
+                                <select class="form-control"  name="othersHotel_id" required id="othersHotel_id">
+
+                                </select>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
-                            <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control"  required name="isCash1">
+                            <div class="col-sm-2">
+                                <select class="form-control" required name="isCash0" style="margin-left: -30px">
                                     <option value="0">未结算</option>
                                     <option value="1">已结算</option>
                                 </select>
                             </div>
-                            <label class="col-sm-2 control-label" style="margin-left: -40px">结算账户：</label>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control" id="otherHotelMoneyType" required name="otherHotelMoneyType">
+                                <select class="form-control" id="paymentType_Id" required name="paymentTypeId">
 
                                 </select>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div  class="form-group" style="margin-top: -30px;">
                         <hr height="5px"/>
-                        <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">100</span><span style="color:red">房费-结算金额</span></i>
+                    </div>
+                    <div class="form-group">
+                        <form id="form2">
+                            <div  class="form-group col-sm-12">
+                                <div class="col-sm-1">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="hotelItemType" id="hotel2" value="2">
+                                    </label>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">借房商家：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control" id="othersHotelId" required name="othersHotelId">
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">结算金额：</label>
+                                <div class="col-sm-2">
+                                    <input  name="otherHotelMoney" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="" class="form-control" required="" aria-required="true">
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">选择房号：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control" id="houseId" required name="xnHouse">
+                                        <option>虚拟101房间</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div  class="form-group col-sm-12">
+                                <div class="col-sm-1">
+                                    <label class="checkbox-inline">
+
+                                    </label>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control"  required name="isCash1">
+                                        <option value="0">未结算</option>
+                                        <option value="1">已结算</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">结算账户：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control" id="otherHotelMoneyType" required name="otherHotelMoneyType">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div  class="form-group" style="margin-top: -30px;">
+                        <hr height="5px"/>
+                        <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">--</span><span style="color:red">（房费-结算金额）</span></i>
                     </div>
                     <div class="form-group">
                         <table id="mytab1" name="mytab1" class="table table-hover"></table>
@@ -487,7 +497,7 @@
                         录入订单
                     </button>
                 </div>
-            </form>
+            </div>
         </div><!-- /.modal-content -->
     </div>
 </div>
@@ -506,14 +516,18 @@
             <form class="form-horizontal" method="post" id="otherMoneyForm">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                        <label class="col-sm-3 control-label">款项类型：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="moneyTypeId" required name="moneyTypeId">
+                                <option value="0">押金</option>
+                                <option value="1">增值业务</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">所属科目：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" required name="accountType">
-                                <option value="0">收入</option>
-                                <option value="1">支出</option>
+                            <select class="form-control" id="serviceSubject" required name="serviceSubject">
                             </select>
                         </div>
                     </div>
@@ -600,12 +614,41 @@
             return;
         }
         if(s==1){
-            if(val==2){
+            var itemInfo="";
+            if(val==0){
+                itemInfo = $("#form0").serialize();
+            }else if(val==1){
+                itemInfo = $("#form1").serialize();
+            }else if(val==2){
                 if($("#otherHotelMoney").val()==''){
                     layer.msg('结算金额不能为空', {icon:2,time:1500});
                     return;
                 }
+                itemInfo = $("#form2").serialize();
             }
+            var basedata = $("#basedata").serialize();
+            var first=document.getElementsByName('first');
+            var firstVal="";
+            var cnt = first.length;
+            for(var i=0; i<cnt; i++){
+                if((i+1)%5==0 && i!=0){
+                    firstVal+= first[i].value+";";
+                }else{
+                    firstVal+= first[i].value+",";
+                }
+            }
+            var houseInfo = new Array();
+            houseInfo = firstVal.replace("天","").split(";");
+            $.post(
+                "/customerOrder/customerOrderAddSave",
+                {
+                    "houseInfo":houseInfo,
+                    "baseInfo":basedata,
+                    "itemInfo":itemInfo
+                },function(data){
+                    alert(data);
+                },"json"
+            );
         }
     });
 </script>
@@ -625,11 +668,11 @@
             '         <input  name="totalDays" minlength="2" id="totalDays'+cnt+'" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">\n' +
             '     </div>\n' +
             '     <div class="col-sm-2">\n' +
-            '         <select class="form-control" onchange="getHouse(this.value,cnt);" id="housetTypeId'+cnt+'" required name="housetTypeId">\n' +
+            '         <select class="form-control" onchange="getHouse(this.value,cnt);" id="houseTypeId'+cnt+'" required name="houseTypeId">\n' +
             '         </select>\n' +
             '     </div>\n' +
             '     <div class="col-sm-2">\n' +
-            '         <select class="form-control" onchange="getHousePrice(this.value,cnt);" id="housetId'+cnt+'" required name="housetId">\n' +
+            '         <select class="form-control" onchange="getHousePrice(this.value,cnt);" id="houseId'+cnt+'" required name="houseId">\n' +
             '         </select>\n' +
             '     </div>\n' +
             '     <div class="col-sm-2">\n' +
@@ -650,13 +693,13 @@
         $.post(
             "/customerOrder/getTypeList",
             function(data){
-                $("#housetTypeId0").select2({
+                $("#houseTypeId0").select2({
                     data: data
                 });
                 $.post(
                     "/customerOrder/getHouse/"+data[0].id,
                     function(data){
-                        $("#housetId0").select2({
+                        $("#houseId0").select2({
                             data: data
                         });
                         $.post(
@@ -711,11 +754,11 @@
             "/customerOrder/getHouse/"+id,
             function(data){
                 if(data==null || data==""){
-                    $("#housetId"+cnt).html("<option value='-1'>无数据</option>");
+                    $("#houseId"+cnt).html("<option value='-1'>无数据</option>");
                     $("#houseP"+cnt).html(0.0);
                 }else{
-                    $("#housetId"+cnt).html("");
-                    $("#housetId"+cnt).select2({
+                    $("#houseId"+cnt).html("");
+                    $("#houseId"+cnt).select2({
                         data: data
                     });
                     $.post(
@@ -795,13 +838,13 @@
         $.post(
             "/customerOrder/getTypeList",
             function(data){
-                $("#housetTypeId"+id).select2({
+                $("#houseTypeId"+id).select2({
                     data: data
                 });
                 $.post(
                     "/customerOrder/getHouse/"+data[0].id,
                     function(data){
-                        $("#housetId"+id).select2({
+                        $("#houseId"+id).select2({
                             data: data
                         });
                         $.post(

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.zywork.dao.HouseOthersItemDAO">
+    <resultMap id="houseOthersItemMap" type="top.zywork.vo.HouseOthersItemVo"></resultMap>
+    <resultMap id="select2Map" type="top.zywork.vo.Select2Vo"></resultMap>
+    <select id="getById" resultMap="houseOthersItemMap" parameterType="long">
+        select * from t_house_others_item where id = #{id}
+    </select>
+    <delete id="removeById" parameterType="long">
+        delete from t_house_others_item where id = #{id}
+    </delete>
+    <select id="subjectList" resultMap="select2Map">
+        select id,title as text from t_service_subject
+    </select>
+    <select id="listPage" resultMap="houseOthersItemMap">
+        select * from t_house_others_item where company_id=#{companyId} and hotel_id=#{hotelId} and house_id=#{houseId} order by create_time desc limit #{pageNo},#{pageSize}
+    </select>
+    <select id="listAll" resultMap="houseOthersItemMap">
+        select * from t_house_others_item where company_id=#{companyId} and hotel_id=#{hotelId} and house_id=#{houseId}
+    </select>
+    <select id="count" resultType="java.lang.Long">
+        select count(*) from t_house_others_item where company_id=#{companyId} and hotel_id=#{hotelId} and house_id=#{houseId}
+    </select>
+    <select id=""></select>
+    <insert id="save" parameterType="houseOthersItemVo">
+        insert into t_house_others_item (company_id, hotel_id, house_id, item_name, pay_money, pay_time, is_cash, hander, remark) values (#{companyId}, #{hotelId}, #{houseId}, #{itemName}, #{payMoney}, #{payTime}, #{isCash}, #{hander}, #{remark})
+    </insert>
+</mapper>

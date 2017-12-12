@@ -1,22 +1,22 @@
 var cnt = 0;
 function addDiv(){
     cnt++;
-    var divHtml = '<div class="form-group" id="fid"> \n' +
+    var divHtml = '<div class="form-group" id="fid'+cnt+'">\n' +
         '\t<div class="col-sm-2">\n' +
-        ' <input  name="checkinTime" minlength="2" id="checkinTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
+        ' <input  name="first" minlength="2" id="checkinTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <input  name="checkoutTime" minlength="2" id="checkoutTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,cnt)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
+        '         <input  name="first" minlength="2" id="checkoutTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,cnt)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <input  name="totalDays" minlength="2" id="totalDays'+cnt+'" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">\n' +
+        '         <input  name="first" minlength="2" id="totalDays'+cnt+'" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <select class="form-control" onchange="getHouse(this.value,cnt);" id="housetTypeId'+cnt+'" required name="housetTypeId">\n' +
+        '         <select class="form-control" onchange="getHouse(this.value,cnt);" id="houseTypeId'+cnt+'" required name="first">\n' +
         '         </select>\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <select class="form-control" onchange="getHousePrice(this.value,cnt);" id="housetId'+cnt+'" required name="housetId">\n' +
+        '         <select class="form-control" onchange="getHousePrice(this.value,cnt);" id="houseId'+cnt+'" required name="first">\n' +
         '         </select>\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
@@ -36,13 +36,13 @@ function addDiv(){
 $.post(
     "/customerOrder/getTypeList",
     function(data){
-        $("#housetTypeId0").select2({
+        $("#houseTypeId0").select2({
             data: data
         });
         $.post(
             "/customerOrder/getHouse/"+data[0].id,
             function(data){
-                $("#housetId0").select2({
+                $("#houseId0").select2({
                     data: data
                 });
                 $.post(
@@ -73,6 +73,18 @@ $.post(
         $("#otherHotelMoneyType").select2({
             data: data
         });
+    },
+    "json"
+
+);
+//支付类型列表
+$.post(
+    "/item/getSubject",
+    function(data){
+        $("#serviceSubject").select2({
+            data: data
+        });
+
     },
     "json"
 
@@ -113,11 +125,11 @@ function getHouse(id,cnt){
         "/customerOrder/getHouse/"+id,
         function(data){
             if(data==null || data==""){
-                $("#housetId"+cnt).html("<option value='-1'>无数据</option>");
+                $("#houseId"+cnt).html("<option value='-1'>无数据</option>");
                 $("#houseP"+cnt).html(0.0);
             }else{
-                $("#housetId"+cnt).html("");
-                $("#housetId"+cnt).select2({
+                $("#houseId"+cnt).html("");
+                $("#houseId"+cnt).select2({
                     data: data
                 });
                 $.post(
@@ -197,13 +209,13 @@ function addDivHouse(id){
     $.post(
         "/customerOrder/getTypeList",
         function(data){
-            $("#housetTypeId"+id).select2({
+            $("#houseTypeId"+id).select2({
                 data: data
             });
             $.post(
                 "/customerOrder/getHouse/"+data[0].id,
                 function(data){
-                    $("#housetId"+id).select2({
+                    $("#houseId"+id).select2({
                         data: data
                     });
                     $.post(
