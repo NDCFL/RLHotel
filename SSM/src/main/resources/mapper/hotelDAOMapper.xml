@@ -45,7 +45,7 @@
         select id,contract_contract as text from t_contract
     </select>
     <select id="getLandlord" resultMap="select2Map">
-        select u.id as id,u.nickname as text from t_user u,t_role r,t_user_rle ur where r.id=ur.role_id and ur.user_id=u.id and r.title="店长"
+        select u.id as id,u.nickname as text from t_user u,t_role r,t_user_role ur where r.id=ur.role_id and ur.user_id=u.id and r.title="店长"
     </select>
     <select id="listAll" resultMap="hotelMap">
         select * from t_hotel

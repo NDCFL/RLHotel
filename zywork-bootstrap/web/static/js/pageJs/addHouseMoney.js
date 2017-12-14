@@ -6,22 +6,26 @@ function addDiv(){
         ' <input  name="first" minlength="2" id="checkinTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <input  name="first" minlength="2" id="checkoutTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,cnt)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
+        '         <input  name="first" minlength="2" style="margin-left:-10px"  id="checkoutTime'+cnt+'"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,cnt)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <input  name="first" minlength="2" id="totalDays'+cnt+'" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">\n' +
+        '         <input  name="first" minlength="2" style="margin-left:-20px" id="totalDays'+cnt+'" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <select class="form-control" onchange="getHouse(this.value,cnt);" id="houseTypeId'+cnt+'" required name="first">\n' +
+        '         <select class="form-control" style="margin-left:-30px" onchange="getHouse(this.value,cnt);" id="houseTypeId'+cnt+'" required name="first">\n' +
         '         </select>\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <select class="form-control" onchange="getHousePrice(this.value,cnt);" id="houseId'+cnt+'" required name="first">\n' +
+        '         <select class="form-control" style="margin-left:-40px" onchange="getHousePrice(this.value,cnt);" id="houseId'+cnt+'" required name="first">\n' +
         '         </select>\n' +
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
-        '         <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><span class="glyphicon glyphicon-usd" name="houseP" style="color:blue" id="houseP'+cnt+'"></span></button>\n' +
-        '         <a onclick="removeDiv(this);" id="remove'+cnt+'"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>\n' +
+        '         <div style="float:left;width:120px">\n'+
+        '              <input type="text" class="form-control"  placeholder="请输入入住房费" value="0"  style="margin-left:-50px" name="housePrice" id="housePrice" />\n'+
+        '         </div>\n'+
+        '         <div style="float:right;margin-top: -25px">\n'+
+        '              <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>\n'+
+        '         </div>\n'+
         '     </div>\n' +
         ' </div>';
     $("#ffid").append(divHtml);
@@ -182,9 +186,19 @@ function getDays(val,cnt) {
     var src = $("#checkinTime"+cnt).val();
     if(src==""){
         layer.msg('入住时间不能为空', {icon:2,time:1000});
+        return;
     }else{
+        var numberVal = dateDiff(src.substring(0,10),val.substring(0,10));
+        if(numberVal<0){
+            layer.msg('请正确选择时间', {icon:2,time:1000});
+            return;
+        }else if(parseInt(numberVal)==0){
+            numberVal=1;
+        }
         var num = dateDiff(src.substring(0,10),val.substring(0,10))+"天";
-        var numberVal = dateDiff(src.substring(0,10),val.substring(0,10))
+        if(num=='0天'){
+            num = "1天";
+        }
         $("#totalDays"+cnt).val(num);
         $("#houseP"+cnt).html(parseInt($("#houseP"+cnt).html())*numberVal);
         var number = "0";
@@ -203,7 +217,7 @@ function dateDiff(startDateString, endDateString){
     var endDates = endDateString.split(separator);
     var startDate = new Date(startDates[0], startDates[1]-1, startDates[2]);
     var endDate = new Date(endDates[0], endDates[1]-1, endDates[2]);
-    return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24);//把相差的毫秒数转换为天数
+    return parseInt((endDate - startDate ) / 1000 / 60 / 60 /24);//把相差的毫秒数转换为天数
 };
 function addDivHouse(id){
     $.post(
@@ -235,7 +249,7 @@ function addDivHouse(id){
     );
 }
 function removeDiv(e){
-    $(e).parent().parent().remove();
+    $(e).parent().parent().parent().remove();
     var num="0";
     var obj = document.getElementsByName("houseP");
     for(i=0;i<obj.length;i++){

@@ -330,7 +330,7 @@
                         <div class="form-group">
                             <label class="col-sm-1 control-label">姓名：</label>
                             <div class="col-sm-3">
-                                <input  name="customerName" minlength="2" id="customerName"  maxlength="20" type="text"  value="" class="form-control" >
+                                <input  name="customerName" minlength="2" id="customerName"  maxlength="20" type="text" placeholder="请输入入住人的姓名" value="" class="form-control" >
                             </div>
                             <label class="col-sm-1 control-label">手机：</label>
                             <div class="col-sm-3">
@@ -349,22 +349,26 @@
                                     <input  name="first" minlength="2" id="checkinTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input  name="first" minlength="2" id="checkoutTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,0)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                    <input  name="first" minlength="2" style="margin-left:-10px" id="checkoutTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,0)" placeholder="离店时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
                                 </div>
                                 <div class="col-sm-2">
-                                    <input  name="first" minlength="2" id="totalDays0" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
+                                    <input  name="first" minlength="2" style="margin-left:-20px" id="totalDays0" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                                 </div>
                                 <div class="col-sm-2">
-                                    <select class="form-control" onchange="getHouse(this.value,0);" id="houseTypeId0" required name="first">
+                                    <select class="form-control" style="margin-left:-30px" onchange="getHouse(this.value,0);" id="houseTypeId0" required name="first">
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
-                                    <select class="form-control" onchange="getHousePrice(this.value,0);" id="houseId0" required name="first">
+                                    <select class="form-control" style="margin-left:-40px" onchange="getHousePrice(this.value,0);" id="houseId0" required name="first">
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" style="background-color: inherit;border: 0" class="btn btn-default"><span class="glyphicon glyphicon-usd" style="color:blue" name="houseP0" id="houseP0" onchange="getSum(this.text);"></span></button>
-                                    <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
+                                    <div style="float:left;width:120px">
+                                        <input type="number" class="form-control" placeholder="请输入入住房费" value="0" style="margin-left:-50px" name="housePrice" id="housePrice" />
+                                    </div>
+                                    <div style="float:right;margin-top: -25px">
+                                        <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -373,6 +377,7 @@
                         <hr height="5px"/>
                         <a onclick="addDiv();"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增房间</i></a>
                         <i class="glyphicon glyphicon-usd" style="color:green;float:right;margin-top: -16px">房费总计：<span id="sumMoney"></span></i>
+                        <input type="hidden" id="sum_money" />
                     </div>
                     <div class="form-group">
                         <form id="form0">
@@ -383,8 +388,9 @@
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control" id="paymentTypeId" required name="paymentTypeId">
-
+                                <select class="form-control" id="itemType" required name="itemType">
+                                    <option value="0">在线预付</option>
+                                    <option value="1">担保现付</option>
                                 </select>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">渠道选择：</label>
@@ -651,6 +657,16 @@
             );
         }
     });
+    window.setInterval(function(){
+        var money=document.getElementsByName('housePrice');
+        var moneyVal="0";
+        var cnt = money.length;
+        for(var i=0; i<cnt; i++){
+            moneyVal=parseInt(moneyVal)+parseInt(money[i].value);
+        }
+        $("#sum_money").val(parseInt(moneyVal));
+        $("#sumMoney").html(parseInt(moneyVal));
+    }, 500);
 </script>
 <%--
 <script>

@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">签约编号：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="contractId" id="constract_Id" required >
+                            <select class="form-control" name="contractId" id="contract_Id" required >
 
                             </select>
                         </div>
