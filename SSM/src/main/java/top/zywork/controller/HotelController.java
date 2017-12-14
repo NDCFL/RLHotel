@@ -102,7 +102,9 @@ public class HotelController {
     }
     @RequestMapping("/getContract")
     @ResponseBody
-    public List<Select2Vo> getContract() throws  Exception{
+    public List<Select2Vo> getContract(HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        //只能添加本公司自己的签约，其他公司的必须排除
         List<Select2Vo> contractList = hotelService.getContract();
         return contractList;
     }

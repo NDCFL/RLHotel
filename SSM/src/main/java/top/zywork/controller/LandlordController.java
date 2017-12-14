@@ -80,6 +80,7 @@ public class LandlordController {
             employeeVo.setHotelId(-1);
         }
         employeeVo.setUserId(user.getId());
+        employeeVo.setEmployeeId(userVo.getId());
         employeeService.save(employeeVo);
         //通过新增的店长的手机号获取新增店长的id
         UserVo userVo1 = userService.findByPhone(userVo.getPhone());
