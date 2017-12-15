@@ -82,6 +82,8 @@ public class CustomerOrderVo {
 
     private String web;
 
+    private String pay;
+
     private Byte isCash;//是否结算
 
     private Long otherHotel;//往来商家编号
@@ -469,5 +471,13 @@ public class CustomerOrderVo {
 
     public void setOtherHotelMoneyType(Long otherHotelMoneyType) {
         this.otherHotelMoneyType = otherHotelMoneyType;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
     }
 }

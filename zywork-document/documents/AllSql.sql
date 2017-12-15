@@ -426,5 +426,5 @@ create table t_house_others_item(
 )engine=innodb default charset=utf8;
 select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,c.name,u.nickname,h.title,ho.card_title,co.contract_contract as contract,w.title as cwtitle,p.title as ptitle from t_customer_order t,t_company c,t_hotel h,t_house ho,t_contract co,t_user u,t_cooperation_website w,t_payment_type p where t.company_id=c.id and t.hotel_id=h.id and t.shop_manager_id=u.id and t.house_id=ho.id and t.contract_id=co.id and t.payment_type_id=p.id and t.website_id=w.id and  t.company_id=1 and t.hotel_id=2
 
-select * from t_customer_order
+select * from t_employee;
 

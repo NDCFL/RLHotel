@@ -98,4 +98,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     public List<Select2Vo> getOthersHotel(PageQuery pageQuery) {
         return customerOrderDAO.getOthersHotel(pageQuery);
     }
+
+    @Override
+    public void saveList(List<CustomerOrderVo> customerOrderVoList) {
+        customerOrderDAO.saveList(customerOrderVoList);
+    }
 }

@@ -21,7 +21,7 @@ function addDiv(){
         '     </div>\n' +
         '     <div class="col-sm-2">\n' +
         '         <div style="float:left;width:120px">\n'+
-        '              <input type="text" class="form-control"  placeholder="请输入入住房费" value="0"  style="margin-left:-50px" name="housePrice" id="housePrice" />\n'+
+        '              <input type="text" class="form-control price"  placeholder="请输入入住房费"  value="0"  style="margin-left:-50px" name="first" id="housePrice" />\n'+
         '         </div>\n'+
         '         <div style="float:right;margin-top: -25px">\n'+
         '              <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>\n'+

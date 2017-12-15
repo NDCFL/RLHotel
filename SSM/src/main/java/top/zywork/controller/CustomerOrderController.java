@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.zywork.common.DateFormatUtils;
+import top.zywork.common.DateParseUtils;
 import top.zywork.common.Message;
 import top.zywork.common.PagingBean;
 import top.zywork.enums.ActiveStatusEnum;
@@ -21,6 +23,7 @@ import top.zywork.vo.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,28 +68,42 @@ public class CustomerOrderController {
     }
     @RequestMapping("/customerOrderAddSave")
     @ResponseBody
-    public Message addSavecustomerOrder(CustomerOrderVo customerOrder,HttpSession session) throws  Exception {
+    public Message addSavecustomerOrder(String firstVal,CustomerOrderVo customerOrder,HttpSession session) throws  Exception {
         try{
+            List<CustomerOrderVo> customerOrderVoList = new ArrayList<>();
+            String order[] = firstVal.replace("天","").split(";");
             UserVo userVo = (UserVo) session.getAttribute("userVo");
             UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
-            //如果是店长新增现金流水账目
-            if(userRoleVo.getRoleVo().getTitle().equals("店长")){
-                HotelVo hotelVo = hotelService.findHotel(userVo.getId());
-                customerOrder.setHotelId(hotelVo.getId());
-                customerOrder.setShopManagerId(userVo.getId());
-            }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
-                EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
-                customerOrder.setHotelId(employeeVo.getHotelId());
-                customerOrder.setShopManagerId(employeeVo.getUserId());
+            for (String str:order) {
+                String item[] = str.split(",");
+                if(userRoleVo.getRoleVo().getTitle().equals("店长")){
+                    HotelVo hotelVo = hotelService.findHotel(userVo.getId());
+                    customerOrder.setHotelId(hotelVo.getId());
+                    customerOrder.setShopManagerId(userVo.getId());
+                    customerOrder.setContractId(hotelVo.getContractId());
+                }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
+                    EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+                    customerOrder.setHotelId(employeeVo.getHotelId());
+                    customerOrder.setShopManagerId(employeeVo.getUserId());
+                    HotelVo hotelVo = hotelService.getById(employeeVo.getHotelId());
+                    customerOrder.setContractId(hotelVo.getContractId());
+                }
+                customerOrder.setCheckinTime(DateParseUtils.parseDate(item[0]));
+                customerOrder.setCheckoutTime(DateParseUtils.parseDate(item[1]));
+                customerOrder.setTotalDays(Byte.parseByte(item[2]));
+                customerOrder.setHouseId(Long.parseLong(item[4]));
+                customerOrder.setHousePay(BigDecimal.valueOf(Long.parseLong(item[5])));
+                customerOrder.setIsCheck((byte) 0);
+                customerOrder.setOrderStatus((byte)0);
+                customerOrder.setCheckRemark("未审核");
+                customerOrder.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+                customerOrder.setCompanyId(userVo.getCompanyId());
+                customerOrderVoList.add(customerOrder);
             }
-            customerOrder.setRemark("暂无批注");
-            customerOrder.setIsCheck((byte) 0);
-            customerOrder.setCheckRemark("未审核");
-            customerOrder.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
-            customerOrder.setCompanyId(userVo.getCompanyId());
-            customerOrderService.save(customerOrder);
+            customerOrderService.saveList(customerOrderVoList);
             return  Message.success("新增成功!");
         }catch (Exception E){
+            E.printStackTrace();
             return Message.fail("新增失败!");
         }
 

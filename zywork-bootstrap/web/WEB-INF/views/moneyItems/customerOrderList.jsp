@@ -326,24 +326,24 @@
             </div>
             <div class="form-horizontal" id="updateorderform" >
                 <div class="modal-body">
-                    <form id="basedata" class="form-horizontal" >
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label">姓名：</label>
-                            <div class="col-sm-3">
-                                <input  name="customerName" minlength="2" id="customerName"  maxlength="20" type="text" placeholder="请输入入住人的姓名" value="" class="form-control" >
-                            </div>
-                            <label class="col-sm-1 control-label">手机：</label>
-                            <div class="col-sm-3">
-                                <input  name="customerPhone" minlength="2" id="customerPhone"  maxlength="20" type="text" placeholder="请输入入住人的联系方式" value="" class="form-control">
-                            </div>
-                            <label class="col-sm-1 control-label">证件：</label>
-                            <div class="col-sm-3">
-                                <input  name="customerIdentity" minlength="2" id="customerIdentity" placeholder="请输入入住人的证件号"  maxlength="20" type="text" value="" class="form-control">
+                    <form id="info" onsubmit="return info();">
+                        <div id="basedata" class="form-horizontal" >
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">姓名：</label>
+                                <div class="col-sm-3">
+                                    <input  name="customerName" minlength="2" id="customerName"   required="" aria-required="true" maxlength="20" type="text" placeholder="请输入入住人的姓名" value="" class="form-control" >
+                                </div>
+                                <label class="col-sm-1 control-label">手机：</label>
+                                <div class="col-sm-3">
+                                    <input  name="customerPhone" minlength="2" id="customerPhone"  required="" aria-required="true" maxlength="20" type="text" placeholder="请输入入住人的联系方式" value="" class="form-control">
+                                </div>
+                                <label class="col-sm-1 control-label">证件：</label>
+                                <div class="col-sm-3">
+                                    <input  name="customerIdentity" minlength="2" id="customerIdentity"  required="" aria-required="true" placeholder="请输入入住人的证件号"  maxlength="20" type="text" value="" class="form-control">
+                                </div>
                             </div>
                         </div>
-                    </form>
-                    <div class="form-group" class="div" id="ffid">
-                        <form id="houseInfo">
+                        <div class="form-group" class="div" id="ffid">
                             <div class="form-group" id="fid">
                                 <div class="col-sm-2">
                                     <input  name="first" minlength="2" id="checkinTime0"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" placeholder="入住时间" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
@@ -364,23 +364,21 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <div style="float:left;width:120px">
-                                        <input type="number" class="form-control" placeholder="请输入入住房费" value="0" style="margin-left:-50px" name="housePrice" id="housePrice" />
+                                        <input type="number" class="form-control price" placeholder="请输入入住房费" value="0" style="margin-left:-50px" name="first" id="housePrice" />
                                     </div>
                                     <div style="float:right;margin-top: -25px">
                                         <a onclick="removeDiv(this);" id="remove0"><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div  class="form-group" style="margin-top: -30px;">
-                        <hr height="5px"/>
-                        <a onclick="addDiv();"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增房间</i></a>
-                        <i class="glyphicon glyphicon-usd" style="color:green;float:right;margin-top: -16px">房费总计：<span id="sumMoney"></span></i>
-                        <input type="hidden" id="sum_money" />
-                    </div>
-                    <div class="form-group">
-                        <form id="form0">
+                        </div>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                            <a onclick="addDiv();"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增房间</i></a>
+                            <i class="glyphicon glyphicon-usd" style="color:green;float:right;margin-top: -16px">房费总计：<span id="sumMoney"></span></i>
+                            <input type="hidden" id="sum_money" />
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-1">
                                 <label class="checkbox-inline">
                                     <input type="checkbox" name="hotelItemType" id="hotel0" value="0">
@@ -398,10 +396,8 @@
                                 <select class="form-control" id="websiteId" required name="websiteId" style="margin-left: -30px">
                                 </select>
                             </div>
-                        </form>
-                    </div>
-                    <div class="form-group">
-                        <form id="form1">
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-1">
                                 <label class="checkbox-inline">
                                     <input type="checkbox" name="hotelItemType" id="hotel1" value="1">
@@ -409,8 +405,8 @@
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">商家送客：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control"  name="othersHotel_id" required id="othersHotel_id">
-
+                                <select class="form-control"  name="othersHotelId" required id="othersHotel_id">
+                                    <option value="-1">请选择来往合作商家</option>
                                 </select>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
@@ -423,16 +419,14 @@
                             <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
                                 <select class="form-control" id="paymentType_Id" required name="paymentTypeId">
-
+                                    <option value="-1">请选择支付类型</option>
                                 </select>
                             </div>
-                        </form>
-                    </div>
-                    <div  class="form-group" style="margin-top: -30px;">
-                        <hr height="5px"/>
-                    </div>
-                    <div class="form-group">
-                        <form id="form2">
+                        </div>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                        </div>
+                        <div class="form-group">
                             <div  class="form-group col-sm-12">
                                 <div class="col-sm-1">
                                     <label class="checkbox-inline">
@@ -442,11 +436,12 @@
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">借房商家：</label>
                                 <div class="col-sm-2" style="margin-left:-30px">
                                     <select class="form-control" id="othersHotelId" required name="othersHotelId">
+                                        <option value="-1">请选择来往合作商家</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">结算金额：</label>
                                 <div class="col-sm-2">
-                                    <input  name="otherHotelMoney" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="" class="form-control" required="" aria-required="true">
+                                    <input  name="otherHotelMoney" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="0" class="form-control" required="" aria-required="true">
                                 </div>
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">选择房号：</label>
                                 <div class="col-sm-2" style="margin-left:-30px">
@@ -472,36 +467,37 @@
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">结算账户：</label>
                                 <div class="col-sm-2" style="margin-left:-30px">
                                     <select class="form-control" id="otherHotelMoneyType" required name="otherHotelMoneyType">
-
+                                        <option value="-1">请选择结算账户</option>
                                     </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div  class="form-group" style="margin-top: -30px;">
-                        <hr height="5px"/>
-                        <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">--</span><span style="color:red">（房费-结算金额）</span></i>
-                    </div>
-                    <div class="form-group">
-                        <table id="mytab1" name="mytab1" class="table table-hover"></table>
-                    </div>
-                    <div  class="form-group" style="margin-top: -30px;">
-                        <hr height="5px"/>
-                        <a data-toggle="modal" data-target="#orderAdd"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增款项</i></a>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">备注：</label>
-                        <div class="col-sm-11">
-                            <textarea  name="title" minlength="2" id="reason1"  maxlength="20" value="" class="form-control" required="" aria-required="true"></textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" id="orderItemAdd" class="btn btn-primary">
-                        录入订单
-                    </button>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                            <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">--</span><span style="color:red">（房费-结算金额）</span></i>
+                        </div>
+                        <div class="form-group">
+                            <table id="mytab1" name="mytab1" class="table table-hover"></table>
+                        </div>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                            <a data-toggle="modal" data-target="#orderAdd"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增款项</i></a>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">备注：</label>
+                            <div class="col-sm-11">
+                                <textarea  name="remark" minlength="2" id="reason1"  maxlength="20" value="" class="form-control" required="" aria-required="true"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" id="additem" class="btn btn-primary">
+                                录入订单
+                            </button>
+                        </div>
+                        <textarea name="firstVal" id="firstVal" style="display: none;"></textarea>
+                    </form>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -571,37 +567,7 @@
     $('#orderAdd').on('hidden.bs.modal', function() {
         $('#itemsModule').css({'overflow-y':'scroll'});
     });
-    $("#orderItemAdd").click(function(){
-        if($("#customerName").val()==""){
-            layer.msg('客户姓名不能为空', {icon:2,time:1500});
-            return;
-        }
-        if($("#customerIdentity").val()==''){
-            layer.msg('客户身份证不能为空', {icon:2,time:1500});
-            return;
-        }
-        if($("#customerPhone").val()==''){
-            layer.msg('客户手机号不能为空', {icon:2,time:1500});
-            return;
-        }
-        if($("#customerPhone").val()==''){
-            layer.msg('客户手机号不能为空', {icon:2,time:1500});
-            return;
-        }
-        var obj = document.getElementsByName("checkinTime");
-        for(i=0;i<obj.length;i++){
-            if(obj[i].value==''){
-                layer.msg('入住时间不能为空', {icon:2,time:1500});
-                return;
-            }
-        }
-        var obj1 = document.getElementsByName("checkoutTime");
-        for(i=0;i<obj1.length;i++){
-            if(obj1[i].value==''){
-                layer.msg('离店时间不能为空', {icon:2,time:1500});
-                return;
-            }
-        }
+    $("#additem").click(function info(){
         var obj2=document.getElementsByName('hotelItemType');
         var s='';
         var val="";
@@ -620,50 +586,37 @@
             return;
         }
         if(s==1){
-            var itemInfo="";
-            if(val==0){
-                itemInfo = $("#form0").serialize();
-            }else if(val==1){
-                itemInfo = $("#form1").serialize();
-            }else if(val==2){
-                if($("#otherHotelMoney").val()==''){
-                    layer.msg('结算金额不能为空', {icon:2,time:1500});
-                    return;
-                }
-                itemInfo = $("#form2").serialize();
-            }
-            var basedata = $("#basedata").serialize();
             var first=document.getElementsByName('first');
             var firstVal="";
             var cnt = first.length;
             for(var i=0; i<cnt; i++){
-                if((i+1)%5==0 && i!=0){
+                if((i+1)%6==0 && i!=0){
                     firstVal+= first[i].value+";";
                 }else{
                     firstVal+= first[i].value+",";
                 }
             }
-            var houseInfo = new Array();
-            houseInfo = firstVal.replace("天","").split(";");
+            $("#firstVal").text(firstVal);
             $.post(
                 "/customerOrder/customerOrderAddSave",
-                {
-                    "houseInfo":houseInfo,
-                    "baseInfo":basedata,
-                    "itemInfo":itemInfo
-                },function(data){
-                    alert(data);
+                $("#info").serialize(),
+                function(data){
+                   if(data.message.indexOf("成功")>0){
+                       layer.msg(data.message, {icon:1,time:1000});
+                   }else{
+                       layer.msg(data.message, {icon:2,time:1000});
+                   }
+                   refush();
+                   $("#itemsModule").modal('hide');
                 },"json"
             );
         }
     });
     window.setInterval(function(){
-        var money=document.getElementsByName('housePrice');
         var moneyVal="0";
-        var cnt = money.length;
-        for(var i=0; i<cnt; i++){
-            moneyVal=parseInt(moneyVal)+parseInt(money[i].value);
-        }
+        $("#ffid input[id='housePrice']").each(function(){
+            moneyVal=parseInt(moneyVal)+parseInt($(this).val());
+        });
         $("#sum_money").val(parseInt(moneyVal));
         $("#sumMoney").html(parseInt(moneyVal));
     }, 500);
