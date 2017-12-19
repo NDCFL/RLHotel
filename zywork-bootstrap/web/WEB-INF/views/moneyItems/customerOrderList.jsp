@@ -141,8 +141,8 @@
 <input type="hidden" value=""  id="deleteId"/>
 <%--网站新增结束--%>
 <%--网站信息的修改--%>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -152,47 +152,195 @@
                     客户订单的修改
                 </h4>
             </div>
-            <form class="form-horizontal" id="updateform" >
-                <input  id="id" type="hidden" name="id" />
+            <div class="form-horizontal" >
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" required id="subjectId" name="subjectId">
-                            </select>
+                    <form id="updateform" >
+                        <div  class="form-horizontal" >
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">姓名：</label>
+                                <div class="col-sm-3">
+                                    <input  name="customerName" minlength="2" required="" aria-required="true" maxlength="20" type="text" value="" class="form-control" >
+                                </div>
+                                <label class="col-sm-1 control-label">手机：</label>
+                                <div class="col-sm-3">
+                                    <input  name="customerPhone" minlength="2"  required="" aria-required="true" maxlength="20" type="text"  value="" class="form-control">
+                                </div>
+                                <label class="col-sm-1 control-label">证件：</label>
+                                <div class="col-sm-3">
+                                    <input  name="customerIdentity" minlength="2"  required="" aria-required="true"  maxlength="20" type="text" value="" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">客户订单类型：</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" required name="accountType">
-                                <option value="0">收入</option>
-                                <option value="1">支出</option>
-                            </select>
+                        <div class="form-group" class="div">
+                            <div class="form-group" >
+                                <div class="col-sm-2">
+                                    <input  name="checkinTime" minlength="2" maxlength="20" type="datetime" value="" class="form-control  date form_datetime" data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input  name="checkoutTime" minlength="2" style="margin-left:-10px"  maxlength="20" type="datetime" value="" class="form-control  date form_datetime" onchange="getDays(this.value,0)"  data-date-format="yyyy-mm-dd hh:ii:ss" required="" aria-required="true">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input  name="totalDays" minlength="2" style="margin-left:-20px" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" id="houseTypeId" style="margin-left:-30px" onchange="getHouse(this.value,0);"  required >
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" id="house_Id" style="margin-left:-40px" onchange="getHousePrice(this.value,0);" required >
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div style="float:left;width:120px">
+                                        <input type="number" class="form-control price" value="0" style="margin-left:-50px" name="housePay"  />
+                                    </div>
+                                    <div style="float:right;margin-top: -25px">
+                                        <a onclick="removeDiv(this);" ><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">客户订单金额：</label>
-                        <div class="col-sm-8">
-                            <input  name="totalPay" minlength="2" id="totalPay" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                            <a onclick="addDiv();"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增房间</i></a>
+                            <i class="glyphicon glyphicon-usd" style="color:green;float:right;margin-top: -16px">房费总计：<span id="sumMoney1"></span></i>
+                            <input type="hidden" id="sum_money1" />
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-1">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="typeId0" name="typeId"  value="0">
+                                </label>
+                            </div>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
+                            <div class="col-sm-2" style="margin-left:-30px">
+                                <select class="form-control"  required name="type">
+                                    <option value="0">在线预付</option>
+                                    <option value="1">担保现付</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">渠道选择：</label>
+                            <div class="col-sm-2">
+                                <select class="form-control"  required id="website_Id" name="websiteId" style="margin-left: -30px">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-1">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="typeId1"  name="typeId" value="1">
+                                </label>
+                            </div>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">商家送客：</label>
+                            <div class="col-sm-2" style="margin-left:-30px">
+                                <select class="form-control" id="otherHotel" name="othersHotelId" required >
+                                    <option value="-1">请选择来往合作商家</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" required name="isCash1" style="margin-left: -30px">
+                                    <option value="0">未结算</option>
+                                    <option value="1">已结算</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
+                            <div class="col-sm-2" style="margin-left:-30px">
+                                <select class="form-control" required id="payment_Type_Id" name="paymentTypeId">
+                                    <option value="-1">请选择支付类型</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                        </div>
+                        <div class="form-group">
+                            <div  class="form-group col-sm-12">
+                                <div class="col-sm-1">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="typeId2" name="typeId" value="2">
+                                    </label>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">借房商家：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control" id="other_hotel" required name="othersHotelId">
+                                        <option value="-1">请选择来往合作商家</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">结算金额：</label>
+                                <div class="col-sm-2">
+                                    <input  name="otherHotelMoney" minlength="2" style="margin-left:-30px" maxlength="20" type="number" placeholder="结算金额" value="0" class="form-control" required="" aria-required="true">
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">选择房号：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control" required name="xnHouse">
+                                        <option>虚拟101房间</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">账目说明：</label>
-                        <div class="col-sm-8">
-                            <textarea  name="description" id="description" class="form-control" required="" aria-required="true"></textarea>
+                            <div  class="form-group col-sm-12">
+                                <div class="col-sm-1">
+                                    <label class="checkbox-inline">
+
+                                    </label>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control"  required name="isCash2">
+                                        <option value="0">未结算</option>
+                                        <option value="1">已结算</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label" style="margin-left: -40px">结算账户：</label>
+                                <div class="col-sm-2" style="margin-left:-30px">
+                                    <select class="form-control" required id="otherType" name="otherHotelMoneyType">
+                                        <option value="-1">请选择结算账户</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                            <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">--</span><span style="color:red">（房费-结算金额）</span></i>
+                        </div>
+                        <div class="form-group">
+                            <table name="mytab1" class="table table-striped table-responsive">
+                                <thead>
+                                    <th>科目</th>
+                                    <th>房号</th>
+                                    <th>金额</th>
+                                    <th>是否结算</th>
+                                    <th>创建时间</th>
+                                    <th>操作人</th>
+                                    <th>操作</th>
+                                </thead>
+                                <tbody id="infodata">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div  class="form-group" style="margin-top: -30px;">
+                            <hr height="5px"/>
+                            <a data-toggle="modal" data-target="#orderAdd"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增款项</i></a>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">备注：</label>
+                            <div class="col-sm-11">
+                                <textarea  name="remark" minlength="2"  maxlength="20" value="" class="form-control" required="" aria-required="true"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="button" id="updateitem" class="btn btn-primary">
+                                确认修改订单
+                            </button>
+                        </div>
+                        <textarea name="firstVal" id="firstVal1" style="display: none;"></textarea>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
-                        确认修改
-                    </button>
-                </div>
-            </form>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
@@ -386,7 +534,7 @@
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
                             <div class="col-sm-2" style="margin-left:-30px">
-                                <select class="form-control" id="itemType" required name="itemType">
+                                <select class="form-control" id="itemType" required name="type">
                                     <option value="0">在线预付</option>
                                     <option value="1">担保现付</option>
                                 </select>
@@ -496,6 +644,7 @@
                                 录入订单
                             </button>
                         </div>
+                        <input name="typeId" id="typeId" style="display: none;"></input>
                         <textarea name="firstVal" id="firstVal" style="display: none;"></textarea>
                     </form>
                 </div>
@@ -515,21 +664,19 @@
                     新增客户增值业务款项
                 </h4>
             </div>
-            <form class="form-horizontal" method="post" id="otherMoneyForm">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" id="otherMoneyForm">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">款项类型：</label>
+                        <label class="col-sm-3 control-label">房号：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="moneyTypeId" required name="moneyTypeId">
-                                <option value="0">押金</option>
-                                <option value="1">增值业务</option>
-                            </select>
+                            <input  name="houseId" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属科目：</label>
+                        <label class="col-sm-3 control-label">科目：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="serviceSubject" required name="serviceSubject">
+                            <select class="form-control" id="itemId" required name="itemName">
+
                             </select>
                         </div>
                     </div>
@@ -540,27 +687,42 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">账目说明：</label>
+                        <label class="col-sm-3 control-label">支付方式：</label>
                         <div class="col-sm-8">
-                            <textarea  name="description" class="form-control" required="" aria-required="true"></textarea>
+                            <select class="form-control" id="otherHotelMoneyType1" required name="otherHotelMoneyType">
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="submit" id="otherMoneyAdd" class="btn btn-primary">
-                        确认新增
-                    </button>
-                </div>
-            </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">结算状态：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control"  required name="isCash">
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账目说明：</label>
+                        <div class="col-sm-8">
+                            <textarea  name="remark" class="form-control" required="" aria-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" id="otherMoneyAdd" class="btn btn-primary">
+                            确认新增
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/customerOrder.js"></script>
-<script src="<%=path%>/static/js/pageJs/addOrderItems.js"></script>
 <script src="<%=path%>/static/js/pageJs/addHouseMoney.js"></script>
 </body>
 <script>
@@ -586,6 +748,7 @@
             return;
         }
         if(s==1){
+            $("#typeId").val(val);
             var first=document.getElementsByName('first');
             var firstVal="";
             var cnt = first.length;
@@ -607,7 +770,7 @@
                        layer.msg(data.message, {icon:2,time:1000});
                    }
                    refush();
-                   $("#itemsModule").modal('hide');
+                    $('#itemsModule').modal('hide')
                 },"json"
             );
         }
@@ -620,6 +783,21 @@
         $("#sum_money").val(parseInt(moneyVal));
         $("#sumMoney").html(parseInt(moneyVal));
     }, 500);
+    $("#otherMoneyAdd").click(function () {
+        $.post(
+            "/item/houseOthersItemAddSave",
+            $("#otherMoneyForm").serialize(),
+            function(data){
+                if(data.message.indexOf("成功")>0){
+                    layer.msg(data.message, {icon:1,time:1000});
+                }else{
+                    layer.msg(data.message, {icon:2,time:1000});
+                }
+                refush();
+                $("#orderAdd").modal('hide');
+            },"json"
+        );
+    });
 </script>
 <%--
 <script>

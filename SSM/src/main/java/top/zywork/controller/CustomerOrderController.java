@@ -66,6 +66,7 @@ public class CustomerOrderController {
         pagingBean.setrows(customerOrderService.listPage(pageQuery));
         return pagingBean;
     }
+
     @RequestMapping("/customerOrderAddSave")
     @ResponseBody
     public Message addSavecustomerOrder(String firstVal,CustomerOrderVo customerOrder,HttpSession session) throws  Exception {
@@ -99,12 +100,19 @@ public class CustomerOrderController {
                 customerOrder.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
                 customerOrder.setCompanyId(userVo.getCompanyId());
                 customerOrderVoList.add(customerOrder);
+                try{
+                    //入住过的房状态改为已入住，同时更新该房间空出来的时间这样就方便后期的排房系统
+                    houseService.updateHouseStatus(new StatusQuery(1,customerOrder.getHotelId(),Long.parseLong(item[4])),customerOrder.getCheckoutTime());
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return Message.fail("房间状态更新失败!");
+                }
             }
             customerOrderService.saveList(customerOrderVoList);
-            return  Message.success("新增成功!");
+            return  Message.success("订单录入成功!");
         }catch (Exception E){
             E.printStackTrace();
-            return Message.fail("新增失败!");
+            return Message.fail("订单录入失败!");
         }
 
     }
@@ -148,7 +156,7 @@ public class CustomerOrderController {
             EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
             pageQuery.setHotelId(employeeVo.getHotelId());
         }
-        List<Select2Vo> typeList=customerOrderService.getHouse(pageQuery,id);
+        List<Select2Vo> typeList=customerOrderService.getHouse(pageQuery,id,new Date(),0);
         return  typeList;
     }
     @RequestMapping("/getSubject")

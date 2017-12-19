@@ -13,10 +13,10 @@ import top.zywork.common.PagingBean;
 import top.zywork.enums.ActiveStatusEnum;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
+import top.zywork.service.EmployeeService;
+import top.zywork.service.HotelService;
 import top.zywork.service.HouseOthersItemService;
-import top.zywork.vo.HouseOthersItemVo;
-import top.zywork.vo.Select2Vo;
-import top.zywork.vo.UserVo;
+import top.zywork.vo.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -33,16 +33,46 @@ import java.util.List;
 public class HouseOthersItemController {
     @Resource
     private HouseOthersItemService houseOthersItemService;
-    @RequestMapping("houseOthersItemList")
+    @Resource
+    private HotelService hotelService;
+    @Resource
+    private EmployeeService employeeService;
+    @RequestMapping("houseOthersItemList/{houseId}")
     @ResponseBody
-    public PagingBean houseOthersItemList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+    public PagingBean houseOthersItemList(@PathVariable("houseId") Long houseId,int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(houseOthersItemService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(houseOthersItemService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setSearchVal(searchVal);
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pagingBean.setTotal(houseOthersItemService.count(pageQuery));
+        pagingBean.setrows(houseOthersItemService.listPage(pageQuery));
         return pagingBean;
+    }
+    @RequestMapping("orderList/{houseId}")
+    @ResponseBody
+    public List<HouseOthersItemVo> orderList(@PathVariable("houseId") Long houseId,HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setHouseId(houseId);
+        UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
+        if(userRoleVo.getRoleVo().getTitle().equals("店长")){
+            HotelVo hotelVo = hotelService.findHotel(userVo.getId());
+            pageQuery.setHotelId(hotelVo.getId());
+        }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员")){
+            EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+            pageQuery.setHotelId(employeeVo.getHotelId());
+        }else {
+            EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+            pageQuery.setHotelId(employeeVo.getHotelId());
+        }
+        List<HouseOthersItemVo> houseOthersItemVoList= houseOthersItemService.listPage(pageQuery);
+        return houseOthersItemVoList;
     }
     @RequestMapping("/getSubject")
     @ResponseBody
@@ -56,7 +86,16 @@ public class HouseOthersItemController {
     public Message addSavehouseOthersItem(HouseOthersItemVo houseOthersItem, HttpSession session) throws  Exception {
         try{
             UserVo userVo = (UserVo) session.getAttribute("userVo");
+            UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
             houseOthersItem.setCompanyId(userVo.getCompanyId());
+            if(userRoleVo.getRoleVo().getTitle().equals("店长")){
+                HotelVo hotelVo = hotelService.findHotel(userVo.getId());
+                houseOthersItem.setHotelId(hotelVo.getId());
+            }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
+                EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+                houseOthersItem.setHotelId(employeeVo.getHotelId());
+            }
+
             houseOthersItemService.save(houseOthersItem);
             return  Message.success("新增成功!");
         }catch (Exception E){

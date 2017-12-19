@@ -9,6 +9,7 @@ import top.zywork.vo.HouseVo;
 import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,5 +82,10 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public String getHouseCardTitle(long companyId) {
         return houserDAO.getHouseCardTitle(companyId);
+    }
+
+    @Override
+    public void updateHouseStatus(StatusQuery statusQuery,Date leaveTitle) {
+        houserDAO.updateHouseStatus(statusQuery,leaveTitle);
     }
 }

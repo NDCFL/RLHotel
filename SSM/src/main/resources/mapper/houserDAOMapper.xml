@@ -82,4 +82,7 @@
 	<update id="update">
 		update t_house set card_title=#{cardTitle},area=#{area},unit_price=#{unitPrice},sale_price=#{salePrice},type=#{type},description=#{description},hotel_id=#{hotelId},shop_manager_id=#{shopManagerId},shop_agent_id=#{shopAgentId},house_status=#{houseStatus} where id = #{id}
 	</update>
+	<update id="updateHouseStatus">
+		update t_house set house_status=#{statusQuery.status},leave_time=#{leaveTime} where id=#{statusQuery.houseId} and hotel_id=#{statusQuery.hotelId}
+	</update>
 </mapper>

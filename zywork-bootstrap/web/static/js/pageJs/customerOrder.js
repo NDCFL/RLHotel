@@ -40,12 +40,6 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true
         },
-        {
-            title: '酒店店长',
-            field: 'userVo.nickname',
-            align: 'center',
-            sortable: true
-        },
 
         {
             title: '客户名称',
@@ -55,8 +49,22 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '单价',
-            field: 'unitPrice',
+            title: '客户类型',
+            field: 'type',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                if(value=="0"){
+                    return '<span style="color:green">在线预付</span>';
+                }else{
+                    return '<span style="color:red">担保现付</span>';
+                }
+            }
+        }
+        ,
+        {
+            title: '房号',
+            field: 'houseVo.cardTitle',
             align: 'center',
             sortable: true
         }
@@ -236,14 +244,79 @@ function del(customerOrderid, status) {
     });
 }
 function edit(name) {
-    $.post("/customerOrder/findCashAccounts/" + name,
+    $.post("/customerOrder/findCustomerOrder/" + name,
         function (data) {
             $("#updateform").autofill(data);
-            var colum = $("#subjectId").select2();
+            $("#sumMoney1").html(data.housePay + "元");
+            var colum = $("#website_Id").select2();
             //选中某一行
-            colum.val(data.subjectId).trigger("change");
+            colum.val(data.websiteId).trigger("change");
             colum.change();
-            $("#accountTime").val(data.accountTime);
+            $.post("/house/findHouse/" + data.houseId,
+                function (obj) {
+                    var colum2 = $("#houseTypeId").select2();
+                    //选中某一行
+                    colum2.val(obj.type).trigger("change");
+                    colum2.change();
+                    var colum1 = $("#house_Id").select2();
+                    colum1.val(data.houseId).trigger("change");
+                    colum1.change();
+                },
+                "json"
+            );
+            if (data.typeId == 1) {
+                if (data.otherHotel == '' || data.otherHotel == null) {
+                    data.otherHotel = -1;
+                }
+                var colum3 = $("#otherHotel").select2();
+                //选中某一行
+                colum3.val(data.otherHotel).trigger("change");
+                colum3.change();
+                if (data.paymentTypeId == '' || data.paymentTypeId == null) {
+                    data.paymentTypeId = -1;
+                }
+                var colum4 = $("#payment_Type_Id").select2();
+                //选中某一行
+                colum4.val(data.paymentTypeId).trigger("change");
+                colum4.change();
+            } else if (data.typeId == 2) {
+                if (data.otherHotel == '' || data.otherHotel == null) {
+                    data.otherHotel = -1;
+                }
+                var colum3 = $("#other_hotel").select2();
+                colum3.val(data.otherHotel).trigger("change");
+                colum3.change();
+            }
+            var colum5 = $("#otherType").select2();
+            colum5.val(data.paymentTypeId).trigger("change");
+            colum5.change();
+        },
+        "json"
+    );
+    $.post("/item/orderList/" + $("#house_Id").val(),
+        function (data) {
+          var info ="";
+          var cnt = parseInt(data.length);
+          for(var i=0;i<cnt;i++){
+              if(data[i].hander==null || data[i].hander==''){
+                  data[i].hander="暂无";
+              }
+              if(data[i].isCash==0){
+                  data[i].isCash='<span style="color:green">未结算</span>';
+              }else{
+                  data[i].isCash='<span style="color:red">已结算</span>';
+              }
+              info+='<tr>';
+              info+='<td>'+data[i].serviceSubjectVo.title+'</td>';
+              info+='<td>'+data[i].houseVo.cardTitle+'</td>';
+              info+='<td style="color:red">$'+data[i].payMoney+'</td>';
+              info+='<td>'+data[i].isCash+'</td>';
+              info+='<td>'+getDate(data[i].payTime)+'</td>';
+              info+='<td>'+data[i].hander+'</td>';
+              info+='<td><a href="javascript:void(0);" onclick="deleteItem('+data[i].id +')">删除</a></td>';
+              info+='</tr>';
+          }
+          $("#infodata").html(info);
         },
         "json"
     );
@@ -474,4 +547,17 @@ function getAccounts(){
         });
     });
 
+}
+function getDate(value) {
+    var date = new Date(parseInt(value));
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + m + '-' + d +' '+h+':'+mi+':'+ss;
+}
+function deleteItem(id) {
+    alert(id);
 }

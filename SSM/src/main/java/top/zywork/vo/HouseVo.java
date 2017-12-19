@@ -36,7 +36,7 @@ public class HouseVo {
 
     private UserVo userVo;
 
-
+    private Date leaveTime;
 
     public HouseVo(Long id, String cardTitle, Double area, BigDecimal unitPrice, BigDecimal salePrice, Byte type, Long hotelId, Long shopManagerId, Long shopAgentId, Byte houseStatus, Date createTime, Byte isActive, String description) {
         this.id = id;
@@ -184,5 +184,13 @@ public class HouseVo {
 
     public void setUserVo(UserVo userVo) {
         this.userVo = userVo;
+    }
+
+    public Date getLeaveTime() {
+        return leaveTime;
+    }
+
+    public void setLeaveTime(Date leaveTime) {
+        this.leaveTime = leaveTime;
     }
 }

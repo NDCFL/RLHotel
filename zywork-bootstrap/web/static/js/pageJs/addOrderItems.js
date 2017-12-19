@@ -2,7 +2,7 @@
 $('#mytab1').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/",//要请求数据的文件路径
+    url: "item/houseOthersItemList/"+$("#house_Id").val(),//要请求数据的文件路径
     striped: true, //是否显示行间隔色
     dataField: "res",
     sortable: true, //是否启用排序 sortOrder: "ID asc",
@@ -14,21 +14,21 @@ $('#mytab1').bootstrapTable({
     columns: [
 
         {
-            title: '科目',
-            field: 'title',
+            title: '房号',
+            field: 'houseId',
             align: 'center',
             sortable: true
         },
         {
-            title: '金额',
-            field: 'description',
+            title: '科目',
+            field: 'itemName',
             align: 'center',
             sortable: true
         }
         ,
         {
-            title: '房号',
-            field: 'description',
+            title: '金额',
+            field: 'payMoney',
             align: 'center',
             sortable: true
         }
@@ -52,7 +52,7 @@ $('#mytab1').bootstrapTable({
         ,
         {
             title: '操作人',
-            field: 'description',
+            field: 'hander',
             align: 'center',
             sortable: true
         }

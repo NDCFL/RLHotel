@@ -9,6 +9,8 @@ import top.zywork.vo.CustomerOrderVo;
 import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,8 +77,8 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     }
 
     @Override
-    public List<Select2Vo> getHouse(PageQuery pageQuery,Long type) {
-        return customerOrderDAO.getHouse(pageQuery,type);
+    public List<Select2Vo> getHouse(PageQuery pageQuery, Long type, Date leaveTime, int status) {
+        return customerOrderDAO.getHouse(pageQuery,type,leaveTime,status);
     }
 
     @Override

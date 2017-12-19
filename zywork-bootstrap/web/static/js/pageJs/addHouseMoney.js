@@ -43,10 +43,16 @@ $.post(
         $("#houseTypeId0").select2({
             data: data
         });
+        $("#houseTypeId").select2({
+            data: data
+        });
         $.post(
             "/customerOrder/getHouse/"+data[0].id,
             function(data){
                 $("#houseId0").select2({
+                    data: data
+                });
+                $("#house_Id").select2({
                     data: data
                 });
                 $.post(
@@ -74,9 +80,19 @@ $.post(
         $("#paymentType_Id").select2({
             data: data
         });
+        $("#payment_Type_Id").select2({
+            data: data
+        });
         $("#otherHotelMoneyType").select2({
             data: data
         });
+        $("#otherHotelMoneyType1").select2({
+            data: data
+        });
+        $("#otherType").select2({
+            data: data
+        });
+
     },
     "json"
 
@@ -86,6 +102,9 @@ $.post(
     "/item/getSubject",
     function(data){
         $("#serviceSubject").select2({
+            data: data
+        });
+        $("#itemId").select2({
             data: data
         });
 
@@ -103,6 +122,13 @@ $.post(
         $("#othersHotelId").select2({
             data: data
         })
+        $("#otherHotel").select2({
+            data: data
+        })
+        $("#other_hotel").select2({
+            data: data
+        })
+
     },
     "json"
 
@@ -112,6 +138,9 @@ $.post(
     "/customerOrder/getWeb",
     function(data){
         $("#websiteId").select2({
+            data: data
+        })
+        $("#website_Id").select2({
             data: data
         })
     },
@@ -136,18 +165,11 @@ function getHouse(id,cnt){
                 $("#houseId"+cnt).select2({
                     data: data
                 });
-                $.post(
-                    "/house/findHouse/"+data[0].id,
-                    function(data){
-                        $("#houseP"+cnt).html(data.unitPrice);
-                        var number = "0";
-                        for(var i=0;i<=cnt;i++){
-                            number=parseInt(number)+parseInt($("#houseP"+i).html());
-                        }
-                        $("#sumMoney").html(parseInt(number));
-                    },
-                    "json"
-                );
+                $("#house_Id").html("");
+                $("#house_Id").select2({
+                    data: data
+                });
+
             }
         },
         "json"

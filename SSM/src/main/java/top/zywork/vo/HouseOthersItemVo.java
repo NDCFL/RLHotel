@@ -2,6 +2,7 @@ package top.zywork.vo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by chenfeilong on 2017/12/12.
@@ -13,14 +14,14 @@ public class HouseOthersItemVo implements Serializable{
     private Long houseId;
     private String itemName;
     private BigDecimal payMoney;
-    private BigDecimal payTime;
+    private Date payTime;
     private Byte isCash;
     private Long hander;
     private String remark;
     private CompanyVo companyVo;
     private HouseVo houseVo;
     private HotelVo hotelVo;
-
+    private ServiceSubjectVo serviceSubjectVo;
     public Long getId() {
         return id;
     }
@@ -69,11 +70,11 @@ public class HouseOthersItemVo implements Serializable{
         this.payMoney = payMoney;
     }
 
-    public BigDecimal getPayTime() {
+    public Date getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(BigDecimal payTime) {
+    public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
 
@@ -123,5 +124,13 @@ public class HouseOthersItemVo implements Serializable{
 
     public void setHotelVo(HotelVo hotelVo) {
         this.hotelVo = hotelVo;
+    }
+
+    public ServiceSubjectVo getServiceSubjectVo() {
+        return serviceSubjectVo;
+    }
+
+    public void setServiceSubjectVo(ServiceSubjectVo serviceSubjectVo) {
+        this.serviceSubjectVo = serviceSubjectVo;
     }
 }

@@ -16,6 +16,7 @@ public class PageQuery {
     private Long hotelId;
     private Long companyId;
     private Integer startIndex;
+    private Long houseId;
 
     public PageQuery() {
     }
@@ -94,4 +95,11 @@ public class PageQuery {
         this.companyId = companyId;
     }
 
+    public Long getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Long houseId) {
+        this.houseId = houseId;
+    }
 }

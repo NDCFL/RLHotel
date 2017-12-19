@@ -12,6 +12,10 @@ public class StatusQuery {
 
     private Long id;
     private Integer status;
+    private Long companyId;
+    private Long hotelId;
+    private String cardTitle;
+    private Long houseId;
 
     public StatusQuery() {}
 
@@ -34,5 +38,50 @@ public class StatusQuery {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public StatusQuery(Long id, Integer status, Long companyId, Long hotelId) {
+        this.id = id;
+        this.status = status;
+        this.companyId = companyId;
+        this.hotelId = hotelId;
+    }
+
+    public String getCardTitle() {
+        return cardTitle;
+    }
+
+    public void setCardTitle(String cardTitle) {
+        this.cardTitle = cardTitle;
+    }
+
+    public StatusQuery(Integer status, Long hotelId, long houseId) {
+        this.status = status;
+        this.hotelId = hotelId;
+        this.houseId = houseId;
+    }
+
+    public Long getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Long houseId) {
+        this.houseId = houseId;
     }
 }

@@ -8,6 +8,8 @@ import top.zywork.vo.CustomerOrderVo;
 import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public interface CustomerOrderDAO extends BaseDAO<CustomerOrderVo>{
 
     List<Select2Vo> getSubject(Long companyId);
     List<Select2Vo> getWeb(Long companyId);
-    List<Select2Vo> getHouse(@Param("pageQuery") PageQuery pageQuery,@Param("type") Long type);
+    List<Select2Vo> getHouse(@Param("pageQuery") PageQuery pageQuery, @Param("type") Long type, @Param("leaveTime")Date leaveTime, @Param("status") int status);
     void updateCashStatus(CustomerOrderVo customerOrderVo);
     void updateRemark(CustomerOrderVo customerOrderVo);
     void checkerManyCashAccount(List<CustomerOrderVo> customerOrderVoList);
