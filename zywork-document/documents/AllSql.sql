@@ -418,7 +418,7 @@ create table t_house_others_item(
   house_id bigint,
   item_name VARCHAR(20),
   pay_money DECIMAL ,
-  pay_time DATETIME,
+  pay_time DATETIME DEFAULT now(),
   is_cash TINYINT,
   hander BIGINT,
   remark VARCHAR(300)
@@ -428,3 +428,6 @@ select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,c.name
 
 select * from t_employee;
 
+select * from t_house_others_item where company_id=1 and hotel_id=2 and house_id=2 order by pay_time desc
+
+select * from t_house where leave_time>'2017-12-20 22:30:21'

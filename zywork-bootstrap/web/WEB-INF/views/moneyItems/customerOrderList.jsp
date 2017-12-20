@@ -183,26 +183,15 @@
                                     <input  name="totalDays" minlength="2" style="margin-left:-20px" readonly maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                                 </div>
                                 <div class="col-sm-2">
-                                    <select class="form-control" id="houseTypeId" style="margin-left:-30px" onchange="getHouse(this.value,0);"  required >
-                                    </select>
+                                    <input  name="houseId"  type="number" value="" readonly class="form-control" required="" aria-required="true">
                                 </div>
                                 <div class="col-sm-2">
-                                    <select class="form-control" id="house_Id" style="margin-left:-40px" onchange="getHousePrice(this.value,0);" required >
-                                    </select>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div style="float:left;width:120px">
-                                        <input type="number" class="form-control price" value="0" style="margin-left:-50px" name="housePay"  />
-                                    </div>
-                                    <div style="float:right;margin-top: -25px">
-                                        <a onclick="removeDiv(this);" ><span style="margin-left: 5px"><i class="glyphicon glyphicon-minus-sign" style="color:red"></i></span></a>
-                                    </div>
+                                    <input type="number" class="form-control price" readonly value="0"  name="housePay"  />
                                 </div>
                             </div>
                         </div>
                         <div  class="form-group" style="margin-top: -30px;">
                             <hr height="5px"/>
-                            <a onclick="addDiv();"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增房间</i></a>
                             <i class="glyphicon glyphicon-usd" style="color:green;float:right;margin-top: -16px">房费总计：<span id="sumMoney1"></span></i>
                             <input type="hidden" id="sum_money1" />
                         </div>
@@ -719,6 +708,110 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+</div>
+<div class="modal fade" id="updateHouseHander" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="updateModalLabel">
+                    订单的修改
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#home" data-toggle="tab">
+                            退房
+                        </a>
+                    </li>
+                    <li><a href="#ios" data-toggle="tab">换房</a></li>
+
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="home">
+                        <br/>
+                        <form class="form-horizontal" method="post" id="tuifang">
+                            <input type="hidden" name="id" id="" value=""/>
+                            <input type="hidden" name="houseId" value="" />
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">客户姓名：</label>
+                                <div class="col-sm-8">
+                                    <input  name="customerName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">缴纳押金：</label>
+                                <div class="col-sm-8">
+                                    <input  name="deposit" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">退换金额：</label>
+                                <div class="col-sm-8">
+                                    <input  name="actualReturn" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">退房备注：</label>
+                                <div class="col-sm-8">
+                                    <textarea  name="remark" class="form-control" required="" aria-required="true"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" id="tuikuan" class="btn btn-primary">
+                                    确认退房
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="ios">
+                        <br/>
+                        <form class="form-horizontal" method="post" id="huanfang">
+                            <input type="hidden" name="id"  value=""/>
+                            <input type="hidden" name="houseId" value="" />
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">客户姓名：</label>
+                                <div class="col-sm-8">
+                                    <input  name="customerName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">原住房间：</label>
+                                <div class="col-sm-8">
+                                    <input  name="srcHouse" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">新住房间：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="newHouse" required name="new">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">换房备注：</label>
+                                <div class="col-sm-8">
+                                    <textarea  name="remark" class="form-control" required="" aria-required="true"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                </button>
+                                <button type="button" id="endHouse" class="btn btn-primary">
+                                    确认换房
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>

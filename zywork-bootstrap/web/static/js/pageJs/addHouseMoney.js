@@ -55,6 +55,9 @@ $.post(
                 $("#house_Id").select2({
                     data: data
                 });
+                $("#newHouse").select2({
+                    data: data
+                });
                 $.post(
                     "/house/findHouse/"+data[0].id,
                     function(data){

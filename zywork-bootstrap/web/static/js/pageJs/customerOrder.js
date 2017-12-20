@@ -176,7 +176,8 @@ $('#mytab').bootstrapTable({
                 }else{
                     g = '<a title="批注" id="checker" id="customerOrder"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green"></i></a>';
                 }
-                var e = '<a title="编辑" href="javascript:void(0);" id="customerOrder"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e=  '<a title="修改" href="javascript:void(0);" id="customerOrder"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#updateHouseHander" onclick="return updateHouse(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var p= '<a title="详情" href="javascript:void(0);" id="customerOrder"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-align-justify" alt="详情" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -185,7 +186,7 @@ $('#mytab').bootstrapTable({
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
                 var t = '<a title="新增款项" id="checker" id="customerOrder"  data-toggle="modal" data-target="#orderAdd" data-id="\'' + row.id + '\'" ><i class="glyphicon glyphicon-usd" alt="新增款项" style="color:green"></i></a>';
-                return g+e + d + f+t;
+                return g+e +p+ f+t;
             }
         }
     ],
@@ -252,7 +253,7 @@ function edit(name) {
             //选中某一行
             colum.val(data.websiteId).trigger("change");
             colum.change();
-            $.post("/house/findHouse/" + data.houseId,
+            $.post("/house/findHouse/"+data.houseId,
                 function (obj) {
                     var colum2 = $("#houseTypeId").select2();
                     //选中某一行
@@ -261,6 +262,10 @@ function edit(name) {
                     var colum1 = $("#house_Id").select2();
                     colum1.val(data.houseId).trigger("change");
                     colum1.change();
+                    //已经审核过的订单不允许修改
+                    if(data.isCheck==1){
+                        $("#updateitem").attr("disabled","disabled");
+                    }
                 },
                 "json"
             );
@@ -290,33 +295,34 @@ function edit(name) {
             var colum5 = $("#otherType").select2();
             colum5.val(data.paymentTypeId).trigger("change");
             colum5.change();
-        },
-        "json"
-    );
-    $.post("/item/orderList/" + $("#house_Id").val(),
-        function (data) {
-          var info ="";
-          var cnt = parseInt(data.length);
-          for(var i=0;i<cnt;i++){
-              if(data[i].hander==null || data[i].hander==''){
-                  data[i].hander="暂无";
-              }
-              if(data[i].isCash==0){
-                  data[i].isCash='<span style="color:green">未结算</span>';
-              }else{
-                  data[i].isCash='<span style="color:red">已结算</span>';
-              }
-              info+='<tr>';
-              info+='<td>'+data[i].serviceSubjectVo.title+'</td>';
-              info+='<td>'+data[i].houseVo.cardTitle+'</td>';
-              info+='<td style="color:red">$'+data[i].payMoney+'</td>';
-              info+='<td>'+data[i].isCash+'</td>';
-              info+='<td>'+getDate(data[i].payTime)+'</td>';
-              info+='<td>'+data[i].hander+'</td>';
-              info+='<td><a href="javascript:void(0);" onclick="deleteItem('+data[i].id +')">删除</a></td>';
-              info+='</tr>';
-          }
-          $("#infodata").html(info);
+            $.post("/item/orderList/" + data.houseId,
+                function (data) {
+                    var info ="";
+                    var cnt = parseInt(data.length);
+                    for(var i=0;i<cnt;i++){
+                        if(data[i].hander==null || data[i].hander==''){
+                            data[i].hander="暂无";
+                        }
+                        if(data[i].isCash==0){
+                            data[i].isCash='<span style="color:green">未结算</span>';
+                        }else{
+                            data[i].isCash='<span style="color:red">已结算</span>';
+                        }
+                        info+='<tr>';
+                        info+='<td>'+data[i].serviceSubjectVo.title+'</td>';
+                        info+='<td>'+data[i].houseVo.cardTitle+'</td>';
+                        info+='<td style="color:red">$'+data[i].payMoney+'</td>';
+                        info+='<td>'+data[i].isCash+'</td>';
+                        info+='<td>'+getDate(data[i].payTime)+'</td>';
+                        info+='<td>'+data[i].hander+'</td>';
+                        info+='<td><a href="javascript:void(0);" onclick="deleteItem('+data[i].id +')">删除</a></td>';
+                        info+='</tr>';
+                    }
+                    $("#infodata").html(info);
+                },
+                "json"
+            );
+
         },
         "json"
     );
@@ -385,6 +391,15 @@ $("#update").click(function () {
         }, "json"
     );
 });
+function updateHouse(id) {
+    $.post(
+        "/customerOrder/findCustomerOrder/"+id,
+        function (data) {
+            $("#tuifang").autofill(data);
+            $("#huanfang").autofill(data);
+        }, "json"
+    );
+}
 $("#shenhe").click(function () {
     $.post(
         "/customerOrder/customerOrderShenHe",
