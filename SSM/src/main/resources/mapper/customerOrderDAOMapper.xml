@@ -35,6 +35,7 @@
         <result column="other_hotel" property="otherHotel"></result>
         <result column="is_cash" property="isCash"></result>
         <result column="payment_type_id" property="paymentTypeId"></result>
+        <result column="hotel_id" property="hotelId"></result>
         <association property="companyVo" javaType="top.zywork.vo.CompanyVo">
             <id column="cid" property="id"></id>
             <result column="name" property="name"></result>
@@ -84,7 +85,7 @@
         select id,title as text from t_hotel where company_id=#{companyId}  and id !=#{hotelId}
     </select>
     <select id="getHouse" resultMap="select2VoMap">
-        select id,card_title as text from t_house where  hotel_id=#{pageQuery.hotelId} and type=#{type} and leave_time>=#{leaveTime} and house_status=#{status}
+        select id,card_title as text from t_house where  hotel_id=#{pageQuery.hotelId} and type=#{type} and #{leaveTime} >= leave_time and house_status=#{status}
     </select>
     <select id="getWeb" resultMap="select2VoMap" parameterType="long">
         select id,title as text from t_cooperation_website where company_id=#{companyId}
@@ -118,6 +119,12 @@
     </update>
     <update id="updateCashStatus" parameterType="customerOrderVo">
         update t_customer_order set is_check=#{isCheck},check_remark=#{reason},hander=#{hander} where id=#{id}
+    </update>
+    <update id="changeHouse" parameterType="customerOrderVo">
+        update t_customer_order set house_id=#{houseId} where id=#{id}
+    </update>
+    <update id="endHouse" parameterType="customerOrderVo">
+        update t_customer_order set actual_return=#{actualReturn} where id=#{id}
     </update>
     <insert id="saveList" parameterType="list">
         insert into t_customer_order  ( company_id, hotel_id, shop_manager_id, house_id, contract_id, customer_name, customer_identity, customer_phone,customer_gender, customer_from, website_id, unit_price, total_days, house_pay, service_pay, deposit, total_pay, actual_return, payment_type_id, checkin_time, checkout_time, remark, order_status, is_check, is_active,type,type_id) values

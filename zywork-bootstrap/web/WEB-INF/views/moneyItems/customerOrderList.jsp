@@ -736,20 +736,21 @@
                         <form class="form-horizontal" method="post" id="tuifang">
                             <input type="hidden" name="id" id="" value=""/>
                             <input type="hidden" name="houseId" value="" />
+                            <input type="hidden" name="hotelId" value="" />
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">客户姓名：</label>
                                 <div class="col-sm-8">
-                                    <input  name="customerName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                                    <input  name="customerName" readonly minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">缴纳押金：</label>
                                 <div class="col-sm-8">
-                                    <input  name="deposit" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                                    <input  name="deposit" minlength="2" readonly maxlength="20" type="number" class="form-control" required="" aria-required="true">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">退换金额：</label>
+                                <label class="col-sm-3 control-label">退款金额：</label>
                                 <div class="col-sm-8">
                                     <input  name="actualReturn" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                                 </div>
@@ -774,6 +775,8 @@
                         <form class="form-horizontal" method="post" id="huanfang">
                             <input type="hidden" name="id"  value=""/>
                             <input type="hidden" name="houseId" value="" />
+                            <input type="hidden" id="lv" name="checkoutTime" value="" />
+                            <input type="hidden" name="hotelId" value="" />
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">客户姓名：</label>
                                 <div class="col-sm-8">
@@ -789,7 +792,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">新住房间：</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" id="newHouse" required name="new">
+                                    <select class="form-control" id="newHouse" required name="newHouse">
                                     </select>
                                 </div>
                             </div>
@@ -891,6 +894,43 @@
             },"json"
         );
     });
+</script>
+<script>
+    //退房
+    $("#tuikuan").click(function () {
+        $.post(
+            "/customerOrder/endHouse",
+            $("#tuifang").serialize(),
+            function (data) {
+                if(data.message=="ok"){
+                    layer.msg("退房成功!", {icon:1,time:1000});
+                }else{
+                    layer.msg("退房失败", {icon:2,time:1000});
+                }
+                refush();
+                $("#updateHouseHander").modal('hide');
+            },
+            "json"
+        );
+    });
+    //换房
+    $("#endHouse").click(function () {
+        $.post(
+            "/customerOrder/changeHouse",
+            $("#huanfang").serialize(),
+            function (data) {
+                if(data.message=="ok"){
+                    layer.msg("换房成功!", {icon:1,time:1000});
+                }else{
+                    layer.msg("换房失败", {icon:2,time:1000});
+                }
+                refush();
+                $("#updateHouseHander").modal('hide');
+            },
+            "json"
+        );
+    });
+
 </script>
 <%--
 <script>

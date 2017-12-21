@@ -96,6 +96,8 @@ public class CustomerOrderVo {
 
     private Integer typeId;
 
+    private Long newHotelId;
+
 
 
     public CustomerOrderVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Long houseId, Long contractId, String customerName, String customerIdentity, String customerPhone, String customerGender, Byte customerFrom, Long websiteId, BigDecimal unitPrice, Byte totalDays, BigDecimal housePay, BigDecimal servicePay, BigDecimal deposit, BigDecimal totalPay, BigDecimal actualReturn, Long paymentTypeId, Date checkinTime, Date checkoutTime, Date checkoutMaxTime, String remark, Byte orderStatus, Date createTime, Byte isCheck, String checkRemark, Byte isActive) {
@@ -500,5 +502,13 @@ public class CustomerOrderVo {
 
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
+    }
+
+    public Long getNewHotelId() {
+        return newHotelId;
+    }
+
+    public void setNewHotelId(Long newHotelId) {
+        this.newHotelId = newHotelId;
     }
 }

@@ -289,6 +289,34 @@ public class CustomerOrderController {
             return  Message.fail("fail");
         }
     }
+    //退房操作,更改原先住的房间为未入住的状态，并结算押金，退款金额，新增到现金流水表中
+    @RequestMapping("endHouse")
+    @ResponseBody
+    public Message endHouse(CustomerOrderVo customerOrderVo) throws  Exception{
+        try{
+            customerOrderService.endHouse(customerOrderVo);
+            //修改房间状态
+            houseService.updateHouseStatus(new StatusQuery(0,customerOrderVo.getHotelId(),customerOrderVo.getHouseId()),new Date());
+            return Message.success("ok");
+        }catch (Exception e){
+            return  Message.fail("fail");
+        }
+    }
+    //换房操作，更改当前房间为未入住的房间，修改新入住的房间的状态为未入住
+    @RequestMapping("changeHouse")
+    @ResponseBody
+    public Message changeHouse(CustomerOrderVo customerOrderVo,Long newHouse) throws  Exception{
+        try{
+            Long houseId = customerOrderVo.getHouseId();
+            customerOrderVo.setHouseId(newHouse);
+            customerOrderService.changeHouse(customerOrderVo);
+            houseService.updateHouseStatus(new StatusQuery(0,customerOrderVo.getHotelId(),houseId),new Date());
+            houseService.updateHouseStatus(new StatusQuery(0,customerOrderVo.getHotelId(),customerOrderVo.getHouseId()),customerOrderVo.getCheckoutTime());
+            return Message.success("ok");
+        }catch (Exception e){
+            return  Message.fail("fail");
+        }
+    }
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

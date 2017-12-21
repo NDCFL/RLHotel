@@ -20,4 +20,6 @@ public interface CustomerOrderService extends BaseService<CustomerOrderVo>{
     void checkerManyCashAccount(List<CustomerOrderVo> customerOrderVoList);
     List<Select2Vo> getOthersHotel(PageQuery pageQuery);
     void saveList(List<CustomerOrderVo> customerOrderVoList);
+    void changeHouse(CustomerOrderVo customerOrderVo);
+    void endHouse(CustomerOrderVo customerOrderVo);
 }

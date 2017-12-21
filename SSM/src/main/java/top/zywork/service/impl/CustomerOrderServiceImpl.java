@@ -105,4 +105,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     public void saveList(List<CustomerOrderVo> customerOrderVoList) {
         customerOrderDAO.saveList(customerOrderVoList);
     }
+
+    @Override
+    public void changeHouse(CustomerOrderVo customerOrderVo) {
+        customerOrderDAO.changeHouse(customerOrderVo);
+    }
+
+    @Override
+    public void endHouse(CustomerOrderVo customerOrderVo) {
+        customerOrderDAO.endHouse(customerOrderVo);
+    }
 }

@@ -397,6 +397,7 @@ function updateHouse(id) {
         function (data) {
             $("#tuifang").autofill(data);
             $("#huanfang").autofill(data);
+            $("#lv").val(getDate(data.checkoutTime));
         }, "json"
     );
 }

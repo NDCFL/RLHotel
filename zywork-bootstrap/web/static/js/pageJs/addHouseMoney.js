@@ -48,20 +48,20 @@ $.post(
         });
         $.post(
             "/customerOrder/getHouse/"+data[0].id,
-            function(data){
+            function(data1){
                 $("#houseId0").select2({
-                    data: data
+                    data: data1
                 });
                 $("#house_Id").select2({
-                    data: data
+                    data: data1
                 });
                 $("#newHouse").select2({
-                    data: data
+                    data: data1
                 });
                 $.post(
                     "/house/findHouse/"+data[0].id,
-                    function(data){
-                        $("#houseP0").html(data.unitPrice);
+                    function(data2){
+                        $("#houseP0").html(data2.unitPrice);
                         $("#sumMoney").html(parseInt($("#houseP0").html()));
                     },
                     "json"
