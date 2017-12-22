@@ -284,6 +284,7 @@ function edit(name) {
                 //选中某一行
                 colum4.val(data.paymentTypeId).trigger("change");
                 colum4.change();
+                document.getElementById("isCash1").options[data.isCash].selected = true;
             } else if (data.typeId == 2) {
                 if (data.otherHotel == '' || data.otherHotel == null) {
                     data.otherHotel = -1;
@@ -291,6 +292,7 @@ function edit(name) {
                 var colum3 = $("#other_hotel").select2();
                 colum3.val(data.otherHotel).trigger("change");
                 colum3.change();
+                document.getElementById("isCash2").options[data.isCash].selected = true;
             }
             var colum5 = $("#otherType").select2();
             colum5.val(data.paymentTypeId).trigger("change");
@@ -504,7 +506,7 @@ function deleteMany() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除现金流水账目数据吗？', function (index) {
         $.post(
-            "/customerOrder/deleteManyCashAccounts",
+            "/customerOrder/deleteManyCustomerOrder",
             {
                 "manyId": $("#deleteId").val()
             },

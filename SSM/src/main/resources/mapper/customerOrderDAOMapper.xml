@@ -127,9 +127,9 @@
         update t_customer_order set actual_return=#{actualReturn} where id=#{id}
     </update>
     <insert id="saveList" parameterType="list">
-        insert into t_customer_order  ( company_id, hotel_id, shop_manager_id, house_id, contract_id, customer_name, customer_identity, customer_phone,customer_gender, customer_from, website_id, unit_price, total_days, house_pay, service_pay, deposit, total_pay, actual_return, payment_type_id, checkin_time, checkout_time, remark, order_status, is_check, is_active,type,type_id) values
+        insert into t_customer_order  ( company_id, hotel_id, shop_manager_id, house_id, contract_id, customer_name, customer_identity, customer_phone,customer_gender, customer_from, website_id, unit_price, total_days, house_pay, service_pay, deposit, total_pay, actual_return, payment_type_id, checkin_time, checkout_time, remark, order_status, is_check, is_active,type,type_id,other_hotel,other_hotel_money,other_hotel_money_type,is_cash) values
         <foreach collection="list" index="index" item="item" separator=",">
-            ( #{item.companyId}, #{item.hotelId}, #{item.shopManagerId}, #{item.houseId}, #{item.contractId}, #{item.customerName}, #{item.customerIdentity}, #{item.customerPhone},#{item.customerGender}, #{item.customerFrom}, #{item.websiteId}, #{item.unitPrice}, #{item.totalDays}, #{item.housePay}, #{item.servicePay}, #{item.deposit}, #{item.totalPay}, #{item.actualReturn}, #{item.paymentTypeId}, #{item.checkinTime}, #{item.checkoutTime}, #{item.remark}, #{item.orderStatus}, #{item.isCheck}, #{item.isActive},#{item.type},#{item.typeId})
+            ( #{item.companyId}, #{item.hotelId}, #{item.shopManagerId}, #{item.houseId}, #{item.contractId}, #{item.customerName}, #{item.customerIdentity}, #{item.customerPhone},#{item.customerGender}, #{item.customerFrom}, #{item.websiteId}, #{item.unitPrice}, #{item.totalDays}, #{item.housePay}, #{item.servicePay}, #{item.deposit}, #{item.totalPay}, #{item.actualReturn}, #{item.paymentTypeId}, #{item.checkinTime}, #{item.checkoutTime}, #{item.remark}, #{item.orderStatus}, #{item.isCheck}, #{item.isActive},#{item.type},#{item.typeId},#{item.otherHotel},#{item.otherHotelMoney},#{item.otherHotelMoneyType},#{item.isCash})
         </foreach>
     </insert>
 </mapper>

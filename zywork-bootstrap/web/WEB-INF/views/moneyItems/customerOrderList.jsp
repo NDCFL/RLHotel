@@ -228,9 +228,9 @@
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
                             <div class="col-sm-2">
-                                <select class="form-control" required name="isCash1" style="margin-left: -30px">
-                                    <option value="0">未结算</option>
-                                    <option value="1">已结算</option>
+                                <select name="isCash1" class="form-control" required  id="isCash1" style="margin-left: -30px">
+                                    <option value="0" id="is_cash_0" >未结算</option>
+                                    <option value="1" id="is_cash_1">已结算</option>
                                 </select>
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">支付类型：</label>
@@ -277,8 +277,8 @@
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
                                 <div class="col-sm-2" style="margin-left:-30px">
                                     <select class="form-control"  required name="isCash2">
-                                        <option value="0">未结算</option>
-                                        <option value="1">已结算</option>
+                                        <option value="0" id="is_cash__0">未结算</option>
+                                        <option value="1" id="is_cash__1">已结算</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">结算账户：</label>
@@ -548,8 +548,8 @@
                             </div>
                             <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
                             <div class="col-sm-2">
-                                <select class="form-control" required name="isCash0" style="margin-left: -30px">
-                                    <option value="0">未结算</option>
+                                <select class="form-control" id="is_cash" name="isCash1" style="margin-left: -30px">
+                                    <option value="0" >未结算</option>
                                     <option value="1">已结算</option>
                                 </select>
                             </div>
@@ -596,7 +596,7 @@
                                 </div>
                                 <label class="col-sm-2 control-label" style="margin-left: -40px">结算状态：</label>
                                 <div class="col-sm-2" style="margin-left:-30px">
-                                    <select class="form-control"  required name="isCash1">
+                                    <select class="form-control" id="is_cash1" required name="isCash2">
                                         <option value="0">未结算</option>
                                         <option value="1">已结算</option>
                                     </select>
@@ -626,6 +626,8 @@
                                 <textarea  name="remark" minlength="2" id="reason1"  maxlength="20" value="" class="form-control" required="" aria-required="true"></textarea>
                             </div>
                         </div>
+                        <input type="hidden" name="otherHotel" id="other" />
+                        <input type="hidden" name="isCash" id="isCash" />
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                             </button>
@@ -834,6 +836,14 @@
                 s++;
                 val=obj2[i].value;
             }
+        }
+        //商家送客
+        if(val==1){
+            $("#isCash").val($("#is_cash").val());
+            $("#other").val($("#othersHotel_id").val());
+        }else if(val==2){
+            $("#isCash").val($("#is_cash1").val());
+            $("#other").val($("#othersHotelId").val());
         }
         if(s==''){
             layer.msg('请勾选操作类别', {icon:2,time:1500});
