@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -37,10 +38,11 @@ public class HouseOthersItemController {
     private HotelService hotelService;
     @Resource
     private EmployeeService employeeService;
-    @RequestMapping("houseOthersItemList/{houseId}")
+    @RequestMapping("houseOthersItemList")
     @ResponseBody
-    public PagingBean houseOthersItemList(@PathVariable("houseId") Long houseId,int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+    public PagingBean houseOthersItemList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
         PagingBean pagingBean = new PagingBean();
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
@@ -49,8 +51,15 @@ public class HouseOthersItemController {
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setPageSize(pagingBean.getPageSize());
         pageQuery.setPageNo(pagingBean.getStartIndex());
-        pagingBean.setTotal(houseOthersItemService.count(pageQuery));
-        pagingBean.setrows(houseOthersItemService.listPage(pageQuery));
+        if(userRoleVo.getRoleVo().getTitle().equals("店长")){
+            HotelVo hotelVo = hotelService.findHotel(userVo.getId());
+            pageQuery.setHotelId(hotelVo.getId());
+        }else{
+            EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+            pageQuery.setHotelId(employeeVo.getId());
+        }
+        pagingBean.setTotal(houseOthersItemService.counts(pageQuery));
+        pagingBean.setrows(houseOthersItemService.listPages(pageQuery));
         return pagingBean;
     }
     @RequestMapping("orderList/{houseId}")

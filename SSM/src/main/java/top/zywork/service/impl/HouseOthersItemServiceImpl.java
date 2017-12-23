@@ -67,4 +67,14 @@ public class HouseOthersItemServiceImpl implements HouseOthersItemService {
     public List<Select2Vo> subjectList(Long companyId) {
         return houseOthersItemDAO.subjectList(companyId);
     }
+
+    @Override
+    public List<HouseOthersItemVo> listPages(PageQuery pageQuery) {
+        return houseOthersItemDAO.listPages(pageQuery);
+    }
+
+    @Override
+    public Long counts(PageQuery pageQuery) {
+        return houseOthersItemDAO.counts(pageQuery);
+    }
 }

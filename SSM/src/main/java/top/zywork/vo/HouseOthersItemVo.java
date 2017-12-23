@@ -18,6 +18,7 @@ public class HouseOthersItemVo implements Serializable{
     private Byte isCash;
     private Long hander;
     private String remark;
+    private Date createTime;
     private CompanyVo companyVo;
     private HouseVo houseVo;
     private HotelVo hotelVo;
@@ -132,5 +133,13 @@ public class HouseOthersItemVo implements Serializable{
 
     public void setServiceSubjectVo(ServiceSubjectVo serviceSubjectVo) {
         this.serviceSubjectVo = serviceSubjectVo;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

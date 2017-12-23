@@ -6,7 +6,8 @@
         <result column="pay_money" property="payMoney"></result>
         <result column="pay_time" property="payTime"></result>
         <result column="is_cash" property="isCash"></result>
-        <result column="hander" property="hander"></result>
+        <result column="hand" property="hander"></result>
+        <result column="createTime" property="createTime"></result>
         <association property="companyVo" javaType="top.zywork.vo.CompanyVo">
             <id column="cid" property="id"></id>
             <result column="name" property="name"></result>
@@ -24,6 +25,21 @@
             <result column="stitle" property="title"></result>
         </association>
     </resultMap>
+    <sql id="search">
+        <if test="#{searchVal!=null} and #{searchVal!=''}">
+            and (t.id like concat('%${searchVal}%')
+            or t.company_id like concat ('%${searchVal}%')
+            or t.hotel_id like concat ('%${searchVal}%')
+            or t.house_id like concat ('%${searchVal}%')
+            or t.item_name like concat ('%${searchVal}%')
+            or t.pay_money like concat ('%${searchVal}%')
+            or t.is_cash like concat ('%${searchVal}%')
+            or t.hander like concat ('%${searchVal}%')
+            or t.remark like concat ('%${searchVal}%')
+            or s.title like concat ('%${searchVal}%')
+            )
+        </if>
+    </sql>
     <resultMap id="select2Map" type="top.zywork.vo.Select2Vo"></resultMap>
     <select id="getById" resultMap="houseOthersItemMap" parameterType="long">
         select * from t_house_others_item where id = #{id}
@@ -35,13 +51,19 @@
         select id,title as text from t_service_subject
     </select>
     <select id="listPage" resultMap="houseOthersItemMap">
-        select t.*,c.name,h.card_title,v.title,s.title as stitle from t_house_others_item t,t_company c,t_house h,t_hotel v,t_service_subject s where t.company_id=c.id and t.house_id=h.id and t.hotel_id=v.id and s.id=t.item_name and t.company_id=#{companyId} and t.hotel_id=#{hotelId} and t.house_id=#{houseId} order by t.pay_time desc
+        select t.*,c.name,h.card_title,(select nickname from t_user where t.hander=t_user.id) as hand,v.title,s.title as stitle from t_house_others_item t,t_company c,t_house h,t_hotel v,t_service_subject s where t.company_id=c.id and t.house_id=h.id and t.hotel_id=v.id and s.id=t.item_name and t.company_id=#{companyId} and t.hotel_id=#{hotelId} and t.house_id=#{houseId} order by t.pay_time desc
+    </select>
+    <select id="listPages" resultMap="houseOthersItemMap">
+        select t.*,c.name,h.card_title,(select nickname from t_user where t.hander=t_user.id) as hand,v.title,s.title as stitle from t_house_others_item t,t_company c,t_house h,t_hotel v,t_service_subject s where t.company_id=c.id and t.house_id=h.id and t.hotel_id=v.id and s.id=t.item_name and t.company_id=#{companyId} and t.hotel_id=#{hotelId} <include refid="search"></include>  order by t.pay_time desc
     </select>
     <select id="listAll" resultMap="houseOthersItemMap">
         select * from t_house_others_item where company_id=#{companyId} and hotel_id=#{hotelId} and house_id=#{houseId}
     </select>
     <select id="count" resultType="java.lang.Long">
         select count(*) from t_house_others_item where company_id=#{companyId} and hotel_id=#{hotelId} and house_id=#{houseId}
+    </select>
+    <select id="counts" resultType="java.lang.Long">
+        select count(*) from t_house_others_item t,t_company c,t_house h,t_hotel v,t_service_subject s where t.company_id=c.id and t.house_id=h.id and t.hotel_id=v.id and s.id=t.item_name and t.company_id=#{companyId} and t.hotel_id=#{hotelId} <include refid="search"></include>
     </select>
     <select id=""></select>
     <insert id="save" parameterType="houseOthersItemVo">

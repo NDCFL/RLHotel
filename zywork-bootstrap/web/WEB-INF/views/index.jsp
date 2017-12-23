@@ -169,9 +169,11 @@
                         <li>
                             <a class="J_menuItem" href="<%=path%>/customerOrder/customerOrderPage">酒店订单</a>
                         </li>
-                        <li>
-                            <a class="J_menuItem" href="mail_detail.html">增值业务</a>
-                        </li>
+                        <shiro:hasRole name="店长">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/item/houseOthersItemPage">增值业务</a>
+                            </li>
+                        </shiro:hasRole>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/cooperationCompany/cooperationCompanyPage">合作商家</a>
                         </li>
