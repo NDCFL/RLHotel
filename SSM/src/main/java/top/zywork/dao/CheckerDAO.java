@@ -14,5 +14,6 @@ import java.util.List;
 public interface CheckerDAO extends  BaseDAO<UserVo> {
 
     long counts(long userId);
+    void initPwd(@Param("password") String password,@Param("id") Long id);
     List<UserVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("userId") long userId);
 }

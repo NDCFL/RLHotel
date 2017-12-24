@@ -94,6 +94,9 @@
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/contract/contractListPage">签约管理</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/houseRentPay/houseRentPayPage">房租列表</a>
+                            </li>
                         </ul>
                     </li>
                 </shiro:hasRole>

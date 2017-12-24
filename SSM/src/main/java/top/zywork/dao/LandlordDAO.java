@@ -15,4 +15,5 @@ import java.util.List;
 public interface LandlordDAO extends  BaseDAO<UserVo> {
     List<UserVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId);
     List<UserVo> listAlls(long companyId);
+    void initPwd(@Param("password") String password,@Param("id") Long id);
 }

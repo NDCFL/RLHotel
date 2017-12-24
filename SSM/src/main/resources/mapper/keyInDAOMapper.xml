@@ -31,6 +31,9 @@
 	<update id="updateStatus">
 		update t_user set is_active=#{status} where id=#{id}
 	</update>
+	<update id="initPwd">
+		update t_user set password=#{password} where id=#{id}
+	</update>
 	<update id="update">
 		update t_user
 		<set>

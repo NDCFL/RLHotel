@@ -14,4 +14,5 @@ import java.util.List;
 public interface LandlordService extends BaseService<UserVo> {
     List<UserVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("companyId") long companyId);
     List<UserVo> listAlls(long companyId);
+    void initPwd(String password,Long id);
 }

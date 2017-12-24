@@ -113,9 +113,9 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-
+                var g = '<a title="初始化密码" href="javascript:void(0);" onclick="initPwd(' + row.id+')"><i class="glyphicon glyphicon-phone" style="color:green"></i></a>'
                 // return e + d+f;
-                return  f;
+                return  f+g;
 
 
             }
@@ -145,6 +145,26 @@ function queryParams(params) {
         //请求第几页
         pageIndex: this.pageNumber
     }
+}
+function initPwd(id) {
+    layer.confirm('确认要初始化密码吗？', function (index) {
+        $.ajax({
+            type: 'POST',
+            url: '/checker/initPwd/' + id,
+            dataType: 'json',
+            success: function (data) {
+                if (data.message.indexOf("成功")>0) {
+                    layer.msg(data.message, {icon: 1, time: 3000});
+                } else {
+                    layer.msg(data.message, {icon: 2, time: 1000});
+                }
+                refush();
+            },
+            error: function (data) {
+                console.log(data.msg);
+            },
+        });
+    });
 }
 function del(checker, status) {
     if (status == 0) {

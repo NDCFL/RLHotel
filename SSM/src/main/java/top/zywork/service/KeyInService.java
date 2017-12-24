@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface KeyInService extends BaseService<UserVo>{
     long counts(long userId);
+    void initPwd(String password,Long id);
     List<UserVo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("userId") long userId);
 
 }

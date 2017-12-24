@@ -185,7 +185,7 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-                var t = '<a title="新增款项" id="checker" id="customerOrder"  data-toggle="modal" data-target="#orderAdd" data-id="\'' + row.id + '\'" ><i class="glyphicon glyphicon-usd" alt="新增款项" style="color:green"></i></a>';
+                var t = '<a title="新增款项" id="checker" id="customerOrder" onclick="orderAdd(' + row.id + ')"  data-toggle="modal" data-target="#orderAdd" data-id="\'' + row.id + '\'" ><i class="glyphicon glyphicon-usd" alt="新增款项" style="color:green"></i></a>';
                 return g+e +p+ f+t;
             }
         }
@@ -219,6 +219,13 @@ function queryParams(params) {
         pageIndex: this.pageNumber,
         searchVal: title
     }
+}
+function orderAdd(id) {
+    $.post("/customerOrder/findCustomerOrder/" + id,
+        function (data) {
+            $("#house_id").val(data.houseId);
+        },"json"
+    );
 }
 function del(customerOrderid, status) {
     if (status == 0) {

@@ -68,6 +68,12 @@ public class KeyInServiceImpl implements KeyInService {
     }
 
     @Override
+    public void initPwd(String password, Long id) {
+        keyInDAO.initPwd(password, id);
+    }
+
+
+    @Override
     public List<UserVo> listPages(PageQuery pageQuery, long userId) {
         return keyInDAO.listPages(pageQuery,userId);
     }

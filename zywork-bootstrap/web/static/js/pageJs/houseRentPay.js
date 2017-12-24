@@ -1,9 +1,8 @@
-var path = $("#path").val();
 //生成用户数据
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/landlord/landlordList",//要请求数据的文件路径
+    url: "/houseRentPay/houseRentPayList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -21,8 +20,7 @@ $('#mytab').bootstrapTable({
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign: 'right',//工具栏对齐方式
     buttonsAlign: 'right',//按钮对齐方式
-    toolbar: '#toolbar',//指定工作栏
-    search:true,
+    toolbar: '#toolbar', search: true,
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -37,34 +35,125 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '头像',
-            field: 'headicon',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                return '<img src=\"' + path + '/' + value + '\"/ style=\"width:60px;height:60px\">';
-            }
-
-        },
-        {
-            title: '昵称',
-            field: 'nickname',
+            title: '房间名称',
+            field: 'houseName',
             align: 'center',
             sortable: true
         },
         {
-            title: '账号',
-            field: 'phone',
+            title: '房源归属',
+            field: 'hotelVo.title',
             align: 'center',
             sortable: true
         },
         {
-            title: '邮箱',
-            field: 'email',
+            title: '业主名称',
+            field: 'contractMasterVo.bankName',
             align: 'center',
             sortable: true
         }
         ,
+        {
+            title: '业主电话',
+            field: 'contractMasterVo.phone',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
+            title: '签约年限',
+            field: 'payTime',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:green">'+value+'年</span>';
+            }
+        }
+        ,
+        {
+            title: '租房合计',
+            field: 'totalPay',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:green">$'+value+'</span>';
+            }
+
+        }
+        ,
+        {
+            title: '付款方式',
+            field: 'payType',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                if(value==0){
+                    return '<span>月付</span>';
+                }else if(value==1){
+                    return '<span>季付</span>';
+                }else if(value==2){
+                    return '<span>年付</span>';
+                }
+            }
+        }
+        ,
+        {
+            title: '每期应付',
+            field: 'firstPay',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:green">$'+value+'</span>';
+            }
+        }
+        ,
+        {
+            title: '支付状态',
+            field: 'isCash',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+               if(value==0){
+                   return '<span style="color:red">未支付</span>';
+               }else if(value==1){
+                   return '<span style="color:green">已支付</span>';
+               }
+            }
+        }
+        ,
+        {
+            title: '开始支付时间',
+            field: 'payPeriodStart',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                var date = new Date(value);
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var mi = date.getMinutes();
+                var ss = date.getSeconds();
+                return y + '-' + m + '-' + d ;
+            }
+        },
+        {
+            title: '结束支付时间',
+            field: 'payPeriodEnd',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                var date = new Date(value);
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var mi = date.getMinutes();
+                var ss = date.getSeconds();
+                return y + '-' + m + '-' + d;
+            }
+        },
+
         {
             title: '创建时间',
             field: 'createTime',
@@ -102,7 +191,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                //var e = '<a title="编辑" href="javascript:void(0);" id="cashSubject"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -110,12 +199,8 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-                var g = '<a title="初始化密码" href="javascript:void(0);" onclick="initPwd(' + row.id+')"><i class="glyphicon glyphicon-phone" style="color:green"></i></a>'
 
-                // return e + d+f;
-                return  f+g;
-
-
+                return e + d + f;
             }
         }
     ],
@@ -145,30 +230,11 @@ function queryParams(params) {
         //每页多少条数据
         pageSize: this.pageSize,
         //请求第几页
-        pageIndex: this.pageNumber, searchVal: title
+        pageIndex: this.pageNumber,
+        searchVal: title
     }
 }
-function initPwd(id) {
-    layer.confirm('确认要初始化密码吗？', function (index) {
-        $.ajax({
-            type: 'POST',
-            url: '/landlord/initPwd/' + id,
-            dataType: 'json',
-            success: function (data) {
-                if (data.message.indexOf("成功")>0) {
-                    layer.msg(data.message, {icon: 1, time: 3000});
-                } else {
-                    layer.msg(data.message, {icon: 2, time: 1000});
-                }
-                refush();
-            },
-            error: function (data) {
-                console.log(data.msg);
-            },
-        });
-    });
-}
-function del(landlord, status) {
+function del(houseRentPayid, status) {
     if (status == 0) {
         layer.msg("删除失败，已经激活的不允许删除!", {icon: 2, time: 1000});
         return;
@@ -176,7 +242,7 @@ function del(landlord, status) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/landlord/deleteLandlord/' + landlord,
+            url: '/houseRentPay/deleteCashSubject/' + houseRentPayid,
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -192,16 +258,16 @@ function del(landlord, status) {
         });
     });
 }
-// function edit(name){
-//     $.post("/landlord/findUser/"+name,
-//         function(data){
-//             $("#updateform").autofill(data);
-//         },
-//         "json"
-//     );
-// }
+function edit(name) {
+    $.post("/houseRentPay/findHouseRentPay/" + name,
+        function (data) {
+            $("#updateform").autofill(data);
+        },
+        "json"
+    );
+}
 function updatestatus(id, status) {
-    $.post("/landlord/updateStatus/" + id + "/" + status,
+    $.post("/houseRentPay/updateStatus/" + id + "/" + status,
         function (data) {
             if (status == 0) {
                 if (data.message == "ok") {
@@ -223,14 +289,14 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/landlord/landlordList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/houseRentPay/houseRentPayList'});
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/landlord/landlordList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/houseRentPay/houseRentPayList'});
 }
 $("#update").click(function () {
     $.post(
-        "/cashSubject/cashSubjectUpdateSave",
+        "/houseRentPay/houseRentPayUpdateSave",
         $("#updateform").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
@@ -238,6 +304,21 @@ $("#update").click(function () {
                 refush();
             } else {
                 layer.msg(data.message, {icon: 1, time: 1000});
+                refush();
+            }
+        }, "json"
+    );
+});
+$("#add").click(function () {
+    $.post(
+        "/houseRentPay/houseRentPayAddSave",
+        $("#formadd").serialize(),
+        function (data) {
+            if (data.message == "新增成功!") {
+                layer.msg(data.message, {icon: 1, time: 1000});
+                refush();
+            } else {
+                layer.msg(data.message, {icon: 2, time: 1000});
                 refush();
             }
         }, "json"
@@ -269,7 +350,7 @@ function deleteMany() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
         $.post(
-            "/landlord/deleteManyUser",
+            "/houseRentPay/deleteManyCashSubject",
             {
                 "manyId": $("#deleteId").val()
             },
@@ -285,73 +366,3 @@ function deleteMany() {
         );
     });
 }
-$('#formadd').bootstrapValidator({
-    message: 'This value is not valid',
-    feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-        phone: {
-            message: '手机账号验证失败',
-            validators: {
-                notEmpty: {
-                    message: '手机账号不能为空'
-                },
-                stringLength: {
-                    min: 11,
-                    max: 11,
-                    message: '手机账号长度必须为11位'
-                },
-                regexp: {
-                    regexp: /^1[3|5|8|7]{1}[0-9]{9}$/,
-                    message: '请输入正确的手机号码'
-                },
-                threshold: 10,
-                remote: {
-                    url: path + '/user/checkReg',
-                    message: '该手机号已被注册',
-                    delay: 2000,
-                    type: 'POST'
-                }
-            }
-        },
-        password: {
-            message: '密码验证失败',
-            validators: {
-                notEmpty: {
-                    message: '密码不能为空'
-                },
-                stringLength: {
-                    min: 6,
-                    max: 18,
-                    message: '密码长度必须在6到18位之间'
-                },
-                regexp: {
-                    regexp: /^[a-zA-Z0-9_]+$/,
-                    message: '密码只能包含大写、小写、数字和下划线'
-                }
-
-            }
-        }
-    }
-}).on('success.form.bv', function (e) {//点击提交之后
-    e.preventDefault();
-    var $form = $(e.target);
-    var bv = $form.data('bootstrapValidator');
-    $.post(
-        "/landlord/addLandlord",
-        $("#formadd").serialize(),
-        function (data) {
-            if (data.message == "店长账号新增成功!") {
-                layer.msg(data.message, {icon: 1, time: 1000});
-                refush();
-            } else {
-                layer.msg(data.message, {icon: 2, time: 1000});
-                refush();
-            }
-            $('#webAdd').modal('hide')
-        }, "json"
-    );
-});

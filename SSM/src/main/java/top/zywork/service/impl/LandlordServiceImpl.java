@@ -70,6 +70,12 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
+    public void initPwd(String password, Long id) {
+        landlordDAO.initPwd(password, id);
+    }
+
+
+    @Override
     public List<UserVo> listAlls(long companyId) {
         return landlordDAO.listAlls(companyId);
     }

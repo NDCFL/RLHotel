@@ -68,6 +68,11 @@ public class CheckerServiceImpl implements CheckerService {
     }
 
     @Override
+    public void initPwd(String password, Long id) {
+        checkerDAO.initPwd(password, id);
+    }
+
+    @Override
     public List<UserVo> listPages(PageQuery pageQuery, long userId) {
         return checkerDAO.listPages(pageQuery,userId);
     }

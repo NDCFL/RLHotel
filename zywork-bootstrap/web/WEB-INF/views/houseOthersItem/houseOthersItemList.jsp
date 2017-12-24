@@ -59,17 +59,17 @@
                 </div>
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
-            <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                </button>
-                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                </button>
-                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                </button>
-            </div>
+            <%--<div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">--%>
+                <%--<button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">--%>
+                    <%--<span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改--%>
+                <%--</button>--%>
+                <%--<button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">--%>
+                    <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除--%>
+                <%--</button>--%>
+                <%--<button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">--%>
+                    <%--<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增--%>
+                <%--</button>--%>
+            <%--</div>--%>
         </div>
     </div>
 </div>

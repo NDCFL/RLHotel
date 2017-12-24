@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 /**
@@ -108,7 +109,21 @@ public class LandlordController {
         UserVo landlord = landlordService.getById(id);
         return landlord;
     }
+    @RequestMapping("/initPwd/{id}")
+    @ResponseBody
+    public Message initPwd(@PathVariable("id") long id) {
+        int cnt = 0;
+        try{
+            Random random = new Random();
+            cnt = random.nextInt(99999999)+10000000;
+            landlordService.initPwd(new Md5Hash(cnt+"").toString(),id);
+            return Message.success("初始化成功，密码为"+cnt+"请妥善保管");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Message.fail("初始化失败"+cnt);
+        }
 
+    }
     @RequestMapping("/landlordUpdateSave")
     @ResponseBody
     public Message updateLandlord(UserVo landlord) throws Exception {

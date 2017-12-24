@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by chenfeilong on 2017/11/12.
@@ -96,7 +97,20 @@ public class KeyInController  {
         UserVo keyIn = keyInService.getById(id);
         return keyIn;
     }
+    @RequestMapping("/initPwd/{id}")
+    @ResponseBody
+    public Message initPwd(@PathVariable("id") long id) {
+        try{
+            Random random = new Random();
+            int cnt = random.nextInt(99999999)+10000000;
+            keyInService.initPwd(new Md5Hash(cnt).toString(),id);
+            return Message.success("初始化成功，密码为"+cnt+"请妥善保管");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Message.fail("初始化失败");
+        }
 
+    }
     @RequestMapping("/keyInUpdateSave")
     @ResponseBody
     public Message updateKeyIn(UserVo keyIn) throws Exception {

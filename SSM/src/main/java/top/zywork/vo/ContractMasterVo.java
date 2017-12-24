@@ -13,7 +13,7 @@ public class ContractMasterVo{
     private String bankName;
     private String bankAccountName;
     private String bankAccountNo;
-
+    private String phone;
     private Date createTime;
     private int isActive;
 
@@ -72,5 +72,13 @@ public class ContractMasterVo{
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

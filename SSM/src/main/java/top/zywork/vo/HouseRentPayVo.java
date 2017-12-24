@@ -3,10 +3,12 @@ package top.zywork.vo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class RentPayVo {
+public class HouseRentPayVo {
     private Long id;
 
     private Long masterId;
+
+    private Long hotelId;
 
     private Long companyId;
 
@@ -14,7 +16,9 @@ public class RentPayVo {
 
     private BigDecimal totalPay;
 
-    private Date payTime;
+    private Integer payTime;
+
+    private Integer payType;
 
     private Date payPeriodStart;
 
@@ -22,27 +26,27 @@ public class RentPayVo {
 
     private String description;
 
+    private Integer isCash;
+
     private Date createTime;
 
     private Byte isActive;
 
-    public RentPayVo(Long id, Long masterId, Long companyId, Long contractId, BigDecimal totalPay, Date payTime, Date payPeriodStart, Date payPeriodEnd, String description, Date createTime, Byte isActive) {
-        this.id = id;
-        this.masterId = masterId;
-        this.companyId = companyId;
-        this.contractId = contractId;
-        this.totalPay = totalPay;
-        this.payTime = payTime;
-        this.payPeriodStart = payPeriodStart;
-        this.payPeriodEnd = payPeriodEnd;
-        this.description = description;
-        this.createTime = createTime;
-        this.isActive = isActive;
+    private Double firstPay;
+
+    public String getHouseName() {
+        return houseName;
     }
 
-    public RentPayVo() {
-        super();
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
     }
+
+    private String houseName;
+
+    private ContractMasterVo contractMasterVo;
+
+    private HotelVo hotelVo;
 
     public Long getId() {
         return id;
@@ -58,6 +62,14 @@ public class RentPayVo {
 
     public void setMasterId(Long masterId) {
         this.masterId = masterId;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getCompanyId() {
@@ -84,12 +96,20 @@ public class RentPayVo {
         this.totalPay = totalPay;
     }
 
-    public Date getPayTime() {
+    public Integer getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(Integer payTime) {
         this.payTime = payTime;
+    }
+
+    public Integer getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Integer payType) {
+        this.payType = payType;
     }
 
     public Date getPayPeriodStart() {
@@ -113,7 +133,15 @@ public class RentPayVo {
     }
 
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description;
+    }
+
+    public Integer getIsCash() {
+        return isCash;
+    }
+
+    public void setIsCash(Integer isCash) {
+        this.isCash = isCash;
     }
 
     public Date getCreateTime() {
@@ -130,5 +158,29 @@ public class RentPayVo {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public double getFirstPay() {
+        return firstPay;
+    }
+
+    public void setFirstPay(double firstPay) {
+        this.firstPay = firstPay;
+    }
+
+    public ContractMasterVo getContractMasterVo() {
+        return contractMasterVo;
+    }
+
+    public void setContractMasterVo(ContractMasterVo contractMasterVo) {
+        this.contractMasterVo = contractMasterVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
     }
 }

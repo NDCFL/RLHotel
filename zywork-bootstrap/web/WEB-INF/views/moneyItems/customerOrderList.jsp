@@ -610,15 +610,11 @@
                             </div>
                         </div>
                         <div  class="form-group" style="margin-top: -30px;">
-                            <hr height="5px"/>
-                            <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">--</span><span style="color:red">（房费-结算金额）</span></i>
-                        </div>
+                        <hr height="5px"/>
+                        <i class="glyphicon glyphicon-usd" style="color:red;float:left;margin-top: -16px"><span style="color:red">订单盈亏:</span><span style="color:red">--</span><span style="color:red">（房费-结算金额）</span></i>
+                    </div>
                         <div class="form-group">
                             <table id="mytab1" name="mytab1" class="table table-hover"></table>
-                        </div>
-                        <div  class="form-group" style="margin-top: -30px;">
-                            <hr height="5px"/>
-                            <a data-toggle="modal" data-target="#orderAdd"><i class="glyphicon glyphicon-plus" style="color:green;float:left;margin-top: -16px">新增款项</i></a>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-1 control-label">备注：</label>
@@ -657,12 +653,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="otherMoneyForm">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">房号：</label>
-                        <div class="col-sm-8">
-                            <input  name="houseId" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
-                        </div>
-                    </div>
+                    <input type="hidden" name="houseId" value="" id="house_id" />
                     <div class="form-group">
                         <label class="col-sm-3 control-label">科目：</label>
                         <div class="col-sm-8">
