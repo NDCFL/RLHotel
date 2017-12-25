@@ -68,6 +68,6 @@
         update t_rent_pay set is_active=#{status} where id=#{id}
     </update>
     <update id="update">
-        update t_rent_pay set master_id=#{masterId},hotel_id=#{hotelId},total_pay=#{totalPay},pay_type=#{payType},pay_period_start=#{payPeriodStart},pay_period_end=#{payPeriodEnd},is_cash=#{isCash},description=#{description} where id = #{id}
+        update t_rent_pay set master_id=#{masterId},hotel_id=#{hotelId},total_pay=#{totalPay},pay_type=#{payType},house_name=#{houseName},first_pay=#{firstPay},pay_period_start=#{payPeriodStart},pay_period_end=#{payPeriodEnd},is_cash=#{isCash},description=#{description} where id = #{id}
     </update>
 </mapper>

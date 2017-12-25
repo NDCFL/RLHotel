@@ -103,9 +103,20 @@ public class HouseRentPayController  {
     }
     @RequestMapping("/houseRentPayUpdateSave")
     @ResponseBody
-    public Message updateHouseRentPay(HouseRentPayVo house) throws  Exception{
+    public Message updateHouseRentPay(HouseRentPayVo houseRentPayVo) throws  Exception{
         try{
-            houseRentPayService.update(house);
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date dt=houseRentPayVo.getPayPeriodStart();
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(dt);
+            rightNow.add(Calendar.YEAR,houseRentPayVo.getPayTime());//日期减1年
+            Date dt1=rightNow.getTime();
+            String reStr = sdf.format(dt1);
+            houseRentPayVo.setPayPeriodEnd(sdf.parse(reStr));
+            double firstPay = houseRentPayVo.getPayTime()*12;
+            double sum = Double.parseDouble(houseRentPayVo.getTotalPay()+"");
+            houseRentPayVo.setFirstPay(sum/firstPay);
+            houseRentPayService.update(houseRentPayVo);
             return  Message.success("修改成功!");
         }catch (Exception e){
             return Message.fail("修改失败!");
