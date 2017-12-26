@@ -367,22 +367,25 @@ create table t_cooperation_accounts(
 
 )engine=innodb default charset=utf8;
 
-drop table IF EXISTS t_contract_pay;
+drop table IF EXISTS t_rent_pay;
 create table t_rent_pay(
   id BIGINT primary key AUTO_INCREMENT ,
   master_id BIGINT not null,
+  hotel_id BIGINT not NULL ,
   company_id BIGINT not null,
-  contract_id BIGINT not null,
   total_pay DECIMAL(18,2) NOT NULL ,
-  pay_time DATETIME NOT NULL ,
+  pay_time int NOT NULL ,
+  pay_type int NOT NULL ,
   pay_period_start DATE NOT NULL ,
   pay_period_end DATE NOT NULL ,
+  is_cash int NOT NULL ,
   description VARCHAR(500),
   create_time DATETIME DEFAULT now() NOT NULL ,
   is_active TINYINT NOT NULL,
+  house_name VARCHAR(30) NOT NULL ,
   FOREIGN KEY (master_id) REFERENCES t_contract_master(id),
   FOREIGN KEY (company_id) REFERENCES t_company(id),
-  FOREIGN KEY (contract_id) REFERENCES t_contract(id)
+  FOREIGN KEY (hotel_id) REFERENCES t_hotel(id)
 )engine=innodb default charset=utf8;
 
 
@@ -431,3 +434,25 @@ select * from t_employee;
 select * from t_house_others_item where company_id=1 and hotel_id=2 and house_id=2 order by pay_time desc
 
 select * from t_house where leave_time>'2017-12-20 22:30:21'
+
+select
+  (select count(house_name) from t_rent_pay where hotel_id=2) as '2号酒店房源数',
+  (select sum(total_pay) from t_rent_pay where hotel_id=2 and is_cash=0) as '2号酒店待付资金',
+  (select sum(total_pay) from t_rent_pay where hotel_id=2 and is_cash=0 and month(now())=month(pay_period_start)) as '本月应付资金'
+
+from t_rent_pay where hotel_id=2 GROUP BY  hotel_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

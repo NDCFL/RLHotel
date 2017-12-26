@@ -26,8 +26,8 @@
                     <h5>所有店面</h5>
                 </div>
                 <div class="ibox-content">
-                    <select class="form-control" id="master_Id" required name="masterId">
-
+                    <select class="form-control" id="hotelId_" required name="masterId">
+                        <option value="0">所有店面</option>
                     </select>
                     <div class="stat-percent font-bold text-info">20%
                         <i class="fa fa-level-up"></i>
@@ -116,38 +116,38 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-xs-2">
-                    <small class="stats-label">超期未付</small>
+                    <small class="stats-label"><h4>超期未付</h4></small>
                     <h4>236 321.80</h4>
                     <hr/>
                     <small class="stats-label">已超期未支付租金总额</small>
                 </div>
 
                 <div class="col-xs-2">
-                    <small class="stats-label">近五日待付</small>
+                    <small class="stats-label"><h4>近五日待付</h4></small>
                     <h4>236 321.80</h4>
                     <hr/>
                     <small class="stats-label">近五日急付租金总额</small>
                 </div>
                 <div class="col-xs-2">
-                    <small class="stats-label">本月应付</small>
+                    <small class="stats-label"><h4>本月应付</h4></small>
                     <h4>236 321.80</h4>
                     <hr/>
                     <small class="stats-label">本月应付租金总额</small>
                 </div>
                 <div class="col-xs-2">
-                    <small class="stats-label">本月已付租金总额</small>
+                    <small class="stats-label"><h4>本月已付租金总额</h4></small>
                     <h4>236 321.80</h4>
                     <hr/>
                     <small class="stats-label">本月已付租金总额</small>
                 </div>
                 <div class="col-xs-2">
-                    <small class="stats-label">本月待付</small>
+                    <small class="stats-label"><h4>本月待付</h4></small>
                     <h4>236 321.80</h4>
                     <hr/>
                     <small class="stats-label">本月待付租金总额</small>
                 </div>
                 <div class="col-xs-2">
-                    <small class="stats-label">次月应付</small>
+                    <small class="stats-label"><h4>次月应付</h4></small>
                     <h4>236 321.80</h4>
                     <hr/>
                     <small class="stats-label">次月应付租金总额</small>
@@ -425,6 +425,9 @@
                     data: data
                 })
                 $("#hotelId").select2({
+                    data: data
+                })
+                $("#hotelId_").select2({
                     data: data
                 })
             },
