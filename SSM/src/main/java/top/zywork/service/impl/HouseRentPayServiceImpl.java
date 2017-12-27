@@ -6,6 +6,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.HouseRentPayService;
 import top.zywork.vo.HouseRentPayVo;
+import top.zywork.vo.HouseRentVo;
 import top.zywork.vo.Select2Vo;
 
 import javax.annotation.Resource;
@@ -71,5 +72,15 @@ public class HouseRentPayServiceImpl implements HouseRentPayService {
     @Override
     public List<Select2Vo> getHotel(Long companyId) {
         return houseRentPayDAO.getHotel(companyId);
+    }
+
+    @Override
+    public HouseRentVo notHotelId() {
+        return houseRentPayDAO.notHotelId();
+    }
+
+    @Override
+    public HouseRentVo haveHotelId(Long hotelId) {
+        return houseRentPayDAO.haveHotelId(hotelId);
     }
 }

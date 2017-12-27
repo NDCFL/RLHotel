@@ -28,6 +28,7 @@
         </association>
     </resultMap>
     <resultMap id="selet2VoMap" type="top.zywork.vo.Select2Vo"></resultMap>
+    <resultMap id="houseRentMap" type="top.zywork.vo.HouseRentVo"></resultMap>
     <sql id="search">
         <if test="#{searchVal!=null} and #{searchVal!=''}">
             and (t.total_pay like concat('%${searchVal}%')
@@ -70,4 +71,29 @@
     <update id="update">
         update t_rent_pay set master_id=#{masterId},hotel_id=#{hotelId},total_pay=#{totalPay},pay_type=#{payType},house_name=#{houseName},first_pay=#{firstPay},pay_period_start=#{payPeriodStart},pay_period_end=#{payPeriodEnd},is_cash=#{isCash},description=#{description} where id = #{id}
     </update>
+    <select id="notHotelId" resultMap="houseRentMap">
+        select
+          (select count(house_name) from t_rent_pay ) as 'houseTotal',
+          (select sum(sum_pay) from t_rent_pay where  is_cash=0) as 'dfPayMoney',
+          (select sum(sum_pay) from t_rent_pay where  is_cash=0 and now()>first_pay_time) as 'chaoqiPayMoney',
+          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where  is_cash=0 and first_pay_time BETWEEN NOW() and date_add(now(), interval 5 day)) as 'fiveDayPayMoney',
+          (select sum(sum_pay) from t_rent_pay where  is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthPayMoney',
+          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where  is_cash=1 and month(now())=month(first_pay_time)) as 'thisMonthPayAll',
+          (select sum(sum_pay) from t_rent_pay where  is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthNotPay',
+          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where  is_cash=0 and (month(now())+1)=month(first_pay_time)) as 'nextMonthPay'       
+        from t_rent_pay limit 0,1
+    </select>
+    <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
+        select
+          (select count(house_name) from t_rent_pay where hotel_id=#{hotelId}) as 'houseTotal',
+          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0) as 'dfPayMoney',
+          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and now()>first_pay_time) as 'chaoqiPayMoney',
+          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and first_pay_time BETWEEN NOW() and date_add(now(), interval 5 day)) as 'fiveDayPayMoney',
+          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthPayMoney',
+          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=1 and month(now())=month(first_pay_time)) as 'thisMonthPayAll',
+          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthNotPay',
+          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and (month(now())+1)=month(first_pay_time)) as 'nextMonthPay'
+        
+        from t_rent_pay where hotel_id=#{hotelId} GROUP BY  hotel_id;
+    </select>
 </mapper>

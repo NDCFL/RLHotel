@@ -27,7 +27,7 @@
                 </div>
                 <div class="ibox-content">
                     <select class="form-control" id="hotelId_" required name="masterId">
-                        <option value="0">所有店面</option>
+                        <option value="">所有店面</option>
                     </select>
                     <div class="stat-percent font-bold text-info">20%
                         <i class="fa fa-level-up"></i>
@@ -441,5 +441,23 @@
         });
     });
 
+</script>
+<script>
+    $(function () {
+        getHotelInfo();
+    });
+    function getHotelInfo(){
+        var hotelId = $("#hotelId_").val();
+        $.post(
+            "<%=path%>/houseRentPay/hotelInfo",
+            {
+                "hotelId":hotelId
+            },
+            function (data) {
+                alert(data);
+            },
+            "json"
+        );
+    }
 </script>
 </html>

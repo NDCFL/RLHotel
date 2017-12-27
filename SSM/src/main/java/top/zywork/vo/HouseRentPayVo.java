@@ -34,6 +34,12 @@ public class HouseRentPayVo {
 
     private Double firstPay;
 
+    private Date firstPayTime;
+
+    private double sumPay;
+
+    private Integer payCount;
+
     public String getHouseName() {
         return houseName;
     }
@@ -182,5 +188,33 @@ public class HouseRentPayVo {
 
     public void setHotelVo(HotelVo hotelVo) {
         this.hotelVo = hotelVo;
+    }
+
+    public void setFirstPay(Double firstPay) {
+        this.firstPay = firstPay;
+    }
+
+    public Date getFirstPayTime() {
+        return firstPayTime;
+    }
+
+    public void setFirstPayTime(Date firstPayTime) {
+        this.firstPayTime = firstPayTime;
+    }
+
+    public double getSumPay() {
+        return sumPay;
+    }
+
+    public void setSumPay(double sumPay) {
+        this.sumPay = sumPay;
+    }
+
+    public Integer getPayCount() {
+        return payCount;
+    }
+
+    public void setPayCount(Integer payCount) {
+        this.payCount = payCount;
     }
 }

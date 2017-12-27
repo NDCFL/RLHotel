@@ -522,17 +522,22 @@ select
 from t_rent_pay limit 0,1
 
 select
-  (select count(house_name) from t_rent_pay where hotel_id=2) as '2号酒店房源数houseTotal',
-  (select sum(sum_pay) from t_rent_pay where hotel_id=2 and is_cash=0) as '2号酒店待付资金dfPayMoney',
-  (select sum(sum_pay) from t_rent_pay where hotel_id=2 and is_cash=0 and now()>first_pay_time) as '2号酒店超期未付chaoqiPayMoney',
-  (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=0 and (day(now())+5)=day(first_pay_time)) as '2号酒店近5日待付fiveDayPayMoney',
-  (select sum(sum_pay) from t_rent_pay where hotel_id=2 and is_cash=0 and month(now())=month(first_pay_time)) as '本月应付资金thisMonthPayMoney',
-  (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=1 and month(now())=month(first_pay_time)) as '本月已付资金thisMonthPayAll',
-  (select sum(sum_pay) from t_rent_pay where hotel_id=2 and is_cash=0 and month(now())=month(first_pay_time)) as '本月待付资金thisMonthNotPay',
-  (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=0 and (month(now())+1)=month(first_pay_time)) as '次月待付资金nextMonthPay'
+  (select IfNULL(count(house_name),0) from t_rent_pay where hotel_id=2) as '2号酒店房源数houseTotal',
+  (select IfNULL(sum(first_pay),0) from t_rent_pay where hotel_id=2 and is_cash=0) as '2号酒店待付资金dfPayMoney',
+  (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=0 and now()>first_pay_time) as '2号酒店超期未付chaoqiPayMoney',
+  (select IfNULL(sum(total_pay)/(sum(pay_time)*12),0) from t_rent_pay where hotel_id=2) as '2号酒店平均每月monthPayMoney',
+  (select IfNULL(sum(month_pay)/(count(house_name)),0) from t_rent_pay where hotel_id=2) as '2号酒店平均每间每月houseMonthPayMoney',
+  (select IfNULL(sum(day_pay)/(count(house_name)),0) from t_rent_pay where hotel_id=2) as '2号酒店平均每间每天houseDayPayMoney',
+  (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=0 and first_pay_time BETWEEN NOW() and date_add(now(), interval 5 day)) as '2号酒店近5日待付fiveDayPayMoney',
+  (select IfNULL(sum(first_pay),0) from t_rent_pay where hotel_id=2 and is_cash=0 and month(now())=month(first_pay_time)) as '本月应付资金thisMonthPayMoney',
+  (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=1 and month(now())=month(first_pay_time)) as '本月已付资金thisMonthPayAll',
+  (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=0 and month(now())=month(first_pay_time)) as '本月待付资金thisMonthNotPay',
+  (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=2 and is_cash=0 and (month(now())+1)=month(first_pay_time)) as '次月待付资金nextMonthPay'
 
 from t_rent_pay where hotel_id=2 GROUP BY  hotel_id;
 
+
+select sum(total_pay) from t_rent_pay where hotel_id=2
 
 
 

@@ -18,6 +18,7 @@ import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.HouseRentPayService;
 import top.zywork.vo.HouseRentPayVo;
+import top.zywork.vo.HouseRentVo;
 import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
 
@@ -100,6 +101,16 @@ public class HouseRentPayController  {
     public HouseRentPayVo findHouseRentPay(@PathVariable("id") long id){
         HouseRentPayVo house = houseRentPayService.getById(id);
         return house;
+    }
+    @RequestMapping("/hotelInfo")
+    @ResponseBody
+    public HouseRentVo hotelInfo(Long hotelId){
+        if(hotelId==null){
+            return houseRentPayService.notHotelId();
+        }else{
+            return  houseRentPayService.haveHotelId(hotelId);
+        }
+
     }
     @RequestMapping("/houseRentPayUpdateSave")
     @ResponseBody
