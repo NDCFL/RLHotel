@@ -26,7 +26,7 @@
                     <h5>所有店面</h5>
                 </div>
                 <div class="ibox-content">
-                    <select class="form-control" id="hotelId_" required name="masterId">
+                    <select class="form-control" id="hotelId_" onchange="getInfo(this.value)" required name="masterId">
                         <option value="">所有店面</option>
                     </select>
                     <div class="stat-percent font-bold text-info">20%
@@ -42,10 +42,10 @@
                     <h5>房源总数</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">275,800</h1>
+                    <h1 class="no-margins" id="houseTotal"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>新订单</small>
+                    <small>房源总数</small>
                 </div>
             </div>
         </div>
@@ -56,10 +56,10 @@
                     <h5>待付资金</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">275,800</h1>
+                    <h1 class="no-margins" id="dfPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>新订单</small>
+                    <small>待付资金</small>
                 </div>
             </div>
         </div>
@@ -70,10 +70,10 @@
                     <h5>平均每月</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">275,800</h1>
+                    <h1 class="no-margins" id="monthPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>新订单</small>
+                    <small>平均每月</small>
                 </div>
             </div>
         </div>
@@ -84,10 +84,10 @@
                     <h5>每间/每月</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">275,800</h1>
+                    <h1 class="no-margins" id="houseMonthPayMoney">275,800</h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>新订单</small>
+                    <small>每间/每月</small>
                 </div>
             </div>
         </div>
@@ -98,10 +98,10 @@
                     <h5>每间/每天</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">275,800</h1>
+                    <h1 class="no-margins" id="houseDayPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>新订单</small>
+                    <small>每间/每天</small>
                 </div>
             </div>
         </div>
@@ -111,44 +111,44 @@
 <div class="col-lg-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>用户行为统计</h5>
+            <h5>房租明细统计</h5>
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-xs-2">
-                    <small class="stats-label"><h4>超期未付</h4></small>
-                    <h4>236 321.80</h4>
+                <div class="col-xs-2" id="cq">
+                    <small class="stats-label" ><h4>超期未付</h4></small>
+                    <h2 id="chaoqiPayMoney"></h2>
                     <hr/>
                     <small class="stats-label">已超期未支付租金总额</small>
                 </div>
 
                 <div class="col-xs-2">
                     <small class="stats-label"><h4>近五日待付</h4></small>
-                    <h4>236 321.80</h4>
+                    <h2 id="fiveDayPayMoney"></h2>
                     <hr/>
                     <small class="stats-label">近五日急付租金总额</small>
                 </div>
                 <div class="col-xs-2">
                     <small class="stats-label"><h4>本月应付</h4></small>
-                    <h4>236 321.80</h4>
+                    <h2 id="thisMonthPayMoney"></h2>
                     <hr/>
                     <small class="stats-label">本月应付租金总额</small>
                 </div>
                 <div class="col-xs-2">
                     <small class="stats-label"><h4>本月已付租金总额</h4></small>
-                    <h4>236 321.80</h4>
+                    <h2 id="thisMonthPayAll"></h2>
                     <hr/>
                     <small class="stats-label">本月已付租金总额</small>
                 </div>
                 <div class="col-xs-2">
                     <small class="stats-label"><h4>本月待付</h4></small>
-                    <h4>236 321.80</h4>
+                    <h2 id="thisMonthNotPay">236 321.80</h2>
                     <hr/>
                     <small class="stats-label">本月待付租金总额</small>
                 </div>
                 <div class="col-xs-2">
                     <small class="stats-label"><h4>次月应付</h4></small>
-                    <h4>236 321.80</h4>
+                    <h2 id="nextMonthPay"></h2>
                     <hr/>
                     <small class="stats-label">次月应付租金总额</small>
                 </div>
@@ -207,7 +207,7 @@
 <%--网站数据的新增--%>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="webAdd" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -219,43 +219,41 @@
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
+                    <h4 class="modal-title" id="webAddTitle1">
+                        签约信息
+                    </h4>
+                    <hr/>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">业主姓名：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">业主姓名：</label>
+                        <div class="col-sm-4">
                             <select class="form-control" id="master_Id" required name="masterId">
 
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">房源归属：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">房源归属：</label>
+                        <div class="col-sm-4">
                             <select class="form-control" id="hotel_Id" required name="hotelId">
 
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">房间名称：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">房间名称：</label>
+                        <div class="col-sm-4">
                             <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">支付总金额：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">支付总金额：</label>
+                        <div class="col-sm-4">
                             <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">签约年限：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">签约年限：</label>
+                        <div class="col-sm-4">
                             <input  name="payTime" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">支付类型：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">支付类型：</label>
+                        <div class="col-sm-4">
                             <select class="form-control"  required name="payType">
                                 <option value="0">月付</option>
                                 <option value="1">季付</option>
@@ -264,23 +262,62 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">首次支付日期：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">首次支付日期：</label>
+                        <div class="col-sm-4">
                             <input  name="payPeriodStart" minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">结算状态：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">结算状态：</label>
+                        <div class="col-sm-4">
                             <select class="form-control"  required name="isCash">
                                 <option value="0">未结算</option>
                                 <option value="1">已结算</option>
                             </select>
                         </div>
                     </div>
+                    <hr/>
+                    <h4 class="modal-title" id="webAddTitle2">
+                        房源信息
+                    </h4>
+                    <hr/>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">备注：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-1 control-label">面积</label>
+                        <div class="col-sm-3">
+                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-1 control-label">楼层</label>
+                        <div class="col-sm-3">
+                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-1 control-label">装修</label>
+                        <div class="col-sm-3">
+                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">水电</label>
+                        <div class="col-sm-3">
+                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-1 control-label">空调</label>
+                        <div class="col-sm-3">
+                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-1 control-label">供暖</label>
+                        <div class="col-sm-3">
+                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">物业</label>
+                        <div class="col-sm-3">
+                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">备注</label>
+                        <div class="col-sm-11">
                             <textarea  name="description" minlength="2" id="reason1"  value="" class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
@@ -446,6 +483,9 @@
     $(function () {
         getHotelInfo();
     });
+    function getInfo(id) {
+        getHotelInfo();
+    }
     function getHotelInfo(){
         var hotelId = $("#hotelId_").val();
         $.post(
@@ -454,10 +494,25 @@
                 "hotelId":hotelId
             },
             function (data) {
-                alert(data);
+                $("#houseTotal").html("￥"+data.houseTotal);//房源总数
+                $("#dfPayMoney").html("￥"+data.dfPayMoney);//代付资金
+                $("#monthPayMoney").html("￥"+data.monthPayMoney);//代付资金
+                $("#houseMonthPayMoney").html("￥"+data.houseMonthPayMoney);//每间每月
+                $("#houseDayPayMoney").html("￥"+data.houseDayPayMoney);//每间，每天
+                $("#chaoqiPayMoney").html("￥"+data.chaoqiPayMoney);//超期未付
+                $("#fiveDayPayMoney").html("￥"+data.fiveDayPayMoney);//近5日待付
+                $("#thisMonthPayMoney").html("￥"+data.thisMonthPayMoney);//本月应付
+                $("#thisMonthPayAll").html("￥"+data.thisMonthPayAll);//本月已付租金总额
+                $("#thisMonthNotPay").html("￥"+data.thisMonthNotPay);//本月待付
+                $("#nextMonthPay").html("￥"+data.nextMonthPay);//次月应付
             },
             "json"
         );
     }
+</script>
+<script>
+    $("#cq").click(function () {
+        alert("asdjflsdajk");
+    });
 </script>
 </html>

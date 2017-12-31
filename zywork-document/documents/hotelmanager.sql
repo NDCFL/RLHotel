@@ -10,10 +10,27 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-28 19:05:32
+Date: 2017-12-31 12:06:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for house_fact_pay
+-- ----------------------------
+DROP TABLE IF EXISTS `house_fact_pay`;
+CREATE TABLE `house_fact_pay` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '房租缴纳费用',
+  `house_rent_id` bigint(20) NOT NULL COMMENT '房租id',
+  `pay_money` double NOT NULL COMMENT '支付金额',
+  `create_time` datetime NOT NULL COMMENT '支付时间',
+  `status` int(11) NOT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of house_fact_pay
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_cash_accounts
@@ -501,6 +518,23 @@ INSERT INTO `t_house` VALUES ('12', '103', '111', '111.00', '111.00', '1', '大�
 INSERT INTO `t_house` VALUES ('13', '102', '111', '111.00', '111.00', '1', '大床房', '2', '6', '6', '0', '2017-11-26 18:11:06', '0', '2017-12-21 22:30:21');
 INSERT INTO `t_house` VALUES ('14', '108', '111', '111.00', '108.00', '1', '大床房', '2', '6', '6', '0', '2017-11-29 23:02:17', '0', '2017-12-21 22:30:21');
 INSERT INTO `t_house` VALUES ('15', '107', '111', '111.00', '108.00', '1', '大床房', '2', '6', '6', '0', '2017-11-29 23:02:17', '0', '2017-12-19 21:55:10');
+
+-- ----------------------------
+-- Table structure for t_house_fact_pay
+-- ----------------------------
+DROP TABLE IF EXISTS `t_house_fact_pay`;
+CREATE TABLE `t_house_fact_pay` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '房租缴纳费用',
+  `house_rent_id` bigint(20) NOT NULL COMMENT '房租id',
+  `pay_money` double NOT NULL COMMENT '支付金额',
+  `create_time` datetime NOT NULL COMMENT '支付时间',
+  `status` int(11) NOT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_house_fact_pay
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_house_others_item

@@ -73,27 +73,30 @@
     </update>
     <select id="notHotelId" resultMap="houseRentMap">
         select
-          (select count(house_name) from t_rent_pay ) as 'houseTotal',
-          (select sum(sum_pay) from t_rent_pay where  is_cash=0) as 'dfPayMoney',
-          (select sum(sum_pay) from t_rent_pay where  is_cash=0 and now()>first_pay_time) as 'chaoqiPayMoney',
-          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where  is_cash=0 and first_pay_time BETWEEN NOW() and date_add(now(), interval 5 day)) as 'fiveDayPayMoney',
-          (select sum(sum_pay) from t_rent_pay where  is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthPayMoney',
-          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where  is_cash=1 and month(now())=month(first_pay_time)) as 'thisMonthPayAll',
-          (select sum(sum_pay) from t_rent_pay where  is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthNotPay',
-          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where  is_cash=0 and (month(now())+1)=month(first_pay_time)) as 'nextMonthPay'       
-        from t_rent_pay limit 0,1
+          (select IfNULL(count(house_name),0) from t_rent_pay where  year(first_pay_time)=year(now())) as 'houseTotal',
+          (select IfNULL(sum(spare_money),0) from t_rent_pay where  is_cash=0 and year(first_pay_time)=year(now())) as 'dfPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(first_pay_time)=year(now()) and NOW()>facted_pay_time_start) as 'chaoqiPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(first_pay_time)=year(now())) as 'monthPayMoney',
+          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where  year(first_pay_time)=year(now())) as 'houseMonthPayMoney',
+          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where  year(first_pay_time)=year(now())) as 'houseDayPayMoney',
+          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where  is_cash=0 and year(first_pay_time)=year(now()) and facted_pay_time_end BETWEEN NOW() and date_add(now(), interval 5 day)) as 'fiveDayPayMoney',
+          (select IfNULL(sum(datediff(facted_pay_time_end,facted_pay_time_start))*avg(day_pay),0) from t_rent_pay where  is_cash=0 and year(first_pay_time)=year(now()) and month(now())=month(facted_pay_time_end)) as 'thisMonthPayMoney',
+          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.first_pay_time)=year(now())) as 'thisMonthPayAll',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(first_pay_time)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end)) as 'nextMonthPay'
+        from t_rent_pay limit 0,1;
     </select>
-    <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
-        select
-          (select count(house_name) from t_rent_pay where hotel_id=#{hotelId}) as 'houseTotal',
-          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0) as 'dfPayMoney',
-          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and now()>first_pay_time) as 'chaoqiPayMoney',
-          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and first_pay_time BETWEEN NOW() and date_add(now(), interval 5 day)) as 'fiveDayPayMoney',
-          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthPayMoney',
-          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=1 and month(now())=month(first_pay_time)) as 'thisMonthPayAll',
-          (select sum(sum_pay) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and month(now())=month(first_pay_time)) as 'thisMonthNotPay',
-          (select IfNULL(sum(sum_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and (month(now())+1)=month(first_pay_time)) as 'nextMonthPay'
-        
-        from t_rent_pay where hotel_id=#{hotelId} GROUP BY  hotel_id;
+        <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
+           select
+          (select IfNULL(count(house_name),0) from t_rent_pay where hotel_id=#{hotelId} and year(first_pay_time)=year(now())) as 'houseTotal',
+          (select IfNULL(sum(spare_money),0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and year(first_pay_time)=year(now())) as 'dfPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(first_pay_time)=year(now()) and NOW()>facted_pay_time_start) as 'chaoqiPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(first_pay_time)=year(now())) as 'monthPayMoney',
+          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(first_pay_time)=year(now())) as 'houseMonthPayMoney',
+          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(first_pay_time)=year(now())) as 'houseDayPayMoney',
+          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and year(first_pay_time)=year(now()) and facted_pay_time_end BETWEEN NOW() and date_add(now(), interval 5 day)) as 'fiveDayPayMoney',
+          (select IfNULL(sum(datediff(facted_pay_time_end,facted_pay_time_start))*avg(day_pay),0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and year(first_pay_time)=year(now()) and month(now())=month(facted_pay_time_end)) as 'thisMonthPayMoney',
+          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where r.hotel_id=#{hotelId} and t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.first_pay_time)=year(now())) as 'thisMonthPayAll',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=2 and year(first_pay_time)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end)) as 'nextMonthPay'
+      from t_rent_pay where hotel_id=2 GROUP BY  hotel_id;
     </select>
 </mapper>
