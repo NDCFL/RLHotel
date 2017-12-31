@@ -240,17 +240,17 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">房间名称：</label>
                         <div class="col-sm-4">
-                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="houseName" min="0" placeholder="房间名称" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付总金额：</label>
                         <div class="col-sm-4">
-                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="totalPay" min="0" placeholder="支付总金额" max="100" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">签约年限：</label>
                         <div class="col-sm-4">
-                            <input  name="payTime" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="payTime" min="0" max="100" onchange="addCount(this.value);" placeholder="签约年限" type="number" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付类型：</label>
                         <div class="col-sm-4">
@@ -264,7 +264,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">首次支付日期：</label>
                         <div class="col-sm-4">
-                            <input  name="payPeriodStart" minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
+                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">结算状态：</label>
                         <div class="col-sm-4">
@@ -274,6 +274,9 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group" id="house_count">
+
+                    </div>
                     <hr/>
                     <h4 class="modal-title" id="webAddTitle2">
                         房源信息
@@ -282,35 +285,50 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">面积</label>
                         <div class="col-sm-3">
-                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="area" min="0" placeholder="房间面积" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-1 control-label">楼层</label>
                         <div class="col-sm-3">
-                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="houseCount" min="0" placeholder="房间楼层" max="100" type="number" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-1 control-label">装修</label>
                         <div class="col-sm-3">
-                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <select class="form-control"  required name="zhuangxiu">
+                                <option value="0">毛坯</option>
+                                <option value="1">简装</option>
+                                <option value="2">精装</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">水电</label>
                         <div class="col-sm-3">
-                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <select class="form-control"  required name="shuidian">
+                                <option value="0">商水商电</option>
+                                <option value="1">民水民电</option>
+                                <option value="2">商水民电</option>
+                                <option value="3">民水商电</option>
+                            </select>
                         </div>
                         <label class="col-sm-1 control-label">空调</label>
                         <div class="col-sm-3">
-                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <select class="form-control"  required name="kongtiao">
+                                <option value="0">有</option>
+                                <option value="1">无</option>
+                            </select>
                         </div>
                         <label class="col-sm-1 control-label">供暖</label>
                         <div class="col-sm-3">
-                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <select class="form-control"  required name="gongnuan">
+                                <option value="0">有</option>
+                                <option value="1">无</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">物业</label>
                         <div class="col-sm-3">
-                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="houseName" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
 
                     </div>
@@ -318,7 +336,7 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">备注</label>
                         <div class="col-sm-11">
-                            <textarea  name="description" minlength="2" id="reason1"  value="" class="form-control" required="" aria-required="true"></textarea>
+                            <textarea  name="description" placeholder="备注" minlength="2" id="reason1"  value="" class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>
@@ -514,5 +532,17 @@
     $("#cq").click(function () {
         alert("asdjflsdajk");
     });
+</script>
+<script>
+    function addCount(sum) {
+        var info='<label class="col-sm-1 control-label">第*年</label><div class="col-sm-2"><input  name="count" min="0" placeholder="第*年的房租" max="100" type="number" class="form-control" required="" aria-required="true"></div>';
+        var allhtml="";
+        for(var i=0;i<sum;i++){
+            allhtml=allhtml+(info.replace("*",(i+1)).replace("*",(i+1)).replace("*",(i+1)));
+
+        }
+        alert(allhtml);
+        $("#house_count").html(allhtml);
+    }
 </script>
 </html>

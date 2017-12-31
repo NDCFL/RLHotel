@@ -16,43 +16,65 @@ public class HouseRentPayVo {
 
     private BigDecimal totalPay;
 
-    private Integer payTime;
+    private Date factPayTimeStart;//实际支付开始时间
 
-    private Integer payType;
+    private Date factPayTimeEnd;//时间支付结束时间
 
-    private Date payPeriodStart;
+    private Date factedPayTimeStart;//当前合同支付开始时间
 
-    private Date payPeriodEnd;
+    private Date factedPayTimeEnd;//当前合同支付结束时间
 
-    private String description;
+    private Double factPay;//实际支付金额
 
-    private Integer isCash;
+    private Integer payTime;//签约年限
 
-    private Date createTime;
+    private Integer payType;//支付类别
 
-    private Byte isActive;
+    private Date payPeriodStart;//总支付开始时间
 
-    private Double firstPay;
+    private Date payPeriodEnd;//总支付结束时间
 
-    private Date firstPayTime;
+    private String description;//说明
 
-    private double sumPay;
+    private Double spareMoney;//剩余支付金额
 
-    private Integer payCount;
+    private Integer payFactTime;//实际支付期限
 
-    public String getHouseName() {
-        return houseName;
-    }
+    private Integer isCash;//是否支付
 
-    public void setHouseName(String houseName) {
-        this.houseName = houseName;
-    }
+    private Date createTime;//创建时间
 
-    private String houseName;
+    private Byte isActive;//是否激活
+
+    private Double firstPay;//每期支付金额
+
+    private Date firstPayTime;//首次支付时间
+
+    private double sumPay;//已经支付金额
+
+    private Integer payCount;//已经支付到第几期了
+
+    private Double dayPay;//日付金额
+
+    private Double monthPay;//月付金额
+
+    private String houseName;//房间名称
 
     private ContractMasterVo contractMasterVo;
 
     private HotelVo hotelVo;
+
+    private Double area;//房间面积
+
+    private Integer houseCount;//楼层
+
+    private Integer shuidian;//水电
+
+    private Integer kongtiao;//空调
+
+    private Integer gongnuan;//供暖
+
+    private Double wuye;//物业费用单位为平米
 
     public Long getId() {
         return id;
@@ -102,6 +124,46 @@ public class HouseRentPayVo {
         this.totalPay = totalPay;
     }
 
+    public Date getFactPayTimeStart() {
+        return factPayTimeStart;
+    }
+
+    public void setFactPayTimeStart(Date factPayTimeStart) {
+        this.factPayTimeStart = factPayTimeStart;
+    }
+
+    public Date getFactPayTimeEnd() {
+        return factPayTimeEnd;
+    }
+
+    public void setFactPayTimeEnd(Date factPayTimeEnd) {
+        this.factPayTimeEnd = factPayTimeEnd;
+    }
+
+    public Date getFactedPayTimeStart() {
+        return factedPayTimeStart;
+    }
+
+    public void setFactedPayTimeStart(Date factedPayTimeStart) {
+        this.factedPayTimeStart = factedPayTimeStart;
+    }
+
+    public Date getFactedPayTimeEnd() {
+        return factedPayTimeEnd;
+    }
+
+    public void setFactedPayTimeEnd(Date factedPayTimeEnd) {
+        this.factedPayTimeEnd = factedPayTimeEnd;
+    }
+
+    public Double getFactPay() {
+        return factPay;
+    }
+
+    public void setFactPay(Double factPay) {
+        this.factPay = factPay;
+    }
+
     public Integer getPayTime() {
         return payTime;
     }
@@ -142,6 +204,22 @@ public class HouseRentPayVo {
         this.description = description;
     }
 
+    public Double getSpareMoney() {
+        return spareMoney;
+    }
+
+    public void setSpareMoney(Double spareMoney) {
+        this.spareMoney = spareMoney;
+    }
+
+    public Integer getPayFactTime() {
+        return payFactTime;
+    }
+
+    public void setPayFactTime(Integer payFactTime) {
+        this.payFactTime = payFactTime;
+    }
+
     public Integer getIsCash() {
         return isCash;
     }
@@ -166,28 +244,8 @@ public class HouseRentPayVo {
         this.isActive = isActive;
     }
 
-    public double getFirstPay() {
+    public Double getFirstPay() {
         return firstPay;
-    }
-
-    public void setFirstPay(double firstPay) {
-        this.firstPay = firstPay;
-    }
-
-    public ContractMasterVo getContractMasterVo() {
-        return contractMasterVo;
-    }
-
-    public void setContractMasterVo(ContractMasterVo contractMasterVo) {
-        this.contractMasterVo = contractMasterVo;
-    }
-
-    public HotelVo getHotelVo() {
-        return hotelVo;
-    }
-
-    public void setHotelVo(HotelVo hotelVo) {
-        this.hotelVo = hotelVo;
     }
 
     public void setFirstPay(Double firstPay) {
@@ -216,5 +274,93 @@ public class HouseRentPayVo {
 
     public void setPayCount(Integer payCount) {
         this.payCount = payCount;
+    }
+
+    public Double getDayPay() {
+        return dayPay;
+    }
+
+    public void setDayPay(Double dayPay) {
+        this.dayPay = dayPay;
+    }
+
+    public Double getMonthPay() {
+        return monthPay;
+    }
+
+    public void setMonthPay(Double monthPay) {
+        this.monthPay = monthPay;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
+    }
+
+    public ContractMasterVo getContractMasterVo() {
+        return contractMasterVo;
+    }
+
+    public void setContractMasterVo(ContractMasterVo contractMasterVo) {
+        this.contractMasterVo = contractMasterVo;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
+    }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(Double area) {
+        this.area = area;
+    }
+
+    public Integer getHouseCount() {
+        return houseCount;
+    }
+
+    public void setHouseCount(Integer houseCount) {
+        this.houseCount = houseCount;
+    }
+
+    public Integer getShuidian() {
+        return shuidian;
+    }
+
+    public void setShuidian(Integer shuidian) {
+        this.shuidian = shuidian;
+    }
+
+    public Integer getKongtiao() {
+        return kongtiao;
+    }
+
+    public void setKongtiao(Integer kongtiao) {
+        this.kongtiao = kongtiao;
+    }
+
+    public Integer getGongnuan() {
+        return gongnuan;
+    }
+
+    public void setGongnuan(Integer gongnuan) {
+        this.gongnuan = gongnuan;
+    }
+
+    public Double getWuye() {
+        return wuye;
+    }
+
+    public void setWuye(Double wuye) {
+        this.wuye = wuye;
     }
 }

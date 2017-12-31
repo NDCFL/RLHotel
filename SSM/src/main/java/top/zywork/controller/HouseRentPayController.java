@@ -74,6 +74,7 @@ public class HouseRentPayController  {
     @ResponseBody
     public Message addSaveHouseRentPay(HouseRentPayVo houseRentPayVo,HttpSession session) throws  Exception {
         try{
+            //保存订单记录
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
             Date dt=houseRentPayVo.getPayPeriodStart();
             Calendar rightNow = Calendar.getInstance();
@@ -88,6 +89,8 @@ public class HouseRentPayController  {
             double sum = Double.parseDouble(houseRentPayVo.getTotalPay()+"");
             houseRentPayVo.setFirstPay(sum/firstPay);
             houseRentPayVo.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+
+
             houseRentPayService.save(houseRentPayVo);
             return  Message.success("新增成功!");
         }catch (Exception E){
