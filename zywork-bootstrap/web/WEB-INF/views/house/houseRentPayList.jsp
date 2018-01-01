@@ -240,7 +240,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">房间名称：</label>
                         <div class="col-sm-4">
-                            <input  name="houseName" min="0" placeholder="房间名称" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="houseName" min="0" placeholder="房间名称" type="text" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付总金额：</label>
                         <div class="col-sm-4">
@@ -255,16 +255,19 @@
                         <label class="col-sm-2 control-label">支付类型：</label>
                         <div class="col-sm-4">
                             <select class="form-control"  required name="payType">
-                                <option value="0">月付</option>
-                                <option value="1">季付</option>
-                                <option value="2">年付</option>
+                                <option value="1">1/月付</option>
+                                <option value="2">2/月付</option>
+                                <option value="3">3/月付</option>
+                                <option value="4">4/月付</option>
+                                <option value="6">6/月付</option>
+                                <option value="12">12/月付</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">首次支付日期：</label>
                         <div class="col-sm-4">
-                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
+                            <input  name="firstPayTime"  minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">结算状态：</label>
                         <div class="col-sm-4">
@@ -328,9 +331,12 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">物业</label>
                         <div class="col-sm-3">
-                            <input  name="houseName" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="wuye" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
-
+                        <label class="col-sm-2 control-label">合同开始日期：</label>
+                        <div class="col-sm-4">
+                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
+                        </div>
                     </div>
                     <hr/>
                     <div class="form-group">
@@ -406,16 +412,19 @@
                         <label class="col-sm-3 control-label">支付类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control"  required name="payType">
-                                <option value="0">月付</option>
-                                <option value="1">季付</option>
-                                <option value="2">年付</option>
+                                <option value="1">1/月付</option>
+                                <option value="2">2/月付</option>
+                                <option value="3">3/月付</option>
+                                <option value="4">4/月付</option>
+                                <option value="6">6/月付</option>
+                                <option value="12">12/月付</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">首次支付日期：</label>
                         <div class="col-sm-8">
-                            <input  name="payPeriodStart" minlength="2"  maxlength="20" id="test1" type="text" value="" class="form-control " placeholder="首次支付时间" required="" aria-required="true">
+                            <input  name="firstPayTime" minlength="2"  maxlength="20" id="test1" type="text" value="" class="form-control " placeholder="首次支付时间" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -539,9 +548,7 @@
         var allhtml="";
         for(var i=0;i<sum;i++){
             allhtml=allhtml+(info.replace("*",(i+1)).replace("*",(i+1)).replace("*",(i+1)));
-
         }
-        alert(allhtml);
         $("#house_count").html(allhtml);
     }
 </script>

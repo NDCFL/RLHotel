@@ -24,10 +24,13 @@ import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
 import javax.jws.soap.SOAPBinding;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -74,24 +77,29 @@ public class HouseRentPayController  {
     @ResponseBody
     public Message addSaveHouseRentPay(HouseRentPayVo houseRentPayVo,HttpSession session) throws  Exception {
         try{
-            //保存订单记录
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            Date dt=houseRentPayVo.getPayPeriodStart();
-            Calendar rightNow = Calendar.getInstance();
-            rightNow.setTime(dt);
-            rightNow.add(Calendar.YEAR,houseRentPayVo.getPayTime());//日期减1年
-            Date dt1=rightNow.getTime();
-            String reStr = sdf.format(dt1);
+            List<HouseRentPayVo> houseRentPayVoList = new ArrayList<>();
+            houseRentPayVo.setPayPeriodEnd(getDate(houseRentPayVo.getPayPeriodStart(),houseRentPayVo.getPayTime()));
             UserVo userVo = (UserVo) session.getAttribute("userVo");
             houseRentPayVo.setCompanyId(userVo.getCompanyId());
-            houseRentPayVo.setPayPeriodEnd(sdf.parse(reStr));
-            double firstPay = houseRentPayVo.getPayTime()*12;
-            double sum = Double.parseDouble(houseRentPayVo.getTotalPay()+"");
-            houseRentPayVo.setFirstPay(sum/firstPay);
             houseRentPayVo.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
-
-
-            houseRentPayService.save(houseRentPayVo);
+            Integer countInfo[] = houseRentPayVo.getCount();
+            int cnt = countInfo.length;
+            for (int i=0;i<cnt;i++){
+                houseRentPayVo.setSpareMoney(Double.parseDouble(countInfo[i]+""));//当前合同剩余支付金额，默认初始化为未支付状态
+                houseRentPayVo.setPayFactTime(1);//最小单位为1年
+                BigDecimal b = new BigDecimal(Double.parseDouble(countInfo[i]+""));
+                houseRentPayVo.setFactPay(b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//每个合同所需支付的全年金额总和
+                houseRentPayVo.setFirstPay(b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()/(12/houseRentPayVo.getPayType()));//首付租金，根据选择的付款状态来决定
+                houseRentPayVo.setPayCount(12/houseRentPayVo.getPayType());//分多少期付款
+                houseRentPayVo.setFactPayTimeStart(getDate(houseRentPayVo.getPayPeriodStart(),i));//第一期合同开始时间
+                houseRentPayVo.setFactPayTimeEnd(getDate(houseRentPayVo.getPayPeriodStart(),(i+1)));//第一期合同结束时间
+                houseRentPayVo.setFactedPayTimeStart(getDate(houseRentPayVo.getFirstPayTime(),i));//第一个合同首付租金日期
+                houseRentPayVo.setFactedPayTimeEnd(getDateByMonth(houseRentPayVo.getFactPayTimeStart(),houseRentPayVo.getPayType()));//第一个合同首付结束时间
+                houseRentPayVo.setDayPay(houseRentPayVo.getFactPay()/(datediffDay(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每天付款金额总金额/总天数
+                houseRentPayVo.setMonthPay(houseRentPayVo.getFactPay()/(monthCount(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每月的租金总和
+                houseRentPayVoList.add(houseRentPayVo);
+                houseRentPayService.save(houseRentPayVo);
+            }
             return  Message.success("新增成功!");
         }catch (Exception E){
             E.printStackTrace();
@@ -119,14 +127,7 @@ public class HouseRentPayController  {
     @ResponseBody
     public Message updateHouseRentPay(HouseRentPayVo houseRentPayVo) throws  Exception{
         try{
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            Date dt=houseRentPayVo.getPayPeriodStart();
-            Calendar rightNow = Calendar.getInstance();
-            rightNow.setTime(dt);
-            rightNow.add(Calendar.YEAR,houseRentPayVo.getPayTime());//日期减1年
-            Date dt1=rightNow.getTime();
-            String reStr = sdf.format(dt1);
-            houseRentPayVo.setPayPeriodEnd(sdf.parse(reStr));
+            houseRentPayVo.setPayPeriodEnd(getDate(houseRentPayVo.getPayPeriodStart(),houseRentPayVo.getPayTime()));
             double firstPay = houseRentPayVo.getPayTime()*12;
             double sum = Double.parseDouble(houseRentPayVo.getTotalPay()+"");
             houseRentPayVo.setFirstPay(sum/firstPay);
@@ -181,5 +182,47 @@ public class HouseRentPayController  {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    public Date getDate(Date date, Integer cnt){
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(date);
+            rightNow.add(Calendar.YEAR,cnt);
+            Date dt1=rightNow.getTime();
+            String reStr = sdf.format(dt1);
+            return  sdf.parse(reStr);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    public Date getDateByMonth(Date date, Integer cnt){
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(date);
+            rightNow.add(Calendar.MONTH,cnt);
+            Date dt1=rightNow.getTime();
+            String reStr = sdf.format(dt1);
+            return  sdf.parse(reStr);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    public int datediffDay(Date date1,Date date2){
+        int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        return days;
+    }
+    public int monthCount(Date date1,Date date2) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Calendar bef = Calendar.getInstance();
+        Calendar aft = Calendar.getInstance();
+        bef.setTime(date1);
+        aft.setTime(date2);
+        int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
+        int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
+        return Math.abs(month + result);
     }
 }

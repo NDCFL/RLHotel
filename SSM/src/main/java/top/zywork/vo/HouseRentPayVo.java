@@ -1,6 +1,7 @@
 package top.zywork.vo;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 
 public class HouseRentPayVo {
@@ -75,6 +76,8 @@ public class HouseRentPayVo {
     private Integer gongnuan;//供暖
 
     private Double wuye;//物业费用单位为平米
+
+    private Integer[] count;
 
     public Long getId() {
         return id;
@@ -362,5 +365,56 @@ public class HouseRentPayVo {
 
     public void setWuye(Double wuye) {
         this.wuye = wuye;
+    }
+
+    public Integer[] getCount() {
+        return count;
+    }
+
+    public void setCount(Integer[] count) {
+        this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return "HouseRentPayVo{" +
+                "id=" + id +
+                ", masterId=" + masterId +
+                ", hotelId=" + hotelId +
+                ", companyId=" + companyId +
+                ", contractId=" + contractId +
+                ", totalPay=" + totalPay +
+                ", factPayTimeStart=" + factPayTimeStart +
+                ", factPayTimeEnd=" + factPayTimeEnd +
+                ", factedPayTimeStart=" + factedPayTimeStart +
+                ", factedPayTimeEnd=" + factedPayTimeEnd +
+                ", factPay=" + factPay +
+                ", payTime=" + payTime +
+                ", payType=" + payType +
+                ", payPeriodStart=" + payPeriodStart +
+                ", payPeriodEnd=" + payPeriodEnd +
+                ", description='" + description + '\'' +
+                ", spareMoney=" + spareMoney +
+                ", payFactTime=" + payFactTime +
+                ", isCash=" + isCash +
+                ", createTime=" + createTime +
+                ", isActive=" + isActive +
+                ", firstPay=" + firstPay +
+                ", firstPayTime=" + firstPayTime +
+                ", sumPay=" + sumPay +
+                ", payCount=" + payCount +
+                ", dayPay=" + dayPay +
+                ", monthPay=" + monthPay +
+                ", houseName='" + houseName + '\'' +
+                ", contractMasterVo=" + contractMasterVo +
+                ", hotelVo=" + hotelVo +
+                ", area=" + area +
+                ", houseCount=" + houseCount +
+                ", shuidian=" + shuidian +
+                ", kongtiao=" + kongtiao +
+                ", gongnuan=" + gongnuan +
+                ", wuye=" + wuye +
+                ", count=" + Arrays.toString(count) +
+                '}';
     }
 }
