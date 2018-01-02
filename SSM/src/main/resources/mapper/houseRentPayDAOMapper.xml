@@ -17,6 +17,13 @@
         <result column="is_active" property="isActive"></result>
         <result column="house_name" property="houseName"></result>
         <result column="first_pay" property="firstPay"></result>
+        <result column="first_pay_time" property="firstPayTime"></result>
+        <result column="area" property="area"></result>
+        <result column="house_count" property="houseCount"></result>
+        <result column="shuidian" property="shuidian"></result>
+        <result column="kongtiao" property="kongtiao"></result>
+        <result column="gongnuan" property="gongnuan"></result>
+        <result column="wuye" property="wuye"></result>
         <association property="contractMasterVo" javaType="top.zywork.vo.ContractMasterVo">
             <id column="cid" property="id"></id>
             <result column="bank_name" property="bankName"></result>

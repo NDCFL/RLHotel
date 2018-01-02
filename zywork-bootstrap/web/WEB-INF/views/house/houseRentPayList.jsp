@@ -267,7 +267,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">首次支付日期：</label>
                         <div class="col-sm-4">
-                            <input  name="firstPayTime"  minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
+                            <input  name="firstPayTime"  minlength="2" id="test2"  maxlength="20" type="date" value="" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">结算状态：</label>
                         <div class="col-sm-4">
@@ -335,7 +335,7 @@
                         </div>
                         <label class="col-sm-2 control-label">合同开始日期：</label>
                         <div class="col-sm-4">
-                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" value="" class="form-control  date form_datetime" placeholder="首次支付时间" data-date-format="yyyy-mm-dd" required="" aria-required="true">
+                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" id="test1" value="" class="form-control"  required="" aria-required="true">
                         </div>
                     </div>
                     <hr/>
@@ -361,56 +361,53 @@
 <%--网站新增结束--%>
 <%--网站信息的修改--%>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    房租的修改
+                <h4 class="modal-title">
+                    修改房租
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="updateform">
-                <input type="hidden" name="id" />
                 <div class="modal-body">
+                    <h4 class="modal-title" >
+                        签约信息
+                    </h4>
+                    <hr/>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">业主姓名：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">业主姓名：</label>
+                        <div class="col-sm-4">
                             <select class="form-control" id="masterId" required name="masterId">
 
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">房源归属：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">房源归属：</label>
+                        <div class="col-sm-4">
                             <select class="form-control" id="hotelId" required name="hotelId">
 
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">房间名称：</label>
-                        <div class="col-sm-8">
-                            <input  name="houseName" min="0" max="100" type="text" class="form-control" required="" aria-required="true">
+                        <label class="col-sm-2 control-label">房间名称：</label>
+                        <div class="col-sm-4">
+                            <input  name="houseName" min="0" placeholder="房间名称" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-2 control-label">支付总金额：</label>
+                        <div class="col-sm-4">
+                            <input  name="totalPay" min="0" placeholder="支付总金额" max="100" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">支付总金额：</label>
-                        <div class="col-sm-8">
-                            <input  name="totalPay" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
+                        <label class="col-sm-2 control-label">签约年限：</label>
+                        <div class="col-sm-4">
+                            <input  name="payTime" min="0" max="100" onchange="addCount(this.value);" placeholder="签约年限" type="number" class="form-control" required="" aria-required="true">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">签约年限：</label>
-                        <div class="col-sm-8">
-                            <input  name="payTime" min="0" max="100" type="number" class="form-control" required="" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">支付类型：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">支付类型：</label>
+                        <div class="col-sm-4">
                             <select class="form-control"  required name="payType">
                                 <option value="1">1/月付</option>
                                 <option value="2">2/月付</option>
@@ -422,33 +419,89 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">首次支付日期：</label>
-                        <div class="col-sm-8">
-                            <input  name="firstPayTime" minlength="2"  maxlength="20" id="test1" type="text" value="" class="form-control " placeholder="首次支付时间" required="" aria-required="true">
+                        <label class="col-sm-2 control-label">首次支付日期：</label>
+                        <div class="col-sm-4">
+                            <input  name="firstPayTime"   id="test3"  type="date" value="" class="form-control" required="" aria-required="true">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">结算状态：</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-2 control-label">结算状态：</label>
+                        <div class="col-sm-4">
                             <select class="form-control"  required name="isCash">
                                 <option value="0">未结算</option>
                                 <option value="1">已结算</option>
                             </select>
                         </div>
                     </div>
+                    <h4 class="modal-title" id="">
+                        房源信息
+                    </h4>
+                    <hr/>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">备注：</label>
-                        <div class="col-sm-8">
-                            <textarea  name="description" minlength="2"   value="" class="form-control" required="" aria-required="true"></textarea>
+                        <label class="col-sm-1 control-label">面积</label>
+                        <div class="col-sm-3">
+                            <input  name="area" min="0" placeholder="房间面积" max="100" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-1 control-label">楼层</label>
+                        <div class="col-sm-3">
+                            <input  name="houseCount" min="0" placeholder="房间楼层" max="100" type="number" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-1 control-label">装修</label>
+                        <div class="col-sm-3">
+                            <select class="form-control"  required name="zhuangxiu">
+                                <option value="0">毛坯</option>
+                                <option value="1">简装</option>
+                                <option value="2">精装</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
-                        <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
-                            确认修改
-                        </button>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">水电</label>
+                        <div class="col-sm-3">
+                            <select class="form-control"  required name="shuidian">
+                                <option value="0">商水商电</option>
+                                <option value="1">民水民电</option>
+                                <option value="2">商水民电</option>
+                                <option value="3">民水商电</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">空调</label>
+                        <div class="col-sm-3">
+                            <select class="form-control"  required name="kongtiao">
+                                <option value="0">有</option>
+                                <option value="1">无</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">供暖</label>
+                        <div class="col-sm-3">
+                            <select class="form-control"  required name="gongnuan">
+                                <option value="0">有</option>
+                                <option value="1">无</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">物业</label>
+                        <div class="col-sm-3">
+                            <input  name="wuye" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-2 control-label">合同开始日期：</label>
+                        <div class="col-sm-4">
+                            <input  name="payPeriodStart"  minlength="2"  id="test4" maxlength="20" type="date" class="form-control"  value=""  required="" aria-required="true">
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">备注</label>
+                        <div class="col-sm-11">
+                            <textarea  name="description" placeholder="备注" minlength="2"  value="" class="form-control" required="" aria-required="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
+                        确认修改
+                    </button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -464,6 +517,15 @@
     //执行一个laydate实例
     laydate.render({
         elem: '#test1' //指定元素
+    });
+    laydate.render({
+        elem: '#test2' //指定元素
+    });
+    laydate.render({
+        elem: '#test3' //指定元素
+    });
+    laydate.render({
+        elem: '#test4' //指定元素
     });
 </script>
 <script>
@@ -497,12 +559,7 @@
             },
             "json"
         );
-        $(".form_datetime").datetimepicker({
-            format: "yyyy-mm-dd",
-            language: 'zh-CN',
-            autoclose: true,
-            todayHighlight: true
-        });
+
     });
 
 </script>

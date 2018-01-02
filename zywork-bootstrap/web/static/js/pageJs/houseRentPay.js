@@ -87,12 +87,18 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                if(value==0){
-                    return '<span>月付</span>';
-                }else if(value==1){
-                    return '<span>季付</span>';
+                if(value==1){
+                    return '<span>1/月付</span>';
                 }else if(value==2){
-                    return '<span>年付</span>';
+                    return '<span>2/月付</span>';
+                }else if(value==3){
+                    return '<span>3/月付</span>';
+                }else if(value==4){
+                    return '<span>4/月付</span>';
+                }else if(value==6){
+                    return '<span>6/月付</span>';
+                }else if(value==12){
+                    return '<span>12/月付</span>';
                 }
             }
         }
