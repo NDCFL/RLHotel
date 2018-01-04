@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/contractMaster/contractMasterList",//要请求数据的文件路径
+    url: "/houseFactPay/houseFactPayList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -17,11 +17,10 @@ $('#mytab').bootstrapTable({
     pageList: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],//分页步进值
     showRefresh: true,//刷新按钮
     showColumns: true,
-    search: true,
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign: 'right',//工具栏对齐方式
     buttonsAlign: 'right',//按钮对齐方式
-    toolbar: '#toolbar',
+    toolbar: '#toolbar', search: true,
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -36,27 +35,14 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '登录账号',
-            field: 'phone',
+            title: '房间名称',
+            field: 'houseRentPayVo.houseName',
             align: 'center',
             sortable: true
         },
         {
-            title: '房东姓名',
-            field: 'bankAccountName',
-            align: 'center',
-            sortable: true
-        },
-        {
-            title: '银行名称',
-            field: 'bankName',
-            align: 'center',
-            sortable: true
-        }
-        ,
-        {
-            title: '银行卡号',
-            field: 'bankAccountNo',
+            title: '支付金额',
+            field: 'payMoney',
             align: 'center',
             sortable: true
         }
@@ -79,26 +65,25 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '状态',
-            field: 'isActive',
+            title: '支付状态',
+            field: 'status',
             align: 'center',
             formatter: function (value, row, index) {
-                if (value == 0) {
-                    //表示激活状态
-                    return '<i class="btn btn-primary" >激活</i>';
+                if (value == '0') {
+                    return '<i class="btn btn-primary" >已支付</i>';
                 } else {
-                    //表示激活状态
-                    return '<i class="btn btn-danger">冻结</i>';
+                    return '<i class="btn btn-danger">未支付</i>';
                 }
             }
         }
-        ,
+       /*
+       *     ,
         {
             title: '操作',
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="contractMaster"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="cashSubject"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -106,10 +91,12 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-                var g = '<a title="签约列表" class="J_menuItem" href="/contract/contractByMasterListPage/' + row.id + '\"><i class="glyphicon glyphicon-th-list" alt="签约列表" style="color:green"></i></a> ';
-                return e + d + f + g;
+
+                return e + d + f;
             }
-        }
+                    }
+
+       * */
     ],
     locale: 'zh-CN',//中文支持,
     responseHandler: function (res) {
@@ -133,19 +120,15 @@ function queryParams(params) {
     $(".search input").each(function () {
         title = $(this).val();
     });
-    var title = "";
-    $(".search input").each(function () {
-        title = $(this).val();
-    });
     return {
         //每页多少条数据
         pageSize: this.pageSize,
         //请求第几页
-        pageIndex: this.pageNumber, searchVal: title,
+        pageIndex: this.pageNumber,
         searchVal: title
     }
 }
-function del(contractMasterid, status) {
+function del(cashSubjectid, status) {
     if (status == 0) {
         layer.msg("删除失败，已经激活的不允许删除!", {icon: 2, time: 1000});
         return;
@@ -153,7 +136,7 @@ function del(contractMasterid, status) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/contractMaster/deleteContractMaster/' + contractMasterid,
+            url: '/cashSubject/deleteCashSubject/' + cashSubjectid,
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -170,7 +153,7 @@ function del(contractMasterid, status) {
     });
 }
 function edit(name) {
-    $.post("/contractMaster/findContractMaster/" + name,
+    $.post("/cashSubject/findCashSubject/" + name,
         function (data) {
             $("#updateform").autofill(data);
         },
@@ -178,7 +161,7 @@ function edit(name) {
     );
 }
 function updatestatus(id, status) {
-    $.post("/contractMaster/updateStatus/" + id + "/" + status,
+    $.post("/cashSubject/updateStatus/" + id + "/" + status,
         function (data) {
             if (status == 0) {
                 if (data.message == "ok") {
@@ -200,14 +183,14 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/contractMaster/contractMasterList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cashSubject/cashSubjectList'});
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/contractMaster/contractMasterList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cashSubject/cashSubjectList'});
 }
 $("#update").click(function () {
     $.post(
-        "/contractMaster/contractMasterUpdateSave",
+        "/cashSubject/cashSubjectUpdateSave",
         $("#updateform").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
@@ -222,14 +205,14 @@ $("#update").click(function () {
 });
 $("#add").click(function () {
     $.post(
-        "/contractMaster/contractMasterAddSave",
+        "/cashSubject/cashSubjectAddSave",
         $("#formadd").serialize(),
         function (data) {
             if (data.message == "新增成功!") {
                 layer.msg(data.message, {icon: 1, time: 1000});
                 refush();
             } else {
-                layer.msg(data.message, {icon: 2, time: 1000});
+                layer.msg(data.message, {icon: 1, time: 1000});
                 refush();
             }
         }, "json"
@@ -261,7 +244,7 @@ function deleteMany() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
         $.post(
-            "/contractMaster/deleteManyContractMaster",
+            "/cashSubject/deleteManyCashSubject",
             {
                 "manyId": $("#deleteId").val()
             },

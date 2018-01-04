@@ -97,6 +97,12 @@
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/houseRentPay/houseRentPayPage">房租列表</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/houseFactPay/houseFactPayPage">房租明细</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/rentPay/rentPayPage">分成房源</a>
+                            </li>
                         </ul>
                     </li>
                 </shiro:hasRole>
@@ -127,9 +133,6 @@
                         <shiro:hasRole name="总管理员">
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">店长管理</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="<%=path%>/houser/houserListPage">房东管理</a>
                             </li>
                         </shiro:hasRole>
                         <li>

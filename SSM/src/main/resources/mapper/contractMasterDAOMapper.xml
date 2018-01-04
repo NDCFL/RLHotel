@@ -27,7 +27,7 @@
         select count(*) from t_contract_master where company_id=#{companyId} <include refid="search"/>
     </select>
     <insert id="save" parameterType="contractMasterVo">
-        insert into t_contract_master ( bank_name,bank_account_name,bank_account_no,is_active,company_id) values ( #{bankName},#{bankAccountName},#{bankAccountNo},#{isActive},#{companyId})
+        insert into t_contract_master ( bank_name,bank_account_name,bank_account_no,is_active,company_id,phone,password) values ( #{bankName},#{bankAccountName},#{bankAccountNo},#{isActive},#{companyId},#{phone},#{password})
     </insert>
     <update id="updateStatus">
         update t_contract_master set is_active=#{status} where id=#{id}

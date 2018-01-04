@@ -89,21 +89,33 @@
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">登录账号：</label>
+                        <div class="col-sm-8">
+                            <input  name="phone" minlength="2" maxlength="20" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">登录密码：</label>
+                        <div class="col-sm-8">
+                            <input  name="password" minlength="2" maxlength="20" type="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">房东姓名：</label>
                         <div class="col-sm-8">
-                            <input  name="bankAccountName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="bankAccountName" minlength="2" maxlength="20" type="text" class="form-control" required="true" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">银行名称：</label>
                         <div class="col-sm-8">
-                            <input  name="bankName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="bankName" minlength="2" maxlength="20" type="text" class="form-control" required="true"  aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">银行卡号：</label>
                         <div class="col-sm-8">
-                            <input  name="bankAccountNo" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="bankAccountNo" minlength="2" maxlength="20" type="text" class="form-control" required="true"  aria-required="true">
                         </div>
                     </div>
                 </div>

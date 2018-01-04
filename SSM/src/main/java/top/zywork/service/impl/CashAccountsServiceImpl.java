@@ -83,4 +83,9 @@ public class CashAccountsServiceImpl implements CashAccountsService{
     public void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList) {
         cashAccountsDAO.checkerManyCashAccount(cashAccountsVoList);
     }
+
+    @Override
+    public List<Select2Vo> getHotel(Long companyId) {
+        return cashAccountsDAO.getHotel(companyId);
+    }
 }

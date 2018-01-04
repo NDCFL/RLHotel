@@ -16,4 +16,5 @@ public interface HouseRentPayService extends BaseService<HouseRentPayVo>{
     List<Select2Vo> getHotel(Long companyId);
     HouseRentVo notHotelId();
     HouseRentVo haveHotelId(Long hotelId);
+    void huankuan(Long id);
 }

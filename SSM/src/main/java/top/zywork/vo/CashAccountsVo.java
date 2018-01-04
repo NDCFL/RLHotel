@@ -16,6 +16,8 @@ public class CashAccountsVo {
 
     private Date accountTime;
 
+    private Date accountTimeEnd;
+
     private BigDecimal totalPay;
 
     private Long subjectId;
@@ -27,6 +29,8 @@ public class CashAccountsVo {
     private Date createTime;
 
     private Byte isActive;
+
+    private Double dayPay;
 
     private CompanyVo companyVo;
 
@@ -224,5 +228,21 @@ public class CashAccountsVo {
 
     public void setHand(String hand) {
         this.hand = hand;
+    }
+
+    public Date getAccountTimeEnd() {
+        return accountTimeEnd;
+    }
+
+    public void setAccountTimeEnd(Date accountTimeEnd) {
+        this.accountTimeEnd = accountTimeEnd;
+    }
+
+    public Double getDayPay() {
+        return dayPay;
+    }
+
+    public void setDayPay(Double dayPay) {
+        this.dayPay = dayPay;
     }
 }

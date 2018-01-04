@@ -89,6 +89,13 @@
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">所属酒店：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required id="hotel_id" name="hotelId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">所属现金流水科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subject_id" name="subjectId">
@@ -111,10 +118,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支时间：</label>
-                        <div class="col-sm-8 date form_datetime">
-                            <input  name="accountTime"  type="datetime" class="form-control" required="" aria-required="true">
-                            <span class="add-on"><i class="icon-th"></i></span>
+                        <label class="col-sm-3 control-label">收支起始时间：</label>
+                        <div class="col-sm-8">
+                            <input  name="accountTime"  type="datetime" id="test2" class="form-control" required="required" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收支结束时间：</label>
+                        <div class="col-sm-8">
+                            <input  name="accountTimeEnd"  type="datetime" id="test1" class="form-control" required="required" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -151,6 +163,13 @@
             </div>
             <form class="form-horizontal" id="updateform" >
                 <input  id="id" type="hidden" name="id" />
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所属酒店：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" required id="hotelId" name="hotelId">
+                        </select>
+                    </div>
+                </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">所属现金流水科目：</label>
@@ -329,6 +348,18 @@
 
 <%--</script>--%>
 <script>
+    lay('#version').html('-v'+ laydate.v);
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#test1' //指定元素
+        ,type: 'datetime'
+    });
+    laydate.render({
+        elem: '#test2' //指定元素
+        ,type: 'datetime'
+    });
+</script>
+<script>
     $(function () {
         $.post(
             "/cashAccounts/getSubject",
@@ -337,6 +368,19 @@
                     data: data
                 })
                 $("#subject_id").select2({
+                    data: data
+                })
+            },
+            "json"
+
+        );
+        $.post(
+            "/cashAccounts/getHotel",
+            function(data){
+                $("#hotelId").select2({
+                    data: data
+                })
+                $("#hotel_id").select2({
                     data: data
                 })
             },

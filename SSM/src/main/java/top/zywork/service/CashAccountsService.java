@@ -13,4 +13,5 @@ public interface CashAccountsService extends BaseService<CashAccountsVo>{
     List<Select2Vo> getSubject(Long companyId);
     void updateRemark(CashAccountsVo cashAccountsVo);
     void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList);
+    List<Select2Vo> getHotel(Long companyId);
 }

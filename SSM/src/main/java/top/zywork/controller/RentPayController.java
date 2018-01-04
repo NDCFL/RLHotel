@@ -1,6 +1,5 @@
 package top.zywork.controller;
 
-import org.apache.http.protocol.HTTP;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -9,41 +8,33 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import top.zywork.common.DateParseUtils;
 import top.zywork.common.Message;
 import top.zywork.common.PagingBean;
 import top.zywork.enums.ActiveStatusEnum;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.HouseFactPayService;
-import top.zywork.service.HouseRentPayService;
+import top.zywork.service.RentPayService;
 import top.zywork.vo.*;
 
 import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by chenfeilong on 2017/12/24.
- */
+@RequestMapping("rentPay")
 @Controller
-@RequestMapping("houseRentPay")
-public class HouseRentPayController  { 
+public class RentPayController {
     @Resource
-    private HouseRentPayService houseRentPayService;
+    private RentPayService rentPayService;
     @Resource
     private HouseFactPayService houseFactPayService;
-    @RequestMapping("houseRentPayList")
+    @RequestMapping("rentPayList")
     @ResponseBody
     public PagingBean houseList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
@@ -51,55 +42,49 @@ public class HouseRentPayController  {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setSearchVal(searchVal);
-        pagingBean.setTotal(houseRentPayService.count(pageQuery));
+        pagingBean.setTotal(rentPayService.count(pageQuery));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
         pageQuery.setPageNo(pagingBean.getStartIndex());
         pageQuery.setPageSize(pagingBean.getPageSize());
-        pagingBean.setrows(houseRentPayService.listPage(pageQuery));
+        pagingBean.setrows(rentPayService.listPage(pageQuery));
         return pagingBean;
     }
     @RequestMapping("/getContractMaster")
     @ResponseBody
     public List<Select2Vo> getContractMaster(HttpSession session) throws  Exception {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
-        return  houseRentPayService.getContractMaster(userVo.getCompanyId());
+        return  rentPayService.getContractMaster(userVo.getCompanyId());
 
     }
     @RequestMapping("/getHotel")
     @ResponseBody
     public List<Select2Vo> getHotel(HttpSession session) throws  Exception {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
-        return  houseRentPayService.getHotel(userVo.getCompanyId());
+        return  rentPayService.getHotel(userVo.getCompanyId());
 
     }
-    @RequestMapping("/houseRentPayAddSave")
+    @RequestMapping("/getHouse/{id}")
     @ResponseBody
-    public Message addSaveHouseRentPay(HouseRentPayVo houseRentPayVo,HttpSession session) throws  Exception {
+    public List<Select2Vo> getHouse(HttpSession session,@PathVariable("id") Long id) throws  Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setHotelId(id);
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        return  rentPayService.getHouse(pageQuery);
+
+    }
+    @RequestMapping("/rentPayAddSave")
+    @ResponseBody
+    public Message addSaveRentPay(RentPayVo rentPayVo, HttpSession session) throws  Exception {
         try{
-            List<HouseRentPayVo> houseRentPayVoList = new ArrayList<>();
-            houseRentPayVo.setPayPeriodEnd(getDate(houseRentPayVo.getPayPeriodStart(),houseRentPayVo.getPayTime()));
+            List<RentPayVo> rentPayVoList = new ArrayList<>();
+            rentPayVo.setPayPeriodEnd(getDate(rentPayVo.getPayPeriodStart(),rentPayVo.getPayTime()));
             UserVo userVo = (UserVo) session.getAttribute("userVo");
-            houseRentPayVo.setCompanyId(userVo.getCompanyId());
-            houseRentPayVo.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
-            Integer countInfo[] = houseRentPayVo.getCount();
-            int cnt = countInfo.length;
-            for (int i=0;i<cnt;i++){
-                houseRentPayVo.setSpareMoney(Double.parseDouble(countInfo[i]+""));//当前合同剩余支付金额，默认初始化为未支付状态
-                houseRentPayVo.setPayFactTime(1);//最小单位为1年
-                BigDecimal b = new BigDecimal(Double.parseDouble(countInfo[i]+""));
-                houseRentPayVo.setFactPay(b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//每个合同所需支付的全年金额总和
-                houseRentPayVo.setFirstPay(b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()/(12/houseRentPayVo.getPayType()));//首付租金，根据选择的付款状态来决定
-                houseRentPayVo.setPayCount(12/houseRentPayVo.getPayType());//分多少期付款
-                houseRentPayVo.setFactPayTimeStart(getDate(houseRentPayVo.getPayPeriodStart(),i));//第一期合同开始时间
-                houseRentPayVo.setFactPayTimeEnd(getDate(houseRentPayVo.getPayPeriodStart(),(i+1)));//第一期合同结束时间
-                houseRentPayVo.setFactedPayTimeStart(getDate(houseRentPayVo.getFirstPayTime(),i));//第一个合同首付租金日期
-                houseRentPayVo.setFactedPayTimeEnd(getDateByMonth(houseRentPayVo.getFactPayTimeStart(),houseRentPayVo.getPayType()));//第一个合同首付结束时间
-                houseRentPayVo.setDayPay(houseRentPayVo.getFactPay()/(datediffDay(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每天付款金额总金额/总天数
-                houseRentPayVo.setMonthPay(houseRentPayVo.getFactPay()/(monthCount(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每月的租金总和
-                houseRentPayVoList.add(houseRentPayVo);
-                houseRentPayService.save(houseRentPayVo);
-            }
+            rentPayVo.setCompanyId(userVo.getCompanyId());
+            rentPayVo.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+            rentPayVoList.add(rentPayVo);
+            rentPayService.save(rentPayVo);
             return  Message.success("新增成功!");
         }catch (Exception E){
             E.printStackTrace();
@@ -109,15 +94,14 @@ public class HouseRentPayController  {
     }
     @RequestMapping("/huankuan")
     @ResponseBody
-    public Message huankuan(HouseRentPayVo houseRentPayVo,HttpSession session){
+    public Message huankuan(RentPayVo rentPayVo,HttpSession session){
         try{
             UserVo userVo = (UserVo) session.getAttribute("userVo");
-            HouseRentPayVo house = houseRentPayService.getById(houseRentPayVo.getId());
+            RentPayVo house = rentPayService.getById(rentPayVo.getId());
             //准备还款事项
-            houseRentPayService.huankuan(houseRentPayVo.getId());
+            rentPayService.huankuan(rentPayVo.getId());
             HouseFactPayVo houseFactPayVo = new HouseFactPayVo();
-            houseFactPayVo.setHouseRentId(houseRentPayVo.getId());
-            houseFactPayVo.setPayMoney(houseRentPayVo.getFirstPay());
+            houseFactPayVo.setPayMoney(rentPayVo.getFirstPay());
             houseFactPayVo.setCompanyId(userVo.getCompanyId());
             houseFactPayVo.setStatus((byte)0);
             //新增还款记录
@@ -125,47 +109,45 @@ public class HouseRentPayController  {
             //还款明细表中加入一条数据
             return Message.success("还款成功!");
         }catch (Exception e){
-           e.printStackTrace();
+            e.printStackTrace();
             return Message.fail("还款失败!");
         }
     }
-    @RequestMapping("/findHouseRentPay/{id}")
+    @RequestMapping("/findRentPay/{id}")
     @ResponseBody
-    public HouseRentPayVo findHouseRentPay(@PathVariable("id") long id){
-        HouseRentPayVo house = houseRentPayService.getById(id);
+    public RentPayVo findRentPay(@PathVariable("id") long id){
+        RentPayVo house = rentPayService.getById(id);
         return house;
     }
     @RequestMapping("/hotelInfo")
     @ResponseBody
-    public HouseRentVo hotelInfo(Long hotelId){
+    public RentPayVo hotelInfo(Long hotelId){
         if(hotelId==null){
-            return houseRentPayService.notHotelId();
+            return rentPayService.notHotelId();
         }else{
-            return  houseRentPayService.haveHotelId(hotelId);
+            return  rentPayService.haveHotelId(hotelId);
         }
 
     }
-    @RequestMapping("/houseRentPayUpdateSave")
+    @RequestMapping("/rentPayUpdateSave")
     @ResponseBody
-    public Message updateHouseRentPay(HouseRentPayVo houseRentPayVo) throws  Exception{
+    public Message updateRentPay(RentPayVo rentPayVo) throws  Exception{
         try{
-            houseRentPayVo.setPayPeriodEnd(getDate(houseRentPayVo.getPayPeriodStart(),houseRentPayVo.getPayTime()));
-            double firstPay = houseRentPayVo.getPayTime()*12;
-            double sum = Double.parseDouble(houseRentPayVo.getTotalPay()+"");
-            houseRentPayVo.setFirstPay(sum/firstPay);
-            houseRentPayService.update(houseRentPayVo);
+            rentPayVo.setPayPeriodEnd(getDate(rentPayVo.getPayPeriodStart(),rentPayVo.getPayTime()));
+            double firstPay = rentPayVo.getPayTime()*12;
+            rentPayService.update(rentPayVo);
             return  Message.success("修改成功!");
         }catch (Exception e){
             return Message.fail("修改失败!");
         }
     }
-    @RequestMapping("/deleteManyHouseRentPay")
+    @RequestMapping("/deleteManyRentPay")
     @ResponseBody
     public Message deleteManyhouse(@Param("manyId") String manyId) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                houseRentPayService.removeById(Long.parseLong(s));
+                rentPayService.removeById(Long.parseLong(s));
             }
             return Message.success("删除成功!");
         }catch (Exception e){
@@ -173,27 +155,27 @@ public class HouseRentPayController  {
             return  Message.fail("删除失败!");
         }
     }
-    @RequestMapping("/deleteHouseRentPay/{id}")
+    @RequestMapping("/deleteRentPay/{id}")
     @ResponseBody
-    public Message deleteHouseRentPay(@PathVariable("id") long id) throws  Exception{
+    public Message deleteRentPay(@PathVariable("id") long id) throws  Exception{
         try{
-            houseRentPayService.removeById(id);
+            rentPayService.removeById(id);
             return Message.success("删除成功!");
         }catch (Exception e){
             e.printStackTrace();
             return Message.fail("删除失败!");
         }
     }
-    @RequestMapping("/houseRentPayPage")
+    @RequestMapping("/rentPayPage")
     public String table() throws  Exception{
-        return "house/houseRentPayList";
+        return "house/rentPayList";
     }
 
     @RequestMapping("updateStatus/{id}/{status}")
     @ResponseBody
     public Message updateStatus(@PathVariable("id") long id,@PathVariable("status") int status) throws  Exception{
         try{
-            houseRentPayService.updateStatus(new StatusQuery(id,status));
+            rentPayService.updateStatus(new StatusQuery(id,status));
             return Message.success("ok");
         }catch (Exception e){
             return  Message.fail("fail");

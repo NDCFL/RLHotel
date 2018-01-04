@@ -24,6 +24,7 @@
         <result column="kongtiao" property="kongtiao"></result>
         <result column="gongnuan" property="gongnuan"></result>
         <result column="wuye" property="wuye"></result>
+        <result column="spare_money" property="spareMoney"></result>
         <association property="contractMasterVo" javaType="top.zywork.vo.ContractMasterVo">
             <id column="cid" property="id"></id>
             <result column="bank_name" property="bankName"></result>
@@ -49,7 +50,7 @@
         </if>
     </sql>
     <select id="getContractMaster" resultMap="selet2VoMap" parameterType="long">
-          select id,bank_name as text from t_contract_master where company_id=#{companyId}
+          select id,bank_account_name as text from t_contract_master where company_id=#{companyId}
     </select>
     <select id="getHotel" resultMap="selet2VoMap" parameterType="long">
         select id,title as text from t_hotel where company_id=#{companyId}
@@ -107,4 +108,12 @@
           (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=2 and year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end)) as 'nextMonthPay'
       from t_rent_pay where hotel_id=2 GROUP BY  hotel_id;
     </select>
+    <update id="huankuan">
+        update t_rent_pay set
+        facted_pay_time_start = date_add(facted_pay_time_start, interval pay_type  MONTH ),
+        facted_pay_time_end = date_add(facted_pay_time_end, interval pay_type  MONTH ),
+        spare_money = spare_money-first_pay,
+        sum_pay=sum_pay+1
+        where id=#{id}
+    </update>
 </mapper>

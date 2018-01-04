@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/contractMaster/contractMasterList",//要请求数据的文件路径
+    url: "/rentPay/rentPayList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -17,11 +17,10 @@ $('#mytab').bootstrapTable({
     pageList: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],//分页步进值
     showRefresh: true,//刷新按钮
     showColumns: true,
-    search: true,
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign: 'right',//工具栏对齐方式
     buttonsAlign: 'right',//按钮对齐方式
-    toolbar: '#toolbar',
+    toolbar: '#toolbar', search: true,
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -36,34 +35,81 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '登录账号',
-            field: 'phone',
+            title: '房间名称',
+            field: 'houseVo.cardTitle',
             align: 'center',
             sortable: true
         },
         {
-            title: '房东姓名',
-            field: 'bankAccountName',
+            title: '房源归属',
+            field: 'hotelVo.title',
             align: 'center',
             sortable: true
         },
         {
-            title: '银行名称',
-            field: 'bankName',
+            title: '业主名称',
+            field: 'contractMasterVo.bankName',
             align: 'center',
             sortable: true
         }
         ,
         {
-            title: '银行卡号',
-            field: 'bankAccountNo',
+            title: '业主电话',
+            field: 'contractMasterVo.phone',
             align: 'center',
             sortable: true
         }
         ,
         {
-            title: '创建时间',
-            field: 'createTime',
+            title: '签约年限',
+            field: 'payTime',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:green">'+value+'年</span>';
+            }
+        }
+        ,
+        {
+            title: '付款方式',
+            field: 'payType',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                if(value==1){
+                    return '<span>1/月付</span>';
+                }else if(value==2){
+                    return '<span>2/月付</span>';
+                }else if(value==3){
+                    return '<span>3/月付</span>';
+                }else if(value==4){
+                    return '<span>4/月付</span>';
+                }else if(value==6){
+                    return '<span>6/月付</span>';
+                }else if(value==12){
+                    return '<span>12/月付</span>';
+                }
+            }
+        }
+        /*,
+        {
+            title: '每期应付',
+            field: 'firstPay',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                if((value+"").indexOf(".")>0){
+                    return '<span style="color:green">$'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
+                }else if((value+"").indexOf(".")<=0){
+                    return '<span style="color:green">$'+(value+"")+'</span>';
+                }
+
+            }
+        }*/
+        ,
+        {
+            title: '开始支付时间',
+            field: 'payPeriodStart',
             align: 'center',
             sortable: true,
             formatter: function (value) {
@@ -74,7 +120,33 @@ $('#mytab').bootstrapTable({
                 var h = date.getHours();
                 var mi = date.getMinutes();
                 var ss = date.getSeconds();
-                return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
+                return y + '-' + m + '-' + d ;
+            }
+        },
+        {
+            title: '结束支付时间',
+            field: 'payPeriodEnd',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                var date = new Date(value);
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var mi = date.getMinutes();
+                var ss = date.getSeconds();
+                return y + '-' + m + '-' + d;
+            }
+        },
+
+        {
+            title: '创建时间',
+            field: 'createTime',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return getdate(value);
             }
         }
         ,
@@ -98,7 +170,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="contractMaster"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="rentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -106,8 +178,8 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-                var g = '<a title="签约列表" class="J_menuItem" href="/contract/contractByMasterListPage/' + row.id + '\"><i class="glyphicon glyphicon-th-list" alt="签约列表" style="color:green"></i></a> ';
-                return e + d + f + g;
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:red"></i></a> ';
+                return p+e + d + f;
             }
         }
     ],
@@ -133,19 +205,15 @@ function queryParams(params) {
     $(".search input").each(function () {
         title = $(this).val();
     });
-    var title = "";
-    $(".search input").each(function () {
-        title = $(this).val();
-    });
     return {
         //每页多少条数据
         pageSize: this.pageSize,
         //请求第几页
-        pageIndex: this.pageNumber, searchVal: title,
+        pageIndex: this.pageNumber,
         searchVal: title
     }
 }
-function del(contractMasterid, status) {
+function del(rentPayid, status) {
     if (status == 0) {
         layer.msg("删除失败，已经激活的不允许删除!", {icon: 2, time: 1000});
         return;
@@ -153,7 +221,7 @@ function del(contractMasterid, status) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/contractMaster/deleteContractMaster/' + contractMasterid,
+            url: '/rentPay/deleteRentPay/' + rentPayid,
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -170,15 +238,21 @@ function del(contractMasterid, status) {
     });
 }
 function edit(name) {
-    $.post("/contractMaster/findContractMaster/" + name,
+    $.post("/rentPay/findRentPay/" + name,
         function (data) {
             $("#updateform").autofill(data);
+            $("#test_3").val(getdate(data.firstPayTime));
+            $("#test_4").val(getdate(data.payPeriodStart));
         },
         "json"
     );
 }
+function fukuan(id,money){
+    $("#first_pay").val(money);
+    $("#id").val(id);
+}
 function updatestatus(id, status) {
-    $.post("/contractMaster/updateStatus/" + id + "/" + status,
+    $.post("/rentPay/updateStatus/" + id + "/" + status,
         function (data) {
             if (status == 0) {
                 if (data.message == "ok") {
@@ -200,14 +274,14 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/contractMaster/contractMasterList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/rentPay/rentPayList'});
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/contractMaster/contractMasterList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/rentPay/rentPayList'});
 }
 $("#update").click(function () {
     $.post(
-        "/contractMaster/contractMasterUpdateSave",
+        "/rentPay/rentPayUpdateSave",
         $("#updateform").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
@@ -220,9 +294,25 @@ $("#update").click(function () {
         }, "json"
     );
 });
+$("#huankuan").click(function () {
+    $.post(
+        "/rentPay/huankuan",
+        $("#fu_kuan").serialize(),
+        function (data) {
+            if (data.message.indexOf("成功")>0) {
+                layer.msg(data.message, {icon: 1, time: 1000});
+                refush();
+            } else {
+                layer.msg(data.message, {icon:2, time: 1000});
+                refush();
+            }
+            $("#fukuan").modal('hide');
+        }, "json"
+    );
+});
 $("#add").click(function () {
     $.post(
-        "/contractMaster/contractMasterAddSave",
+        "/rentPay/rentPayAddSave",
         $("#formadd").serialize(),
         function (data) {
             if (data.message == "新增成功!") {
@@ -261,7 +351,7 @@ function deleteMany() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
         $.post(
-            "/contractMaster/deleteManyContractMaster",
+            "/rentPay/deleteManyCashSubject",
             {
                 "manyId": $("#deleteId").val()
             },
@@ -276,4 +366,14 @@ function deleteMany() {
             }, "json"
         );
     });
+}
+function getdate(value) {
+    var date = new Date(parseInt(value));
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
 }

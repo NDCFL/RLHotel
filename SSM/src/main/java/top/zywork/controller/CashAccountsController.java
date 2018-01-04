@@ -75,7 +75,12 @@ public class CashAccountsController {
                 EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
                 cashAccounts.setHotelId(employeeVo.getHotelId());
                 cashAccounts.setShopManagerId(employeeVo.getUserId());
+            }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员")){
+                HotelVo hotelVo = hotelService.getById(cashAccounts.getHotelId());
+                cashAccounts.setShopManagerId(hotelVo.getHotelManagerId());
             }
+            //每天付多少
+            cashAccounts.setDayPay((Double.parseDouble(cashAccounts.getTotalPay()+""))/(datediffDay(cashAccounts.getAccountTime(),cashAccounts.getAccountTimeEnd())));
             cashAccounts.setRemark("暂无批注");
             cashAccounts.setIsCash((byte) 0);
             cashAccounts.setCashStatus((byte)0);
@@ -95,6 +100,13 @@ public class CashAccountsController {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         List<Select2Vo> subjectList = cashAccountsService.getSubject(userVo.getCompanyId());
         return  subjectList;
+    }
+    @RequestMapping("/getHotel")
+    @ResponseBody
+    public List<Select2Vo> getHotel(HttpSession session) throws  Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        return  cashAccountsService.getHotel(userVo.getCompanyId());
+
     }
     @RequestMapping("/findCashAccounts/{id}")
     @ResponseBody
@@ -228,5 +240,9 @@ public class CashAccountsController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    public int datediffDay(Date date1,Date date2){
+        int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        return days;
     }
 }

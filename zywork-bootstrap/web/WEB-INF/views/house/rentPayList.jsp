@@ -13,10 +13,98 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房租列表</title>
+    <title>分成房租列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>分成房租明细统计</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-xs-2">
+                    <div style="margin-top: 5%">
+                        <div style="float: left;">
+                            <p>待结算总额</p>
+                            <p>&nbsp;</p>
+                            <p>3000</p>
+                            <hr/>
+                            <p>结算总收益</p>
+                        </div>
+                        <div style="float: right">
+                            <p>待结算总额</p>
+                            <p>&nbsp;</p>
+                            <p>6000</p>
+                            <hr/>
+                            <p>当前应付合计</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <small class="stats-label" >
+                        <input  name="payTime" min="0" max="100" onchange="addCount(this.value);" placeholder="签约年限" type="date" class="form-control" required="" aria-required="true">
+                    </small>
+                    <hr/>
+                    <p class="stats-label">费用合计</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">单间每月</p>
+                </div>
+                <div style="float:left;width: 1px;height: 200px; background: #87CBCA;"></div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>水费</h4></small>
+                    <hr/>
+                    <p class="stats-label">7000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">900</p>
+                </div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>物业费</h4></small>
+                    <hr/>
+                    <p class="stats-label">6000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">888</p>
+                </div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>空调费</h4></small>
+                    <hr/>
+                    <p class="stats-label">3000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">800</p>
+                </div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>宽带</h4></small>
+                    <hr/>
+                    <p class="stats-label">8000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">800</p>
+                </div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>供暖费</h4></small>
+                    <hr/>
+                    <p class="stats-label">1000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">60</p>
+                </div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>布草洗涤</h4></small>
+                    <hr/>
+                    <p class="stats-label">3000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">200</p>
+                </div>
+                <div class="col-xs-1" style="margin-top:1%">
+                    <small class="stats-label" ><h4>合计</h4></small>
+                    <hr/>
+                    <p class="stats-label">30000</p>
+                    <p class="stats-label">&nbsp;</p>
+                    <p class="stats-label">100</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-2">
@@ -53,13 +141,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>待付资金</h5>
+                    <h5>待结算总额</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="dfPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>待付资金</small>
+                    <small>待结算总额</small>
                 </div>
             </div>
         </div>
@@ -67,13 +155,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>平均每月</h5>
+                    <h5>当前应付</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="monthPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>平均每月</small>
+                    <small>当前应付</small>
                 </div>
             </div>
         </div>
@@ -106,62 +194,11 @@
             </div>
         </div>
     </div>
-
 </div>
-<div class="col-lg-12">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5>房租明细统计</h5>
-        </div>
-        <div class="ibox-content">
-            <div class="row">
-                <div class="col-xs-2" id="cq">
-                    <small class="stats-label" ><h4>超期未付</h4></small>
-                    <h2 id="chaoqiPayMoney"></h2>
-                    <hr/>
-                    <small class="stats-label">已超期未支付租金总额</small>
-                </div>
-
-                <div class="col-xs-2">
-                    <small class="stats-label"><h4>近五日待付</h4></small>
-                    <h2 id="fiveDayPayMoney"></h2>
-                    <hr/>
-                    <small class="stats-label">近五日急付租金总额</small>
-                </div>
-                <div class="col-xs-2">
-                    <small class="stats-label"><h4>本月应付</h4></small>
-                    <h2 id="thisMonthPayMoney"></h2>
-                    <hr/>
-                    <small class="stats-label">本月应付租金总额</small>
-                </div>
-                <div class="col-xs-2">
-                    <small class="stats-label"><h4>本月已付租金总额</h4></small>
-                    <h2 id="thisMonthPayAll"></h2>
-                    <hr/>
-                    <small class="stats-label">本月已付租金总额</small>
-                </div>
-                <div class="col-xs-2">
-                    <small class="stats-label"><h4>本月待付</h4></small>
-                    <h2 id="thisMonthNotPay">236 321.80</h2>
-                    <hr/>
-                    <small class="stats-label">本月待付租金总额</small>
-                </div>
-                <div class="col-xs-2">
-                    <small class="stats-label"><h4>次月应付</h4></small>
-                    <h2 id="nextMonthPay"></h2>
-                    <hr/>
-                    <small class="stats-label">次月应付租金总额</small>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>房租列表</h5>
+            <h5>分成房租列表</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -183,7 +220,7 @@
         <div class="ibox-content">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    房租列表
+                    分成房租列表
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <table id="mytab" name="mytab" class="table table-hover"></table>
@@ -214,7 +251,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增房租
+                    新增分成房租
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
@@ -240,7 +277,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">房间名称：</label>
                         <div class="col-sm-4">
-                            <input  name="houseName" min="0" placeholder="房间名称" type="text" class="form-control" required="" aria-required="true">
+                            <select class="form-control" id="house_Id" required name="houseId">
+
+                            </select>
                         </div>
                         <label class="col-sm-2 control-label">支付总金额：</label>
                         <div class="col-sm-4">
@@ -250,7 +289,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">签约年限：</label>
                         <div class="col-sm-4">
-                            <input  name="payTime" min="0" max="100" onchange="addCount(this.value);" placeholder="签约年限" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="payTime" min="0" max="100"  placeholder="签约年限" type="number" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付类型：</label>
                         <div class="col-sm-4">
@@ -269,12 +308,9 @@
                         <div class="col-sm-4">
                             <input  name="firstPayTime"  minlength="2" id="test2"  maxlength="20" type="date" value="" class="form-control" required="" aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">结算状态：</label>
+                        <label class="col-sm-2 control-label">合同开始日期：</label>
                         <div class="col-sm-4">
-                            <select class="form-control"  required name="isCash">
-                                <option value="0">未结算</option>
-                                <option value="1">已结算</option>
-                            </select>
+                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" id="test1" value="" class="form-control"  required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group" id="house_count">
@@ -333,9 +369,16 @@
                         <div class="col-sm-3">
                             <input  name="wuye" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">合同开始日期：</label>
-                        <div class="col-sm-4">
-                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" id="test1" value="" class="form-control"  required="" aria-required="true">
+                        <label class="col-sm-1 control-label">结算状态：</label>
+                        <div class="col-sm-3">
+                            <select class="form-control"  required name="isCash">
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">保底房租</label>
+                        <div class="col-sm-3">
+                            <input  name="baodiPay" min="0" placeholder="保底房租" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <hr/>
@@ -368,7 +411,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title">
-                    修改房租
+                    修改分成房租
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="updateform">
@@ -386,7 +429,7 @@
                         </div>
                         <label class="col-sm-2 control-label">房源归属：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="hotelId" required name="hotelId">
+                            <select class="form-control" onchange="getHouse(this.value);" id="hotelId" required name="hotelId">
 
                             </select>
                         </div>
@@ -394,7 +437,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">房间名称：</label>
                         <div class="col-sm-4">
-                            <input  name="houseName" min="0" placeholder="房间名称" type="text" class="form-control" required="" aria-required="true">
+                            <select class="form-control" id="houseId" required name="houseId">
+
+                            </select>
                         </div>
                         <label class="col-sm-2 control-label">支付总金额：</label>
                         <div class="col-sm-4">
@@ -421,15 +466,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">首次支付日期：</label>
                         <div class="col-sm-4">
-                            <input  name="firstPayTime"   id="test_3"  type="text" value="" class="form-control" required="" aria-required="true">
+                            <input  name="firstPayTime"   id="test_3"  type="date" value="" class="form-control" required="" aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">结算状态：</label>
+                        <label class="col-sm-2 control-label">合同开始日期：</label>
                         <div class="col-sm-4">
-                            <select class="form-control"  required name="isCash">
-                                <option value="0">未结算</option>
-                                <option value="1">已结算</option>
-                            </select>
+                            <input  name="payPeriodStart"  minlength="2"  id="test_4" maxlength="20" type="date" class="form-control"  value=""  required="" aria-required="true">
                         </div>
+
                     </div>
                     <h4 class="modal-title" id="">
                         房源信息
@@ -483,9 +526,16 @@
                         <div class="col-sm-3">
                             <input  name="wuye" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">合同开始日期：</label>
-                        <div class="col-sm-4">
-                            <input  name="payPeriodStart"  minlength="2"  id="test_4" maxlength="20" type="text" class="form-control"  value=""  required="" aria-required="true">
+                        <label class="col-sm-1 control-label">结算状态：</label>
+                        <div class="col-sm-3">
+                            <select class="form-control"  required name="isCash">
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label">保底房租</label>
+                        <div class="col-sm-3">
+                            <input  name="baodiPay" min="0" placeholder="保底房租" max="100" type="text" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <hr/>
@@ -515,7 +565,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">房租付款</h4>
+                <h4 class="modal-title" id="myModalLabel">分成房租付款</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="fu_kuan">
@@ -537,7 +587,7 @@
 </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-<script src="<%=path%>/static/js/pageJs/houseRentPay.js"></script>
+<script src="<%=path%>/static/js/pageJs/rentPay.js"></script>
 <script src="<%=path%>/static/js/select2.min.js"></script>
 </body>
 <script>
@@ -584,12 +634,37 @@
                 $("#hotelId_").select2({
                     data: data
                 })
+                $.post(
+                    "/rentPay/getHouse/"+data[0].id,
+                    function (data) {
+                        $("#houseId").select2({
+                            data: data
+                        })
+                        $("#house_Id").select2({
+                            data: data
+                        })
+                    },
+                    "json"
+                );
             },
             "json"
         );
 
     });
-
+    function getHouse(id) {
+        $.post(
+            "/rentPay/getHouse/"+id,
+            function (data) {
+                $("#houseId").select2({
+                    data: data
+                })
+                $("#house_Id").select2({
+                    data: data
+                })
+            },
+            "json"
+        );
+    }
 </script>
 <script>
     $(function () {
@@ -620,16 +695,6 @@
             },
             "json"
         );
-    }
-</script>
-<script>
-    function addCount(sum) {
-        var info='<label class="col-sm-1 control-label">第*年</label><div class="col-sm-2"><input  name="count" min="0" placeholder="第*年的房租" max="100" type="number" class="form-control" required="" aria-required="true"></div>';
-        var allhtml="";
-        for(var i=0;i<sum;i++){
-            allhtml=allhtml+(info.replace("*",(i+1)).replace("*",(i+1)).replace("*",(i+1)));
-        }
-        $("#house_count").html(allhtml);
     }
 </script>
 </html>

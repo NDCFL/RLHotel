@@ -16,6 +16,7 @@ public class ContractMasterVo{
     private String phone;
     private Date createTime;
     private int isActive;
+    private String password;
 
     private long companyId;
     public long getId() {
@@ -80,5 +81,13 @@ public class ContractMasterVo{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

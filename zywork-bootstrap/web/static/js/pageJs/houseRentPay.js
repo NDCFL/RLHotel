@@ -109,21 +109,22 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                return '<span style="color:green">$'+value+'</span>';
+                if((value+"").indexOf(".")>0){
+                    return '<span style="color:green">$'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
+                }else if((value+"").indexOf(".")<=0){
+                    return '<span style="color:green">$'+(value+"")+'</span>';
+                }
+
             }
         }
         ,
         {
-            title: '支付状态',
-            field: 'isCash',
+            title: '剩余支付',
+            field: 'spareMoney',
             align: 'center',
             sortable: true,
             formatter: function (value) {
-               if(value==0){
-                   return '<span style="color:red">未支付</span>';
-               }else if(value==1){
-                   return '<span style="color:green">已支付</span>';
-               }
+                return '<span style="color:red">￥'+value+'</span>';
             }
         }
         ,
@@ -166,14 +167,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
+                return getdate(value);
             }
         }
         ,
@@ -205,8 +199,8 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
                 }
-
-                return e + d + f;
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:red"></i></a> ';
+                return p+e + d + f;
             }
         }
     ],
@@ -268,9 +262,15 @@ function edit(name) {
     $.post("/houseRentPay/findHouseRentPay/" + name,
         function (data) {
             $("#updateform").autofill(data);
+            $("#test_3").val(getdate(data.firstPayTime));
+            $("#test_4").val(getdate(data.payPeriodStart));
         },
         "json"
     );
+}
+function fukuan(id,money){
+    $("#first_pay").val(money);
+    $("#id").val(id);
 }
 function updatestatus(id, status) {
     $.post("/houseRentPay/updateStatus/" + id + "/" + status,
@@ -312,6 +312,22 @@ $("#update").click(function () {
                 layer.msg(data.message, {icon: 1, time: 1000});
                 refush();
             }
+        }, "json"
+    );
+});
+$("#huankuan").click(function () {
+    $.post(
+        "/houseRentPay/huankuan",
+        $("#fu_kuan").serialize(),
+        function (data) {
+            if (data.message.indexOf("成功")>0) {
+                layer.msg(data.message, {icon: 1, time: 1000});
+                refush();
+            } else {
+                layer.msg(data.message, {icon:2, time: 1000});
+                refush();
+            }
+            $("#fukuan").modal('hide');
         }, "json"
     );
 });
@@ -371,4 +387,14 @@ function deleteMany() {
             }, "json"
         );
     });
+}
+function getdate(value) {
+    var date = new Date(parseInt(value));
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
 }

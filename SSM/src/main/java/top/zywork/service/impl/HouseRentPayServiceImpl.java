@@ -83,4 +83,9 @@ public class HouseRentPayServiceImpl implements HouseRentPayService {
     public HouseRentVo haveHotelId(Long hotelId) {
         return houseRentPayDAO.haveHotelId(hotelId);
     }
+
+    @Override
+    public void huankuan(Long id) {
+        houseRentPayDAO.huankuan(id);
+    }
 }

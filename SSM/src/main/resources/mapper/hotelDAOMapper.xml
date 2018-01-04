@@ -7,6 +7,7 @@
         <result column="tel" property="tel"></result>
         <result column="create_time" property="createTime"></result>
         <result column="is_active" property="isActive"></result>
+        <result column="hotel_manager_id" property="hotelManagerId"></result>
         <association property="companyVo" javaType="companyVo">
             <id column="companyId" property="id"></id>
             <result column="companyTitle" property="title"></result>

@@ -3,6 +3,7 @@ package top.zywork.controller;
 import com.sun.net.httpserver.HttpsServer;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -52,6 +53,8 @@ public class ContractMasterController {
         try{
             UserVo user = (UserVo) session.getAttribute("userVo");
             contractMaster.setIsActive(0);
+            contractMaster.setPassword(new Md5Hash(contractMaster.getPassword()).toString());
+            contractMaster.setCompanyId(user.getCompanyId());
             contractMasterService.save(contractMaster);
             return  Message.success("新增成功!");
         }catch (Exception e){
