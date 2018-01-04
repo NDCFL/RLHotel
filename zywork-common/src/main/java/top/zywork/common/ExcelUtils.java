@@ -26,8 +26,8 @@ import java.util.List;
  */
 public class ExcelUtils {
 
-    public static final CellStyle NONE_CELL_STYLE = null;
-    public static final Object NONE_CELL_VALUE = null;
+    private static final CellStyle NONE_CELL_STYLE = null;
+    private static final Object NONE_CELL_VALUE = null;
 
     private Workbook workbook;
 
@@ -105,10 +105,34 @@ public class ExcelUtils {
     }
 
     /**
+     * 创建新的excel文档
+     * @param fileType 文件类型，xlsx或xls
+     * @return 新创建的excel文档对应的Workbook对象
+     */
+    public Workbook newExcel(String fileType) {
+        MIMETypeEnum typeEnum = null;
+        if (fileType.equalsIgnoreCase(".xlsx")) {
+            typeEnum = MIMETypeEnum.XLSX;
+        } else if (fileType.equalsIgnoreCase(".xls")) {
+            typeEnum = MIMETypeEnum.XLS;
+        }
+        return newExcel(typeEnum);
+    }
+
+    /**
      * 把excel文档重新保存到指定的文件
      * @param path 新的文件路径
      */
     public void writeExcel(String path) {
+        writeExcel(workbook, path);
+    }
+
+    /**
+     * 把excel文档重新保存到指定的文件
+     * @param workbook Workbook对象
+     * @param path 新的文件路径
+     */
+    public static void writeExcel(Workbook workbook, String path) {
         try {
             FileOutputStream outputStream = new FileOutputStream(new File(path));
             workbook.write(outputStream);
@@ -306,7 +330,7 @@ public class ExcelUtils {
     }
 
     /**
-     * 合并工作表单元格
+     * 合并工作表单元格，合并前先创建好row与cell
      * @param sheet 工作表
      * @param beginRow 开始行
      * @param beginCol 开始列
@@ -315,6 +339,71 @@ public class ExcelUtils {
      */
     public void mergeCells(Sheet sheet, int beginRow, int beginCol, int endRow, int endCol) {
         sheet.addMergedRegion(new CellRangeAddress(beginRow, endRow, beginCol, endCol));
+    }
+
+    /**
+     * 给指定单元格设置成居中样式
+     * @param sheet 工作表
+     * @param rowNo 指定行
+     * @param colNo 指定列
+     */
+    public void centerStyle(Sheet sheet, int rowNo, int colNo) {
+        centerStyle(sheet.getRow(rowNo).getCell(colNo));
+    }
+
+    /**
+     * 给指定单元格设置成居中显示
+     * @param cell 单元格
+     */
+    public void centerStyle(Cell cell) {
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cell.setCellStyle(cellStyle);
+    }
+
+    /**
+     * 给指定单元格设置加粗字体
+     * @param sheet 工作表
+     * @param rowNo 指定行
+     * @param colNo 指定列
+     */
+    public void boldStyle(Sheet sheet, int rowNo, int colNo) {
+        boldStyle(sheet.getRow(rowNo).getCell(colNo));
+    }
+
+    /**
+     * 给指定单元格设置加粗字体
+     * @param cell 单元格
+     */
+    public void boldStyle(Cell cell) {
+        CellStyle cellStyle = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        cellStyle.setFont(font);
+        cell.setCellStyle(cellStyle);
+    }
+
+    /**
+     * 给指定单元格设置字体加粗并居中
+     * @param sheet 工作表
+     * @param rowNo 指定行
+     * @param colNo 指定列
+     */
+    public void boldCenterStyle(Sheet sheet, int rowNo, int colNo) {
+        boldCenterStyle(sheet.getRow(rowNo).getCell(colNo));
+    }
+
+    /**
+     * 给指定单元格设置字体加粗并居中
+     * @param cell 单元格
+     */
+    public void boldCenterStyle(Cell cell) {
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        Font font = workbook.createFont();
+        font.setBold(true);
+        cellStyle.setFont(font);
+        cell.setCellStyle(cellStyle);
     }
 
     /**
