@@ -17,6 +17,7 @@ public class ContractMasterVo{
     private Date createTime;
     private int isActive;
     private String password;
+    private String codeType;
 
     private long companyId;
     public long getId() {
@@ -89,5 +90,13 @@ public class ContractMasterVo{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCodeType() {
+        return codeType;
+    }
+
+    public void setCodeType(String codeType) {
+        this.codeType = codeType;
     }
 }

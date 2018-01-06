@@ -57,5 +57,11 @@
         </property>
         <property name="useCodeAsDefaultMessage" value="true" />
     </bean>
-
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="top.zywork.interceptor.CrosInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

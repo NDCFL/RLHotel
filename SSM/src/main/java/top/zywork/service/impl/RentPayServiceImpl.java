@@ -6,6 +6,7 @@ import top.zywork.dao.RentPayDAO;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
 import top.zywork.service.RentPayService;
+import top.zywork.vo.HouseRentVo;
 import top.zywork.vo.RentPayVo;
 import top.zywork.vo.Select2Vo;
 
@@ -72,12 +73,12 @@ public class RentPayServiceImpl implements RentPayService{
     }
 
     @Override
-    public RentPayVo notHotelId() {
+    public HouseRentVo notHotelId() {
         return rentPayDAO.notHotelId();
     }
 
     @Override
-    public RentPayVo haveHotelId(Long hotelId) {
+    public HouseRentVo haveHotelId(Long hotelId) {
         return rentPayDAO.haveHotelId(hotelId);
     }
 

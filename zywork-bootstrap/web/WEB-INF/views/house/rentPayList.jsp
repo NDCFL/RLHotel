@@ -676,7 +676,7 @@
     function getHotelInfo(){
         var hotelId = $("#hotelId_").val();
         $.post(
-            "<%=path%>/houseRentPay/hotelInfo",
+            "<%=path%>/rentPay/hotelInfo",
             {
                 "hotelId":hotelId
             },

@@ -77,4 +77,19 @@ public class ContractMasterServiceImpl implements ContractMasterService{
     public List<Select2Vo> listAlls(long companyId) {
         return contractMasterDAO.listAlls(companyId);
     }
+
+    @Override
+    public int checkPhone(String phone) {
+        return contractMasterDAO.checkPhone(phone);
+    }
+
+    @Override
+    public ContractMasterVo getInfo(String phone) {
+        return contractMasterDAO.getInfo(phone);
+    }
+
+    @Override
+    public void updatePwd(String phone, String password) {
+        contractMasterDAO.updatePwd(phone, password);
+    }
 }

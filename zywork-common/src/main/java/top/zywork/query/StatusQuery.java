@@ -16,12 +16,19 @@ public class StatusQuery {
     private Long hotelId;
     private String cardTitle;
     private Long houseId;
+    private String mobile;
+
 
     public StatusQuery() {}
 
     public StatusQuery(Long id, Integer status) {
         this.id = id;
         this.status = status;
+    }
+
+    public StatusQuery(Integer status, String mobile) {
+        this.status = status;
+        this.mobile = mobile;
     }
 
     public Long getId() {
@@ -83,5 +90,13 @@ public class StatusQuery {
 
     public void setHouseId(Long houseId) {
         this.houseId = houseId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

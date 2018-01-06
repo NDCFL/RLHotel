@@ -7,17 +7,17 @@ import java.io.Serializable;
  */
 public class HouseRentVo implements Serializable {
 
-    private Integer houseTotal;//总房间数
-    private Double dfPayMoney;//待付金额
-    private Double monthPayMoney;//平均每月租金
-    private Double houseMonthPayMoney;//每间每月
-    private Double houseDayPayMoney;//每间，每天
-    private Double chaoqiPayMoney;//超期未付
-    private Double fiveDayPayMoney;//近5日待付
-    private Double thisMonthPayMoney;//本月应付
-    private Double thisMonthPayAll;//本月已付租金总额
-    private Double thisMonthNotPay;//本月待付
-    private Double nextMonthPay;//次月应付
+    private Integer houseTotal=0;//总房间数
+    private Double dfPayMoney=0.0;//待付金额
+    private Double monthPayMoney=0.0;//平均每月租金
+    private Double houseMonthPayMoney=0.0;//每间每月
+    private Double houseDayPayMoney=0.0;//每间，每天
+    private Double chaoqiPayMoney=0.0;//超期未付
+    private Double fiveDayPayMoney=0.0;//近5日待付
+    private Double thisMonthPayMoney=0.0;//本月应付
+    private Double thisMonthPayAll=0.0;//本月已付租金总额
+    private Double thisMonthNotPay=0.0;//本月待付
+    private Double nextMonthPay=0.0;//次月应付
 
     public Integer getHouseTotal() {
         return houseTotal;

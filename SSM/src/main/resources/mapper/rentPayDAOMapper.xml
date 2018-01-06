@@ -85,4 +85,14 @@
     <update id="update">
         update t_house_rent_pay set master_id=#{masterId},hotel_id=#{hotelId},baodi_pay=#{baodiPay},pay_type=#{payType},house_id=#{houseId},first_pay=#{firstPay},pay_period_start=#{payPeriodStart},pay_period_end=#{payPeriodEnd},is_cash=#{isCash},description=#{description} where id = #{id}
     </update>
+    <select id="notHotelId" resultMap="houseRentMap">
+        select
+        (select IfNULL(count(house_id),0) from t_house_rent_pay) as 'houseTotal'
+        from t_house_rent_pay limit 0,1;
+    </select>
+    <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
+        select
+        (select IfNULL(count(house_id),0) from t_house_rent_pay where hotel_id=#{hotelId}) as 'houseTotal'
+        from t_house_rent_pay where hotel_id=#{hotelId} GROUP BY  hotel_id;
+    </select>
 </mapper>

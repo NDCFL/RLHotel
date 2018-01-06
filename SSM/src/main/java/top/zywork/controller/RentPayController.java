@@ -121,7 +121,7 @@ public class RentPayController {
     }
     @RequestMapping("/hotelInfo")
     @ResponseBody
-    public RentPayVo hotelInfo(Long hotelId){
+    public HouseRentVo hotelInfo(Long hotelId){
         if(hotelId==null){
             return rentPayService.notHotelId();
         }else{
