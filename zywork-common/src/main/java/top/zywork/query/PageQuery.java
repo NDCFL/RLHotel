@@ -17,6 +17,8 @@ public class PageQuery {
     private Long companyId;
     private Integer startIndex;
     private Long houseId;
+    private Integer type;
+    private String dateVal;
 
     public PageQuery() {
     }
@@ -101,5 +103,21 @@ public class PageQuery {
 
     public void setHouseId(Long houseId) {
         this.houseId = houseId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getDateVal() {
+        return dateVal;
+    }
+
+    public void setDateVal(String dateVal) {
+        this.dateVal = dateVal;
     }
 }

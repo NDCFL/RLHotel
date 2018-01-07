@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.zywork.common.DateFormatUtils;
+import top.zywork.common.DateParseUtils;
 import top.zywork.common.Message;
 import top.zywork.common.PagingBean;
 import top.zywork.enums.ActiveStatusEnum;
@@ -60,6 +62,56 @@ public class CashAccountsController {
         pagingBean.setrows(cashAccountsService.listPage(pageQuery));
         return pagingBean;
     }
+    @RequestMapping("cashAccountsListByIf")
+    @ResponseBody
+    public PagingBean cashAccountsListByIf(int pageSize, int pageIndex, String searchVal,String dateVal, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        //获取该用户所属的酒店id
+        HotelVo hotelVo = hotelService.findHotel(userVo.getId());
+        //分页参数
+        PagingBean pagingBean = new PagingBean();
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        //赋值给pagequery对象
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setHotelId(hotelVo.getId());
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        if(searchVal.equals("wxin")){
+            pageQuery.setSearchVal("微信");
+            pageQuery.setType(0);
+        }else if(searchVal.equals("wxout")){
+            pageQuery.setSearchVal("微信");
+            pageQuery.setType(1);
+        }else if(searchVal.equals("xjin")){
+            pageQuery.setSearchVal("现金");
+            pageQuery.setType(0);
+        }else if(searchVal.equals("wxout")){
+            pageQuery.setSearchVal("现金");
+            pageQuery.setType(1);
+        }else if(searchVal.equals("zfbin")){
+            pageQuery.setSearchVal("支付宝");
+            pageQuery.setType(0);
+        }else if(searchVal.equals("zfbout")){
+            pageQuery.setSearchVal("支付宝");
+            pageQuery.setType(1);
+        }else if(searchVal.equals("ylin")){
+            pageQuery.setSearchVal("银联");
+            pageQuery.setType(0);
+        }else if(searchVal.equals("ylout")){
+            pageQuery.setSearchVal("银联");
+            pageQuery.setType(1);
+        }else if(searchVal.equals("zjin")){
+            pageQuery.setType(0);
+        }else if(searchVal.equals("zjout")){
+            pageQuery.setType(1);
+        }
+        pageQuery.setDateVal(dateVal);
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pagingBean.setTotal(cashAccountsService.counts(pageQuery));
+        pagingBean.setrows(cashAccountsService.listPages(pageQuery));
+        return pagingBean;
+    }
     @RequestMapping("/cashAccountsAddSave")
     @ResponseBody
     public Message addSavecashAccounts(CashAccountsVo cashAccounts,HttpSession session) throws  Exception {
@@ -82,7 +134,7 @@ public class CashAccountsController {
             //每天付多少
             cashAccounts.setDayPay((Double.parseDouble(cashAccounts.getTotalPay()+""))/(datediffDay(cashAccounts.getAccountTime(),cashAccounts.getAccountTimeEnd())));
             cashAccounts.setRemark("暂无批注");
-            cashAccounts.setIsCash((byte) 0);
+            cashAccounts.setIsCash((byte) 1);
             cashAccounts.setCashStatus((byte)0);
             cashAccounts.setReason("未审核");
             cashAccounts.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
@@ -90,6 +142,7 @@ public class CashAccountsController {
             cashAccountsService.save(cashAccounts);
             return  Message.success("新增成功!");
         }catch (Exception E){
+            E.printStackTrace();
             return Message.fail("新增失败!");
         }
 
@@ -101,11 +154,31 @@ public class CashAccountsController {
         List<Select2Vo> subjectList = cashAccountsService.getSubject(userVo.getCompanyId());
         return  subjectList;
     }
+    @RequestMapping("/getPayType")
+    @ResponseBody
+    public List<Select2Vo> getPayType(HttpSession session) throws  Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        List<Select2Vo> subjectList = cashAccountsService.getPayType(userVo.getCompanyId());
+        return  subjectList;
+    }
     @RequestMapping("/getHotel")
     @ResponseBody
     public List<Select2Vo> getHotel(HttpSession session) throws  Exception {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         return  cashAccountsService.getHotel(userVo.getCompanyId());
+
+    }
+    @RequestMapping("/getCashVal")
+    @ResponseBody
+    public SumCashVo getCashVal(HttpSession session,String dateVal) throws  Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        if(dateVal==null){
+            return cashAccountsService.sumCash(new Date(),userVo.getCompanyId());
+        }else{
+            DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            return cashAccountsService.sumCash(format1.parse(dateVal),userVo.getCompanyId());
+
+        }
 
     }
     @RequestMapping("/findCashAccounts/{id}")
@@ -243,6 +316,10 @@ public class CashAccountsController {
     }
     public int datediffDay(Date date1,Date date2){
         int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        if(days<1){
+            days=1;
+        }
         return days;
     }
+
 }

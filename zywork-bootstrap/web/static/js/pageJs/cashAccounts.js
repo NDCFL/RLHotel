@@ -55,6 +55,13 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
+            title: '支付方式',
+            field: 'paymentTypeVo.title',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
             title: '收支时间',
             field: 'accountTime',
             align: 'center',
@@ -83,21 +90,7 @@ $('#mytab').bootstrapTable({
         }
         ,
 
-        {
-            title: '结算状态',
-            field: 'isCash',
-            align: 'center',
-            formatter: function (value, row, index) {
-                if (value == 0) {
-                    //表示激活状态
-                    return '<span style="color:red" >未结算</span>';
-                } else {
-                    //表示激活状态
-                    return '<span style="color:green">已结算</span>';
-                }
-            }
-        }
-        ,
+
         {
             title: '审核状态',
             field: 'cashStatus',
@@ -294,6 +287,18 @@ function updatestatus(id, status) {
 $('#search_btn').click(function () {
     $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
 })
+function getInfo(val){
+    $('#mytab').bootstrapTable(
+        'refresh',
+        {
+            url: '/cashAccounts/cashAccountsListByIf',
+            query:{
+                searchVal:val,
+                dateVal:$("#test21").val()
+            }
+        }
+    );
+}
 function refush() {
     $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
 }

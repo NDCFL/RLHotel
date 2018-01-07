@@ -581,6 +581,17 @@ select
 from t_rent_pay limit 0,1;
 
 
-
+select
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=0 and month(c.create_time)=month('2017-12-5')) as wxin,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=1 and month(c.create_time)=month('2017-12-5')) as wxout,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=0 and month(c.create_time)=month('2017-12-5')) as zfbin,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=1 and month(c.create_time)=month('2017-12-5')) as zfbout,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=0 and month(c.create_time)=month('2018-1-4')) as zfbin,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=1 and month(c.create_time)=month('2018-1-4')) as zfbout,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=0 and month(c.create_time)=month('2018-1-4')) as zfbin,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=1 and month(c.create_time)=month('2018-1-4')) as zfbout,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=0 and month(c.create_time)=month('2017-12-5')) as zjin,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=1 and month(c.create_time)=month('2017-12-5')) as zjout
+from t_cash_accounts GROUP BY  company_id;
 
 

@@ -7,8 +7,10 @@ import top.zywork.query.StatusQuery;
 import top.zywork.service.CashAccountsService;
 import top.zywork.vo.CashAccountsVo;
 import top.zywork.vo.Select2Vo;
+import top.zywork.vo.SumCashVo;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,5 +89,25 @@ public class CashAccountsServiceImpl implements CashAccountsService{
     @Override
     public List<Select2Vo> getHotel(Long companyId) {
         return cashAccountsDAO.getHotel(companyId);
+    }
+
+    @Override
+    public List<Select2Vo> getPayType(Long companyId) {
+        return cashAccountsDAO.getPayType(companyId);
+    }
+
+    @Override
+    public SumCashVo sumCash(Date dateVal, Long companyId) {
+        return cashAccountsDAO.sumCash(dateVal, companyId);
+    }
+
+    @Override
+    public List<CashAccountsVo> listPages(PageQuery pageQuery) {
+        return cashAccountsDAO.listPages(pageQuery);
+    }
+
+    @Override
+    public long counts(PageQuery pageQuery) {
+        return cashAccountsDAO.counts(pageQuery);
     }
 }

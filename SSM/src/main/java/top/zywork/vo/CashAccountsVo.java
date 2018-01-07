@@ -32,11 +32,15 @@ public class CashAccountsVo {
 
     private Double dayPay;
 
+    private Long payTypeId;
+
     private CompanyVo companyVo;
 
     private HotelVo hotelVo;
 
     private UserVo userVo;
+
+    private PaymentTypeVo paymentTypeVo;
 
     private Byte isCash;//是否结算
     private Byte cashStatus;//支付审核状态
@@ -244,5 +248,21 @@ public class CashAccountsVo {
 
     public void setDayPay(Double dayPay) {
         this.dayPay = dayPay;
+    }
+
+    public Long getPayTypeId() {
+        return payTypeId;
+    }
+
+    public void setPayTypeId(Long payTypeId) {
+        this.payTypeId = payTypeId;
+    }
+
+    public PaymentTypeVo getPaymentTypeVo() {
+        return paymentTypeVo;
+    }
+
+    public void setPaymentTypeVo(PaymentTypeVo paymentTypeVo) {
+        this.paymentTypeVo = paymentTypeVo;
     }
 }

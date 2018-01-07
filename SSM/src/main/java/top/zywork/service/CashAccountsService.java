@@ -1,8 +1,11 @@
 package top.zywork.service;
 
+import top.zywork.query.PageQuery;
 import top.zywork.vo.CashAccountsVo;
 import top.zywork.vo.Select2Vo;
+import top.zywork.vo.SumCashVo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,4 +17,8 @@ public interface CashAccountsService extends BaseService<CashAccountsVo>{
     void updateRemark(CashAccountsVo cashAccountsVo);
     void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList);
     List<Select2Vo> getHotel(Long companyId);
+    List<Select2Vo> getPayType(Long companyId);
+    SumCashVo sumCash(Date dateVal, Long companyId);
+    List<CashAccountsVo> listPages(PageQuery pageQuery);
+    long counts(PageQuery pageQuery);
 }
