@@ -40,8 +40,10 @@ public class ReflectUtils {
     public static void invokeSetter(Object obj, String property, Object param) {
         Class clazz = obj.getClass();
         try {
-            Method method = clazz.getMethod(PropertyUtils.setter(property), param.getClass());
-            method.invoke(obj, param);
+            if (param != null) {
+                Method method = clazz.getMethod(PropertyUtils.setter(property), param.getClass());
+                method.invoke(obj, param);
+            }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

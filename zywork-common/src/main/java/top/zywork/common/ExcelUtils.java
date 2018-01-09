@@ -12,6 +12,7 @@ import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 import top.zywork.enums.MIMETypeEnum;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -150,7 +151,13 @@ public class ExcelUtils {
      * @return true或false
      */
     public boolean getBooleanCellValueAt(Sheet sheet, int rowNo, int columnNo) {
-        return sheet.getRow(rowNo).getCell(columnNo).getBooleanCellValue();
+        boolean value = false;
+        try {
+            value = sheet.getRow(rowNo).getCell(columnNo).getBooleanCellValue();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 
     /**
@@ -161,7 +168,13 @@ public class ExcelUtils {
      * @return 字符串
      */
     public String getStringCellValueAt(Sheet sheet, int rowNo, int columnNo) {
-        return sheet.getRow(rowNo).getCell(columnNo).getStringCellValue();
+        String value = null;
+        try {
+            value = sheet.getRow(rowNo).getCell(columnNo).getStringCellValue();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 
     /**
@@ -176,6 +189,28 @@ public class ExcelUtils {
     }
 
     /**
+     * 获取指定工作表指定行指定列的长整数数据
+     * @param sheet 工作表对象
+     * @param rowNo 指定行
+     * @param columnNo 指定列
+     * @return 长整数
+     */
+    public long getLongCellValueAt(Sheet sheet, int rowNo, int columnNo) {
+        return (long) getDoubleCellValueAt(sheet, rowNo, columnNo);
+    }
+
+    /**
+     * 获取指定工作表指定行指定列的BigDecimal数据，取2位小数
+     * @param sheet 工作表对象
+     * @param rowNo 指定行
+     * @param columnNo 指定列
+     * @return BigDecimal
+     */
+    public BigDecimal getBigDecimalCellValueAt(Sheet sheet, int rowNo, int columnNo) {
+        return new BigDecimal(getDoubleCellValueAt(sheet, rowNo, columnNo)).setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    /**
      * 获取指定工作表指定行指定列的浮点数数据
      * @param sheet 工作表对象
      * @param rowNo 指定行
@@ -183,7 +218,13 @@ public class ExcelUtils {
      * @return 浮点数
      */
     public double getDoubleCellValueAt(Sheet sheet, int rowNo, int columnNo) {
-        return sheet.getRow(rowNo).getCell(columnNo).getNumericCellValue();
+        double value = 0.0;
+        try {
+            value = sheet.getRow(rowNo).getCell(columnNo).getNumericCellValue();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 
     /**
@@ -194,7 +235,13 @@ public class ExcelUtils {
      * @return 时间
      */
     public Date getDateCellValueAt(Sheet sheet, int rowNo, int columnNo) {
-        return sheet.getRow(rowNo).getCell(columnNo).getDateCellValue();
+        Date value = null;
+        try {
+            value = sheet.getRow(rowNo).getCell(columnNo).getDateCellValue();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 
     /**
