@@ -38,17 +38,15 @@ public class CustomerOrderOTAController {
     @PostMapping("/saveCustomerOrderOta")
     @ResponseBody
     public Message saveCustomerOrderOta(HttpServletRequest request, HttpSession session ,MultipartFile otaImportFile) throws  Exception {
-        // UserVo userVo = (UserVo) session.getAttribute("userVo");
-        String newFileName = FileUtils.getFileNameWithoutExt(otaImportFile.getOriginalFilename(), MIMETypeEnum.XLSX.getExt())
-                + System.currentTimeMillis() + MIMETypeEnum.XLSX.getExt();
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        String newFileName = FileUtils.getFileNameWithoutExt(otaImportFile.getOriginalFilename(), MIMETypeEnum.XLSX.getExt())+ System.currentTimeMillis() + MIMETypeEnum.XLSX.getExt();
         String filePath = FileUtils.uploadPath(request, "/WEB-INF/ota-files") + "/" + newFileName;
         otaImportFile.transferTo(new File(filePath));
         ExcelUtils excelUtils = new ExcelUtils();
-        List<Object> orders = excelImportService.imports(excelUtils.readExcel(filePath),
-                ExcelExportUtils.buildImportDTO(new FileInputStream(FileUtils.getClasspath() + "/report/ota-order-import.json")));
+        List<Object> orders = excelImportService.imports(excelUtils.readExcel(filePath), ExcelExportUtils.buildImportDTO(new FileInputStream(FileUtils.getClasspath() + "/report/ota-order-import.json")));
         for (Object obj : orders) {
             CustomerOrderOTAVO order = (CustomerOrderOTAVO) obj;
-            order.setCompanyId(1L);
+            order.setCompanyId(userVo.getCompanyId());
         }
         customerOrderOTAService.batchSave(orders);
         return Message.success("OTA订单数据导入成功！");

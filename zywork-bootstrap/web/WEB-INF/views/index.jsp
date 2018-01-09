@@ -80,42 +80,44 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="fa fa-home"></i>
-                        <span class="nav-label">房态订单</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/house/housePage">房态查看</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/customerOrder/customerOrderPage">订单列表</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/item/houseOthersItemPage">增值业务账目</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="glyphicon glyphicon-cutlery"></i>
-                        <span>店铺管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/hotel/hotelListPage">分店管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/houseType/houseTypePage">房型管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/house/housePage">房间管理</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">房态订单</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/house/housePage">房态查看</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/customerOrder/customerOrderPage">订单列表</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/item/houseOthersItemPage">增值业务账目</a>
+                            </li>
+                        </ul>
+                    </li>
+                <shiro:hasRole name="总管理员">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-cutlery"></i>
+                            <span>店铺管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/hotel/hotelListPage">分店管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/houseType/houseTypePage">房型管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/house/housePage">房间管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </shiro:hasRole>
                 <li>
                     <a href="javascript:void(0);">
                         <i class="glyphicon glyphicon-glass"></i>
@@ -165,24 +167,26 @@
                         <span class="fa arrow"></span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="	glyphicon glyphicon-th-large"></i>
-                        <span class="nav-label">OTA平台管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/web/webPage">OTA平台管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="#" style="color:red">OTA订单统计</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="#" style="color:red">OTA财务对账</a>
-                        </li>
-                    </ul>
-                </li>
+                <shiro:hasRole name="总管理员">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="	glyphicon glyphicon-th-large"></i>
+                            <span class="nav-label">OTA平台管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/web/webPage">OTA平台管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="#" style="color:red">OTA订单统计</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="#" style="color:red">OTA财务对账</a>
+                            </li>
+                        </ul>
+                    </li>
+                </shiro:hasRole>
                 <li>
                     <a href="javascript:void(0);">
                         <i class="glyphicon glyphicon-list-alt"></i>
@@ -201,47 +205,49 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="glyphicon glyphicon-flag"></i>
-                        <span class="nav-label">房租管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/houseRentPay/houseRentPayPage">房租管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/houseFactPay/houseFactPayPage">房租明细</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="glyphicon glyphicon-book"></i>
-                        <span class="nav-label">分成管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/contractMaster/contractMasterListPage">房东管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/rentPay/rentPayPage">分成管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">权限管理 </span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="/role/rolePage">角色管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="/userRole/userRolePage">用户角色管理</a>
-                        </li>
-                    </ul>
-                </li>
+                <shiro:hasRole name="总管理员">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-flag"></i>
+                            <span class="nav-label">房租管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/houseRentPay/houseRentPayPage">房租管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/houseFactPay/houseFactPayPage">房租明细</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-book"></i>
+                            <span class="nav-label">分成管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/contractMaster/contractMasterListPage">房东管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/rentPay/rentPayPage">分成管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">权限管理 </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="/role/rolePage">角色管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="/userRole/userRolePage">用户角色管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </shiro:hasRole>
             </ul>
         </div>
     </nav>
