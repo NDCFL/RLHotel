@@ -2,6 +2,7 @@ package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.zywork.dao.CustomerOrderOTADAO;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
@@ -61,6 +62,7 @@ public class CustomerOrderOTAServiceImpl implements CustomerOrderOTAService {
         return customerOrderOTADAO.count(pageQuery);
     }
 
+    @Transactional
     @Override
     public void batchSave(List<Object> orders) {
         customerOrderOTADAO.batchSave(orders);
