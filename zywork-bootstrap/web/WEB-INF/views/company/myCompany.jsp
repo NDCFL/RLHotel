@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: chenfeilong
-  Date: 2017/10/28
-  Time: 10:43
+  Date: 2017/3/28
+  Time: 3:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -25,12 +25,13 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>公司详情 <small>瑞蓝酒店版权所有</small></h5>
+                    <h3>公司详情 </h3>
                     <div class="ibox-tools">
-                        <a class="collapse-link">
+                       <!--
+                       <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
                             <i class="fa fa-wrench"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
@@ -39,9 +40,10 @@
                             <li><a href="form_basic.html#">选项2</a>
                             </li>
                         </ul>
-                        <a class="close-link">
+                         <a class="close-link">
                             <i class="fa fa-times"></i>
                         </a>
+                        -->
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -50,14 +52,14 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">公司名称</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" id="name" name="name">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">公司代表</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" name="represent" id="represent"> <span class="help-block m-b-none">多个代表用','号分割</span>
                             </div>
                         </div>
@@ -65,14 +67,14 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">公司代表联系方式</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" name="phone" id="phone">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">公司固定电话</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-3">
                                 <input type="text" name="tel" id="tel" class="form-control">
                             </div>
                         </div>
@@ -80,20 +82,20 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">公司地址</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-3">
                                 <input type="text" name="address" id="address"  class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">公司描述</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-3">
                                 <textarea class="form-control" id="description" name="description" id="description"></textarea>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-2">
+                            <div class="col-sm-3 col-sm-offset-2">
                                 <button class="btn btn-primary" type="submit">修改</button>
                                 <button class="btn btn-white" type="submit">取消</button>
                             </div>
@@ -152,9 +154,9 @@
             $form.serialize(),
             function(result) {
                 if(result.message=="修改成功!"){
-                    layer.msg(result.message, {icon:1,time:1000});
+                    alert(result.message);
                 }else{
-                    layer.msg(result.message, {icon:2,time:1000});
+                    alert(result.message);
                 }
                 refush();
             },

@@ -78,6 +78,22 @@ $('#updatePassWord').bootstrapValidator({
             }
         }
     }
+}).on('success.form.bv', function(e) {//点击提交之后
+    e.preventDefault();
+    $.post(
+        "/user/updatePassword",
+        $("#updatePassWord").serialize(),
+        function(data){
+            if(data.message.indexOf("成功")>-1){
+                alert(data.message+"身份已失效，请重新登录");
+                window.location.href="/user/exit";
+            }else{
+                alert(data.message);
+            }
+
+        },
+        "json"
+    );
 });
 $('#updatePhone').bootstrapValidator({
     message: 'This value is not valid',
@@ -132,6 +148,16 @@ $('#updatePhone').bootstrapValidator({
             }
         }
     }
+}).on('success.form.bv', function(e) {//点击提交之后
+    e.preventDefault();
+    $.post(
+        "/user/changePhone",
+        $("#updatePhone").serialize(),
+        function(data){
+           alert(data.message);
+        },
+        "json"
+    );
 });
 $('#updateInfo').bootstrapValidator({
     message: 'This value is not valid',
@@ -168,6 +194,16 @@ $('#updateInfo').bootstrapValidator({
             }
         }
     }
+}).on('success.form.bv', function(e) {//点击提交之后
+    e.preventDefault();
+    $.post(
+        "/user/updateBossInfo",
+        $("#updateInfo").serialize(),
+        function(data){
+            alert(data.message);
+        },
+        "json"
+    );
 });
 var wait=60;
 function time(o) {

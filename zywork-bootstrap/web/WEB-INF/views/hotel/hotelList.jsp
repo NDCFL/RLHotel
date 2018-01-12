@@ -13,31 +13,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酒店列表</title>
+    <title>分店管理</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>酒店列表</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-wrench"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#">选项1</a>
-                    </li>
-                    <li><a href="#">选项2</a>
-                    </li>
-                </ul>
-                <a class="close-link">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
+            <h5>分店管理</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -60,12 +43,13 @@
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
+                <!--
+                 <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>批量修改状态
                 </button>
                 <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                </button>
+                </button>-->
                 <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
                 </button>

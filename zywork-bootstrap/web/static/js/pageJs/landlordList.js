@@ -88,10 +88,10 @@ $('#mytab').bootstrapTable({
             align: 'center',
             formatter: function (value, row, index) {
                 if (value == 0) {
-                    //表示激活状态
-                    return '<i class="btn btn-primary" >激活</i>';
+                    //表示启用状态
+                    return '<i class="btn btn-primary" >启用</i>';
                 } else {
-                    //表示激活状态
+                    //表示启用状态
                     return '<i class="btn btn-danger">冻结</i>';
                 }
             }
@@ -102,13 +102,13 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                //var e = '<a title="编辑" href="javascript:void(0);" id="cashSubject"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green"></i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red"></i></a> ';
+                //var e = '<a title="编辑" href="javascript:void(0);" id="cashSubject"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
-                    f = '<a title="激活" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green"></i></a> ';
+                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
                 } else if (row.isActive == 0) {
-                    f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red"></i></a> ';
+                    f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
                 var g = '<a title="初始化密码" href="javascript:void(0);" onclick="initPwd(' + row.id+')"><i class="glyphicon glyphicon-phone" style="color:green"></i></a>'
 
@@ -170,7 +170,7 @@ function initPwd(id) {
 }
 function del(landlord, status) {
     if (status == 0) {
-        layer.msg("删除失败，已经激活的不允许删除!", {icon: 2, time: 1000});
+        layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
         return;
     }
     layer.confirm('确认要删除吗？', function (index) {
@@ -205,7 +205,7 @@ function updatestatus(id, status) {
         function (data) {
             if (status == 0) {
                 if (data.message == "ok") {
-                    layer.msg("已激活", {icon: 1, time: 1000});
+                    layer.msg("已启用", {icon: 1, time: 1000});
                 } else {
                     layer.msg("修改状态失败!", {icon: 2, time: 1000});
                 }
@@ -259,7 +259,7 @@ function deleteMany() {
         return;
     }
     if (isactivity != "") {
-        layer.msg('删除失败，已经激活的不允许删除!', {
+        layer.msg('删除失败，已经启用的不允许删除!', {
             icon: 2,
             time: 2000
         });

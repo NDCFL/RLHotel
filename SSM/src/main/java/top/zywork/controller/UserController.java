@@ -162,9 +162,13 @@ public class UserController {
     }
 
     @RequestMapping("updateBossInfo")
-    public String updateBossInfo(UserVo userVo) {
-        userService.update(userVo);
-        return "/index";
+    public Message updateBossInfo(UserVo userVo) {
+        try{
+            userService.update(userVo);
+            return Message.success("资料修改成功！");
+        }catch (Exception e){
+            return Message.success("资料修改失败！");
+        }
     }
 
     @RequestMapping("checkPwd")
@@ -189,17 +193,26 @@ public class UserController {
     }
 
     @RequestMapping("updatePassword")
-    public String updatePassword(HttpSession session, String newpassword) {
-        UserVo userVo = (UserVo) session.getAttribute("userVo");
-        userService.updatePwd(userVo.getId(), new Md5Hash(newpassword).toString());
-        return "/index";
+    @ResponseBody
+    public Message updatePassword(HttpSession session, String newpassword) {
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            userService.updatePwd(userVo.getId(), new Md5Hash(newpassword).toString());
+            return  Message.success("密码修改成功!");
+        }catch (Exception e){
+            return  Message.success("密码修改失败!");
+        }
     }
 
     @RequestMapping("changePhone")
-    public String changePhone(HttpSession session, String phone) {
-        UserVo userVo = (UserVo) session.getAttribute("userVo");
-        userService.updatePhone(userVo.getId(), phone);
-        return "/index";
+    public Message changePhone(HttpSession session, String phone) {
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            userService.updatePhone(userVo.getId(), phone);
+            return  Message.success("修改手机绑定成功!");
+        }catch (Exception e){
+            return  Message.success("修改手机绑定失败!");
+        }
     }
 
     @RequestMapping("getUserIdAndName")

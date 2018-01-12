@@ -28,53 +28,29 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>修改密码</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="form_basic.html#">选项1</a>
-                            </li>
-                            <li><a href="form_basic.html#">选项2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="ibox-content">
-                    <form class="form-horizontal" role="form" id="updatePassWord" action="<%=path%>/user/updatePassword">
+                    <form class="form-horizontal" role="form" id="updatePassWord">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">旧密码：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="password" name="password" placeholder="请输入旧密码" class="form-control" type="password" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">新密码：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="newpassword" name="newpassword" class="form-control" placeholder="请输入新密码" type="password"  >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">确认密码：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="qnewpassword" name="qnewpassword" class="form-control" type="password" placeholder="再次输入密码">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">温馨提示：</label>
-                            <div class="col-sm-8">
-                                <br/>
-                                请牢记修改的密码，千万保密！
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-3">
+                            <div class="col-sm-4 col-sm-offset-3">
                                 <button class="btn btn-primary" type="submit">修改</button>
                             </div>
                         </div>
@@ -85,47 +61,23 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>更改绑定的手机号</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="form_basic.html#">选项1</a>
-                                </li>
-                                <li><a href="form_basic.html#">选项2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
                     </div>
                     <div class="ibox-content">
-                        <form class="form-horizontal" role="form" id="updatePhone" action="<%=path%>/user/changePhone">
+                        <form class="form-horizontal" role="form" id="updatePhone">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">新手机号：</label>
-                                <div class="col-sm-8 input-group">
+                                <div class="col-sm-4 input-group">
                                     <input type="number" class="form-control" placeholder="请输入新手机号码" name="phone" id="phone">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">手机验证码：</label>
-                                <div class="col-sm-8 input-group">
+                                <div class="col-sm-4 input-group">
                                     <input type="number" class="form-control" name="phonecode" id="phonecode" placeholder="验证码">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">温馨提示：</label>
-                                <div class="col-sm-8">
-                                    <br/>
-                                    请牢记新绑定的手机号，千万保密！
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-8 col-sm-offset-3 form-inline">
+                                <div class="col-sm-4 col-sm-offset-3 form-inline">
                                     <input type="button" class="btn btn-primary block " style="float: right" onclick="time(this)"  id="getcode" value="获取验证码"></input>
                                     <button class="btn btn-primary" type="submit" style="float: left">确认修改</button>
                                 </div>
@@ -140,48 +92,31 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>个人资料的修改</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="form_basic.html#">选项1</a>
-                            </li>
-                            <li><a href="form_basic.html#">选项2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="ibox-content">
-                    <form class="form-horizontal" role="form" id="updateInfo" action="<%=path%>/user/updateBossInfo">
+                    <form class="form-horizontal" role="form" id="updateInfo">
                         <input type="hidden" value="" name="id" id="id"/>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户昵称：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="nickname" name="nickname" class="form-control"  type="text" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">真实名字：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="realname" name="realname" class="form-control"  type="text"  >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">身份证号：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="identity" name="identity" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户性别：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <select class="form-control m-b" name="gender" id="gender">
                                     <option value="0" id="gender0">男</option>
                                     <option value="1" id="gender1">女</option>
@@ -190,36 +125,36 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户年龄：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="age" name="age"  class="form-control" type="number">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户邮箱：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="email" name="email" class="form-control" type="email">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户地址：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="address" name="address"  class="form-control" type="map">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用 户q q：</label>
-                            <div class="col-sm-8">
+                            <label class="col-sm-3 control-label">用 户Q Q：</label>
+                            <div class="col-sm-4">
                                 <input id="qq" name="qq"  class="form-control" type="map">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户微信：</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
                                 <input id="wechat" name="wechat"  class="form-control" type="map">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-3">
+                            <div class="col-sm-4 col-sm-offset-3">
                                 <button class="btn btn-primary" type="submit">修改</button>
                             </div>
                         </div>
