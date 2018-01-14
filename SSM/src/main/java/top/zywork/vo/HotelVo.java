@@ -7,8 +7,6 @@ public class HotelVo {
 
     private Long companyId;
 
-    private Long contractId;
-
     private Long hotelManagerId;
 
     private String title;
@@ -17,18 +15,25 @@ public class HotelVo {
 
     private Date createTime;
 
+    private Date endTime;
+
     private Byte isActive;
 
-    private ContractVo contractVo;
+    private String provice;
+
+    private String city;
+
+    private String town;
+
+    private String address;
 
     private CompanyVo companyVo;
 
     private UserVo userVo;
 
-    public HotelVo(Long id, Long companyId, Long contractId, Long hotelManagerId, String title, String tel, Date createTime, Byte isActive) {
+    public HotelVo(Long id, Long companyId, Long hotelManagerId, String title, String tel, Date createTime, Byte isActive) {
         this.id = id;
         this.companyId = companyId;
-        this.contractId = contractId;
         this.hotelManagerId = hotelManagerId;
         this.title = title;
         this.tel = tel;
@@ -56,13 +61,6 @@ public class HotelVo {
         this.companyId = companyId;
     }
 
-    public Long getContractId() {
-        return contractId;
-    }
-
-    public void setContractId(Long contractId) {
-        this.contractId = contractId;
-    }
 
     public Long getHotelManagerId() {
         return hotelManagerId;
@@ -104,14 +102,6 @@ public class HotelVo {
         this.isActive = isActive;
     }
 
-    public ContractVo getContractVo() {
-        return contractVo;
-    }
-
-    public void setContractVo(ContractVo contractVo) {
-        this.contractVo = contractVo;
-    }
-
     public CompanyVo getCompanyVo() {
         return companyVo;
     }
@@ -126,5 +116,61 @@ public class HotelVo {
 
     public void setUserVo(UserVo userVo) {
         this.userVo = userVo;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "HotelVo{" +
+                "id=" + id +
+                ", companyId=" + companyId +
+                ", hotelManagerId=" + hotelManagerId +
+                ", title='" + title + '\'' +
+                ", tel='" + tel + '\'' +
+                ", createTime=" + createTime +
+                ", endTime=" + endTime +
+                ", isActive=" + isActive +
+                ", companyVo=" + companyVo +
+                ", userVo=" + userVo +
+                '}';
+    }
+
+    public String getProvice() {
+        return provice;
+    }
+
+    public void setProvice(String provice) {
+        this.provice = provice;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

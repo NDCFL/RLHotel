@@ -8,19 +8,9 @@ public class HouseVo {
 
     private String cardTitle;
 
-    private Double area;
-
-    private BigDecimal unitPrice;
-
-    private BigDecimal salePrice;
-
     private Byte type;
 
     private Long hotelId;
-
-    private Long shopManagerId;
-
-    private Long shopAgentId;
 
     private Byte houseStatus;
 
@@ -36,18 +26,18 @@ public class HouseVo {
 
     private UserVo userVo;
 
+    private Long houseType;
+
     private Date leaveTime;
 
-    public HouseVo(Long id, String cardTitle, Double area, BigDecimal unitPrice, BigDecimal salePrice, Byte type, Long hotelId, Long shopManagerId, Long shopAgentId, Byte houseStatus, Date createTime, Byte isActive, String description) {
+    private Long companyId;
+
+
+    public HouseVo(Long id, String cardTitle, Byte type, Long hotelId,  Byte houseStatus, Date createTime, Byte isActive, String description) {
         this.id = id;
         this.cardTitle = cardTitle;
-        this.area = area;
-        this.unitPrice = unitPrice;
-        this.salePrice = salePrice;
         this.type = type;
         this.hotelId = hotelId;
-        this.shopManagerId = shopManagerId;
-        this.shopAgentId = shopAgentId;
         this.houseStatus = houseStatus;
         this.createTime = createTime;
         this.isActive = isActive;
@@ -74,30 +64,6 @@ public class HouseVo {
         this.cardTitle = cardTitle == null ? null : cardTitle.trim();
     }
 
-    public Double getArea() {
-        return area;
-    }
-
-    public void setArea(Double area) {
-        this.area = area;
-    }
-
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public BigDecimal getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(BigDecimal salePrice) {
-        this.salePrice = salePrice;
-    }
-
     public Byte getType() {
         return type;
     }
@@ -112,22 +78,6 @@ public class HouseVo {
 
     public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
-    }
-
-    public Long getShopManagerId() {
-        return shopManagerId;
-    }
-
-    public void setShopManagerId(Long shopManagerId) {
-        this.shopManagerId = shopManagerId;
-    }
-
-    public Long getShopAgentId() {
-        return shopAgentId;
-    }
-
-    public void setShopAgentId(Long shopAgentId) {
-        this.shopAgentId = shopAgentId;
     }
 
     public Byte getHouseStatus() {
@@ -192,5 +142,21 @@ public class HouseVo {
 
     public void setLeaveTime(Date leaveTime) {
         this.leaveTime = leaveTime;
+    }
+
+    public Long getHouseType() {
+        return houseType;
+    }
+
+    public void setHouseType(Long houseType) {
+        this.houseType = houseType;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }

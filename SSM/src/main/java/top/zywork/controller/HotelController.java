@@ -40,6 +40,22 @@ public class HotelController {
         pagingBean.setrows(hotelService.listPages(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal),user.getCompanyId()));
         return pagingBean;
     }
+    @RequestMapping("findList")
+    @ResponseBody
+    public PagingBean findList(int pageSize, int pageIndex, HttpSession session,HotelVo hotelVo) throws  Exception{
+        UserVo user = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setCompanyId(user.getCompanyId());
+        System.out.println(hotelVo+"========");
+        pagingBean.setTotal(hotelService.findCount(pageQuery,hotelVo));
+        pagingBean.setrows(hotelService.findPages(pageQuery,hotelVo));
+        return pagingBean;
+    }
     @RequestMapping("/hotelAddSave")
     @ResponseBody
     public Message addSaveHotel(HotelVo hotel, HttpSession session) throws  Exception {
@@ -73,16 +89,16 @@ public class HotelController {
     }
     @RequestMapping("/deleteManyHotel")
     @ResponseBody
-    public Message deleteManyhotel(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManyhotel(@Param("manyId") String manyId,@Param("status") int status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                hotelService.removeById(Long.parseLong(s));
+                hotelService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("修改成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("修改失败!");
         }
     }
     @RequestMapping("/deleteHotel/{id}")

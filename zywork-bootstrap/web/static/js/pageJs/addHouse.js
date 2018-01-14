@@ -162,3 +162,81 @@ $('#form').bootstrapValidator({
         "json"
     );
 });
+$('#form').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        cardTitle: {
+            message: '房号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '房号不能为空'
+                }
+            }
+        },
+        area: {
+            message: '房间面积验证失败',
+            validators: {
+                notEmpty: {
+                    message: '房间面积不能为空'
+                }
+            }
+        },
+        unitPrice: {
+            message: '房间单价验证失败',
+            validators: {
+                notEmpty: {
+                    message: '房间单价不能为空'
+                }
+            }
+        },
+        salePrice: {
+            message: '房间促销价验证失败',
+            validators: {
+                notEmpty: {
+                    message: '房间促销价不能为空'
+                }
+            }
+        }
+    }
+}).on('success.form.bv', function(e) {//点击提交之后
+    e.preventDefault();
+    var oldcard = new Array();
+    var newcard = new Array();
+    var title = $("#card_title").text();
+    var title1=title.substring((title.indexOf(":")+1),title.length);
+    oldcard = title1.split(",");
+    newcard = $("#cardTitle").val().split(",");
+    for(var i=0;i<oldcard.length;i++){
+        for(var j=0;j<newcard.length;j++){
+            if(oldcard[i]==newcard[j]){
+                if(newcard==$("#ca").val()){
+                    continue;
+                }else{
+                    layer.msg($("#hotelId").find("option:selected").text()+"的"+newcard[j]+"房号已存在", {icon:2,time:1000});
+                    return;
+                }
+
+
+            }
+        }
+    }
+    $.post(
+        "/house/houseUpdateSave",
+        $("#form").serialize(),
+        function(data){
+            if(data.message=="修改成功!"){
+                layer.msg(data.message, {icon:2,time:1000});
+                location.href="/house/housePage";
+            }else {
+                layer.msg(data.message, {icon:2,time:1000});
+            }
+
+        },
+        "json"
+    );
+});

@@ -50,18 +50,37 @@ public class HouseController {
         pagingBean.setrows(houseService.listPage(pageQuery));
         return pagingBean;
     }
+    @RequestMapping("findHouseList")
+    @ResponseBody
+    public PagingBean findHouseList(int pageSize, int pageIndex,HouseVo houseVo,HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pagingBean.setTotal(houseService.findCount(pageQuery,houseVo));
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pagingBean.setrows(houseService.findPages(pageQuery,houseVo));
+        return pagingBean;
+    }
     @RequestMapping("/houseAddSave")
     @ResponseBody
-    public Message addSaveHouse(HouseVo house) throws  Exception {
+    public Message addSaveHouse(HouseVo house,HttpSession session) throws  Exception {
         try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
             String card[] = house.getCardTitle().split(",");
             for (String str: card) {
                 house.setCardTitle(str);
                 house.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+                house.setCompanyId(userVo.getCompanyId());
+                house.setHouseStatus((byte)0);
                 houseService.save(house);
             }
             return  Message.success("新增成功!");
         }catch (Exception E){
+            E.printStackTrace();
             return Message.fail("新增失败!");
         }
 
@@ -142,11 +161,11 @@ public class HouseController {
         return  modelAndView;
     }
     //获取房间类型列表，返回select2对象的数据
-    @RequestMapping("getTypeList")
+    @RequestMapping("getTypeList/{id}")
     @ResponseBody
-    public List<Select2Vo> getTypeList(HttpSession session){
+    public List<Select2Vo> getTypeList(@PathVariable("id")long id, HttpSession session){
         UserVo userVo = (UserVo) session.getAttribute("userVo");
-        List<Select2Vo> typeList=houseService.houseTypeList(userVo.getCompanyId());
+        List<Select2Vo> typeList=houseService.houseTypeList(userVo.getCompanyId(),id);
         return  typeList;
     }
     @RequestMapping("getHotelList")

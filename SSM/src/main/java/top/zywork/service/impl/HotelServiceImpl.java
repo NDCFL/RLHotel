@@ -40,6 +40,16 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public List<HotelVo> findPages(PageQuery pageQuery, HotelVo hotelVo) {
+        return hotelDAO.findPages(pageQuery, hotelVo);
+    }
+
+    @Override
+    public Long findCount(PageQuery pageQuery, HotelVo hotelVo) {
+        return hotelDAO.findCount(pageQuery, hotelVo);
+    }
+
+    @Override
     public void save(HotelVo hotelVo) {
         hotelDAO.save(hotelVo);
     }

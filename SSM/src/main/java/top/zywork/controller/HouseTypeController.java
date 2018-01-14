@@ -13,8 +13,10 @@ import top.zywork.common.PagingBean;
 import top.zywork.enums.ActiveStatusEnum;
 import top.zywork.query.PageQuery;
 import top.zywork.query.StatusQuery;
+import top.zywork.service.HouseService;
 import top.zywork.service.HouseTypeService;
 import top.zywork.vo.HouseTypeVo;
+import top.zywork.vo.Select2Vo;
 import top.zywork.vo.UserVo;
 
 import javax.annotation.Resource;
@@ -22,20 +24,44 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("houseType")
 public class HouseTypeController {
     @Resource
     private HouseTypeService houseTypeService;
+    @Resource
+    private HouseService houseService;
     @RequestMapping("houseTypeList")
     @ResponseBody
-    public PagingBean houseTypeList(int pageSize, int pageIndex,String searchVal) throws  Exception{
+    public PagingBean houseTypeList(int pageSize, int pageIndex,String searchVal,HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(houseTypeService.count(new PageQuery(searchVal)));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(houseTypeService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize())));
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setSearchVal(searchVal);
+        pagingBean.setTotal(houseTypeService.count(pageQuery));
+        pagingBean.setrows(houseTypeService.listPage(pageQuery));
+        return pagingBean;
+    }
+    @RequestMapping("findHouseTypeList")
+    @ResponseBody
+    public PagingBean findHouseTypeList(int pageSize, int pageIndex,HttpSession session,HouseTypeVo houseTypeVo) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pagingBean.setTotal(houseTypeService.findCount(pageQuery,houseTypeVo));
+        pagingBean.setrows(houseTypeService.findPage(pageQuery,houseTypeVo));
         return pagingBean;
     }
     @RequestMapping("/houseTypeAddSave")
@@ -51,6 +77,13 @@ public class HouseTypeController {
             return Message.fail("新增失败!");
         }
 
+    }
+    @RequestMapping("getHotelList")
+    @ResponseBody
+    public List<Select2Vo> getHotelList(HttpSession session){
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        List<Select2Vo> hotelList=houseService.hotelList(userVo.getCompanyId());
+        return  hotelList;
     }
     @RequestMapping("/findHouseType/{id}")
     @ResponseBody
@@ -80,6 +113,20 @@ public class HouseTypeController {
         }catch (Exception e){
             e.printStackTrace();
             return  Message.fail("删除失败!");
+        }
+    }
+    @RequestMapping("/updateManyHouseType")
+    @ResponseBody
+    public Message updateManyHouseType(@Param("manyId") String manyId,@Param("status") int status) throws  Exception{
+        try{
+            String str[] = manyId.split(",");
+            for (String s: str) {
+                houseTypeService.updateStatus(new StatusQuery(Long.parseLong(s),status));
+            }
+            return Message.success("修改成功!");
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("修改失败!");
         }
     }
     @RequestMapping("/deleteHouseType/{id}")

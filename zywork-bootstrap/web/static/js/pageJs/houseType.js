@@ -21,7 +21,7 @@ $('#mytab').bootstrapTable({
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign:'right',//工具栏对齐方式
     buttonsAlign:'right',//按钮对齐方式
-    toolbar:'#toolbar',search:true,
+    toolbar:'#toolbar',
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -36,13 +36,26 @@ $('#mytab').bootstrapTable({
             valign:'middle'
         },
         {
+            title:'所属分店',
+            field:'hotelVo.title',
+            align:'center',
+            sortable:true
+        },
+        {
             title:'房型类别名称',
             field:'title',
             align:'center',
             sortable:true
         },
         {
-            title:'基本描述',
+            title:'门市价格',
+            field:'price',
+            align:'center',
+            sortable:true
+        }
+        ,
+        {
+            title:'房间描述',
             field:'description',
             align:'center',
             sortable:true
@@ -72,10 +85,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if(value==0){
                     //表示启用状态
-                    return '<i class="btn btn-primary" >启用</i>';
+                    return '<i style="color: green" >启用</i>';
                 }else{
                     //表示启用状态
-                    return '<i class="btn btn-danger">冻结</i>';
+                    return '<i style="color: red" >停用</i>';
                 }
             }
         }
@@ -91,7 +104,7 @@ $('#mytab').bootstrapTable({
                 if(row.isActive==1){
                     f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+0+')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
                 }else if(row.isActive==0){
-                    f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
 
                 return e + d+f;
@@ -166,7 +179,7 @@ function updatestatus(id,status){
                 }
             }else{
                 if(data.message=="ok"){
-                    layer.msg("已冻结",{icon:2,time:1000});
+                    layer.msg("已停用",{icon:2,time:1000});
                 }else{
                     layer.msg("修改状态失败!",{icon:2,time:1000});
                 }
@@ -178,7 +191,18 @@ function updatestatus(id,status){
 }
 //查询按钮事件
 $('#search_btn').click(function(){
-    $('#mytab').bootstrapTable('refresh', {url: '/houseType/houseTypeList'});
+    $('#mytab').bootstrapTable('refresh',
+        {
+            url: '/houseType/findHouseTypeList',
+            query:{
+                hotelId:$("#hotelid_").val(),
+                title:$("#typeTitle").val(),
+                isActive:$("#hotelStatus").val()
+
+            }
+
+        }
+    );
 })
 function refush(){
     $('#mytab').bootstrapTable('refresh', {url: '/houseType/houseTypeList'});
@@ -255,3 +279,42 @@ function deleteMany(){
         );
     });
 }
+function statusMany(){
+    var isactivity="";
+    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
+        if(row.isActive==0){
+            isactivity+=row.isActive;
+        }
+        return row.id ;
+    });
+    if(row==""){
+        layer.msg('删除失败，请勾选数据!', {
+            icon : 2,
+            time : 2000
+        });
+        return ;
+    }
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
+
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改状态吗？',function(index){
+        $.post(
+            "/houseType/updateManyHouseType",
+            {
+                "manyId":$("#statusId").val(),
+                "status":$("#status").val()
+            },
+            function(data){
+                if(data.message=="修改成功!"){
+                    layer.msg(data.message, {icon:1,time:1000});
+                    refush();
+                }else{
+                    layer.msg(data.message, {icon:2,time:1000});
+                    refush();
+                }
+            },"json"
+        );
+    });
+});

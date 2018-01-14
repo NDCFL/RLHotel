@@ -13,4 +13,7 @@ public interface HotelService extends BaseService<HotelVo>{
     List<Select2Vo> getContract();
     List<Select2Vo> getLandlord();
     HotelVo findHotel(long hotelManagerId);
+    List<HotelVo> findPages(PageQuery pageQuery, HotelVo hotelVo);
+    Long findCount(PageQuery pageQuery,HotelVo hotelVo);
+
 }

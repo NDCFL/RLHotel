@@ -41,28 +41,7 @@ $('#mytab').bootstrapTable({
             align:'center',
             sortable:true
         },
-        {
-            title:'房间面积',
-            field:'area',
-            align:'center',
-            sortable:true
-        }
-        ,
 
-        {
-            title:'房间单价',
-            field:'unitPrice',
-            align:'center',
-            sortable:true
-        }
-        ,
-        {
-            title:'房间促销价',
-            field:'salePrice',
-            align:'center',
-            sortable:true
-        }
-        ,
         {
             title:'房间类型',
             field:'houseTypeVo.title',
@@ -77,13 +56,7 @@ $('#mytab').bootstrapTable({
             sortable:true
         }
         ,
-        {
-            title:'店长',
-            field:'userVo.nickname',
-            align:'center',
-            sortable:true
-        }
-        ,
+
         {
             title:'入住状态',
             field:'houseStatus',
@@ -95,6 +68,21 @@ $('#mytab').bootstrapTable({
                 }else{
                     //表示启用状态
                     return '<i style="color: green">未入住</i>';
+                }
+            }
+        }
+        ,
+        {
+            title:'房间类型',
+            field:'houseType',
+            align:'center',
+            formatter: function (value, row, index) {
+                if(value==1){
+                    //表示启用状态
+                    return '<i style="color: red">虚拟房间</i>';
+                }else{
+                    //表示启用状态
+                    return '<i style="color: green">真实房间</i>';
                 }
             }
         }
@@ -123,10 +111,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if(value==0){
                     //表示启用状态
-                    return '<i class="btn btn-primary"  >启用</i>';
+                    return '<i style="color: green" >启用</i>';
                 }else{
                     //表示启用状态
-                    return '<i class="btn btn-danger">冻结</i>';
+                    return '<i style="color: red">停用</i>';
                 }
             }
         }
@@ -136,13 +124,13 @@ $('#mytab').bootstrapTable({
             align:'center',
             field:'',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="house"   onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" id="house"   onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del('+row.id+','+row.isActive+')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f='';
                 if(row.isActive==1){
                     f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+0+')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
                 }else if(row.isActive==0){
-                    f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
 
                 return e + d+f;
@@ -199,7 +187,19 @@ function del(houseid,status){
     });
 }
 function edit(name){
-    location.href="/house/updateHouse/"+name;
+    $.post("/house/findHouse/"+name,
+        function (data) {
+            $("#cardTitle_").val(data.cardTitle);
+            $("#description").text(data.description);
+            var hotel = $("#hotelId").select2();
+            hotel.val(data.hotelId).trigger("change");
+            hotel.change();
+            $("#houseStatus").val(data.houseStatus);
+            $("#id").val(data.id);
+            $("#ca").val(data.cardTitle);
+        },
+        "json"
+    );
 }
 function updatestatus(id,status){
     $.post("/house/updateStatus/"+id+"/"+status,
@@ -212,7 +212,7 @@ function updatestatus(id,status){
                 }
             }else{
                 if(data.message=="ok"){
-                    layer.msg("已冻结",{icon:2,time:1000});
+                    layer.msg("已停用",{icon:2,time:1000});
                 }else{
                     layer.msg("修改状态失败!",{icon:2,time:1000});
                 }
@@ -224,7 +224,15 @@ function updatestatus(id,status){
 }
 //查询按钮事件
 $('#search_btn').click(function(){
-    $('#mytab').bootstrapTable('refresh', {url: '/house/houseList'});
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/house/findHouseList',
+        query:{
+            hotelId:$("#hotelId_").val(),
+            type:$("#houseType_").val(),
+            isActive:$("#isActive").val(),
+            houseType:$("#house__Type").val()
+        }
+    });
 })
 function refush(){
     $('#mytab').bootstrapTable('refresh', {url: '/house/houseList'});
@@ -244,19 +252,45 @@ $("#update").click(function(){
         },"json"
     );
 });
-$("#add").click(function(){
+$('#form').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        cardTitle: {
+            message: '房号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '房号不能为空'
+                }
+            }
+        }
+    }
+}).on('success.form.bv', function(e) {//点击提交之后
+    e.preventDefault();
+    var newcard = $("#cardTitle").val();
+    var title = $("#card").text();
+    if(title.indexOf(newcard+",")>-1 ){
+        layer.msg($("#hotelId").find("option:selected").text()+"的"+newcard+"房号已存在", {icon:2,time:1000});
+        return;
+    }
     $.post(
         "/house/houseAddSave",
-        $("#formadd").serialize(),
+        $("#form").serialize(),
         function(data){
             if(data.message=="新增成功!"){
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.msg(data.message, {icon:2,time:1000});
                 refush();
-            }else{
-                layer.msg(data.message, {icon:1,time:1000});
+            }else {
+                layer.msg(data.message, {icon:2,time:1000});
                 refush();
             }
-        },"json"
+
+        },
+        "json"
     );
 });
 function deleteMany(){
@@ -301,3 +335,44 @@ function deleteMany(){
         );
     });
 }
+$('#form1').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        cardTitle: {
+            message: '房号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '房号不能为空'
+                }
+            }
+        }
+    }
+}).on('success.form.bv', function(e) {//点击提交之后
+    e.preventDefault();
+    var newcard = $("#cardTitle_").val();
+    var title = $("#card").text().replace($("#ca").val(),'');
+    if(title.indexOf(newcard+",")>-1 ){
+        layer.msg($("#hotel_Id").find("option:selected").text()+"的"+newcard+"房号已存在", {icon:2,time:1000});
+        return;
+    }
+    $.post(
+        "/house/houseUpdateSave",
+        $("#form").serialize(),
+        function(data){
+            if(data.message=="修改成功!"){
+                layer.msg(data.message, {icon:2,time:1000});
+                refush();
+            }else {
+                layer.msg(data.message, {icon:2,time:1000});
+                refush();
+            }
+
+        },
+        "json"
+    );
+});

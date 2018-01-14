@@ -65,8 +65,8 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<Select2Vo> houseTypeList(long companyId) {
-        return houserDAO.houseTypeList(companyId);
+    public List<Select2Vo> houseTypeList(long companyId,Long id) {
+        return houserDAO.houseTypeList(companyId,id);
     }
 
     @Override
@@ -82,6 +82,16 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public String getHouseCardTitle(long companyId) {
         return houserDAO.getHouseCardTitle(companyId);
+    }
+
+    @Override
+    public Long findCount(PageQuery pageQuery, HouseVo houseVo) {
+        return houserDAO.findCount(pageQuery, houseVo);
+    }
+
+    @Override
+    public List<HouseVo> findPages(PageQuery pageQuery, HouseVo houseVo) {
+        return houserDAO.findPages(pageQuery, houseVo);
     }
 
     @Override

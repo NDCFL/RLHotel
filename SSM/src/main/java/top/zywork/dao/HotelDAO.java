@@ -15,4 +15,6 @@ public interface HotelDAO extends BaseDAO<HotelVo>{
     List<Select2Vo> getContract();
     List<Select2Vo> getLandlord();
     HotelVo findHotel(long hotelManagerId);
+    List<HotelVo> findPages(@Param("pageQuery") PageQuery pageQuery,@Param("hotelVo") HotelVo hotelVo);
+    Long findCount(@Param("pageQuery") PageQuery pageQuery,@Param("hotelVo") HotelVo hotelVo);
 }

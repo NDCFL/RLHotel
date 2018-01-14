@@ -59,4 +59,14 @@ public class HouseTypeServiceImpl implements HouseTypeService {
     public long count(PageQuery pageQuery) {
         return houseTypeDAO.count(pageQuery);
     }
+
+    @Override
+    public Long findCount(PageQuery pageQuery, HouseTypeVo houseTypeVo) {
+        return houseTypeDAO.findCount(pageQuery, houseTypeVo);
+    }
+
+    @Override
+    public List<HouseTypeVo> findPage(PageQuery pageQuery, HouseTypeVo houseTypeVo) {
+        return houseTypeDAO.findPage(pageQuery, houseTypeVo);
+    }
 }

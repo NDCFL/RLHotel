@@ -35,27 +35,22 @@ $('#mytab').bootstrapTable({
             align:'center',
             valign:'middle'
         },
+
         {
-            title:'签约编号',
-            field:'contractVo.id',
-            align:'center',
-            sortable:true
-        },
-        {
-            title:'酒店店长',
+            title:'店长',
             field:'userVo.nickname',
             align:'center',
             sortable:true
         },
         {
-            title:'酒店名称',
+            title:'分店名称',
             field:'title',
             align:'center',
             sortable:true
         }
         ,
         {
-            title:'酒店热线',
+            title:'分店电话',
             field:'tel',
             align:'center',
             sortable:true
@@ -79,16 +74,16 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title:'状态',
+            title:'营业状态',
             field:'isActive',
             align:'center',
             formatter: function (value, row, index) {
                 if(value==0){
                     //表示启用状态
-                    return '<i class="btn btn-primary" >启用</i>';
+                    return '<i style="color: green">启用</i>';
                 }else{
                     //表示启用状态
-                    return '<i class="btn btn-danger">冻结</i>';
+                    return '<i style="color: red">停用</i>';
                 }
             }
         }
@@ -104,7 +99,7 @@ $('#mytab').bootstrapTable({
                 if(row.isActive==1){
                     f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+0+')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
                 }else if(row.isActive==0){
-                    f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
 
                 return e + d+f;
@@ -133,7 +128,8 @@ function queryParams(params){var title = "";    $(".search input").each(function
         //每页多少条数据
         pageSize: this.pageSize,
         //请求第几页
-        pageIndex:this.pageNumber,        searchVal:title
+        pageIndex:this.pageNumber,
+        searchVal:title
     }
 }
 function del(hotelid,status){
@@ -164,14 +160,16 @@ function edit(name){
     $.post("/hotel/findHotel/"+name,
         function(data){
             $("#updateform").autofill(data);
-            var colum = $("#contractId").select2();
-            //选中某一行
-            colum.val(data.contractVo.id).trigger("change");
-            colum.change();
+            $("#province2").val(data.provice);
+            $("#province2").trigger("change");
+            $("#city2").val(data.city);
+            $("#city2").trigger("change");
+            $("#district2").val(data.town);
             var colum1 = $("#landlordId").select2();
             //选中某一行
             colum1.val(data.userVo.id).trigger("change");
             colum1.change();
+            $("#select2-landlordId-container").remove();
         },
         "json"
     );
@@ -187,7 +185,7 @@ function updatestatus(id,status){
                 }
             }else{
                 if(data.message=="ok"){
-                    layer.msg("已冻结",{icon:2,time:1000});
+                    layer.msg("已停用",{icon:2,time:1000});
                 }else{
                     layer.msg("修改状态失败!",{icon:2,time:1000});
                 }
@@ -199,7 +197,20 @@ function updatestatus(id,status){
 }
 //查询按钮事件
 $('#search_btn').click(function(){
-    $('#mytab').bootstrapTable('refresh', {url: '/hotel/hotelList'});
+    $('#mytab').bootstrapTable(
+        'refresh',
+        {
+            url: '/hotel/findList',
+            query:{
+                tel:$("#hotelTel").val(),
+                createTime:$("#test1").val(),
+                endTime:$("#test2").val(),
+                title:$("#hotelTitle").val(),
+                hotelManagerId:$("#landlordid_").val(),
+                isActive:$("#hotelStatus").val()
+            }
+        }
+    );
 })
 function refush(){
     $('#mytab').bootstrapTable('refresh', {url: '/hotel/hotelList'});
@@ -243,29 +254,26 @@ function deleteMany(){
         return row.id ;
     });
     if(row==""){
-        layer.msg('删除失败，请勾选数据!', {
+        layer.msg('修改失败，请勾选数据!', {
             icon : 2,
-            time : 2000
+            time : 3000
         });
         return ;
     }
-    if(isactivity!=""){
-        layer.msg('删除失败，已经启用的不允许删除!', {
-            icon : 2,
-            time : 2000
-        });
-        return;
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
 
-    }
-    $("#deleteId").val(row);
-    layer.confirm('确认要执行批量删除网站信息数据吗？',function(index){
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改分店经营状态吗？',function(index){
         $.post(
             "/hotel/deleteManyHotel",
             {
-                "manyId":$("#deleteId").val()
+                "manyId":$("#statusId").val(),
+                "status":$("#status").val()
             },
             function(data){
-                if(data.message=="删除成功!"){
+                if(data.message=="修改成功!"){
                     layer.msg(data.message, {icon:1,time:1000});
                     refush();
                 }else{
@@ -275,4 +283,7 @@ function deleteMany(){
             },"json"
         );
     });
-}
+});
+
+
+

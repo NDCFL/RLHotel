@@ -88,7 +88,7 @@ $('#mytab').bootstrapTable({
                     return '<i class="btn btn-primary" >启用</i>';
                 } else {
                     //表示启用状态
-                    return '<i class="btn btn-danger">冻结</i>';
+                    return '<i class="btn btn-danger">停用</i>';
                 }
             }
         }
@@ -104,7 +104,7 @@ $('#mytab').bootstrapTable({
                 if (row.isActive == 1) {
                     f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
                 } else if (row.isActive == 0) {
-                    f = '<a title="冻结" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
                 var g = '<a title="签约列表" class="J_menuItem" href="/contract/contractByMasterListPage/' + row.id + '\"><i class="glyphicon glyphicon-th-list" alt="签约列表" style="color:green"></i></a> ';
                 return e + d + f + g;
@@ -188,7 +188,7 @@ function updatestatus(id, status) {
                 }
             } else {
                 if (data.message == "ok") {
-                    layer.msg("已冻结", {icon: 2, time: 1000});
+                    layer.msg("已停用", {icon: 2, time: 1000});
                 } else {
                     layer.msg("修改状态失败!", {icon: 2, time: 1000});
                 }

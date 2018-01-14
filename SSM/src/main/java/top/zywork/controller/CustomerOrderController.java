@@ -81,13 +81,11 @@ public class CustomerOrderController {
                     HotelVo hotelVo = hotelService.findHotel(userVo.getId());
                     customerOrder.setHotelId(hotelVo.getId());
                     customerOrder.setShopManagerId(userVo.getId());
-                    customerOrder.setContractId(hotelVo.getContractId());
                 }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
                     EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
                     customerOrder.setHotelId(employeeVo.getHotelId());
                     customerOrder.setShopManagerId(employeeVo.getUserId());
                     HotelVo hotelVo = hotelService.getById(employeeVo.getHotelId());
-                    customerOrder.setContractId(hotelVo.getContractId());
                 }
                 customerOrder.setCheckinTime(DateParseUtils.parseDate(item[0]));
                 customerOrder.setCheckoutTime(DateParseUtils.parseDate(item[1]));
@@ -139,7 +137,7 @@ public class CustomerOrderController {
     @ResponseBody
     public List<Select2Vo> getTypeList(HttpSession session){
         UserVo userVo = (UserVo) session.getAttribute("userVo");
-        List<Select2Vo> typeList=houseService.houseTypeList(userVo.getCompanyId());
+        List<Select2Vo> typeList=houseService.houseTypeList(userVo.getCompanyId(),0l);
         return  typeList;
     }
     @RequestMapping("getHouse/{id}")

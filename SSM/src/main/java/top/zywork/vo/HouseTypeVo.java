@@ -16,7 +16,13 @@ public class HouseTypeVo implements Serializable {
 
     private long companyId;
 
+    private Long hotelId;
+
+    private Double price;
+
     private CompanyVo companyVo;
+
+    private HotelVo hotelVo;
 
     public Long getId() {
         return id;
@@ -72,5 +78,29 @@ public class HouseTypeVo implements Serializable {
 
     public void setCompanyVo(CompanyVo companyVo) {
         this.companyVo = companyVo;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public HotelVo getHotelVo() {
+        return hotelVo;
+    }
+
+    public void setHotelVo(HotelVo hotelVo) {
+        this.hotelVo = hotelVo;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
