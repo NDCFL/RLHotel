@@ -162,6 +162,7 @@ public class UserController {
     }
 
     @RequestMapping("updateBossInfo")
+    @ResponseBody
     public Message updateBossInfo(UserVo userVo) {
         try{
             userService.update(userVo);

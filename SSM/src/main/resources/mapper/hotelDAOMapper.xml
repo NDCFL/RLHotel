@@ -46,19 +46,19 @@
     <select id="findPages" resultMap="hotelMap">
         select h.*,u.id as userId,c.id as companyId,u.nickname from t_hotel h,t_user u,t_company c where h.hotel_manager_id=u.id  and c.id=h.company_id and h.company_id=#{pageQuery.companyId}
         <if test="hotelVo.createTime!=null"> and h.create_time BETWEEN #{hotelVo.createTime} AND #{hotelVo.endTime}</if>
-        <if test="hotelVo.title!=null and hotelVo.title!='' "> and h.title=#{hotelVo.title}</if>
+        <if test="hotelVo.title!=null and hotelVo.title!='' "> and h.title like concat('%${hotelVo.title}%')</if>
         <if test="hotelVo.hotelManagerId!=null"> and h.hotel_manager_id=#{hotelVo.hotelManagerId}</if>
-        <if test="hotelVo.tel!=null and hotelVo.tel!='' "> and h.tel=#{hotelVo.tel}</if>
-        <if test="hotelVo.isActive!=-1"> and h.is_active=#{hotelVo.isActive}</if>
+        <if test="hotelVo.tel!=null and hotelVo.tel!='' "> and h.tel like concat('%${hotelVo.tel}%')</if>
+        <if test="hotelVo.isActive!=null"> and h.is_active=#{hotelVo.isActive}</if>
         limit #{pageQuery.pageNo},#{pageQuery.pageSize}
     </select>
     <select id="findCount" resultType="long">
         select count(*) from t_hotel h,t_user u,t_company c where h.hotel_manager_id=u.id  and c.id=h.company_id and h.company_id=#{pageQuery.companyId}
         <if test="hotelVo.createTime!=null"> and h.create_time BETWEEN #{hotelVo.createTime} AND #{hotelVo.endTime}</if>
-        <if test="hotelVo.title!=null and hotelVo.title!='' "> and h.title=#{hotelVo.title}</if>
+        <if test="hotelVo.title!=null and hotelVo.title!='' "> and h.title like concat('%${hotelVo.title}%')</if>
         <if test="hotelVo.hotelManagerId!=null"> and h.hotel_manager_id=#{hotelVo.hotelManagerId}</if>
-        <if test="hotelVo.tel!=null and hotelVo.tel!='' "> and h.tel=#{hotelVo.tel}</if>
-        <if test="hotelVo.isActive!=-1"> and h.is_active=#{hotelVo.isActive}</if>
+        <if test="hotelVo.tel!=null and hotelVo.tel!='' "> and h.tel like concat('%${hotelVo.tel}%')</if>
+        <if test="hotelVo.isActive!=null"> and h.is_active=#{hotelVo.isActive}</if>
     </select>
     <select id="getContract" resultMap="select2Map">
         select id,contract_contract as text from t_contract

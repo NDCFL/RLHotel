@@ -135,9 +135,9 @@ function del(cooperationSubjectid,status){
             dataType: 'json',
             success: function(data){
                 if(data.message=='删除成功!'){
-                    layer.msg(data.message,{icon:1,time:1000});
+                    alert(data.message);
                 }else{
-                    layer.msg(data.message,{icon:2,time:1000});
+                    alert(data.message);
                 }
                 refush();
             },

@@ -45,6 +45,7 @@
                     <label class="col-sm-1 control-label" style="line-height: 30px;width:60px">店长</label>
                     <div class="col-sm-1" style="width: 120px" >
                         <select class="form-control"  id="landlordid_" style="width: 160px" required name="hotelManagerId">
+                            <option value="">全部</option>
 
                         </select>
                     </div>
@@ -55,6 +56,7 @@
                     <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px">营业状态</label>
                     <div class="col-sm-1" style="width: 120px" >
                         <select style="width: 160px" class="form-control" id="hotelStatus" name="isActive">
+                            <option value="">全部</option>
                             <option value="0">启用</option>
                             <option value="1">停用</option>
                         </select>
@@ -266,6 +268,7 @@
     laydate.render({
         elem: '#test2' //指定元素
         ,type: 'datetime'
+        ,min: $("#test1").val()
     });
 </script>
 <script>
