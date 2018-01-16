@@ -1,6 +1,6 @@
 {
   "beginRow": 2,
-  "destinationClass":"top.zywork.vo.CustomerOrderOTAVO",
+  "destinationClass":"top.cflwork.vo.CustomerOrderOTAVO",
   "properties":[
     "id",
     "hotelName",

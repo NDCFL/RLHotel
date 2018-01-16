@@ -10,8 +10,8 @@
     </settings>
 
     <typeAliases>
-        <package name="top.zywork.vo"/>
-        <package name="top.zywork.dos"/>
+        <package name="top.cflwork.vo"/>
+        <package name="top.cflwork.dos"/>
     </typeAliases>
 
 </configuration>

@@ -41,7 +41,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="top.zywork.dao" />
+        <property name="basePackage" value="top.cflwork.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
@@ -62,7 +62,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* top.zywork.service.impl.*.*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* top.cflwork.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 

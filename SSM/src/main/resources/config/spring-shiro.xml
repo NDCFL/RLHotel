@@ -9,7 +9,7 @@
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:/config/ehcache-shiro.xml" />
     </bean>
-    <bean id="appShiroRealm" class="top.zywork.security.shiro.AppShiroRealm"></bean>
+    <bean id="appShiroRealm" class="top.cflwork.security.shiro.AppShiroRealm"></bean>
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
         <property name="realm" ref="appShiroRealm"/>
         <property name="cacheManager" ref="cacheManager"/>

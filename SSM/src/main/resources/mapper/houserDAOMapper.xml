@@ -2,7 +2,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="top.zywork.dao.HouseDAO">
+<mapper namespace="top.cflwork.dao.HouseDAO">
 	<resultMap type="houseVo" id="houseMap">
 		<id column="id" property="id"></id>
 		<result column="card_title" property="cardTitle"></result>
@@ -10,12 +10,12 @@
 		<result column="create_time" property="createTime"></result>
 		<result column="is_active" property="isActive"></result>
 		<result column="house_type" property="houseType"></result>
-		<association property="houseTypeVo" javaType="top.zywork.vo.HouseTypeVo">
+		<association property="houseTypeVo" javaType="top.cflwork.vo.HouseTypeVo">
 			<id column="htId" property="id"></id>
 			<result column="title" property="title"></result>
 			<result column="htdescription" property="description"></result>
 		</association>
-		<association property="hotelVo" javaType="top.zywork.vo.HotelVo">
+		<association property="hotelVo" javaType="top.cflwork.vo.HotelVo">
 			<id column="hotelId" property="id"></id>
 			<result column="hotelTitle" property="title"></result>
 		</association>
@@ -60,6 +60,7 @@
 		<if test="houseVo.houseType!=null"> and t.house_type=#{houseVo.houseType}</if>
 		<if test="houseVo.type!=null"> and t.type=#{houseVo.type}</if>
 		<if test="houseVo.isActive!=null"> and t.is_active=#{houseVo.isActive}</if>
+		<if test="houseVo.cardTitle!=null and houseVo.cardTitle!='' "> and t.card_title like concat('%${hotelVo.cardTitle}%')</if>
 	</select>
 	<select id="findCount" resultType="long">
 		select count(*)  from t_house t,t_house_type ht,t_hotel h where t.type=ht.id and t.hotel_id=h.id  and t.company_id=#{pageQuery.companyId}
@@ -67,6 +68,7 @@
 		<if test="houseVo.houseType!=null"> and t.house_type=#{houseVo.houseType}</if>
 		<if test="houseVo.type!=null"> and t.type=#{houseVo.type}</if>
 		<if test="houseVo.isActive!=null"> and t.is_active=#{houseVo.isActive}</if>
+		<if test="houseVo.cardTitle!=null and houseVo.cardTitle!=''"> and t.card_title like concat('%${hotelVo.cardTitle}%')</if>
 	</select>
 	<select id="listAll" resultMap="houseMap">
 		select t.*,ht.id as htId,ht.title,ht.description,h.title as hotelTitle,h.id as hotelId  from t_house t,t_house_type ht,t_hotel h where t.type=ht.id and t.hotel_id=h.id 

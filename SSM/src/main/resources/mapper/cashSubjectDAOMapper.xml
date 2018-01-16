@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.CashSubjectDAO">
-    <resultMap id="cashSubjectMap" type="top.zywork.vo.CashSubjectVo"></resultMap>
+<mapper namespace="top.cflwork.dao.CashSubjectDAO">
+    <resultMap id="cashSubjectMap" type="top.cflwork.vo.CashSubjectVo"></resultMap>
     <sql id="Base_Column_List">id, title,description,create_time,is_active</sql>
     <sql id="search">
         <if test="#{searchVal!=null} and #{searchVal!=''}">

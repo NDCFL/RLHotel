@@ -5,12 +5,12 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
         http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
-    <bean id="appWebSocketHandler" class="top.zywork.websocket.AppWebSocketHandler" />
+    <bean id="appWebSocketHandler" class="top.cflwork.websocket.AppWebSocketHandler" />
 
     <websocket:handlers>
         <websocket:mapping path="/socket/test" handler="appWebSocketHandler"/>
         <websocket:handshake-interceptors>
-            <bean class="top.zywork.websocket.AppHandshakeInterceptor" />
+            <bean class="top.cflwork.websocket.AppHandshakeInterceptor" />
         </websocket:handshake-interceptors>
     </websocket:handlers>
 

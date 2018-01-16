@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.CompanyDAO">
+<mapper namespace="top.cflwork.dao.CompanyDAO">
     <resultMap id="companyMap" type="companyVo"></resultMap>
     <select id="getById" resultMap="companyMap" parameterType="long">
         select *

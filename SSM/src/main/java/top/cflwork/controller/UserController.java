@@ -1,0 +1,286 @@
+package top.cflwork.controller;
+
+import org.activiti.engine.identity.User;
+import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import top.cflwork.common.Message;
+import top.cflwork.common.PagingBean;
+import top.cflwork.query.PageQuery;
+import top.cflwork.query.StatusQuery;
+import top.cflwork.query.UserAccountPasswordQuery;
+import top.cflwork.service.RoleService;
+import top.cflwork.service.UserRoleService;
+import top.cflwork.service.UserService;
+import top.cflwork.service.impl.UserRoleServiceImpl;
+import top.cflwork.vo.RoleVo;
+import top.cflwork.vo.Select2Vo;
+import top.cflwork.vo.UserRoleVo;
+import top.cflwork.vo.UserVo;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.*;
+import java.util.regex.Matcher;
+
+/**
+ * Created by chenfeilong on 2017/10/27.
+ */
+@Controller
+@RequestMapping("user")
+public class UserController {
+
+    @Resource
+    private UserService userService;
+    @Resource
+    private UserRoleService userRoleService;
+    @Resource
+    private RoleService roleService;
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @RequestMapping("regPage")
+    public String regPage() {
+        return "loginRegister/regPage";
+    }
+
+    @RequestMapping("loginPage")
+    public String loginPage() {
+        return "loginRegister/loginPage";
+    }
+
+    @RequestMapping("userReg")
+    public String userReg(UserVo userVo, HttpServletRequest request) {
+        try {
+            logger.info("手机号码为：" + userVo.getPhone() + "的用户正在通过IP为" + request.getRemoteAddr() + "的设备进行注册操作，当前时间为：" + Calendar.getInstance().getTime());
+            //使用shiro进行md5加密
+            userVo.setGender((byte) 0);
+            userVo.setIsActive((byte) 0);
+            userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
+            userVo.setNickname(userVo.getPhone());
+            //这里是注册时，新增公司的id暂时只有一家公司瑞蓝酒店
+            userVo.setCompanyId(1l);
+            userService.save(userVo);
+            //通过新增的管理员的手机号获取新增管理员的id
+            UserVo userVo1 = userService.findByPhone(userVo.getPhone());
+            //通过权限名称来获取到权限的id
+            RoleVo roleVo = roleService.findByName("总管理员");
+            UserRoleVo userRoleVo = new UserRoleVo();
+            if(roleVo==null || "".equals(roleVo)){
+                RoleVo roleVo1 = new RoleVo();
+                roleVo1.setTitle("总管理员");
+                roleVo1.setDescription("总管理员");
+                roleVo1.setIsActive((byte)0);
+                roleService.save(roleVo1);
+            }
+            if (roleVo.getId() == 0) {
+
+            } else {
+                //同时把信息保存到用户权限表中
+                userRoleVo.setIsActive((byte) 0);
+                userRoleVo.setUserId(userVo1.getId());
+                userRoleVo.setRoleId(roleVo.getId());
+                userRoleService.save(userRoleVo);
+            }
+            return "loginRegister/loginPage";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "loginRegister/regPage";
+        }
+    }
+
+    @RequestMapping("checkReg")
+    @ResponseBody
+    public Map<String, Boolean> checkReg(String phone) {
+        Map<String, Boolean> result = new HashMap<String, Boolean>();
+        int count = userService.checkReg(phone);
+        if (count == 0) {
+            result.put("valid", true);
+        } else {
+            result.put("valid", false);
+        }
+        return result;
+    }
+
+    @RequestMapping("checkLogin")
+    @ResponseBody
+    public Map<String, Boolean> checkLogin(String phone) {
+        Map<String, Boolean> result = new HashMap<String, Boolean>();
+        int count = userService.checkLogin(phone);
+        if (count == 0) {
+            result.put("valid", false);
+        } else {
+            result.put("valid", true);
+        }
+        return result;
+
+    }
+
+    @RequestMapping("getInfo")
+    @ResponseBody
+    public Message getInfo(String phone,String password) {
+        try{
+            UserVo userVo = userService.getByAccountPassword(new UserAccountPasswordQuery(phone, new Md5Hash(password).toString()));
+            if(userVo.getPhone().equals(phone) && userVo.getPassword().equals(new Md5Hash(password).toString())){
+                Subject subject = SecurityUtils.getSubject();
+                subject.login(new UsernamePasswordToken(phone, new Md5Hash(password).toString()));
+                Session session = subject.getSession();
+                session.setAttribute("userVo", userVo);
+                return  Message.success("验证成功");
+            }else{
+                return  Message.success("账号或密码输入有误");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("账号或密码输入有误");
+        }
+    }
+
+    @RequestMapping("checkPhoneAndPwd")
+    @ResponseBody
+    public Map<String, Boolean> checkPhoneAndPwd(String phone, String password) {
+        Map<String, Boolean> result = new HashMap<String, Boolean>();
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            UserVo userVo = userService.getByAccountPassword(new UserAccountPasswordQuery(phone, new Md5Hash(password).toString()));
+            subject.login(new UsernamePasswordToken(phone, new Md5Hash(password).toString()));
+            Session session = subject.getSession();
+            session.setAttribute("userVo", userVo);
+            result.put("valid", true);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("valid", false);
+            return result;
+        }
+    }
+
+    @RequestMapping("exit")
+    public String exit(HttpSession session) {
+        session.invalidate();
+        return "loginRegister/loginPage";
+    }
+
+    @RequestMapping("bossInfoPage")
+    public String bossInfoPage() {
+        return "user/bossInfoPage";
+    }
+
+    @RequestMapping("bossInfo")
+    @ResponseBody
+    public UserVo bossInfo(HttpSession session) {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        return userService.getById(userVo.getId());
+    }
+
+    @RequestMapping("updateBossInfo")
+    @ResponseBody
+    public Message updateBossInfo(UserVo userVo) {
+        try{
+            userService.update(userVo);
+            return Message.success("资料修改成功！");
+        }catch (Exception e){
+            return Message.success("资料修改失败！");
+        }
+    }
+
+    @RequestMapping("checkPwd")
+    @ResponseBody
+    public Map<String, Boolean> checkPwd(String password, HttpSession session) {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        Map<String, Boolean> result = new HashMap<String, Boolean>();
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            String pwd = userService.getPassword(userVo.getId());
+            if (pwd.equals(new Md5Hash(password).toString())) {
+                result.put("valid", true);
+            } else {
+                result.put("valid", false);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("valid", false);
+            return result;
+        }
+    }
+
+    @RequestMapping("updatePassword")
+    @ResponseBody
+    public Message updatePassword(HttpSession session, String newpassword) {
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            userService.updatePwd(userVo.getId(), new Md5Hash(newpassword).toString());
+            return  Message.success("密码修改成功!");
+        }catch (Exception e){
+            return  Message.success("密码修改失败!");
+        }
+    }
+
+    @RequestMapping("changePhone")
+    public Message changePhone(HttpSession session, String phone) {
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            userService.updatePhone(userVo.getId(), phone);
+            return  Message.success("修改手机绑定成功!");
+        }catch (Exception e){
+            return  Message.success("修改手机绑定失败!");
+        }
+    }
+
+    @RequestMapping("getUserIdAndName")
+    @ResponseBody
+    public List<Select2Vo> getUserIdAndName() {
+        List<Select2Vo> select2Vo = userService.getUserIdAndName();
+        return select2Vo;
+    }
+
+    @RequestMapping("updateStatus/{id}/{status}")
+    @ResponseBody
+    public Message updateStatus(@PathVariable("id") long id, @PathVariable("status") int status) throws Exception {
+        try {
+            userService.updateStatus(new StatusQuery(id, status));
+            return Message.success("ok");
+        } catch (Exception e) {
+            return Message.fail("fail");
+        }
+    }
+
+    @RequestMapping("/deleteManyUser")
+    @ResponseBody
+    public Message deleteManycashSubject(@Param("manyId") String manyId) throws Exception {
+        try {
+            String str[] = manyId.split(",");
+            for (String s : str) {
+                userService.removeById(Long.parseLong(s));
+            }
+            return Message.success("删除成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Message.fail("删除失败!");
+        }
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    @ResponseBody
+    public Message deletecashSubject(@PathVariable("id") long id) throws Exception {
+        try {
+            userService.removeById(id);
+            return Message.success("删除成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Message.fail("删除失败!");
+        }
+    }
+
+
+}

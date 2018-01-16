@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.HouseOthersItemDAO">
-    <resultMap id="houseOthersItemMap" type="top.zywork.vo.HouseOthersItemVo">
+<mapper namespace="top.cflwork.dao.HouseOthersItemDAO">
+    <resultMap id="houseOthersItemMap" type="top.cflwork.vo.HouseOthersItemVo">
         <id column="id" property="id"></id>
         <result column="pay_money" property="payMoney"></result>
         <result column="pay_time" property="payTime"></result>
         <result column="is_cash" property="isCash"></result>
         <result column="hand" property="hander"></result>
         <result column="createTime" property="createTime"></result>
-        <association property="companyVo" javaType="top.zywork.vo.CompanyVo">
+        <association property="companyVo" javaType="top.cflwork.vo.CompanyVo">
             <id column="cid" property="id"></id>
             <result column="name" property="name"></result>
         </association>
-        <association property="houseVo" javaType="top.zywork.vo.HouseVo">
+        <association property="houseVo" javaType="top.cflwork.vo.HouseVo">
             <id column="hid" property="id"></id>
             <result column="card_title" property="cardTitle"></result>
         </association>
-        <association property="hotelVo" javaType="top.zywork.vo.HotelVo">
+        <association property="hotelVo" javaType="top.cflwork.vo.HotelVo">
             <id column="vid" property="id"></id>
             <result column="title" property="title"></result>
         </association>
-        <association property="serviceSubjectVo" javaType="top.zywork.vo.ServiceSubjectVo">
+        <association property="serviceSubjectVo" javaType="top.cflwork.vo.ServiceSubjectVo">
             <id column="sid" property="id"></id>
             <result column="stitle" property="title"></result>
         </association>
@@ -40,7 +40,7 @@
             )
         </if>
     </sql>
-    <resultMap id="select2Map" type="top.zywork.vo.Select2Vo"></resultMap>
+    <resultMap id="select2Map" type="top.cflwork.vo.Select2Vo"></resultMap>
     <select id="getById" resultMap="houseOthersItemMap" parameterType="long">
         select * from t_house_others_item where id = #{id}
     </select>

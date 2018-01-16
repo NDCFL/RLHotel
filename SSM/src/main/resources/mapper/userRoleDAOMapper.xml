@@ -2,17 +2,17 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="top.zywork.dao.UserRoleDAO">
+<mapper namespace="top.cflwork.dao.UserRoleDAO">
 	<resultMap id="userRole" type="userRoleVo"></resultMap>
 	<resultMap type="userRoleVo" id="userRoleMap">
 		<id property="id" column="id"></id>
 		<result column="create_time" property="createTime"></result>
 		<result column="is_active" property="isActive"></result>
-		<association property="roleVo" javaType="top.zywork.vo.RoleVo">
+		<association property="roleVo" javaType="top.cflwork.vo.RoleVo">
 			<id property="id" column="roleId"></id>
 			<result column="title" property="title"></result>
 		</association>
-		<association property="userVo" javaType="top.zywork.vo.UserVo">
+		<association property="userVo" javaType="top.cflwork.vo.UserVo">
 			<id property="id" column="userId"></id>
 			<result column="nickname" property="nickname"></result>
 		</association>

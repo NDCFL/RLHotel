@@ -2,7 +2,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="top.zywork.dao.UserDAO">
+<mapper namespace="top.cflwork.dao.UserDAO">
 	<resultMap type="userVo" id="userMap">
 	</resultMap>
     <resultMap type="select2Vo" id="userIdAndNameMap">
@@ -52,7 +52,7 @@
 		<selectKey keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() as id
 		</selectKey>
-		insert into t_user (phone,password,nickname,gender,is_active,headicon,company_id) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon},#{companyId})
+		insert into t_user (phone,password,nickname,gender,is_active,headicon,company_id,`realname`,`identity`) values ( #{phone},#{password},#{nickname},#{gender},#{isActive},#{headicon},#{companyId},#{realname},#{identity})
 	</insert>
 	<update id="updateStatus">
 		update t_user set is_active=#{status} where id=#{id}

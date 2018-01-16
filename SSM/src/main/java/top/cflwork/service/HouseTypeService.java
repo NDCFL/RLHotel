@@ -1,0 +1,13 @@
+package top.cflwork.service;
+
+import org.apache.ibatis.annotations.Param;
+import top.cflwork.query.PageQuery;
+import top.cflwork.vo.HouseTypeVo;
+
+import java.util.List;
+
+public interface HouseTypeService extends  BaseService<HouseTypeVo>{
+    Long findCount(PageQuery pageQuery, HouseTypeVo houseTypeVo);
+    List<HouseTypeVo> findPage(PageQuery pageQuery, HouseTypeVo houseTypeVo);
+
+}

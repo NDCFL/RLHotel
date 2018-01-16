@@ -6,14 +6,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cflwork-common" />
         <module name="Common" />
         <module name="SprintBoot" />
         <module name="SSM" />
         <module name="zywork-common" />
         <module name="zywork-test" />
       </profile>
+      <profile name="Annotation profile for zywork-test" enabled="true">
+        <sourceOutputDir name="../zywork-test/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../zywork-test/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cflwork-test" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cflwork-common" target="1.8" />
+      <module name="cflwork-test" target="1.8" />
       <module name="Common" target="1.8" />
       <module name="SpringBoot" target="1.8" />
       <module name="SprintBoot" target="1.8" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.RentPayDAO">
-    <resultMap id="houseRentPayMap" type="top.zywork.vo.RentPayVo">
+<mapper namespace="top.cflwork.dao.RentPayDAO">
+    <resultMap id="houseRentPayMap" type="top.cflwork.vo.RentPayVo">
         <id column="id" property="id"></id>
         <result column="hotel_id" property="hotelId"></result>
         <result column="master_id" property="masterId"></result>
@@ -24,22 +24,22 @@
         <result column="kongtiao" property="kongtiao"></result>
         <result column="gongnuan" property="gongnuan"></result>
         <result column="wuye" property="wuye"></result>
-        <association property="contractMasterVo" javaType="top.zywork.vo.ContractMasterVo">
+        <association property="contractMasterVo" javaType="top.cflwork.vo.ContractMasterVo">
             <id column="cid" property="id"></id>
             <result column="bank_name" property="bankName"></result>
             <result column="phone" property="phone"></result>
         </association>
-        <association property="hotelVo" javaType="top.zywork.vo.HotelVo">
+        <association property="hotelVo" javaType="top.cflwork.vo.HotelVo">
             <id column="hid" property="id"></id>
             <result column="title" property="title"></result>
         </association>
-        <association property="houseVo" javaType="top.zywork.vo.HouseVo">
+        <association property="houseVo" javaType="top.cflwork.vo.HouseVo">
             <id column="vid" property="id"></id>
             <result column="card_title" property="cardTitle"></result>
         </association>
     </resultMap>
-    <resultMap id="selet2VoMap" type="top.zywork.vo.Select2Vo"></resultMap>
-    <resultMap id="houseRentMap" type="top.zywork.vo.HouseRentVo"></resultMap>
+    <resultMap id="selet2VoMap" type="top.cflwork.vo.Select2Vo"></resultMap>
+    <resultMap id="houseRentMap" type="top.cflwork.vo.HouseRentVo"></resultMap>
     <sql id="search">
         <if test="#{searchVal!=null} and #{searchVal!=''}">
             and (t.baodi_pay like concat('%${searchVal}%')

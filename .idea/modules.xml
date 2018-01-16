@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SSM/SSM.iml" filepath="$PROJECT_DIR$/SSM/SSM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zywork-bootstrap/zywork-bootstrap.iml" filepath="$PROJECT_DIR$/zywork-bootstrap/zywork-bootstrap.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zywork-common/zywork-common.iml" filepath="$PROJECT_DIR$/zywork-common/zywork-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zywork-document/zywork-document.iml" filepath="$PROJECT_DIR$/zywork-document/zywork-document.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zywork-test/zywork-test.iml" filepath="$PROJECT_DIR$/zywork-test/zywork-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cflwork-bootstrap/cflwork-bootstrap.iml" filepath="$PROJECT_DIR$/cflwork-bootstrap/cflwork-bootstrap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cflwork-common/cflwork-common.iml" filepath="$PROJECT_DIR$/cflwork-common/cflwork-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cflwork-document/cflwork-document.iml" filepath="$PROJECT_DIR$/cflwork-document/cflwork-document.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cflwork-test/cflwork-test.iml" filepath="$PROJECT_DIR$/cflwork-test/cflwork-test.iml" />
     </modules>
   </component>
 </project>

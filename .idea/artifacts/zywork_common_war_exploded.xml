@@ -4,8 +4,8 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="javaee-facet-classes" facet="zywork-common/web/Web" />
-          <element id="module-output" name="zywork-common" />
+          <element id="javaee-facet-classes" facet="cflwork-common/web/Web" />
+          <element id="module-output" name="cflwork-common" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.1" />
@@ -40,7 +40,7 @@
           <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="zywork-common/web/Web" />
+      <element id="javaee-facet-resources" facet="cflwork-common/web/Web" />
     </root>
   </artifact>
 </component>

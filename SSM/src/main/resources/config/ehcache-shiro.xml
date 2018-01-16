@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache name="shiroCache">
 
-    <diskStore path="java.io.tmpdir/zywork-shiro-ehcache"/>
+    <diskStore path="java.io.tmpdir/cflwork-shiro-ehcache"/>
 
     <!-- 默认缓存 -->
     <defaultCache maxElementsInMemory="1000" eternal="false"

@@ -6,7 +6,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="SSM" />
-          <element id="module-output" name="zywork-common" />
+          <element id="module-output" name="cflwork-common" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
@@ -113,8 +113,8 @@
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="zywork-common/web/Web" />
-      <element id="javaee-facet-resources" facet="zywork-bootstrap/web/Web" />
+      <element id="javaee-facet-resources" facet="cflwork-common/web/Web" />
+      <element id="javaee-facet-resources" facet="cflwork-bootstrap/web/Web" />
     </root>
   </artifact>
 </component>

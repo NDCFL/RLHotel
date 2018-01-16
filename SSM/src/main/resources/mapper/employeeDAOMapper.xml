@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.EmployeeDAO">
-    <resultMap id="employeeMap" type="top.zywork.vo.EmployeeVo"></resultMap>
+<mapper namespace="top.cflwork.dao.EmployeeDAO">
+    <resultMap id="employeeMap" type="top.cflwork.vo.EmployeeVo"></resultMap>
     <select id="getById" resultMap="employeeMap" parameterType="long">
         select * from t_employee where id = #{id}
     </select>

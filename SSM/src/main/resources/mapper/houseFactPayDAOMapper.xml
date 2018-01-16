@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.HouseFactPayDAO">
-    <resultMap id="houseFactPayMap" type="top.zywork.vo.HouseFactPayVo">
+<mapper namespace="top.cflwork.dao.HouseFactPayDAO">
+    <resultMap id="houseFactPayMap" type="top.cflwork.vo.HouseFactPayVo">
         <id column="id" property="id"></id>
         <result column="pay_money" property="payMoney"></result>
         <result column="create_time" property="createTime"></result>
         <result column="status" property="status"></result>
-        <association property="houseRentPayVo" javaType="top.zywork.vo.HouseRentPayVo">
+        <association property="houseRentPayVo" javaType="top.cflwork.vo.HouseRentPayVo">
             <result column="house_name" property="houseName"></result>
         </association>
     </resultMap>

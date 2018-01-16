@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="top.zywork.dao.CustomerOrderDAO">
-    <resultMap id="customerOrderMap" type="top.zywork.vo.CustomerOrderVo">
+<mapper namespace="top.cflwork.dao.CustomerOrderDAO">
+    <resultMap id="customerOrderMap" type="top.cflwork.vo.CustomerOrderVo">
         <id column="id" property="id"></id>
         <result column="customer_name" property="customerName"></result>
         <result column="customer_identity" property="customerIdentity"></result>
@@ -36,23 +36,23 @@
         <result column="is_cash" property="isCash"></result>
         <result column="payment_type_id" property="paymentTypeId"></result>
         <result column="hotel_id" property="hotelId"></result>
-        <association property="companyVo" javaType="top.zywork.vo.CompanyVo">
+        <association property="companyVo" javaType="top.cflwork.vo.CompanyVo">
             <id column="cid" property="id"></id>
             <result column="name" property="name"></result>
         </association>
-        <association property="hotelVo" javaType="top.zywork.vo.HotelVo">
+        <association property="hotelVo" javaType="top.cflwork.vo.HotelVo">
             <id column="hid" property="id"></id>
             <result column="title" property="title"></result>
         </association>
-        <association property="userVo" javaType="top.zywork.vo.UserVo">
+        <association property="userVo" javaType="top.cflwork.vo.UserVo">
             <id column="uid" property="id"></id>
             <result column="nickname" property="nickname"></result>
         </association>
-        <association property="houseVo" javaType="top.zywork.vo.HouseVo">
+        <association property="houseVo" javaType="top.cflwork.vo.HouseVo">
             <id column="hid" property="id"></id>
             <result column="card_title" property="cardTitle"></result>
         </association>
-        <association property="contractVo" javaType="top.zywork.vo.ContractVo">
+        <association property="contractVo" javaType="top.cflwork.vo.ContractVo">
             <id column="ccid" property="id"></id>
             <result column="contract" property="contractContract"></result>
         </association>

@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="top.zywork.job" />
+    <context:component-scan base-package="top.cflwork.job" />
 
     <bean id="helloJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="name" value="helloJobDetail" />
@@ -26,7 +26,7 @@
     <bean id="surpriseJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="name" value="surpriseJobDetail" />
         <property name="group" value="group1" />
-        <property name="jobClass" value="top.zywork.job.SurpriseJob" />
+        <property name="jobClass" value="top.cflwork.job.SurpriseJob" />
         <property name="durability" value="true" />
         <property name="jobDataAsMap">
             <map>
