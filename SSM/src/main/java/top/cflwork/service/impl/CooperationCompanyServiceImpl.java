@@ -61,4 +61,14 @@ public class CooperationCompanyServiceImpl implements CooperationCompanyService 
     public long count(PageQuery pageQuery) {
         return cooperationCompanyDAO.count(pageQuery);
     }
+
+    @Override
+    public List<CooperationCompanyVo> listPages(PageQuery pageQuery) {
+        return cooperationCompanyDAO.listPages(pageQuery);
+    }
+
+    @Override
+    public Long counts(PageQuery pageQuery) {
+        return cooperationCompanyDAO.counts(pageQuery);
+    }
 }

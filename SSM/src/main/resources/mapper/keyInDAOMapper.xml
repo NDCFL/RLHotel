@@ -29,7 +29,7 @@
 		delete from t_user where id = #{id}
 	</delete>
 	<select id="listPage" resultMap="keyInMap" >
-		select u.*,(select title from t_hotel where t_hotel.id=e.hotel_id) as hotelName from t_user u,t_role r,t_user_role t,t_employee e where  e.employee_id=u.id and e.hotel_id!=-1 <if test="hotelId!=null"> and e.hotel_id=#{hotelId}</if> and u.company_id=#{companyId} and u.id=t.user_id and r.id=t.role_id and  r.id=(select id from t_role where title="录入员") <include refid="search"></include>  order by u.create_time desc limit #{pageNo},#{pageSize}
+		select u.*,(select title from t_hotel where t_hotel.id=e.hotel_id) as hotelName from t_user u,t_role r,t_user_role t,t_employee e where  e.employee_id=u.id and e.hotel_id!=-1 <if test="hotelId!=null"> and e.hotel_id=#{hotelId}</if> and u.company_id=#{companyId} and u.id=t.user_id and r.id=t.role_id and  r.id=(select id from t_role where title="酒店录入员") <include refid="search"></include>  order by u.create_time desc limit #{pageNo},#{pageSize}
 	</select>
 	<select id="listPages" resultMap="keyInMap" >
 		select u.* from t_user u,t_role r,t_user_role t,t_employee e where u.id=e.employee_id and e.user_id=#{userId} and u.id=t.user_id and r.id=t.role_id and u.company_id=#{companyId} and r.id=(select id from t_role where title="录入员") <include refid="search"></include> order by u.create_time desc  limit #{pageNo},#{pageSize}
@@ -38,7 +38,7 @@
 		select u.* from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title="录入员")
 	</select>
 	<select id="count" resultType="long">
-		select count(*) from t_user u,t_role r,t_user_role t,t_employee e where e.employee_id=u.id and e.hotel_id!=-1<if test="hotelId!=null"> and e.hotel_id=#{hotelId}</if> and u.id=t.user_id and r.id=t.role_id and u.company_id=#{companyId} and r.id=(select id from t_role where title="录入员") <include refid="search"></include>
+		select count(*) from t_user u,t_role r,t_user_role t,t_employee e where e.employee_id=u.id and e.hotel_id!=-1<if test="hotelId!=null"> and e.hotel_id=#{hotelId}</if> and u.id=t.user_id and r.id=t.role_id and u.company_id=#{companyId} and r.id=(select id from t_role where title="酒店录入员") <include refid="search"></include>
 	</select>
 	<select id="counts" resultType="long">
 		select count(*) from t_user u,t_role r,t_user_role t,t_employee e where u.id=e.employee_id and  u.id=t.user_id and r.id=t.role_id and u.company_id=#{companyId} and r.id=(select id from t_role where title="录入员") and e.user_id=#{userId} <include refid="search"></include>

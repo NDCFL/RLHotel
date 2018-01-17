@@ -108,7 +108,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">真实姓名：</label>
                         <div class="col-sm-8">
-                            <input  name="realname" minlength="2" maxlength="20" type="text" class="form-control">
+                            <input  name="realname" minlength="2" maxlength="20" required type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

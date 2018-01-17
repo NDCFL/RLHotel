@@ -260,16 +260,29 @@
 </script>
 <script>
     lay('#version').html('-v'+ laydate.v);
+    var checkDate = "";
     //执行一个laydate实例
     laydate.render({
         elem: '#test1'//指定元素，
         ,type: 'datetime'
+
     });
     laydate.render({
         elem: '#test2' //指定元素
         ,type: 'datetime'
-        ,min: $("#test1").val()
+        ,min: checkDate
+        ,done: function(value, date){
+            var data1 = new Date($("#test1").val());
+            var data2 = new Date(value);
+            if(data1>data2){
+                layer.alert("请选择正确的时间",{icon: 6});
+                $("#search_btn").attr("disabled","disabled");
+            }else{
+                $("#search_btn").removeAttrs("disabled");
+            }
+        }
     });
+
 </script>
 <script>
     $(function() {

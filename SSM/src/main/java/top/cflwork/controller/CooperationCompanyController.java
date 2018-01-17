@@ -38,6 +38,7 @@ public class CooperationCompanyController {
     private HotelService hotelService;
     @RequestMapping("cooperationCompanyList")
     @ResponseBody
+    //查询公司的合作商家
     public PagingBean cooperationCompanyList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
@@ -50,6 +51,7 @@ public class CooperationCompanyController {
         pageQuery.setPageSize(pagingBean.getPageSize());
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setSearchVal(searchVal);
+        pageQuery.setHotelId(-1l);
         //总管理员查询商家
         if(userRoleVo.getRoleVo().getTitle().equals("店长")){
             HotelVo hotelVo = hotelService.findHotel(userVo.getId());
@@ -66,6 +68,31 @@ public class CooperationCompanyController {
         pagingBean.setrows(cooperationCompanyService.listPage(pageQuery));
         return pagingBean;
     }
+    @RequestMapping("hotelCooperationCompanyList")
+    @ResponseBody
+    //查询酒店合作商家
+    public PagingBean hotelCooperationCompanyList(int pageSize, int pageIndex, String searchVal, HttpSession session,Long hotelId) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
+        EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+        PagingBean pagingBean = new PagingBean();
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setHotelId(hotelId);
+        pageQuery.setSearchVal(searchVal);
+        if(employeeVo!=null){
+            if(employeeVo.getHotelId()!=-1){
+                pageQuery.setHotelId(employeeVo.getHotelId());
+            }
+        }
+        pagingBean.setTotal(cooperationCompanyService.counts(pageQuery));
+        pagingBean.setrows(cooperationCompanyService.listPages(pageQuery));
+        return pagingBean;
+    }
     @RequestMapping("/cooperationCompanyAddSave")
     @ResponseBody
     public Message addSaveCooperationCompany(CooperationCompanyVo cooperationCompany, HttpSession session) throws  Exception {
@@ -73,15 +100,14 @@ public class CooperationCompanyController {
             UserVo userVo = (UserVo) session.getAttribute("userVo");
             UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
             EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
-            if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
-                if(employeeVo.getHotelId()!=-1){
-                    cooperationCompany.setHotelId(employeeVo.getHotelId());
-                    cooperationCompany.setShopManagerId(employeeVo.getUserId());
-                }
-            }else if(userRoleVo.getRoleVo().getTitle().equals("店长")){
+            if(userRoleVo.getRoleVo().getTitle().equals("店长")){
                 cooperationCompany.setShopManagerId(userVo.getId());
                 HotelVo hotelVo = hotelService.findHotel(userVo.getId());
                 cooperationCompany.setHotelId(hotelVo.getId());
+            }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员")){
+                cooperationCompany.setHotelId(-1l);
+            }else if(userRoleVo.getRoleVo().getTitle().equals("管理员")){
+                cooperationCompany.setHotelId(-1l);
             }
             cooperationCompany.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
             cooperationCompany.setCompanyId(userVo.getCompanyId());
@@ -136,6 +162,10 @@ public class CooperationCompanyController {
     @RequestMapping("/cooperationCompanyPage")
     public String table() throws  Exception{
         return "moneyItems/cooperationCompanyList";
+    }
+    @RequestMapping("/hotelCooperationCompanyPage")
+    public String hotelCooperationCompanyPage() throws  Exception{
+        return "moneyItems/hotelCooperationCompanyList";
     }
     @RequestMapping("updateStatus/{id}/{status}")
     @ResponseBody

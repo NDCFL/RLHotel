@@ -146,7 +146,7 @@ function del(hotelid,status){
                 if(data.message=='删除成功!'){
                     layer.alert(data.message, {icon: 6});
                 }else{
-                    alert("抱歉，请清空分店的房型信息后再删除该分店");
+                    layer.alert("抱歉，当前分店有关联数据无法删除，请先情况改分店下所有数据后在删除",{icon:5});
                 }
                 refush();
             },
@@ -179,15 +179,15 @@ function updatestatus(id,status){
         function(data){
             if(status==0){
                 if(data.message=="ok"){
-                    layer.msg("已启用",{icon:1,time:1000});
+                    layer.alert("已启用", {icon:6});
                 }else{
-                    layer.msg("修改状态失败!",{icon:2,time:1000});
+                    layer.alert("操作失败", {icon:6});
                 }
             }else{
                 if(data.message=="ok"){
-                    layer.msg("已停用",{icon:2,time:1000});
+                    layer.alert("已停用", {icon:5});
                 }else{
-                    layer.msg("修改状态失败!",{icon:2,time:1000});
+                    layer.alert("操作失败", {icon:5});
                 }
             }
             refush();
@@ -221,10 +221,10 @@ $("#update").click(function(){
         $("#updateform").serialize(),
         function(data){
             if(data.message=="修改成功!"){
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.alert(data.message, {icon:6});
                 refush();
             }else{
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.alert(data.message, {icon:6});
                 refush();
             }
         },"json"
@@ -274,10 +274,10 @@ $("#updateSta").click(function () {
             },
             function(data){
                 if(data.message=="修改成功!"){
-                    layer.msg(data.message, {icon:1,time:1000});
+                    layer.alert(data.message, {icon:6});
                     refush();
                 }else{
-                    layer.msg(data.message, {icon:2,time:1000});
+                    layer.alert(data.message, {icon:6});
                     refush();
                 }
             },"json"

@@ -137,11 +137,11 @@ public class UserController {
                 session.setAttribute("userVo", userVo);
                 return  Message.success("验证成功");
             }else{
-                return  Message.success("账号或密码输入有误");
+                return  Message.success("账号或密码输入有误,或已被禁用");
             }
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("账号或密码输入有误");
+            return  Message.fail("账号或密码输入有误,或已被禁用");
         }
     }
 

@@ -64,7 +64,7 @@ public class CashAccountsController {
     }
     @RequestMapping("cashAccountsListByIf")
     @ResponseBody
-    public PagingBean cashAccountsListByIf(int pageSize, int pageIndex, String searchVal,String dateVal, HttpSession session) throws  Exception{
+    public PagingBean cashAccountsListByIf(int pageSize, int pageIndex, String searchVal,String dateVal,Long hotelId, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         //获取该用户所属的酒店id
         HotelVo hotelVo = hotelService.findHotel(userVo.getId());
@@ -76,6 +76,7 @@ public class CashAccountsController {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setHotelId(hotelVo.getId());
         pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setHotelId(hotelId);
         if(searchVal.equals("wxin")){
             pageQuery.setSearchVal("微信");
             pageQuery.setType(0);
@@ -85,7 +86,7 @@ public class CashAccountsController {
         }else if(searchVal.equals("xjin")){
             pageQuery.setSearchVal("现金");
             pageQuery.setType(0);
-        }else if(searchVal.equals("wxout")){
+        }else if(searchVal.equals("xjout")){
             pageQuery.setSearchVal("现金");
             pageQuery.setType(1);
         }else if(searchVal.equals("zfbin")){
@@ -170,13 +171,13 @@ public class CashAccountsController {
     }
     @RequestMapping("/getCashVal")
     @ResponseBody
-    public SumCashVo getCashVal(HttpSession session,String dateVal) throws  Exception {
+    public SumCashVo getCashVal(HttpSession session,String dateVal,Long hotelId) throws  Exception {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         if(dateVal==null){
-            return cashAccountsService.sumCash(new Date(),userVo.getCompanyId());
+            return cashAccountsService.sumCash(new Date(),userVo.getCompanyId(),hotelId);
         }else{
             DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            return cashAccountsService.sumCash(format1.parse(dateVal),userVo.getCompanyId());
+            return cashAccountsService.sumCash(format1.parse(dateVal),userVo.getCompanyId(),hotelId);
 
         }
 

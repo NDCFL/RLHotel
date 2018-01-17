@@ -42,16 +42,22 @@
         delete from t_cooperation_company where id = #{id}
     </delete>
     <select id="listPage" resultMap="cooperationCompanyMap">
-        select t.*,c.name as cname,u.nickname,h.title from t_cooperation_company t,t_company c,t_user u,t_hotel h where t.hotel_id=h.id and t.shop_manager_id=u.id and t.company_id=c.id and t.company_id=#{companyId} and t.hotel_id=#{hotelId} <include refid="search"/> order by t.create_time desc limit #{pageNo},#{pageSize}
+        select t.*,c.name as cname,u.nickname,h.title from t_cooperation_company t,t_company c,t_user u,t_hotel h where t.hotel_id=h.id and t.shop_manager_id=u.id and t.company_id=c.id and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/> order by t.create_time desc limit #{pageNo},#{pageSize}
     </select>
     <select id="listAll" resultMap="cooperationCompanyMap">
-        select t.*,c.name as cname,u.nickname,h.title from t_cooperation_company t,t_company c,t_user u,t_hotel h where t.hotel_id=h.id and t.shop_manager_id=u.id and t.company_id=c.id and t.company_id=#{companyId} and t.hotel_id=#{hotelId}
+        select t.*,c.name as cname,u.nickname,h.title from t_cooperation_company t,t_company c,t_user u,t_hotel h where t.hotel_id=h.id and t.shop_manager_id=u.id and t.company_id=c.id and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if>
     </select>
     <select id="count" resultType="java.lang.Long">
-        select count(*) from t_cooperation_company t where t.company_id=#{companyId} and t.hotel_id=#{hotelId} <include refid="search"/>
+        select count(*) from t_cooperation_company t where t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/>
+    </select>
+    <select id="listPages" resultMap="cooperationCompanyMap">
+        select t.*,c.name as cname,u.nickname,h.title from t_cooperation_company t,t_company c,t_user u,t_hotel h where t.hotel_id=h.id and t.shop_manager_id=u.id and t.company_id=c.id and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/> order by t.create_time desc limit #{pageNo},#{pageSize}
+    </select>
+    <select id="counts" resultType="java.lang.Long">
+        select count(*) from t_cooperation_company t where t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/>
     </select>
     <insert id="save" parameterType="cooperationCompanyVo">
-        insert into t_cooperation_company (company_id, hotel_id, shop_manager_id, name, address, contact, tel, phone, description, is_active) values ( #{companyId}, #{hotelId}, #{shopManagerId}, #{name}, #{address}, #{contact}, #{tel}, #{phone}, #{description}, #{isActive})
+        insert into t_cooperation_company (company_id, hotel_id,  name, address, contact, tel, phone, description, is_active) values ( #{companyId}, #{hotelId},  #{name}, #{address}, #{contact}, #{tel}, #{phone}, #{description}, #{isActive})
     </insert>
     <update id="updateStatus">
         update t_cooperation_company set is_active=#{status} where id=#{id}

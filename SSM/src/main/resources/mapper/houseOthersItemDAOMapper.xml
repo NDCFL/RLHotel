@@ -48,7 +48,7 @@
         delete from t_house_others_item where id = #{id}
     </delete>
     <select id="subjectList" resultMap="select2Map">
-        select id,title as text from t_service_subject
+        select id,title as text from t_service_subject where is_active=0
     </select>
     <select id="listPage" resultMap="houseOthersItemMap">
         select t.*,c.name,h.card_title,(select nickname from t_user where t.hander=t_user.id) as hand,v.title,s.title as stitle from t_house_others_item t,t_company c,t_house h,t_hotel v,t_service_subject s where t.company_id=c.id and t.house_id=h.id and t.hotel_id=v.id and s.id=t.item_name and t.company_id=#{companyId} and t.hotel_id=#{hotelId} and t.house_id=#{houseId} order by t.pay_time desc

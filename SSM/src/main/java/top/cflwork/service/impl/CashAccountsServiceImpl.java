@@ -97,8 +97,8 @@ public class CashAccountsServiceImpl implements CashAccountsService{
     }
 
     @Override
-    public SumCashVo sumCash(Date dateVal, Long companyId) {
-        return cashAccountsDAO.sumCash(dateVal, companyId);
+    public SumCashVo sumCash(Date dateVal, Long companyId,Long hotelId) {
+        return cashAccountsDAO.sumCash(dateVal, companyId,hotelId);
     }
 
     @Override

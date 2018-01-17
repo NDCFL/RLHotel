@@ -93,8 +93,7 @@ $('#mytab').bootstrapTable({
                 }else if(row.isActive==0){
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-
-                return e + d+f;
+                return e +f;
             }
         }
     ],
@@ -160,15 +159,15 @@ function updatestatus(id,status){
         function(data){
             if(status==0){
                 if(data.message=="ok"){
-                    layer.msg("已启用",{icon:1,time:1000});
+                    layer.alert("已启用", {icon:6});
                 }else{
-                    layer.msg("修改状态失败!",{icon:2,time:1000});
+                    layer.alert("操作失败", {icon:6});
                 }
             }else{
                 if(data.message=="ok"){
-                    layer.msg("已停用",{icon:2,time:1000});
+                    layer.alert("已停用", {icon:5});
                 }else{
-                    layer.msg("修改状态失败!",{icon:2,time:1000});
+                    layer.alert("操作失败", {icon:5});
                 }
             }
             refush();
@@ -189,10 +188,10 @@ $("#update").click(function(){
         $("#updateform").serialize(),
         function(data){
             if(data.message=="修改成功!"){
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.alert(data.message, {icon:6});
                 refush();
             }else{
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.alert(data.message, {icon:6});
                 refush();
             }
         },"json"
@@ -204,10 +203,10 @@ $("#add").click(function(){
         $("#formadd").serialize(),
         function(data){
             if(data.message=="新增成功!"){
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.alert(data.message, {icon:6});
                 refush();
             }else{
-                layer.msg(data.message, {icon:1,time:1000});
+                layer.alert(data.message, {icon:6});
                 refush();
             }
         },"json"
@@ -245,10 +244,10 @@ function deleteMany(){
             },
             function(data){
                 if(data.message=="删除成功!"){
-                    layer.msg(data.message, {icon:1,time:1000});
+                    layer.alert(data.message, {icon:6});
                     refush();
                 }else{
-                    layer.msg(data.message, {icon:2,time:1000});
+                    layer.alert(data.message, {icon:6});
                     refush();
                 }
             },"json"

@@ -18,7 +18,7 @@ public interface CashAccountsService extends BaseService<CashAccountsVo>{
     void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList);
     List<Select2Vo> getHotel(Long companyId);
     List<Select2Vo> getPayType(Long companyId);
-    SumCashVo sumCash(Date dateVal, Long companyId);
+    SumCashVo sumCash(Date dateVal, Long companyId,Long hotelId);
     List<CashAccountsVo> listPages(PageQuery pageQuery);
     long counts(PageQuery pageQuery);
 }

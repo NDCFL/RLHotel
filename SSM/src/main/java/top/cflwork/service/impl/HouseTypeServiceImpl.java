@@ -69,4 +69,9 @@ public class HouseTypeServiceImpl implements HouseTypeService {
     public List<HouseTypeVo> findPage(PageQuery pageQuery, HouseTypeVo houseTypeVo) {
         return houseTypeDAO.findPage(pageQuery, houseTypeVo);
     }
+
+    @Override
+    public Integer getHouseType(String name, Long hotelId) {
+        return houseTypeDAO.getHouseType(name, hotelId);
+    }
 }

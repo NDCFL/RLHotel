@@ -22,7 +22,7 @@ public interface CashAccountsDAO extends BaseDAO<CashAccountsVo>{
     void checkerManyCashAccount(List<CashAccountsVo> cashAccountsVoList);
     List<Select2Vo> getHotel(Long companyId);
     List<Select2Vo> getPayType(Long companyId);
-    SumCashVo sumCash(@Param("dateVal") Date dateVal, @Param("companyId") Long companyId);
+    SumCashVo sumCash(@Param("dateVal") Date dateVal, @Param("companyId") Long companyId,@Param("hotelId") Long hotelId);
     List<CashAccountsVo> listPages(PageQuery pageQuery);
     long counts(PageQuery pageQuery);
 }

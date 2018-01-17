@@ -103,16 +103,16 @@ public class HouseController {
     }
     @RequestMapping("/deleteManyHouse")
     @ResponseBody
-    public Message deleteManyhouse(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManyhouse(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                houseService.removeById(Long.parseLong(s));
+                houseService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("状态修改成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("状态修改失败!");
         }
     }
     @RequestMapping("/deleteHouse/{id}")

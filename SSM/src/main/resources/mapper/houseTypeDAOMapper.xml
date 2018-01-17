@@ -38,6 +38,9 @@
     <select id="listAll" resultMap="houseTypeMap">
         select from t_house_type t,t_hotel h where t.hotel_id=h.id
     </select>
+    <select id="getHouseType" resultType="int">
+        select count(*) from t_house_type where hotel_id=#{hotelId} and title=#{name}
+    </select>
     <select id="count" resultType="long">
         select count(*) from t_house_type t,t_hotel h where t.hotel_id=h.id
     </select>

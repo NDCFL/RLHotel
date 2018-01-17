@@ -298,10 +298,10 @@
             <%--$("#form").serialize(),--%>
             <%--function(data){--%>
                 <%--if(data.message=="新增成功!"){--%>
-                    <%--layer.msg(data.message, {icon:2,time:1000});--%>
+                    <%--layer.alert(data.message, {icon:6});--%>
                     <%--location.href="<%=path%>/house/housePage";--%>
                 <%--}else {--%>
-                    <%--layer.msg(data.message, {icon:2,time:1000});--%>
+                    <%--layer.alert(data.message, {icon:6});--%>
                 <%--}--%>
 
             <%--},--%>

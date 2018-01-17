@@ -43,11 +43,11 @@
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <shiro:hasRole name="总管理员">
+                            <shiro:hasAnyRoles name="总管理员,管理员">
                                 <li>
                                     <a class="J_menuItem" href="<%=path%>/company/updateCompanyPage">公司资料</a>
                                 </li>
-                            </shiro:hasRole>
+                            </shiro:hasAnyRoles>
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
                             </li>
@@ -66,11 +66,11 @@
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <shiro:hasRole name="总管理员">
+                        <shiro:hasAnyRoles name="总管理员,管理员">
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/company/updateCompanyPage">公司信息</a>
                             </li>
-                        </shiro:hasRole>
+                        </shiro:hasAnyRoles>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人信息</a>
                         </li>
@@ -98,7 +98,7 @@
                             </li>
                         </ul>
                     </li>
-                <shiro:hasRole name="总管理员">
+                <shiro:hasAnyRoles name="总管理员,管理员">
                     <li>
                         <a href="javascript:void(0);">
                             <i class="glyphicon glyphicon-cutlery"></i>
@@ -117,7 +117,7 @@
                             </li>
                         </ul>
                     </li>
-                </shiro:hasRole>
+                </shiro:hasAnyRoles>
                 <li>
                     <a href="javascript:void(0);">
                         <i class="glyphicon glyphicon-glass"></i>
@@ -125,25 +125,25 @@
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <shiro:hasRole name="总管理员">
+                        <shiro:hasAnyRoles name="总管理员,管理员">
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/landlord/landlordListPage">店长管理</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="<%=path%>/checker/hotelCheckerListPage">酒店审核员管理</a>
+                                <a class="J_menuItem" href="<%=path%>/checker/checkerListPage">公司审核员管理</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="<%=path%>/keyIn/hotelKeyInListPage">酒店录入员管理</a>
+                                <a class="J_menuItem" href="<%=path%>/keyIn/keyInListPage">公司录入员管理</a>
                             </li>
-                        </shiro:hasRole>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/hotelManager/hotelManagerListPage">高管管理</a>
+                            </li>
+                        </shiro:hasAnyRoles>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/checker/checkerListPage">公司审核员管理</a>
+                            <a class="J_menuItem" href="<%=path%>/checker/hotelCheckerListPage">酒店审核员管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/keyIn/keyInListPage">公司录入员管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="<%=path%>/hotelManager/hotelManagerListPage">高管管理</a>
+                            <a class="J_menuItem" href="<%=path%>/keyIn/hotelKeyInListPage">酒店录入员管理</a>
                         </li>
                     </ul>
                 </li>
@@ -175,7 +175,7 @@
                         <span class="fa arrow"></span>
                     </a>
                 </li>
-                <shiro:hasRole name="总管理员">
+                <shiro:hasAnyRoles name="总管理员,管理员">
                     <li>
                         <a href="javascript:void(0);">
                             <i class="	glyphicon glyphicon-th-large"></i>
@@ -194,7 +194,7 @@
                             </li>
                         </ul>
                     </li>
-                </shiro:hasRole>
+                </shiro:hasAnyRoles>
                 <li>
                     <a href="javascript:void(0);">
                         <i class="glyphicon glyphicon-list-alt"></i>
@@ -203,8 +203,13 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
+                            <a class="J_menuItem" href="<%=path%>/cooperationCompany/hotelCooperationCompanyPage">酒店合作商家管理</a>
+                        </li>
+                        <shiro:hasAnyRoles name="总管理员,管理员">
+                        <li>
                             <a class="J_menuItem" href="<%=path%>/cooperationCompany/cooperationCompanyPage">合作商家管理</a>
                         </li>
+                        </shiro:hasAnyRoles>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/cooperationSubject/cooperationSubjectPage">来往科目管理</a>
                         </li>
@@ -213,7 +218,7 @@
                         </li>
                     </ul>
                 </li>
-                <shiro:hasRole name="总管理员">
+                <shiro:hasAnyRoles name="总管理员,管理员">
                     <li>
                         <a href="javascript:void(0);">
                             <i class="glyphicon glyphicon-flag"></i>
@@ -255,7 +260,7 @@
                             </li>
                         </ul>
                     </li>
-                </shiro:hasRole>
+                </shiro:hasAnyRoles>
             </ul>
         </div>
     </nav>

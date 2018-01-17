@@ -31,12 +31,12 @@
                     <label class="col-sm-1 control-label" style="line-height: 30px;width:100px">分店名称</label>
                     <div class="col-sm-1" style="width: 120px" >
                         <select class="form-control"  id="hotelId_" style="width: 130px;margin-left: -40px" onchange="getCardTitle(this.value);" required name="hotelId">
-
+                            <option value="">全部</option>
                         </select>
                     </div>
                     <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房型名称</label>
                     <div class="col-sm-1" style="width: 120px" >
-                        <select class="form-control"  id="houseType_" style="width: 130px;margin-left: -40px" required name="type">
+                        <select class="form-control"  id="houseType_" style="width: 130px;margin-left: -40px" required name="houseType">
                             <option value="">全部</option>
                         </select>
                     </div>
@@ -50,7 +50,7 @@
                     </div>
                     <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房型类别</label>
                     <div class="col-sm-1" style="width: 120px" >
-                        <select class="form-control"  id="house__Type" style="width: 130px;margin-left: -40px" required name="houseType">
+                        <select class="form-control"  id="house__Type" style="width: 130px;margin-left: -40px" required name="type">
                             <option value="">全部</option>
                             <option value="0">真实房间</option>
                             <option value="1">虚拟房间</option>
@@ -58,20 +58,17 @@
                     </div>
                     <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房号</label>
                     <div class="col-sm-1" style="width: 120px" >
-                        <input type="text" class="form-control" id="title" placeholder="请输入房间名称" style="width: 160px;margin-left: -40px" name="title"/>
+                        <input type="text" class="form-control" id="title" placeholder="请输入房间名称" style="width: 160px;margin-left: -60px" name="title"/>
                     </div>
                     <div class="col-sm-1" style="width: 120px;margin-left: 20px" >
-                        <button class="btn btn-primary" id="search_btn" style="width: 60px">查询</button>
+                        <button class="btn btn-primary" id="search_btn" style="width: 120px">查询</button>
                     </div>
                 </div>
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 30px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                </button>
                 <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
                 </button>
                 <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
@@ -79,6 +76,41 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" >
+                    批量修改状态
+                </h4>
+            </div>
+            <form class="form-horizontal" method="post" id="update_status">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">经营状态：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control"  id="status" required name="status">
+                                <option value="0">启用</option>
+                                <option value="1">停用</option>
+                            </select>
+                        </div>
+                        <input id="statusId" type="hidden" name="manyId" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" id="updateSta" class="btn btn-primary" data-dismiss="modal">
+                        确认修改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 <%--网站数据的新增--%>
 <!-- 模态框（Modal） -->
@@ -310,7 +342,7 @@
             function(data){
                 $("#type").html("");
                 $("#house_Type").html("");
-                $("#houseType_").html("");
+                $("#houseType_").html('<option value="">全部</option>');
                 $("#type").select2({
                     data: data
                 })

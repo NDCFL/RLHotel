@@ -864,7 +864,7 @@
                    if(data.message.indexOf("成功")>0){
                        layer.msg(data.message, {icon:1,time:1000});
                    }else{
-                       layer.msg(data.message, {icon:2,time:1000});
+                       layer.alert(data.message, {icon:6});
                    }
                    refush();
                     $('#itemsModule').modal('hide')
@@ -888,7 +888,7 @@
                 if(data.message.indexOf("成功")>0){
                     layer.msg(data.message, {icon:1,time:1000});
                 }else{
-                    layer.msg(data.message, {icon:2,time:1000});
+                    layer.alert(data.message, {icon:6});
                 }
                 refush();
                 $("#orderAdd").modal('hide');

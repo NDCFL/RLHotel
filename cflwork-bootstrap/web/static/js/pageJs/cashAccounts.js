@@ -265,17 +265,17 @@ function remark(name) {
 function updatestatus(id, status) {
     $.post("/cashAccounts/updateStatus/" + id + "/" + status,
         function (data) {
-            if (status == 0) {
-                if (data.message == "ok") {
-                    layer.msg("已启用", {icon: 1, time: 1000});
-                } else {
-                    layer.msg("修改状态失败!", {icon: 2, time: 1000});
+            if(status==0){
+                if(data.message=="ok"){
+                    layer.alert("已启用", {icon:6});
+                }else{
+                    layer.alert("操作失败", {icon:6});
                 }
-            } else {
-                if (data.message == "ok") {
-                    layer.msg("已停用", {icon: 2, time: 1000});
-                } else {
-                    layer.msg("修改状态失败!", {icon: 2, time: 1000});
+            }else{
+                if(data.message=="ok"){
+                    layer.alert("已停用", {icon:5});
+                }else{
+                    layer.alert("操作失败", {icon:5});
                 }
             }
             refush();
@@ -294,7 +294,8 @@ function getInfo(val){
             url: '/cashAccounts/cashAccountsListByIf',
             query:{
                 searchVal:val,
-                dateVal:$("#test21").val()
+                dateVal:$("#test21").val(),
+                hotelId:$("#hotelid_").val()
             }
         }
     );

@@ -30,6 +30,17 @@
                  <div style="float:right;">
                      <input  name="dateVal" style="width:100%;padding-top: -5%;margin-top: -10px;float: right"  type="text" id="test21"  class="form-control" required="required" aria-required="true">
                  </div>
+                 <div style="float:right;margin-right: 20px">
+                     <span>账单月份</span>
+                 </div>
+                 <div style="float:right;margin-right: 20px">
+                     <select class="form-control" style="width:100%;padding-top: -5%;margin-top: -10px;float: right" required id="hotelid_" name="hotelId">
+                        <option value="">全部</option>
+                     </select>
+                 </div>
+                 <div style="float:right;margin-right: 20px">
+                     <span>店面名称</span>
+                 </div>
              </div>
         </div>
         <div class="ibox-content">
@@ -240,23 +251,6 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>现金流水账目列表</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-wrench"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#">选项1</a>
-                    </li>
-                    <li><a href="#">选项2</a>
-                    </li>
-                </ul>
-                <a class="close-link">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -599,6 +593,8 @@
                 $("#subject_id").select2({
                     data: data
                 })
+                $("#select2-subjectId-container").remove();
+                $("#select2-subject_id-container").remove();
             },
             "json"
 
@@ -612,6 +608,12 @@
                 $("#hotel_id").select2({
                     data: data
                 })
+                $("#hotelid_").select2({
+                    data: data
+                })
+                $("#select2-hotelId-container").remove();
+                $("#select2-hotel_id-container").remove();
+                $("#select2-hotelid_-container").remove();
             },
             "json"
 
@@ -625,6 +627,8 @@
                 $("#payTypeId").select2({
                     data: data
                 })
+                $("#select2-payType_Id-container").remove();
+                $("#select2-payTypeId-container").remove();
             },
             "json"
 
@@ -642,7 +646,8 @@
         $.post(
             "/cashAccounts/getCashVal",
             {
-                dateVal:val
+                dateVal:val,
+                hotelId:$("#hotelid_").val()
             },
             function(data){
                 $("#wxin").html("￥"+data.wxin);

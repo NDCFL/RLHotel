@@ -71,8 +71,13 @@ public class HouseTypeController {
             UserVo userVo = (UserVo) session.getAttribute("userVo");
             houseType.setCompanyId(userVo.getCompanyId());
             houseType.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
-            houseTypeService.save(houseType);
-            return  Message.success("新增成功!");
+            int cnt = houseTypeService.getHouseType(houseType.getTitle(),houseType.getHotelId());
+            if(cnt>0){
+                return  Message.fail("请不要新增重复的房型");
+            }else{
+                houseTypeService.save(houseType);
+                return  Message.success("新增成功!");
+            }
         }catch (Exception E){
             return Message.fail("新增失败!");
         }

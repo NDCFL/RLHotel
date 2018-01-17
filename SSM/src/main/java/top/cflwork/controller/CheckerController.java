@@ -114,6 +114,46 @@ public class CheckerController {
         userRoleService.save(userRoleVo);
         return Message.success("审核员账号新增成功!");
     }
+    @RequestMapping("addHotelChecker")
+    @ResponseBody
+    public Message addHotelChecker(UserVo userVo, HttpSession session) {
+        UserVo user = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRole = (UserRoleVo) session.getAttribute("userRole");
+        userVo.setHeadicon("static/img/face.gif");
+        userVo.setIsActive((byte) 0);
+        userVo.setPassword(new Md5Hash(userVo.getPassword()).toString());
+        userVo.setNickname(userVo.getPhone());
+        userVo.setCompanyId(user.getCompanyId());
+        userService.save(userVo);
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setCompanyId(userVo.getCompanyId());
+        if(userRole.getRoleVo().getTitle().equals("总管理员")){
+            employeeVo.setHotelId(-1);
+        }else if(userRole.getRoleVo().getTitle().equals("店长")){
+            HotelVo hotelVo = (HotelVo) session.getAttribute("hotelVo");
+            employeeVo.setHotelId(hotelVo.getId());
+        }
+        employeeVo.setUserId(user.getId());
+        employeeVo.setEmployeeId(userVo.getId());
+        employeeService.save(employeeVo);
+        UserVo userVo1 = userService.findByPhone(userVo.getPhone());
+        RoleVo roleVo = roleService.findByName("酒店审核员");
+        UserRoleVo userRoleVo = new UserRoleVo();
+        if (roleVo==null) {
+            RoleVo roleVo1 = new RoleVo();
+            roleVo1.setIsActive((byte)0);
+            roleVo1.setDescription("酒店审核员");
+            roleVo1.setTitle("酒店审核员");
+            roleService.save(roleVo1);
+            roleVo = roleService.findByName("酒店审核员");
+        }
+        //同时把信息保存到用户权限表中
+        userRoleVo.setIsActive((byte) 0);
+        userRoleVo.setUserId(userVo1.getId());
+        userRoleVo.setRoleId(roleVo.getId());
+        userRoleService.save(userRoleVo);
+        return Message.success("酒店审核员账号新增成功!");
+    }
     @RequestMapping("/findChecker/{id}")
     @ResponseBody
     public UserVo findChecker(@PathVariable("id") long id) {

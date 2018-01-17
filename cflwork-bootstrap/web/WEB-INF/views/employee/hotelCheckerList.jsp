@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     String path = request.getContextPath();
 %>
@@ -29,6 +30,7 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
+                <shiro:hasAnyRoles name="总管理员,管理员">
                     <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">分店名称：</label>
                     <div class="col-sm-2">
                         <select class="form-control"  id="hotelId_"  required name="hotelId">
@@ -38,13 +40,16 @@
                     <div class="col-sm-2 col-sm-offset-5" style="margin-left: 10px;width: 160px">
                         <button class="btn btn-primary" id="search_btn">查询</button>
                     </div>
+                </shiro:hasAnyRoles>
                 </div>
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                </button>
+                <shiro:hasRole name="店长">
+                    <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                    </button>
+                </shiro:hasRole>
             </div>
         </div>
     </div>
@@ -117,7 +122,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">真实姓名：</label>
                         <div class="col-sm-8">
-                            <input  name="realname" minlength="2" maxlength="20" type="text" class="form-control">
+                            <input  name="realname" minlength="2" maxlength="20" required type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
