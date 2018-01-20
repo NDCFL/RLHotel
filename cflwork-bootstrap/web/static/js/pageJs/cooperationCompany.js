@@ -35,28 +35,8 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '所属公司',
-            field: 'companyVo.name',
-            align: 'center',
-            sortable: true
-        },
-        {
-            title: '所属酒店',
-            field: 'hotelVo.title',
-            align: 'center',
-            sortable: true
-        }
-        ,
-        {
             title: '商家名称',
             field: 'name',
-            align: 'center',
-            sortable: true
-        }
-        ,
-        {
-            title: '所属酒店',
-            field: 'hotelVo.title',
             align: 'center',
             sortable: true
         }
@@ -141,7 +121,6 @@ $('#mytab').bootstrapTable({
         }
     }
 })
-
 //请求服务数据时所传参数
 function queryParams(params) {
     var title = "";
@@ -232,6 +211,30 @@ $("#update").click(function () {
     );
 });
 $("#add").click(function () {
+    if($("#cname").val()==''){
+        layer.alert("商家名称不能为空",{icon:5});
+        return;
+    }
+    if($("#ccontract").val()==''){
+        layer.alert("商家联系人不能为空",{icon:5});
+        return;
+    }
+    if($("#cphone").val()==''){
+        layer.alert("联系方式不能为空",{icon:5});
+        return;
+    }
+    if($("#cphone").val().length!=11){
+        layer.alert("联系方式只能为11位",{icon:5});
+        return;
+    }
+    if($("#ctel").val()==''){
+        layer.alert("固定电话不能为空",{icon:5});
+        return;
+    }
+    if($("#ctel").val().length>20){
+        layer.alert("固定电话长度只能是20位以内",{icon:5});
+        return;
+    }
     $.post(
         "/cooperationCompany/cooperationCompanyAddSave",
         $("#formadd").serialize(),
@@ -243,6 +246,7 @@ $("#add").click(function () {
                 layer.alert(data.message, {icon: 6});
                 refush();
             }
+            $("#webAdd").modal("hide");
         }, "json"
     );
 });

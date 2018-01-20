@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/cooperationAccounts/cooperationAccountsList",//要请求数据的文件路径
+    url: "/cooperationAccounts/hotelCooperationAccountsList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -34,7 +34,12 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'middle'
         },
-
+        {
+            title: '所属酒店',
+            field: 'hotelVo.title',
+            align: 'center',
+            sortable: true
+        },
         {
             title: '合作商家',
             field: 'cooperationCompanyVo.name',
@@ -292,10 +297,17 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/cooperationAccountsList'});
+    $('#mytab').bootstrapTable('refresh',
+        {
+            url: '/cooperationAccounts/hotelCooperationAccountsList',
+            query:{
+                hotelId:$("#hotelId").val()
+            }
+        }
+    );
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/cooperationAccountsList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/hotelCooperationAccountsList'});
 }
 $("#remarkAdd").click(function () {
     $.post(

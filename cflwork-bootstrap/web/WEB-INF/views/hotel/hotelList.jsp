@@ -29,12 +29,8 @@
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">创建时间</label>
-                    <div class="col-sm-1" style="width: 120px;margin-left: -20px" >
-                        <input type="text" class="form-control" style="width: 160px" name="createTime" id="test1"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:20px">到</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <input type="text" class="form-control" style="width: 160px"  name="endTime" id="test2"/>
+                    <div class="col-sm-1" style="width: 360px;margin-left: -20px" >
+                        <input type="text" class="form-control" style="width: 360px" name="createTime" id="test1"/>
                     </div>
                     <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px">分店名称</label>
                     <div class="col-sm-1" style="width: 120px" >
@@ -265,7 +261,7 @@
     laydate.render({
         elem: '#test1'//指定元素，
         ,type: 'datetime'
-
+        ,range: true
     });
     laydate.render({
         elem: '#test2' //指定元素

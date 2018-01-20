@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/cooperationCompany/cooperationCompanyList",//要请求数据的文件路径
+    url: "/cooperationCompany/hotelCooperationCompanyList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -35,12 +35,6 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '所属公司',
-            field: 'companyVo.name',
-            align: 'center',
-            sortable: true
-        },
-        {
             title: '所属酒店',
             field: 'hotelVo.title',
             align: 'center',
@@ -50,13 +44,6 @@ $('#mytab').bootstrapTable({
         {
             title: '商家名称',
             field: 'name',
-            align: 'center',
-            sortable: true
-        }
-        ,
-        {
-            title: '所属酒店',
-            field: 'hotelVo.title',
             align: 'center',
             sortable: true
         }
@@ -75,7 +62,6 @@ $('#mytab').bootstrapTable({
             sortable: true
         }
         ,
-
         {
             title: '创建时间',
             field: 'createTime',
@@ -211,16 +197,24 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/cooperationCompany/cooperationCompanyList'});
+    $('#mytab').bootstrapTable('refresh',
+        {
+            url: '/cooperationCompany/hotelCooperationCompanyList',
+            query:{
+                hotelId:$("#hotelId").val()
+            }
+        }
+    );
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cooperationCompany/cooperationCompanyList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cooperationCompany/hotelCooperationCompanyList'});
 }
 $("#update").click(function () {
     $.post(
         "/cooperationCompany/cooperationCompanyUpdateSave",
         $("#updateform").serialize(),
         function (data) {
+
             if (data.message == "修改成功!") {
                 layer.alert(data.message, {icon: 6});
                 refush();
@@ -232,6 +226,30 @@ $("#update").click(function () {
     );
 });
 $("#add").click(function () {
+    if($("#cname").val()==''){
+        layer.alert("商家名称不能为空",{icon:5});
+        return;
+    }
+    if($("#ccontract").val()==''){
+        layer.alert("商家联系人不能为空",{icon:5});
+        return;
+    }
+    if($("#cphone").val()==''){
+        layer.alert("联系方式不能为空",{icon:5});
+        return;
+    }
+    if($("#cphone").val().length!=11){
+        layer.alert("联系方式只能为11位",{icon:5});
+        return;
+    }
+    if($("#ctel").val()==''){
+        layer.alert("固定电话不能为空",{icon:5});
+        return;
+    }
+    if($("#ctel").val().length>20){
+        layer.alert("固定电话长度只能是20位以内",{icon:5});
+        return;
+    }
     $.post(
         "/cooperationCompany/cooperationCompanyAddSave",
         $("#formadd").serialize(),
@@ -267,7 +285,6 @@ function deleteMany() {
             time: 2000
         });
         return;
-
     }
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {

@@ -197,14 +197,15 @@ function updatestatus(id,status){
 }
 //查询按钮事件
 $('#search_btn').click(function(){
+    var times = $("#test1").val();
     $('#mytab').bootstrapTable(
         'refresh',
         {
             url: '/hotel/findList',
             query:{
                 tel:$("#hotelTel").val(),
-                createTime:$("#test1").val(),
-                endTime:$("#test2").val(),
+                createTime:times.substring(0,19),
+                endTime:times.substring(21,times.length),
                 title:$("#hotelTitle").val(),
                 hotelManagerId:$("#landlordid_").val(),
                 isActive:$("#hotelStatus").val()

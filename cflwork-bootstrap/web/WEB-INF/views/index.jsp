@@ -203,15 +203,18 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/cooperationCompany/hotelCooperationCompanyPage">酒店合作商家管理</a>
+                            <a class="J_menuItem" href="<%=path%>/cooperationCompany/hotelCooperationCompanyPage">分店商家管理</a>
                         </li>
                         <shiro:hasAnyRoles name="总管理员,管理员">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/cooperationCompany/cooperationCompanyPage">合作商家管理</a>
+                            <a class="J_menuItem" href="<%=path%>/cooperationCompany/cooperationCompanyPage">总部商家管理</a>
                         </li>
                         </shiro:hasAnyRoles>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/cooperationSubject/cooperationSubjectPage">来往科目管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/cooperationAccounts/hotelCooperationAccountsPage">酒店来往财务统计</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/cooperationAccounts/cooperationAccountsPage">来往财务统计</a>

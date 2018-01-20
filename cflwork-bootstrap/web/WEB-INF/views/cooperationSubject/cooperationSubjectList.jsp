@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合作商家列表</title>
+    <title>来往合作商家科目列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 
@@ -22,7 +22,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>合作商家列表</h5>
+            <h5>来往合作商家科目列表</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -30,32 +30,19 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">商家名称：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="search_name"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">创建时间：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="search_tel"/>
-                    </div>
-                    <div class="col-sm-1 col-sm-offset-4">
-                        <button class="btn btn-primary" id="search_btn">查询</button>
+                    <table id="mytab" name="mytab" class="table table-hover"></table>
+                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+                        <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
+                        </button>
+                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                        </button>
+                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                        </button>
                     </div>
                 </div>
-            </div>
-            <table id="mytab" name="mytab" class="table table-hover"></table>
-            <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                </button>
-                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                </button>
-            <shiro:hasAnyRoles name="店长,酒店录入员,酒店审核员">
-                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                </button>
-            </shiro:hasAnyRoles>
             </div>
         </div>
     </div>
@@ -70,13 +57,13 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增合作商家科目信息
+                    新增来往合作商家科目科目信息
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">合作商家科目：</label>
+                        <label class="col-sm-3 control-label">来往合作商家科目科目：</label>
                         <div class="col-sm-8">
                             <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                         </div>
@@ -110,7 +97,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    合作商家科目的修改
+                    来往合作商家科目科目的修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
@@ -118,7 +105,7 @@
 
                         <input type="hidden" name="id" id="id" value="">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">合作商家科目：</label>
+                            <label class="col-sm-3 control-label">来往合作商家科目科目：</label>
                             <div class="col-sm-8">
                                 <input  name="title" minlength="2" id="title" maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                             </div>

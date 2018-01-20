@@ -44,23 +44,50 @@ public class CooperationAccountsController {
     private UserRoleService userRoleService;
     @RequestMapping("cooperationAccountsList")
     @ResponseBody
+    //查询的是公司的合作商家账目
     public PagingBean cooperationAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        System.out.println("公司合作商家");
         UserVo userVo = (UserVo) session.getAttribute("userVo");
-        //获取该用户所属的酒店id
-        HotelVo hotelVo = hotelService.findHotel(userVo.getId());
         //分页参数
         PagingBean pagingBean = new PagingBean();
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
         //赋值给pagequery对象
         PageQuery pageQuery = new PageQuery();
-        pageQuery.setHotelId(hotelVo.getId());
+        pageQuery.setHotelId(-1l);
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setSearchVal(searchVal);
         pageQuery.setPageSize(pagingBean.getPageSize());
         pageQuery.setPageNo(pagingBean.getStartIndex());
         pagingBean.setTotal(cooperationAccountsService.count(pageQuery));
         pagingBean.setrows(cooperationAccountsService.listPage(pageQuery));
+        return pagingBean;
+    }
+    @RequestMapping("hotelCooperationAccountsList")
+    @ResponseBody
+    public PagingBean hotelCooperationAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session,Long hotelId) throws  Exception{
+        System.out.println("酒店合作商家");
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        //分页参数
+        PagingBean pagingBean = new PagingBean();
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        //赋值给pagequery对象
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setSearchVal(searchVal);
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setHotelId(hotelId);
+        EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+        if(employeeVo!=null){
+            if(employeeVo.getHotelId()!=-1){
+                pageQuery.setHotelId(employeeVo.getHotelId());
+            }
+        }
+        pagingBean.setTotal(cooperationAccountsService.counts(pageQuery));
+        pagingBean.setrows(cooperationAccountsService.listPages(pageQuery));
+
         return pagingBean;
     }
     @RequestMapping("/cooperationAccountsAddSave")
@@ -78,6 +105,8 @@ public class CooperationAccountsController {
                 EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
                 cooperationAccounts.setHotelId(employeeVo.getHotelId());
                 cooperationAccounts.setShopManagerId(employeeVo.getUserId());
+            }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员") || userRoleVo.getRoleVo().getTitle().equals("管理员")){
+                cooperationAccounts.setHotelId(-1l);
             }
             cooperationAccounts.setRemark("暂无批注");
             cooperationAccounts.setIsCash((byte) 0);
@@ -232,6 +261,10 @@ public class CooperationAccountsController {
     @RequestMapping("/cooperationAccountsPage")
     public String table() throws  Exception{
         return "moneyItems/cooperationAccountsList";
+    }
+    @RequestMapping("/hotelCooperationAccountsPage")
+    public String hotelCooperationAccountsPage() throws  Exception{
+        return "moneyItems/hotelCooperationAccountsList";
     }
     @RequestMapping("updateStatus/{id}/{status}")
     @ResponseBody

@@ -36,13 +36,13 @@ $('#mytab').bootstrapTable({
             valign:'middle'
         },
         {
-            title:'支付方式',
+            title:'账户名称',
             field:'title',
             align:'center',
             sortable:true
         },
         {
-            title:'基本描述',
+            title:'账户说明',
             field:'description',
             align:'center',
             sortable:true
@@ -66,7 +66,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title:'支付状态',
+            title:'当前状态',
             field:'isActive',
             align:'center',
             formatter: function (value, row, index) {
@@ -93,7 +93,11 @@ $('#mytab').bootstrapTable({
                 }else if(row.isActive==0){
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus('+row.id+','+1+')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                return e +f;
+                if(row.title.indexOf('现金')>-1 || row.title.indexOf('支付宝')>-1 || row.title.indexOf('微信')>-1 || row.title.indexOf('银联')>-1){
+                    return e +f;
+                }else{
+                    return e +f+d;
+                }
             }
         }
     ],
@@ -212,7 +216,7 @@ $("#add").click(function(){
         },"json"
     );
 });
-function deleteMany(){
+function deleteMany11(){
     var isactivity="";
     var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
         if(row.isActive==0){
@@ -254,3 +258,42 @@ function deleteMany(){
         );
     });
 }
+function deleteMany(){
+    var isactivity="";
+    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
+        if(row.isActive==0){
+            isactivity+=row.isActive;
+        }
+        return row.id ;
+    });
+    if(row==""){
+        layer.msg('修改失败，请勾选数据!', {
+            icon : 2,
+            time : 3000
+        });
+        return ;
+    }
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
+
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改分店经营状态吗？',function(index){
+        $.post(
+            "/paymentType/deleteManyPaymentType",
+            {
+                "manyId":$("#statusId").val(),
+                "status":$("#status").val()
+            },
+            function(data){
+                if(data.message=="修改成功!"){
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }else{
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }
+            },"json"
+        );
+    });
+});

@@ -75,16 +75,16 @@ public class CooperationWebsiteController  {
     }
     @RequestMapping("/deleteManyWeb")
     @ResponseBody
-    public Message deleteManyWeb(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManyWeb(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                cooperationWebsiteService.removeById(Long.parseLong(s));
+                cooperationWebsiteService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("修改状态成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("修改状态失败!");
         }
     }
     @RequestMapping("/deleteWeb/{id}")

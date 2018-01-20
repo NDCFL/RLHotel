@@ -74,16 +74,16 @@ public class PaymentTypeController {
     }
     @RequestMapping("/deleteManyPaymentType")
     @ResponseBody
-    public Message deleteManypaymentType(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManypaymentType(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                paymentTypeService.removeById(Long.parseLong(s));
+                paymentTypeService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("批量修改状态成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("批量修改状态失败!");
         }
     }
     @RequestMapping("/deletePaymentType/{id}")

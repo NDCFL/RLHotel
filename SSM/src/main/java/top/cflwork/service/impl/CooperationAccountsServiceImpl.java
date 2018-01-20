@@ -44,6 +44,16 @@ public class CooperationAccountsServiceImpl implements CooperationAccountsServic
     }
 
     @Override
+    public List<CooperationAccountsVo> listPages(PageQuery pageQuery) {
+        return cooperationAccountsDAO.listPages(pageQuery);
+    }
+
+    @Override
+    public Long counts(PageQuery pageQuery) {
+        return cooperationAccountsDAO.counts(pageQuery);
+    }
+
+    @Override
     public void save(CooperationAccountsVo cooperationAccountsVo) {
         cooperationAccountsDAO.save(cooperationAccountsVo);
     }

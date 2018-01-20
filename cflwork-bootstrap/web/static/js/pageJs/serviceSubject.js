@@ -36,13 +36,13 @@ $('#mytab').bootstrapTable({
             valign:'middle'
         },
         {
-            title:'增值科目名称',
+            title:'科目名称',
             field:'title',
             align:'center',
             sortable:true
         },
         {
-            title:'基本描述',
+            title:'科目描述',
             field:'description',
             align:'center',
             sortable:true
@@ -66,7 +66,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title:'科目状态',
+            title:'当前状态',
             field:'isActive',
             align:'center',
             formatter: function (value, row, index) {
@@ -160,15 +160,15 @@ function updatestatus(id,status){
         function(data){
             if(status==0){
                 if(data.message=="ok"){
-                    layer.alert(data.message, {icon:6});
+                    layer.alert("已启用", {icon:6});
                 }else{
-                    layer.alert(data.message, {icon:6});
+                    layer.alert("操作失败", {icon:6});
                 }
             }else{
                 if(data.message=="ok"){
-                   layer.alert(data.message, {icon:6});
+                    layer.alert("已停用", {icon:5});
                 }else{
-                    layer.alert(data.message, {icon:6});
+                    layer.alert("操作失败", {icon:5});
                 }
             }
             refush();
@@ -213,7 +213,7 @@ $("#add").click(function(){
         },"json"
     );
 });
-function deleteMany(){
+function deleteMany1(){
     var isactivity="";
     var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
         if(row.isActive==0){
@@ -255,3 +255,42 @@ function deleteMany(){
         );
     });
 }
+function deleteMany(){
+    var isactivity="";
+    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
+        if(row.isActive==0){
+            isactivity+=row.isActive;
+        }
+        return row.id ;
+    });
+    if(row==""){
+        layer.msg('修改失败，请勾选数据!', {
+            icon : 2,
+            time : 3000
+        });
+        return ;
+    }
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
+
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改科目状态吗？',function(index){
+        $.post(
+            "/serviceSubject/deleteManyServiceSubject",
+            {
+                "manyId":$("#statusId").val(),
+                "status":$("#status").val()
+            },
+            function(data){
+                if(data.message=="修改成功!"){
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }else{
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }
+            },"json"
+        );
+    });
+});

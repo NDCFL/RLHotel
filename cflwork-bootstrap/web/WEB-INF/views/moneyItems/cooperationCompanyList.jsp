@@ -28,30 +28,16 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">合作商家名称：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="search_name"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">创建时间：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="search_tel"/>
-                    </div>
-                    <div class="col-sm-1 col-sm-offset-4">
-                        <button class="btn btn-primary" id="search_btn">查询</button>
+                    <table id="mytab" name="mytab" class="table table-hover"></table>
+                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                        </button>
+                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                        </button>
                     </div>
                 </div>
-            </div>
-            <table id="mytab" name="mytab" class="table table-hover"></table>
-            <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                </button>
-                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                </button>
-                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                </button>
             </div>
         </div>
     </div>
@@ -74,31 +60,31 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商家名称：</label>
                         <div class="col-sm-8">
-                            <input  name="name" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input name="name" id="cname" minlength="2" maxlength="20" type="text" class="form-control" required="required">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">联系人：</label>
                         <div class="col-sm-8">
-                            <input  name="contact" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="contact" id="ccontact" minlength="2" maxlength="20" type="text" class="form-control"  required="required">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">联系方式：</label>
                         <div class="col-sm-8">
-                            <input  name="phone" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="phone" id="cphone" minlength="2" maxlength="11" type="number" class="form-control"  required="required">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">固定电话：</label>
                         <div class="col-sm-8">
-                            <input  name="tel" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="tel" id="ctel" minlength="2" maxlength="20" type="text" class="form-control" required="required">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">所在地址：</label>
                         <div class="col-sm-8">
-                            <input  name="address" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="address" minlength="2" maxlength="20" type="text" class="form-control"  required="required">
                         </div>
                     </div>
                     <div class="form-group">
@@ -111,7 +97,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" id="add" class="btn btn-primary" data-dismiss="modal">
+                    <button type="button" id="add" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -136,6 +122,7 @@
             <form class="form-horizontal" id="updateform" >
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
+                    <input type="hidden" name="hotelId" value="-1" />
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商家名称：</label>
                         <div class="col-sm-8">

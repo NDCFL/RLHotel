@@ -16,4 +16,6 @@ public interface CooperationAccountsService extends BaseService<CooperationAccou
     List<Select2Vo> getCooperationCompany(PageQuery pageQuery);
     void updateRemark(CooperationAccountsVo cooperationAccountsVo);
     void checkerManyCashAccount(List<CooperationAccountsVo> cooperationAccountsVos);
+    List<CooperationAccountsVo> listPages(PageQuery pageQuery);
+    Long counts(PageQuery pageQuery);
 }

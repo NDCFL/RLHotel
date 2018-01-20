@@ -272,16 +272,16 @@ public class CashAccountsController {
     }
     @RequestMapping("/deleteManyCashAccounts")
     @ResponseBody
-    public Message deleteManycashAccounts(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManycashAccounts(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                cashAccountsService.removeById(Long.parseLong(s));
+                cashAccountsService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("批量修改成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("批量修改失败!");
         }
     }
     @RequestMapping("/deleteCashAccounts/{id}")

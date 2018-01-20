@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     String path = request.getContextPath();
 %>
@@ -28,19 +29,26 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">店面名称：</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="Name" id="search_name"/>
-                    </div>
-                    <div class="col-sm-1 col-sm-offset-4">
-                        <button class="btn btn-primary" id="search_btn">查询</button>
-                    </div>
+                    <shiro:hasAnyRoles name="总管理员,管理员">
+                        <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">店面名称：</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required id="hotelId" name="hotelId">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1 col-sm-offset-4" style="margin-left: 20px">
+                            <button class="btn btn-primary" id="search_btn">查询</button>
+                        </div>
+                    </shiro:hasAnyRoles>
                 </div>
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
                 <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                </button>
+                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
                 </button>
             </div>
         </div>
@@ -61,6 +69,16 @@
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
+                    <shiro:hasAnyRoles name="总管理员,管理员">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">分店名称：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control"  id="hotelId_"  required name="hotelId">
+                                    <option value="">请选择分店</option>
+                                </select>
+                            </div>
+                        </div>
+                    </shiro:hasAnyRoles>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商家名称：</label>
                         <div class="col-sm-8">
@@ -126,6 +144,16 @@
             <form class="form-horizontal" id="updateform" >
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
+                    <shiro:hasAnyRoles name="总管理员,管理员">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">分店名称：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control"  id="hotel_Id"  required name="hotelId">
+                                <option value="">请选择分店</option>
+                            </select>
+                        </div>
+                    </div>
+                    </shiro:hasAnyRoles>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商家名称：</label>
                         <div class="col-sm-8">
@@ -192,4 +220,25 @@
     <%--});--%>
 
 <%--</script>--%>
+<script>
+    $.post(
+        "/cashAccounts/getHotel",
+        function(data){
+            $("#hotelId").select2({
+                data: data
+            })
+            $("#hotelId_").select2({
+                data: data
+            })
+            $("#hotel_Id").select2({
+                data: data
+            })
+            $("#select2-hotelId-container").remove();
+            $("#select2-hotel_Id-container").remove();
+            $("#select2-hotelId_-container").remove();
+        },
+        "json"
+
+    );
+</script>
 </html>

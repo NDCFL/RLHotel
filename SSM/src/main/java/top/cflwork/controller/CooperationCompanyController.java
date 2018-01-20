@@ -52,11 +52,6 @@ public class CooperationCompanyController {
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setSearchVal(searchVal);
         pageQuery.setHotelId(-1l);
-        //总管理员查询商家
-        if(userRoleVo.getRoleVo().getTitle().equals("店长")){
-            HotelVo hotelVo = hotelService.findHotel(userVo.getId());
-            pageQuery.setHotelId(hotelVo.getId());
-        }
         //员工查询商家
         if(employeeVo!=null){
             if(employeeVo.getHotelId()!=-1){
@@ -64,7 +59,6 @@ public class CooperationCompanyController {
             }
         }
         pagingBean.setTotal(cooperationCompanyService.count(pageQuery));
-
         pagingBean.setrows(cooperationCompanyService.listPage(pageQuery));
         return pagingBean;
     }
@@ -105,15 +99,20 @@ public class CooperationCompanyController {
                 HotelVo hotelVo = hotelService.findHotel(userVo.getId());
                 cooperationCompany.setHotelId(hotelVo.getId());
             }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员")){
-                cooperationCompany.setHotelId(-1l);
+                if(cooperationCompany.getHotelId()==null){
+                    cooperationCompany.setHotelId(-1l);
+                }
             }else if(userRoleVo.getRoleVo().getTitle().equals("管理员")){
-                cooperationCompany.setHotelId(-1l);
+                if(cooperationCompany.getHotelId()==null){
+                    cooperationCompany.setHotelId(-1l);
+                }
             }
             cooperationCompany.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
             cooperationCompany.setCompanyId(userVo.getCompanyId());
             cooperationCompanyService.save(cooperationCompany);
             return  Message.success("新增成功!");
         }catch (Exception E){
+            E.printStackTrace();
             return Message.fail("新增失败!");
         }
 
