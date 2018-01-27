@@ -155,8 +155,13 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/cashAccounts/cashAccountsPage">收支流水统计</a>
+                            <a class="J_menuItem" href="<%=path%>/cashAccounts/hotelCashAccountsPage">分店收支流水统计</a>
                         </li>
+                        <shiro:hasAnyRoles name="总管理员,管理员">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/cashAccounts/cashAccountsPage">总部收支流水统计</a>
+                            </li>
+                        </shiro:hasAnyRoles>
                         <li>
                             <a class="J_menuItem" href="<%=path%>/serviceSubject/serviceSubjectPage">增值业务科目</a>
                         </li>
@@ -214,10 +219,10 @@
                             <a class="J_menuItem" href="<%=path%>/cooperationSubject/cooperationSubjectPage">来往科目管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/cooperationAccounts/hotelCooperationAccountsPage">酒店来往财务统计</a>
+                            <a class="J_menuItem" href="<%=path%>/cooperationAccounts/hotelCooperationAccountsPage">分店来往财务统计</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/cooperationAccounts/cooperationAccountsPage">来往财务统计</a>
+                            <a class="J_menuItem" href="<%=path%>/cooperationAccounts/cooperationAccountsPage">总部来往财务统计</a>
                         </li>
                     </ul>
                 </li>

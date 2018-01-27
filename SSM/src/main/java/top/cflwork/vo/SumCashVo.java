@@ -10,14 +10,18 @@ public class SumCashVo implements Serializable {
 
     private Double wxin;
     private Double wxout;
+    private Double wxjy;
     private Double zfbin;
     private Double zfbout;
+    private Double zfbjy;
     private Double ylin;
     private Double ylout;
+    private Double yljy;
     private Double zjin;
     private Double zjout;
     private Double xjin;
     private Double xjout;
+    private Double xjjy;
     private Double ykVal;
     private Integer yk;
 
@@ -120,5 +124,37 @@ public class SumCashVo implements Serializable {
 
     public void setXjout(Double xjout) {
         this.xjout = xjout;
+    }
+
+    public Double getWxjy() {
+        return wxin-wxout;
+    }
+
+    public void setWxjy(Double wxjy) {
+        this.wxjy = wxjy;
+    }
+
+    public Double getZfbjy() {
+        return zfbin-zfbout;
+    }
+
+    public void setZfbjy(Double zfbjy) {
+        this.zfbjy = zfbjy;
+    }
+
+    public Double getYljy() {
+        return ylin-ylout;
+    }
+
+    public void setYljy(Double yljy) {
+        this.yljy = yljy;
+    }
+
+    public Double getXjjy() {
+        return xjin-xjout;
+    }
+
+    public void setXjjy(Double xjjy) {
+        this.xjjy = xjjy;
     }
 }

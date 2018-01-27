@@ -29,12 +29,12 @@
 <body class="page-sign">
 <div id="wrap">
     <div id="header">
-        <h1 class="logo"><a  ka="header-home-logo" title="瑞蓝公寓"><img src="<%=path%>/static/img/logo.png" style="border-radius: 10px" /></a></h1>
+        <h1 class="logo"><a  ka="header-home-logo" title="瑞蓝公寓"><img src="<%=path%>/static/img/logo.png" style="border-radius: 10px;width: 200px;height: 200px;margin-top: -50px" /></a></h1>
     </div>
     <div class="sign-wrap">
         <!--密码登录-->
         <div class="sign-form sign-pwd" id="pwd" style="display:block;">
-            <h3 class="title">瑞蓝酒店管理系统</h3>
+            <h3 class="title">瑞蓝公寓管理系统</h3>
             <div class="tip-error" style="margin-top:20px"></div>
             <!--<div class="sign-tab"><span class="link-signin cur" onclick="showlogin(0);">密码登录</span><span class="link-sms" onclick="showlogin(1);">短信登录</span><span class="link-scan" onclick="showlogin(2);">扫码登录</span></div>-->
             <form action="/login/account.json" method="post" style="margin-top:-35px">

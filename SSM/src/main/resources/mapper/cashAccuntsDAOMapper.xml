@@ -73,16 +73,26 @@
         delete from t_cash_accounts where id = #{id}
     </delete>
     <select id="listPage" resultMap="cashAccountsMap">
-        select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,u.nickname,h.title,c.name,s.title as ctitle,p.title as ptitle from t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.pay_type_id=p.id and t.company_id=#{companyId} <if test="hotelId==null || hotelId==''">and t.hotel_id=#{hotelId}</if> <include refid="search"/> order by create_time desc limit #{pageNo},#{pageSize}
+        select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,u.nickname,h.title,c.name,s.title as ctitle,p.title as ptitle from t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.pay_type_id=p.id and t.company_id=#{companyId} and t.hotel_id!=-1  <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/> order by create_time desc limit #{pageNo},#{pageSize}
     </select>
     <select id="listPages" resultMap="cashAccountsMap">
-        select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,u.nickname,h.title,c.name,s.title as ctitle,p.title as ptitle from t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and  t.company_id=c.id and  t.shop_manager_id=u.id and t.subject_id=s.id and t.pay_type_id=p.id  <if test="searchVal!=null and searchVal!=''"> and p.title=#{searchVal} </if> and t.account_type=#{type} and  month(t.create_time)=month(#{dateVal}) and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if>  order by create_time desc limit #{pageNo},#{pageSize}
+        <if test="hotelId==-1">
+            select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,u.nickname,c.name,s.title as ctitle,p.title as ptitle from t_cash_accounts t,t_company c,t_user u,t_cash_subject s,t_payment_type p where   t.company_id=c.id and  t.shop_manager_id=u.id and t.subject_id=s.id and t.pay_type_id=p.id  <if test="searchVal!=null and searchVal!=''"> and p.title=#{searchVal} </if> and t.account_type=#{type} and  month(t.create_time)=month(#{dateVal}) and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if>  order by create_time desc limit #{pageNo},#{pageSize}
+        </if>
+        <if test="hotelId!=-1">
+            select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,u.nickname,h.title,c.name,s.title as ctitle,p.title as ptitle from t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and  t.company_id=c.id and  t.shop_manager_id=u.id and t.subject_id=s.id and t.pay_type_id=p.id  <if test="searchVal!=null and searchVal!=''"> and p.title=#{searchVal} </if> and t.account_type=#{type} and  month(t.create_time)=month(#{dateVal}) and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if>  order by create_time desc limit #{pageNo},#{pageSize}
+        </if>
     </select>
     <select id="listAll" resultMap="cashAccountsMap">
         select * from t_cash_accounts where company_id=#{companyId} and hotel_id=#{hotelId}
     </select>
     <select id="count" resultType="java.lang.Long">
-        select count(*) from  t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and t.pay_type_id=p.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.company_id=#{companyId} <if test="hotelId==null || hotelId==''">and t.hotel_id=#{hotelId}</if> <include refid="search"/>
+        <if test="hotelId==-1">
+          select count(*) from  t_cash_accounts t,t_company c,t_user u,t_cash_subject s,t_payment_type p where  t.pay_type_id=p.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/>
+        </if>
+        <if test="hotelId!=-1">
+            select count(*) from  t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and t.pay_type_id=p.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.company_id=#{companyId} and t.hotel_id!=-1  <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/>
+        </if>
     </select>
     <select id="counts" resultType="java.lang.Long">
         select count(*) from  t_cash_accounts t,t_company c,t_hotel h,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=h.id and t.pay_type_id=p.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id <if test="searchVal!=null and searchVal!=''"> and p.title=#{searchVal} </if> and t.account_type=#{type} and month(t.create_time)=month(#{dateVal}) and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if>
@@ -108,17 +118,39 @@
         </foreach>
     </update>
     <select id="sumCash" resultMap="sumCashVoMap">
-        select
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as wxin,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as wxout,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zfbin,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zfbout,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as xjin,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as xjout,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as ylin,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as ylout,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zjin,
-          (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zjout
-        from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+        <if test="hotelId==-1">
+            select
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as wxin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as wxout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zfbin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zfbout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as xjin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as xjout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as ylin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as ylout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zjin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zjout
+            from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+        </if>
+        <if test="hotelId!=-1">
+            select
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as wxin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='微信' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as wxout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zfbin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='支付宝' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zfbout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as xjin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='现金' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as xjout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as ylin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and p.title='银联' and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as ylout,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=0 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zjin,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c,t_payment_type p where c.pay_type_id=p.id and c.account_type=1 and month(c.create_time)=month(#{dateVal}) and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as zjout
+            from t_cash_accounts where company_id=#{companyId} and hotel_id!=-1  <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+        </if>
+    </select>
+    <select id="countBy" resultType="java.lang.Long">
+        select count(*) from  t_cash_accounts t,t_company c,t_user u,t_cash_subject s,t_payment_type p where t.hotel_id=-1 and  t.pay_type_id=p.id and t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.company_id=#{companyId}  <include refid="search"/>
+    </select>
+    <select id="listPageBy" resultMap="cashAccountsMap">
+        select t.*,(select nickname from t_user where t.hander=t_user.id) as hand,u.nickname,c.name,s.title as ctitle,p.title as ptitle from t_cash_accounts t,t_company c,t_user u,t_cash_subject s,t_payment_type p where  t.company_id=c.id and t.shop_manager_id=u.id and t.subject_id=s.id and t.pay_type_id=p.id and t.company_id=#{companyId} <if test="hotelId!=null">and t.hotel_id=#{hotelId}</if> <include refid="search"/> order by create_time desc limit #{pageNo},#{pageSize}
     </select>
 </mapper>

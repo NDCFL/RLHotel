@@ -45,6 +45,24 @@ public class CashAccountsController {
     @ResponseBody
     public PagingBean cashAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        //赋值给pagequery对象
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setHotelId(-1l);
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setSearchVal(searchVal);
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pagingBean.setTotal(cashAccountsService.countBy(pageQuery));
+        pagingBean.setrows(cashAccountsService.listPageBy(pageQuery));
+        return pagingBean;
+    }
+    @RequestMapping("hotelCashAccountsList")
+    @ResponseBody
+    public PagingBean hotelCashAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
         //获取该用户所属的酒店id
         HotelVo hotelVo = hotelService.findHotel(userVo.getId());
         //分页参数
@@ -53,7 +71,11 @@ public class CashAccountsController {
         pagingBean.setCurrentPage(pageIndex);
         //赋值给pagequery对象
         PageQuery pageQuery = new PageQuery();
-        pageQuery.setHotelId(hotelVo.getId());
+        if(hotelVo==null){
+            pageQuery.setHotelId(null);
+        }else{
+            pageQuery.setHotelId(hotelVo.getId());
+        }
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setSearchVal(searchVal);
         pageQuery.setPageSize(pagingBean.getPageSize());
@@ -66,15 +88,13 @@ public class CashAccountsController {
     @ResponseBody
     public PagingBean cashAccountsListByIf(int pageSize, int pageIndex, String searchVal,String dateVal,Long hotelId, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
-        //获取该用户所属的酒店id
-        HotelVo hotelVo = hotelService.findHotel(userVo.getId());
         //分页参数
         PagingBean pagingBean = new PagingBean();
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
         //赋值给pagequery对象
         PageQuery pageQuery = new PageQuery();
-        pageQuery.setHotelId(hotelVo.getId());
+        pageQuery.setHotelId(hotelId);
         pageQuery.setCompanyId(userVo.getCompanyId());
         pageQuery.setHotelId(hotelId);
         if(searchVal.equals("wxin")){
@@ -298,6 +318,10 @@ public class CashAccountsController {
     @RequestMapping("/cashAccountsPage")
     public String table() throws  Exception{
         return "moneyItems/cashAccountsList";
+    }
+    @RequestMapping("/hotelCashAccountsPage")
+    public String hotelCashAccountsPage() throws  Exception{
+        return "moneyItems/hotelCashAccountsList";
     }
     @RequestMapping("updateStatus/{id}/{status}")
     @ResponseBody

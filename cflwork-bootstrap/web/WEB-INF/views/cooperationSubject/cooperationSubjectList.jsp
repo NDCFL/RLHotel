@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>来往合作商家科目列表</title>
+    <title>来往科目管理</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 
@@ -22,7 +22,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>来往合作商家科目列表</h5>
+            <h5>来往科目管理</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -32,11 +32,8 @@
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                        </button>
                         <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
                         </button>
                         <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
@@ -57,19 +54,19 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增来往合作商家科目科目信息
+                    新增科目
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">来往合作商家科目科目：</label>
+                        <label class="col-sm-3 control-label">科目名称：</label>
                         <div class="col-sm-8">
                             <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">说明：</label>
+                        <label class="col-sm-3 control-label">科目描述：</label>
                         <div class="col-sm-8">
                             <textarea  name="description" class="form-control" required="" aria-required="true"></textarea>
                         </div>
@@ -88,6 +85,41 @@
 </div>
 <input type="hidden" value=""  id="deleteId"/>
 <%--商家新增结束--%>
+<div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" >
+                    批量修改状态
+                </h4>
+            </div>
+            <form class="form-horizontal" method="post" id="update_status">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">科目状态：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control"  id="status" required name="status">
+                                <option value="0">启用</option>
+                                <option value="1">停用</option>
+                            </select>
+                        </div>
+                        <input id="statusId" type="hidden" name="manyId" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" id="updateSta" class="btn btn-primary" data-dismiss="modal">
+                        确认修改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <%--商家信息的修改--%>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -97,7 +129,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    来往合作商家科目科目的修改
+                    科目修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
@@ -105,13 +137,13 @@
 
                         <input type="hidden" name="id" id="id" value="">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">来往合作商家科目科目：</label>
+                            <label class="col-sm-3 control-label">科目名称：</label>
                             <div class="col-sm-8">
                                 <input  name="title" minlength="2" id="title" maxlength="20" type="text" value="" class="form-control" required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">说明：</label>
+                            <label class="col-sm-3 control-label">科目描述：</label>
                             <div class="col-sm-8">
                                 <textarea  name="description" class="form-control" id="description" required="" value="" aria-required="true"></textarea>
                             </div>

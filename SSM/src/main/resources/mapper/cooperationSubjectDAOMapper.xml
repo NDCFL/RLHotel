@@ -35,15 +35,9 @@
         update t_cooperation_subject set is_active=#{status} where id=#{id}
     </update>
   <update id="update">
-        update t_cooperation_subject
-        <set>
-            <if test="title!=null and title!=''">
+        update t_cooperation_subject set
                 title = #{title},
-            </if>
-            <if test="description!=null and description!=''">
-                description = #{description},
-            </if>
-        </set>
+                description = #{description}
         where id = #{id}
   </update>
 </mapper>

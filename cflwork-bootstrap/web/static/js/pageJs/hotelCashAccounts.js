@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/cashAccounts/cashAccountsList",//要请求数据的文件路径
+    url: "/cashAccounts/hotelCashAccountsList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -33,6 +33,12 @@ $('#mytab').bootstrapTable({
             width: 25,
             align: 'center',
             valign: 'middle'
+        },
+        {
+            title: '所属酒店',
+            field: 'hotelVo.title',
+            align: 'center',
+            sortable: true
         },
         {
             title: '酒店店长',
@@ -245,7 +251,6 @@ function edit(name) {
             //选中某一行
             colum.val(data.subjectId).trigger("change");
             colum.change();
-            $("#select2-subjectId-container").remove();
             $("#accountTime").val(data.accountTime);
         },
         "json"
@@ -280,7 +285,7 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/hotelCashAccountsList'});
 })
 function getInfo(val){
     $('#mytab').bootstrapTable(
@@ -290,13 +295,13 @@ function getInfo(val){
             query:{
                 searchVal:val,
                 dateVal:$("#test21").val(),
-                hotelId:-1
+                hotelId:$("#hotelid_").val()
             }
         }
     );
 }
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
+    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/hotelCashAccountsList'});
 }
 $("#remarkAdd").click(function () {
     $.post(

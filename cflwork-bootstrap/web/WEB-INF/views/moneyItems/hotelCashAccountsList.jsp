@@ -13,14 +13,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>收支账目列表</title>
+    <title>现金流水账目列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>收支账目统计</h5>
+            <h5>现金流水账目统计</h5>
              <div class="ibox-tools">
                  <div style="float:right;">
                      <button type="button" style="float: right;margin-top: -10px;margin-left: 5px" id="getDval" class="btn btn-primary" data-dismiss="modal">
@@ -32,6 +32,14 @@
                  </div>
                  <div style="float:right;margin-right: 20px">
                      <span>账单月份</span>
+                 </div>
+                 <div style="float:right;margin-right: 20px">
+                     <select class="form-control" style="width:100%;padding-top: -5%;margin-top: -10px;float: right" required id="hotelid_" name="hotelId">
+                        <option value="">全部</option>
+                     </select>
+                 </div>
+                 <div style="float:right;margin-right: 20px">
+                     <span>店面名称</span>
                  </div>
              </div>
         </div>
@@ -259,8 +267,8 @@
                         <div class="col-sm-2">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">支付宝</span>
-                                    <h5>支付宝</h5>
+                                    <span class="label label-info pull-right">支付宝结余</span>
+                                    <h5>支付宝结余</h5>
                                 </div>
                                 <div class="ibox-content">
                                     <h3 class="no-margins" id="zfbjy"></h3>
@@ -304,7 +312,6 @@
                         </div>
                     </a>
                 </div>
-
             </div>
         </div>
     </div>
@@ -312,7 +319,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>收支账目列表</h5>
+            <h5>现金流水账目列表</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -320,66 +327,18 @@
                     查询列表
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">创建时间</label>
-                    <div class="col-sm-1" style="width: 360px;margin-left: -20px" >
-                        <input type="text" class="form-control" style="width: 360px" name="createTime" id="test_2"/>
+                    <table id="mytab" name="mytab" class="table table-hover"></table>
+                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+                        <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
+                            <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
+                        </button>
+                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                        </button>
+                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                        </button>
                     </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px;margin-left: 40px">收支类型</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select style="width: 160px;margin-left: -20px" class="form-control" id="hotelStatus" name="isActive">
-                            <option value="">全部</option>
-                            <option value="0">收入</option>
-                            <option value="1">支出</option>
-                        </select>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;width:90px;line-height: 30px">金额</label>
-                    <div class="col-sm-1" style="width: 100px;margin-left: -20px" >
-                        <input type="number" class="form-control" style="width: 100px" name="money" id="money"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:20px;width:90px;line-height: 30px">收支科目</label>
-                    <div class="col-sm-1">
-                        <select class="form-control" required id="subject__id" name="subjectId">
-                            <option value="">全部</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">收支说明</label>
-                    <div class="col-sm-1" style="margin-left: -20px" >
-                        <input type="text" class="form-control" name="remark"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px;margin-left: 40px">收支类型</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select style="width: 160px;margin-left: -20px" class="form-control" id="status" name="status">
-                            <option value="">全部</option>
-                            <option value="0">审核通过</option>
-                            <option value="1">审核不通过</option>
-                        </select>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;width:90px;line-height: 30px">操作人</label>
-                    <div class="col-sm-1" style="width: 100px;margin-left: -20px" >
-                        <input type="text" class="form-control" style="width: 100px" name="handle" id="handle"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:20px;width:90px;line-height: 30px">收支周期</label>
-                    <div class="col-sm-1">
-                        <input type="text" class="form-control" style="width: 100px" name="zhouqi" id="zhouqi"/>
-                    </div>
-
-                    <div class="col-sm-1" style="width: 180px;margin-left: 30px" >
-                        <button class="btn btn-primary" id="search_btn" style="width: 180px">查询</button>
-                    </div>
-                </div>
-                <table id="mytab" name="mytab" class="table table-hover"></table>
-                <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                    <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
-                        <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
-                    </button>
-                    <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                    </button>
-                    <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                    </button>
                 </div>
             </div>
         </div>
@@ -395,21 +354,27 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增收支账目
+                    新增现金流水账目
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
-                    <input type="hidden" name="hotelId" value="-1" />
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支科目：</label>
+                        <label class="col-sm-3 control-label">所属酒店：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required id="hotel_id" name="hotelId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subject_id" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支类型：</label>
+                        <label class="col-sm-3 control-label">现金流水账目类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -418,14 +383,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">选择账户：</label>
+                        <label class="col-sm-3 control-label">支付方式：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="payType_Id" name="payTypeId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">金额：</label>
+                        <label class="col-sm-3 control-label">现金流水账目金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
@@ -471,22 +436,28 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    收支账目的修改
+                    现金流水账目的修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
                 <input  id="id" type="hidden" name="id" />
-                <input type="hidden" name="hotelId" value="-1" />
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所属酒店：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" required id="hotelId" name="hotelId">
+                        </select>
+                    </div>
+                </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支科目：</label>
+                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subjectId" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支类型：</label>
+                        <label class="col-sm-3 control-label">现金流水账目类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -495,13 +466,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">金额：</label>
+                        <label class="col-sm-3 control-label">现金流水账目金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" id="totalPay" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">选择账户：</label>
+                        <label class="col-sm-3 control-label">支付方式：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="payTypeId" name="payTypeId">
                             </select>
@@ -533,7 +504,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="shenheModalLabel">
-                    收支账目的审核
+                    现金流水账目的审核
                 </h4>
             </div>
             <form class="form-horizontal" id="shenheform" >
@@ -575,7 +546,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="manyShenheModalLabel">
-                    收支账目的批量审核
+                    现金流水账目的批量审核
                 </h4>
             </div>
             <form class="form-horizontal" id="manyshenheform" >
@@ -617,7 +588,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="remarkModalLabel">
-                    收支账目的批注
+                    现金流水账目的批注
                 </h4>
             </div>
             <form class="form-horizontal" id="remarkform" >
@@ -645,7 +616,7 @@
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
-<script src="<%=path%>/static/js/pageJs/cashAccounts.js"></script>
+<script src="<%=path%>/static/js/pageJs/hotelCashAccounts.js"></script>
 </body>
 <%--<script>--%>
     <%--$(function () {--%>
@@ -677,15 +648,7 @@
         ,type: 'datetime'
     });
     laydate.render({
-        elem: '#test_2'//指定元素，
-        ,type: 'datetime'
-        ,range: true
-    });
-    laydate.render({
         elem: '#test21'
-    });
-    laydate.render({
-        elem: '#zhouqi'
     });
 </script>
 <script>
@@ -695,16 +658,12 @@
             function(data){
                 $("#subjectId").select2({
                     data: data
-                });
-                $("#select2-subjectId-container").remove();
+                })
                 $("#subject_id").select2({
                     data: data
-                });
+                })
+                $("#select2-subjectId-container").remove();
                 $("#select2-subject_id-container").remove();
-                $("#subject__id").select2({
-                    data: data
-                });
-                $("#select2-subject__id-container").remove();
             },
             "json"
 
@@ -757,7 +716,7 @@
             "/cashAccounts/getCashVal",
             {
                 dateVal:val,
-                hotelId:-1
+                hotelId:$("#hotelid_").val()
             },
             function(data){
                 $("#wxin").html("￥"+data.wxin);

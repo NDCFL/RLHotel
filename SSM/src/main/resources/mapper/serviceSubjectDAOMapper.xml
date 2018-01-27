@@ -37,7 +37,7 @@
     <update id="update">
         update t_service_subject set
                 title = #{title},
-                description = #{description},
+                description = #{description}
         where id = #{id}
     </update>
 </mapper>
