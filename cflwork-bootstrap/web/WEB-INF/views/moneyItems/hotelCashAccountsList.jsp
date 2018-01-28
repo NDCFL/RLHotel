@@ -46,267 +46,105 @@
         <div class="ibox-content">
             <div class="wrapper wrapper-content">
                 <div class="row">
-                    <a onclick="getInfo('wxin');" style="color:#797979">
-                        <div class="col-sm-2">
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">微信</span>
-                                    <h5>微信收入</h5>
+                                    <span class="label label-info pull-right">财务总收入</span>
+                                    <h5>财务总收入</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="wxin"></h3>
+                                    <h3 class="no-margins" id="sumMoneyIn"></h3>
                                     <div class="stat-percent font-bold text-info">收入
                                         <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>微信收入</small>
+                                    <small>财务总收入</small>
                                 </div>
                             </div>
                         </div>
                     </a>
-                    <a onclick="getInfo('zfbin');" style="color:#797979">
-                        <div class="col-sm-2">
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">支付宝</span>
-                                    <h5>支付宝</h5>
+                                    <span class="label label-info pull-right">财务总支出</span>
+                                    <h5>财务总支出</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="zfbin"></h3>
-                                    <div class="stat-percent font-bold text-info">收入 <i class="fa fa-level-up"></i>
+                                    <h3 class="no-margins" id="sumMoneyOut"></h3>
+                                    <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>支付宝收入</small>
+                                    <small>财务总支出</small>
                                 </div>
                             </div>
                         </div>
                     </a>
-                    <a onclick="getInfo('xjin');" style="color:#797979">
-                        <div class="col-sm-2">
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">现金</span>
-                                    <h5>现金收入</h5>
+                                    <span class="label label-info pull-right">财务总结余</span>
+                                    <h5>财务总结余</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="xjin"></h3>
-                                    <div class="stat-percent font-bold text-info">现金 <i class="fa fa-level-up"></i>
+                                    <h3 class="no-margins" id="sumMoneyJieyu"></h3>
+                                    <div class="stat-percent font-bold text-info">结余 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>现金收入</small>
+                                    <small>财务总结余</small>
                                 </div>
                             </div>
                         </div>
                     </a>
-                    <a onclick="getInfo('ylin');" style="color:#797979">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right ">银联</span>
-                                    <h5>银联收入</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="ylin"></h3>
-                                    <div class="stat-percent font-bold text-info">收入 <i class="fa fa-level-up"></i>
-                                    </div>
-                                    <small>银联收入</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a onclick="getInfo('zjin');" style="color:red">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right" style="color:white;background-color: orangered">合计</span>
-                                    <h5 style="color:red">总计</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="zjin"></h3>
-                                    <div class="stat-percent font-bold text-info" style="color:red">收入 <i class="fa fa-level-up"></i>
-                                    </div>
-                                    <small style="color:red">总计收入</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="col-sm-2">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-info pull-right" style="background-color: blue">盈亏</span>
-                                <h5 style="color:blue">盈亏</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h3 class="no-margins" id="yk"></h3>
-                                <div class="stat-percent font-bold text-info" style="color:blue">盈亏 <i class="fa fa-level-up"></i>
-                                </div>
-                                <small style="color:blue">酒店盈亏</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="wrapper wrapper-content">
-                <div class="row">
-                    <a onclick="getInfo('wxout');" style="color:#797979">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right">微信</span>
-                                    <h5>微信支出</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="wxout"></h3>
-                                    <div class="stat-percent font-bold text-info" style="color:red">支出
-                                        <i class="fa fa-level-down" ></i>
-                                    </div>
-                                    <small>微信支出</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a onclick="getInfo('zfbout');" style="color:#797979">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right">支付宝</span>
-                                    <h5>支付宝</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="zfbout"></h3>
-                                    <div class="stat-percent font-bold text-info" style="color:red">支出 <i class="fa fa-level-down"></i>
-                                    </div>
-                                    <small>支付宝支出</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a onclick="getInfo('xjout');" style="color:#797979">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right">现金</span>
-                                    <h5>现金支出</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="xjout"></h3>
-                                    <div class="stat-percent font-bold text-info" style="color:red">支出 <i class="fa fa-level-down"></i>
-                                    </div>
-                                    <small>现金支出</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a onclick="getInfo('ylout');" style="color:#797979">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right ">银联</span>
-                                    <h5>银联支出</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="ylout"></h3>
-                                    <div class="stat-percent font-bold text-info" style="color:red">支出 <i class="fa fa-level-down"></i>
-                                    </div>
-                                    <small>银联支出</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a onclick="getInfo('zjout');" style="color:red">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right" style="color:white;background-color: orangered">合计</span>
-                                    <h5 style="color:red">总计</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="zjout"></h3>
-                                    <div class="stat-percent font-bold text-info" style="color:red">支出 <i class="fa fa-level-down"></i>
-                                    </div>
-                                    <small style="color:red">总计支出</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="col-sm-2">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <span class="label label-info pull-right" style="background-color: blue">盈亏</span>
-                                <h5 style="color:blue">盈亏</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h3 class="no-margins" id="y_k"></h3>
-                                <div class="stat-percent font-bold text-info" style="color:blue">盈亏 <i class="fa fa-level-up"></i>
-                                </div>
-                                <small style="color:blue">酒店盈亏</small>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
             <div class="wrapper wrapper-content">
                 <div class="row">
                     <a style="color:#797979">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">微信</span>
-                                    <h5>微信结余</h5>
+                                    <span class="label label-info pull-right">财务总收入</span>
+                                    <h5>财务总收入</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="wxjy"></h3>
-                                    <div class="stat-percent font-bold text-info">结余
+                                    <h3 class="no-margins" id="findin"></h3>
+                                    <div class="stat-percent font-bold text-info">收入
                                         <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>微信结余</small>
+                                    <small>财务总收入</small>
                                 </div>
                             </div>
                         </div>
                     </a>
                     <a style="color:#797979">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">支付宝结余</span>
-                                    <h5>支付宝结余</h5>
+                                    <span class="label label-info pull-right">财务总支出</span>
+                                    <h5>财务总支出</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="zfbjy"></h3>
-                                    <div class="stat-percent font-bold text-info">支付宝 <i class="fa fa-level-up"></i>
+                                    <h3 class="no-margins" id="findout"></h3>
+                                    <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>支付宝结余</small>
+                                    <small>财务总支出</small>
                                 </div>
                             </div>
                         </div>
                     </a>
                     <a style="color:#797979">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">现金</span>
-                                    <h5>现金结余</h5>
+                                    <span class="label label-info pull-right">财务总结余</span>
+                                    <h5>财务总结余</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="xjjy"></h3>
-                                    <div class="stat-percent font-bold text-info">现金 <i class="fa fa-level-up"></i>
+                                    <h3 class="no-margins" id="findjieyu"></h3>
+                                    <div class="stat-percent font-bold text-info">结余 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>现金结余</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a onclick="getInfo('ylin');" style="color:#797979">
-                        <div class="col-sm-2">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <span class="label label-info pull-right ">银联</span>
-                                    <h5>银联结余</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h3 class="no-margins" id="yljy"></h3>
-                                    <div class="stat-percent font-bold text-info">收入 <i class="fa fa-level-up"></i>
-                                    </div>
-                                    <small>银联结余</small>
+                                    <small>财务总结余</small>
                                 </div>
                             </div>
                         </div>
@@ -327,20 +165,70 @@
                     查询列表
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <table id="mytab" name="mytab" class="table table-hover"></table>
-                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
-                            <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
-                        </button>
-                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                        </button>
-                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                        </button>
+                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">创建时间</label>
+                    <div class="col-sm-1" style="width: 360px;margin-left: -20px" >
+                        <input type="text" class="form-control" style="width: 310px" name="createTime" id="test_2"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-left:-30px;line-height: 30px;width:100px;">收支类型</label>
+                    <div class="col-sm-1" style="width: 120px" >
+                        <select style="width: 160px;margin-left: -30px" class="form-control" id="accountType_" name="accountType">
+                            <option value="">全部</option>
+                            <option value="0">收入</option>
+                            <option value="1">支出</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-left:20px;width:90px;line-height: 30px">金额</label>
+                    <div class="col-sm-1" style="width: 100px;margin-left: -20px" >
+                        <input type="number" class="form-control" style="width: 100px;margin-left: -20px" name="totalPay" id="totalPay_"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-left:-10px;width:90px;line-height: 30px">收支科目</label>
+                    <div class="col-sm-1">
+                        <select class="form-control" required id="subjectId_" style="margin-left: -20px;width: 100px" name="subjectId">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">收支说明</label>
+                    <div class="col-sm-1" style="margin-left: -20px" >
+                        <input type="text" id="description_" class="form-control" style="width: 100px" name="description"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px;margin-left: 40px">审核状态</label>
+                    <div class="col-sm-1" style="width: 120px" >
+                        <select style="width: 160px;margin-left: -30px" class="form-control" id="cashStatus_" name="cashStatus">
+                            <option value="">全部</option>
+                            <option value="0">审核通过</option>
+                            <option value="1">审核不通过</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-left:20px;width:90px;line-height: 30px">收支账户</label>
+                    <div class="col-sm-1" style="width: 100px;margin-left: -30px" >
+                        <select class="form-control" required id="payTypeId_" name="payTypeId">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-left:10px;width:90px;line-height: 30px">收支周期</label>
+                    <div class="col-sm-1">
+                        <input type="text" class="form-control" style="width: 120px;margin-left: -20px" name="zhouqi" id="zhouqi"/>
+                    </div>
+
+                    <div class="col-sm-1" style="width: 180px;margin-left: 30px" >
+                        <button class="btn btn-primary" id="search_btn" style="width: 180px">查询</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <table id="mytab" name="mytab" class="table table-hover"></table>
+        <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+            <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
+                <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
+            </button>
+            <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+            </button>
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+            </button>
         </div>
     </div>
 </div>
@@ -650,6 +538,14 @@
     laydate.render({
         elem: '#test21'
     });
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'datetime'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#zhouqi'
+    });
 </script>
 <script>
     $(function () {
@@ -664,6 +560,10 @@
                 })
                 $("#select2-subjectId-container").remove();
                 $("#select2-subject_id-container").remove();
+                $("#subject__id").select2({
+                    data: data
+                });
+                $("#select2-subject__id-container").remove();
             },
             "json"
 
@@ -698,6 +598,10 @@
                 })
                 $("#select2-payType_Id-container").remove();
                 $("#select2-payTypeId-container").remove();
+                $("#payTypeId_").select2({
+                    data: data
+                })
+                $("#select2-payTypeId_-container").remove();
             },
             "json"
 
@@ -719,31 +623,10 @@
                 hotelId:$("#hotelid_").val()
             },
             function(data){
-                $("#wxin").html("￥"+data.wxin);
-                $("#wxout").html("￥"+data.wxout);
-                $("#wxjy").html("￥"+data.wxjy);
-                $("#xjin").html("￥"+data.xjin);
-                $("#xjout").html("￥"+data.xjout);
-                $("#xjjy").html("￥"+data.xjjy);
-                $("#zfbin").html("￥"+data.zfbin);
-                $("#zfbout").html("￥"+data.zfbout);
-                $("#zfbjy").html("￥"+data.zfbjy);
-                $("#ylin").html("￥"+data.ylin);
-                $("#ylout").html("￥"+data.ylout);
-                $("#yljy").html("￥"+data.yljy);
-                $("#zjin").html("￥"+data.zjin);
-                $("#zjout").html("￥"+data.zjout);
-                if(data.yk==0){
-                    $("#yk").html("亏损￥"+data.ykVal);
-                    $("#yk").css("color","red");
-                    $("#y_k").html("亏损￥"+data.ykVal);
-                    $("#y_k").css("color","red");
-                }else{
-                    $("#yk").html("盈利￥"+data.ykVal);
-                    $("#yk").css("color","blue");
-                    $("#y_k").html("盈利￥"+data.ykVal);
-                    $("#y_k").css("color","blue");
-                }
+                alert("sum=="+data.sumMoneyIn);
+                $("#sumMoneyIn").html("￥"+data.sumMoneyIn);
+                $("#sumMoneyOut").html("￥"+data.sumMoneyOut);
+                $("#sumMoneyJieyu").html("￥"+data.sumMoneyJieyu);
             },
             "json"
 

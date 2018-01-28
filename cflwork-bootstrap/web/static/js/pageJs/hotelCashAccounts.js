@@ -285,7 +285,43 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/hotelCashAccountsList'});
+    var times = $("#test_2").val();
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/cashAccounts/findHotelCashAccountsList',
+        query:{
+            accountType:$("#accountType_").val(),
+            createTime:times.substring(0,19),
+            endTime:times.substring(21,times.length),
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            payTypeId:$("#payTypeId_").val(),
+            loopTime:$("#zhouqi_").val(),
+            hotelId:$("#hotelid_").val()
+        }
+    });
+    $.post(
+        "/cashAccounts/cashSum",
+        {
+            accountType:$("#accountType_").val(),
+            createTime:times.substring(0,19),
+            endTime:times.substring(21,times.length),
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            payTypeId:$("#payTypeId_").val(),
+            loopTime:$("#zhouqi_").val(),
+            hotelId:$("#hotelid_").val()
+        },
+        function (data) {
+            $("#findin").html("￥"+data.sumMoneyIn);
+            $("#findout").html("￥"+data.sumMoneyOut);
+            $("#findjieyu").html("￥"+data.sumMoneyJieyu);
+        },
+        "json"
+    );
 })
 function getInfo(val){
     $('#mytab').bootstrapTable(

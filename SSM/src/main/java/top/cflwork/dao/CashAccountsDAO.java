@@ -27,4 +27,11 @@ public interface CashAccountsDAO extends BaseDAO<CashAccountsVo>{
     long counts(PageQuery pageQuery);
     List<CashAccountsVo> listPageBy(PageQuery pageQuery);
     long countBy(PageQuery pageQuery);
+
+    List<CashAccountsVo> listPageBys(@Param("pageQuery") PageQuery pageQuery,@Param("cashAccountsVo") CashAccountsVo cashAccountsVo);
+    long countBys(@Param("pageQuery") PageQuery pageQuery,@Param("cashAccountsVo") CashAccountsVo cashAccountsVo);
+    SumCashVo cashSum(CashAccountsVo cashAccountsVo);
+
+    List<CashAccountsVo> listPageByHotel(@Param("pageQuery") PageQuery pageQuery,@Param("cashAccountsVo") CashAccountsVo cashAccountsVo);
+    long countByHotel(@Param("pageQuery") PageQuery pageQuery,@Param("cashAccountsVo") CashAccountsVo cashAccountsVo);
 }

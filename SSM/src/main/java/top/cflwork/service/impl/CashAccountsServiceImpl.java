@@ -120,4 +120,29 @@ public class CashAccountsServiceImpl implements CashAccountsService{
     public long countBy(PageQuery pageQuery) {
         return cashAccountsDAO.countBy(pageQuery);
     }
+
+    @Override
+    public List<CashAccountsVo> listPageBys(PageQuery pageQuery, CashAccountsVo cashAccountsVo) {
+        return cashAccountsDAO.listPageBys(pageQuery, cashAccountsVo);
+    }
+
+    @Override
+    public long countBys(PageQuery pageQuery, CashAccountsVo cashAccountsVo) {
+        return cashAccountsDAO.countBys(pageQuery, cashAccountsVo);
+    }
+
+    @Override
+    public SumCashVo cashSum(CashAccountsVo cashAccountsVo) {
+        return cashAccountsDAO.cashSum(cashAccountsVo);
+    }
+
+    @Override
+    public List<CashAccountsVo> listPageByHotel(PageQuery pageQuery, CashAccountsVo cashAccountsVo) {
+        return cashAccountsDAO.listPageByHotel(pageQuery, cashAccountsVo);
+    }
+
+    @Override
+    public long countByHotel(PageQuery pageQuery, CashAccountsVo cashAccountsVo) {
+        return cashAccountsDAO.countByHotel(pageQuery, cashAccountsVo);
+    }
 }

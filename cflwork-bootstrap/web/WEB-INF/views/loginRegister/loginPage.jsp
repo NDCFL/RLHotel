@@ -29,7 +29,7 @@
 <body class="page-sign">
 <div id="wrap">
     <div id="header">
-        <h1 class="logo"><a  ka="header-home-logo" title="瑞蓝公寓"><img src="<%=path%>/static/img/logo.png" style="border-radius: 10px;width: 200px;height: 200px;margin-top: -50px" /></a></h1>
+        <h1 class="logo"><a  ka="header-home-logo" title="瑞蓝公寓"><img src="<%=path%>/static/img/logo.png" style="border-radius: 10px;width: 150px;height: 150px;margin-top: -50px" /></a></h1>
     </div>
     <div class="sign-wrap">
         <!--密码登录-->

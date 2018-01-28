@@ -34,6 +34,12 @@ public class CashAccountsVo {
 
     private Long payTypeId;
 
+    private double outSum;
+
+    private Double inSum;
+
+    private Double yu;
+
     private CompanyVo companyVo;
 
     private HotelVo hotelVo;
@@ -49,6 +55,13 @@ public class CashAccountsVo {
     private String hand;
     private CashSubjectVo cashSubjectVo;
 
+    private Date endTime;
+    private Date loopTime;
+    private Integer sumCount;
+    private Double inMoneySum;//搜索总收入金额
+    private Double outMoneySum;//搜索总支出金额
+    private Double jieyuMoneySum;//搜索总结余金额
+    private String en;
     public CashAccountsVo(Long id, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Date createTime, Byte isActive) {
         this.id = id;
         this.shopManagerId = shopManagerId;
@@ -264,5 +277,85 @@ public class CashAccountsVo {
 
     public void setPaymentTypeVo(PaymentTypeVo paymentTypeVo) {
         this.paymentTypeVo = paymentTypeVo;
+    }
+
+    public double getOutSum() {
+        return outSum;
+    }
+
+    public void setOutSum(double outSum) {
+        this.outSum = outSum;
+    }
+
+    public Double getInSum() {
+        return inSum;
+    }
+
+    public void setInSum(Double inSum) {
+        this.inSum = inSum;
+    }
+
+    public Double getYu() {
+        return yu;
+    }
+
+    public void setYu(Double yu) {
+        this.yu = yu;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Date getLoopTime() {
+        return loopTime;
+    }
+
+    public void setLoopTime(Date loopTime) {
+        this.loopTime = loopTime;
+    }
+
+    public Integer getSumCount() {
+        return sumCount;
+    }
+
+    public void setSumCount(Integer sumCount) {
+        this.sumCount = sumCount;
+    }
+
+    public Double getInMoneySum() {
+        return inMoneySum;
+    }
+
+    public void setInMoneySum(Double inMoneySum) {
+        this.inMoneySum = inMoneySum;
+    }
+
+    public Double getOutMoneySum() {
+        return outMoneySum;
+    }
+
+    public void setOutMoneySum(Double outMoneySum) {
+        this.outMoneySum = outMoneySum;
+    }
+
+    public Double getJieyuMoneySum() {
+        return jieyuMoneySum;
+    }
+
+    public void setJieyuMoneySum(Double jieyuMoneySum) {
+        this.jieyuMoneySum = jieyuMoneySum;
+    }
+
+    public String getEn() {
+        return en;
+    }
+
+    public void setEn(String en) {
+        this.en = en;
     }
 }

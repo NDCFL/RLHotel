@@ -59,6 +59,65 @@ public class CashAccountsController {
         pagingBean.setrows(cashAccountsService.listPageBy(pageQuery));
         return pagingBean;
     }
+    @RequestMapping("findCashAccountsList")
+    @ResponseBody
+    public PagingBean findCashAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session,CashAccountsVo cashAccountsVo) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setPageSize(pageSize);
+            pagingBean.setCurrentPage(pageIndex);
+            //赋值给pagequery对象
+            PageQuery pageQuery = new PageQuery();
+            pageQuery.setHotelId(-1l);
+            pageQuery.setCompanyId(userVo.getCompanyId());
+            pageQuery.setSearchVal(searchVal);
+            pageQuery.setPageSize(pagingBean.getPageSize());
+            pageQuery.setPageNo(pagingBean.getStartIndex());
+            pagingBean.setTotal(cashAccountsService.countBys(pageQuery,cashAccountsVo));
+            pagingBean.setrows(cashAccountsService.listPageBys(pageQuery,cashAccountsVo));
+            return pagingBean;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    @RequestMapping("findHotelCashAccountsList")
+    @ResponseBody
+    public PagingBean findHotelCashAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session,CashAccountsVo cashAccountsVo) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setPageSize(pageSize);
+            pagingBean.setCurrentPage(pageIndex);
+            //赋值给pagequery对象
+            PageQuery pageQuery = new PageQuery();
+            pageQuery.setHotelId(cashAccountsVo.getHotelId());
+            pageQuery.setCompanyId(userVo.getCompanyId());
+            pageQuery.setSearchVal(searchVal);
+            pageQuery.setPageSize(pagingBean.getPageSize());
+            pageQuery.setPageNo(pagingBean.getStartIndex());
+            pagingBean.setTotal(cashAccountsService.countByHotel(pageQuery,cashAccountsVo));
+            pagingBean.setrows(cashAccountsService.listPageByHotel(pageQuery,cashAccountsVo));
+            return pagingBean;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    @RequestMapping("cashSum")
+    @ResponseBody
+    public SumCashVo cashSum(CashAccountsVo cashAccountsVo,HttpSession session) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            cashAccountsVo.setCompanyId(userVo.getCompanyId());
+            cashAccountsVo.setHotelId(cashAccountsVo.getHotelId());
+            return cashAccountsService.cashSum(cashAccountsVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
     @RequestMapping("hotelCashAccountsList")
     @ResponseBody
     public PagingBean hotelCashAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{

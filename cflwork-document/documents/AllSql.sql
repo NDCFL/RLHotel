@@ -595,3 +595,23 @@ select
 from t_cash_accounts GROUP BY  company_id;
 
 
+select (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where t.account_type=0 and t.description like concat('%%') and t.pay_type_id=2 and t.company_id=1 and t.hotel_id=-1 ) as sumMoneyIn,
+(select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where t.account_type=1 and t.description like concat('%%') and t.pay_type_id=2 and t.company_id=1 and t.hotel_id=-1 ) as sumMoneyOut
+from t_cash_accounts where company_id=1 and hotel_id=-1 GROUP BY company_id;
+
+select
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where c.account_type=0 and month(c.create_time)=month('2018-01-28 00:00:00.0') and c.hotel_id!=-1 and c.company_id=1 and c.hotel_id=4 ) as sumMoneyIn,
+  (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where c.account_type=1 and month(c.create_time)=month('2018-01-28 00:00:00.0') and c.hotel_id!=-1 and c.company_id=1 and c.hotel_id=4 ) as sumMoneyOut
+from t_cash_accounts where company_id=1 and hotel_id!=-1  GROUP BY company_id;
+
+<==        Row: 7, 1, 2, 7, 1, 2018-01-04 19:02:16.0, 2018-02-04 19:02:20.0, 3000.00, 2, 被套支出, 暂无批注, 2018-01-04 19:02:36.0, 0, 0, 0, 未审核, null, 97, 3, null, 15679760321, 红古轩酒店, 青岛瑞蓝铂悦酒店管理有限公司, 被套, 银联
+<==        Row: 6, 1, 2, 7, 1, 2018-01-04 18:59:23.0, 2018-02-04 19:02:20.0, 3000.00, 1, 牙刷支出, 暂无批注, 2018-01-04 18:59:54.0, 0, 0, 0, 未审核, null, 97, 2, null, 15679760321, 红古轩酒店, 青岛瑞蓝铂悦酒店管理有限公司, 牙刷, 微信
+<==        Row: 3, 1, 2, 7, 1, 2017-12-05 21:30:56.0, 2018-02-01 18:47:34.0, 700.00, 2, 被套支出, 账单无误, 2017-12-05 21:33:25.0, 0, 1, 1, 审核通过, 7, 30, 3, 15679760321, 15679760321, 红古轩酒店, 青岛瑞蓝铂悦酒店管理有限公司, 被套, 银联
+<==        Row: 2, 1, 4, 7, 0, 2017-12-05 09:25:09.0, 2018-02-01 18:47:34.0, 900.00, 1, 牙刷进货, 暂无批注, 2017-12-05 21:27:48.0, 1, 1, 1, 审核通过, 7, 30, 2, 15679760321, 15679760321, 800, 青岛瑞蓝铂悦酒店管理有限公司, 牙刷, 微信
+<==        Row: 1, 1, 2, 7, 0, 2017-12-03 22:56:17.0, 2018-02-01 18:47:34.0, 500.00, 1, 采购牙刷, 采购牙刷, 2017-12-03 22:56:56.0, 0, 1, 1, 审核通过, 7, 30, 1, 15679760321, 15679760321, 红古轩酒店, 青岛瑞蓝铂悦酒店管理有限公司, 牙刷, 支付宝
+<==      Total: 5
+<==        Row: 7, 1, 2, 7, 1, 2018-01-04 19:02:16.0, 2018-02-04 19:02:20.0, 3000.00, 2, 被套支出, 暂无批注, 2018-01-04 19:02:36.0, 0, 0, 0, 未审核, null, 97, 3, null, 15679760321, 青岛瑞蓝铂悦酒店管理有限公司, 被套, 银联
+<==        Row: 6, 1, 2, 7, 1, 2018-01-04 18:59:23.0, 2018-02-04 19:02:20.0, 3000.00, 1, 牙刷支出, 暂无批注, 2018-01-04 18:59:54.0, 0, 0, 0, 未审核, null, 97, 2, null, 15679760321, 青岛瑞蓝铂悦酒店管理有限公司, 牙刷, 微信
+<==        Row: 3, 1, 2, 7, 1, 2017-12-05 21:30:56.0, 2018-02-01 18:47:34.0, 700.00, 2, 被套支出, 账单无误, 2017-12-05 21:33:25.0, 0, 1, 1, 审核通过, 7, 30, 3, 15679760321, 15679760321, 青岛瑞蓝铂悦酒店管理有限公司, 被套, 银联
+<==        Row: 1, 1, 2, 7, 0, 2017-12-03 22:56:17.0, 2018-02-01 18:47:34.0, 500.00, 1, 采购牙刷, 采购牙刷, 2017-12-03 22:56:56.0, 0, 1, 1, 审核通过, 7, 30, 1, 15679760321, 15679760321, 青岛瑞蓝铂悦酒店管理有限公司, 牙刷, 支付宝
+<==      Total: 4

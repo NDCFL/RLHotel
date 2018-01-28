@@ -23,4 +23,9 @@ public interface CashAccountsService extends BaseService<CashAccountsVo>{
     long counts(PageQuery pageQuery);
     List<CashAccountsVo> listPageBy(PageQuery pageQuery);
     long countBy(PageQuery pageQuery);
+    List<CashAccountsVo> listPageBys(PageQuery pageQuery,CashAccountsVo cashAccountsVo);
+    long countBys(PageQuery pageQuery,CashAccountsVo cashAccountsVo);
+    SumCashVo cashSum(CashAccountsVo cashAccountsVo);
+    List<CashAccountsVo> listPageByHotel(PageQuery pageQuery,CashAccountsVo cashAccountsVo);
+    long countByHotel(PageQuery pageQuery,CashAccountsVo cashAccountsVo);
 }
