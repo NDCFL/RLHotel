@@ -11,6 +11,7 @@ public class SumCashVo implements Serializable {
     private Double sumMoneyIn;
     private Double sumMoneyOut;
     private Double sumMoneyJieyu;
+    private String payTypeName;
 
     public Double getSumMoneyIn() {
         return sumMoneyIn;
@@ -34,5 +35,13 @@ public class SumCashVo implements Serializable {
 
     public void setSumMoneyJieyu(Double sumMoneyJieyu) {
         this.sumMoneyJieyu = sumMoneyJieyu;
+    }
+
+    public String getPayTypeName() {
+        return payTypeName;
+    }
+
+    public void setPayTypeName(String payTypeName) {
+        this.payTypeName = payTypeName;
     }
 }

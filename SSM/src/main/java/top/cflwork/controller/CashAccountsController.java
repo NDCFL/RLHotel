@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.java2d.pipe.hw.AccelDeviceEventListener;
 import top.cflwork.common.DateFormatUtils;
 import top.cflwork.common.DateParseUtils;
 import top.cflwork.common.Message;
@@ -202,14 +203,11 @@ public class CashAccountsController {
             if(userRoleVo.getRoleVo().getTitle().equals("店长")){
                 HotelVo hotelVo = hotelService.findHotel(userVo.getId());
                 cashAccounts.setHotelId(hotelVo.getId());
-                cashAccounts.setShopManagerId(userVo.getId());
             }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
                 EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
                 cashAccounts.setHotelId(employeeVo.getHotelId());
-                cashAccounts.setShopManagerId(employeeVo.getUserId());
             }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员")){
                 HotelVo hotelVo = hotelService.getById(cashAccounts.getHotelId());
-                cashAccounts.setShopManagerId(hotelVo.getHotelManagerId());
             }
             //每天付多少
             cashAccounts.setDayPay((Double.parseDouble(cashAccounts.getTotalPay()+""))/(datediffDay(cashAccounts.getAccountTime(),cashAccounts.getAccountTimeEnd())));
@@ -253,13 +251,25 @@ public class CashAccountsController {
     public SumCashVo getCashVal(HttpSession session,String dateVal,Long hotelId) throws  Exception {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         if(dateVal==null){
-            return cashAccountsService.sumCash(new Date(),userVo.getCompanyId(),hotelId);
+            return cashAccountsService.sumCash(null,userVo.getCompanyId(),hotelId);
         }else{
             DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             return cashAccountsService.sumCash(format1.parse(dateVal),userVo.getCompanyId(),hotelId);
 
         }
 
+    }
+    @RequestMapping("/cashAccountsUpdateSave")
+    @ResponseBody
+    public Message cashAccountsUpdateSave(CashAccountsVo cashAccountsVo) throws  Exception {
+        try{
+            cashAccountsVo.setDayPay((Double.parseDouble(cashAccountsVo.getTotalPay()+""))/(datediffDay(cashAccountsVo.getAccountTime(),cashAccountsVo.getAccountTimeEnd())));
+            cashAccountsService.update(cashAccountsVo);
+            return  Message.success("修改成功!");
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("修改失败!");
+        }
     }
     @RequestMapping("/findCashAccounts/{id}")
     @ResponseBody
@@ -325,17 +335,6 @@ public class CashAccountsController {
         }catch (Exception e){
             e.printStackTrace();
             return Message.fail("批量审核失败!");
-        }
-    }
-    @RequestMapping("/cashAccountsUpdateSave")
-    @ResponseBody
-    public Message updatecashAccounts(CashAccountsVo cashAccounts) throws  Exception{
-        try{
-            cashAccountsService.update(cashAccounts);
-            return  Message.success("修改成功!");
-        }catch (Exception e){
-            e.printStackTrace();
-            return Message.fail("修改失败!");
         }
     }
     @RequestMapping("/cashAccountsUpdateRemark")

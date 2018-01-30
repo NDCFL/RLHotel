@@ -13,34 +13,34 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>现金流水账目列表</title>
+    <title>收支账目列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>现金流水账目统计</h5>
+            <h5>收支账目统计</h5>
              <div class="ibox-tools">
-                 <div style="float:right;">
-                     <button type="button" style="float: right;margin-top: -10px;margin-left: 5px" id="getDval" class="btn btn-primary" data-dismiss="modal">
-                         查询
-                     </button>
-                 </div>
-                 <div style="float:right;">
-                     <input  name="dateVal" style="width:100%;padding-top: -5%;margin-top: -10px;float: right"  type="text" id="test21"  class="form-control" required="required" aria-required="true">
-                 </div>
-                 <div style="float:right;margin-right: 20px">
-                     <span>账单月份</span>
-                 </div>
-                 <div style="float:right;margin-right: 20px">
-                     <select class="form-control" style="width:100%;padding-top: -5%;margin-top: -10px;float: right" required id="hotelid_" name="hotelId">
-                        <option value="">全部</option>
-                     </select>
-                 </div>
-                 <div style="float:right;margin-right: 20px">
-                     <span>店面名称</span>
-                 </div>
+                 <%--<div style="float:right;">--%>
+                     <%--<button type="button" style="float: right;margin-top: -10px;margin-left: 5px" id="getDval" class="btn btn-primary" data-dismiss="modal">--%>
+                         <%--查询--%>
+                     <%--</button>--%>
+                 <%--</div>--%>
+                 <%--<div style="float:right;">--%>
+                     <%--<input  name="dateVal" style="width:100%;padding-top: -5%;margin-top: -10px;float: right"  type="text" id="test21"  class="form-control" required="required" aria-required="true">--%>
+                 <%--</div>--%>
+                 <%--<div style="float:right;margin-right: 20px">--%>
+                     <%--<span>账单月份</span>--%>
+                 <%--</div>--%>
+                 <%--<div style="float:right;margin-right: 20px">--%>
+                     <%--<select class="form-control" style="width:100%;padding-top: -5%;margin-top: -10px;float: right" required id="hotelid_" name="hotelId">--%>
+                        <%--<option value="">全部</option>--%>
+                     <%--</select>--%>
+                 <%--</div>--%>
+                 <%--<div style="float:right;margin-right: 20px">--%>
+                     <%--<span>店面名称</span>--%>
+                 <%--</div>--%>
              </div>
         </div>
         <div class="ibox-content">
@@ -50,15 +50,15 @@
                         <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">财务总收入</span>
-                                    <h5>财务总收入</h5>
+                                    <span class="label label-info pull-right">全部账户</span>
+                                    <h5>总收入</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="sumMoneyIn"></h3>
+                                    <h2 class="no-margins" id="sumMoneyIn" style="color: #099000;"></h2>
                                     <div class="stat-percent font-bold text-info">收入
                                         <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>财务总收入</small>
+                                    <small>全部账户总收入</small>
                                 </div>
                             </div>
                         </div>
@@ -67,14 +67,14 @@
                         <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">财务总支出</span>
-                                    <h5>财务总支出</h5>
+                                    <span class="label label-info pull-right">全部账户</span>
+                                    <h5>总支出</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="sumMoneyOut"></h3>
+                                    <h2 class="no-margins" id="sumMoneyOut" style="color: #ff0000;"></h2>
                                     <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>财务总支出</small>
+                                    <small>全部账户总支出</small>
                                 </div>
                             </div>
                         </div>
@@ -83,20 +83,19 @@
                         <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">财务总结余</span>
-                                    <h5>财务总结余</h5>
+                                    <span class="label label-info pull-right">全部账户</span>
+                                    <h5>总结余</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="sumMoneyJieyu"></h3>
+                                    <h2 class="no-margins" id="sumMoneyJieyu" style="color: #0060ff"></h2>
                                     <div class="stat-percent font-bold text-info">结余 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>财务总结余</small>
+                                    <small>全部账户总结余</small>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-
             </div>
             <div class="wrapper wrapper-content">
                 <div class="row">
@@ -104,15 +103,14 @@
                         <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">财务总收入</span>
-                                    <h5>财务总收入</h5>
+                                    <span class="label label-info pull-right findNameIn" >合计收入</span>
+                                    <h5 class="findNameIn">搜索统计</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="findin"></h3>
-                                    <div class="stat-percent font-bold text-info">收入
-                                        <i class="fa fa-level-up"></i>
+                                    <h2 class="no-margins" id="findin" style="color: #099000;">0</h2>
+                                    <div class="stat-percent font-bold text-info">收入 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>财务总收入</small>
+                                    <small class="findNameIn">搜索数据合计总收入</small>
                                 </div>
                             </div>
                         </div>
@@ -121,14 +119,14 @@
                         <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">财务总支出</span>
-                                    <h5>财务总支出</h5>
+                                    <span class="label label-info pull-right findNameOut" >合计总支出</span>
+                                    <h5 class="findNameOut">搜索统计</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="findout"></h3>
+                                    <h2 class="no-margins" id="findout" style="color: #ff0000;">0</h2>
                                     <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>财务总支出</small>
+                                    <small class="findNameOut">搜索数据合计总支出</small>
                                 </div>
                             </div>
                         </div>
@@ -137,14 +135,14 @@
                         <div class="col-sm-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-                                    <span class="label label-info pull-right">财务总结余</span>
-                                    <h5>财务总结余</h5>
+                                    <span class="label label-info pull-right findNameJieyu" >合计结余</span>
+                                    <h5 class="findNameJieyu">搜索统计</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h3 class="no-margins" id="findjieyu"></h3>
+                                    <h2 class="no-margins" id="findjieyu" style="color: #0060ff">0</h2>
                                     <div class="stat-percent font-bold text-info">结余 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>财务总结余</small>
+                                    <small class="findNameJieyu">搜索数据合计总结余</small>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +155,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>现金流水账目列表</h5>
+            <h5>收支账目列表</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -165,55 +163,65 @@
                     查询列表
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">创建时间</label>
-                    <div class="col-sm-1" style="width: 360px;margin-left: -20px" >
-                        <input type="text" class="form-control" style="width: 310px" name="createTime" id="test_2"/>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control"   name="createTime" id="test_2"/>
                     </div>
-                    <label class="col-sm-1 control-label" style="margin-left:-30px;line-height: 30px;width:100px;">收支类型</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select style="width: 160px;margin-left: -30px" class="form-control" id="accountType_" name="accountType">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">收支类型</label>
+                    <div class="col-sm-2"  >
+                        <select  class="form-control" id="accountType_" style="" name="accountType">
                             <option value="">全部</option>
                             <option value="0">收入</option>
                             <option value="1">支出</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="margin-left:20px;width:90px;line-height: 30px">金额</label>
-                    <div class="col-sm-1" style="width: 100px;margin-left: -20px" >
-                        <input type="number" class="form-control" style="width: 100px;margin-left: -20px" name="totalPay" id="totalPay_"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:-10px;width:90px;line-height: 30px">收支科目</label>
-                    <div class="col-sm-1">
-                        <select class="form-control" required id="subjectId_" style="margin-left: -20px;width: 100px" name="subjectId">
-                            <option value="">全部</option>
-                        </select>
+                    <label class="col-sm-1 control-label"  style=" margin-top:5px;">金额</label>
+                    <div class="col-sm-2" >
+                        <input type="number" class="form-control" style="" name="totalPay" id="totalPay_"/>
                     </div>
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">收支说明</label>
-                    <div class="col-sm-1" style="margin-left: -20px" >
-                        <input type="text" id="description_" class="form-control" style="width: 100px" name="description"/>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">收支科目</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required  id="subjectId_" name="subjectId">
+                            <option value="">全部</option>
+                        </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px;margin-left: 40px">审核状态</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select style="width: 160px;margin-left: -30px" class="form-control" id="cashStatus_" name="cashStatus">
+                    <label class="col-sm-1 control-label" style="margin-top:5px" >收支说明</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" id="description_" style=""  class="form-control"  name="description"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-top: 5px">审核状态</label>
+                    <div class="col-sm-2"  >
+                        <select class="form-control" style="" id="cashStatus_" name="cashStatus">
                             <option value="">全部</option>
                             <option value="0">审核通过</option>
                             <option value="1">审核不通过</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="margin-left:20px;width:90px;line-height: 30px">收支账户</label>
-                    <div class="col-sm-1" style="width: 100px;margin-left: -30px" >
-                        <select class="form-control" required id="payTypeId_" name="payTypeId">
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label"  style="margin-top:5px" >收支账户</label>
+                    <div class="col-sm-2"  >
+                        <select class="form-control"  required id="payTypeId_"  name="payTypeId">
                             <option value="">全部</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="margin-left:10px;width:90px;line-height: 30px">收支周期</label>
-                    <div class="col-sm-1">
-                        <input type="text" class="form-control" style="width: 120px;margin-left: -20px" name="zhouqi" id="zhouqi"/>
+                    <label class="col-sm-1 control-label"  style="margin-top:5px" >收支周期</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" style=""   name="zhouqi" id="zhouqi"/>
                     </div>
+                    <label class="col-sm-1 control-label" style="margin-top: 5px">店面名称</label>
+                    <div class="col-sm-2"  >
+                        <select class="form-control" style="" required id="hotel" name="hotel">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
 
-                    <div class="col-sm-1" style="width: 180px;margin-left: 30px" >
-                        <button class="btn btn-primary" id="search_btn" style="width: 180px">查询</button>
+                    <div class="col-sm-6" style="text-align: center;margin: auto" >
+                        <button class="btn btn-primary"  id="search_btn" style="width: 280px;float: right">查询</button>
                     </div>
                 </div>
             </div>
@@ -223,9 +231,9 @@
             <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
                 <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
             </button>
-            <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-            </button>
+            <%--<button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">--%>
+                <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除--%>
+            <%--</button>--%>
             <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
             </button>
@@ -242,27 +250,29 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增现金流水账目
+                    新增收支账目
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
+                <input type="hidden" name="accountTime" id="accountTime" />
+                <input type="hidden" name="accountTimeEnd" id="accountTimeEnd" />
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属酒店：</label>
+                        <label class="col-sm-3 control-label">店面名称：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="hotel_id" name="hotelId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
+                        <label class="col-sm-3 control-label">收支科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subject_id" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目类型：</label>
+                        <label class="col-sm-3 control-label">收支类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -271,28 +281,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">支付方式：</label>
+                        <label class="col-sm-3 control-label">选择账户：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="payType_Id" name="payTypeId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目金额：</label>
+                        <label class="col-sm-3 control-label">金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支起始时间：</label>
+                        <label class="col-sm-3 control-label">收支周期：</label>
                         <div class="col-sm-8">
-                            <input  name="accountTime"  type="datetime" id="test2" class="form-control" required="required" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">收支结束时间：</label>
-                        <div class="col-sm-8">
-                            <input  name="accountTimeEnd"  type="datetime" id="test1" class="form-control" required="required" aria-required="true">
+                            <input  type="datetime" id="test2" class="form-control" required="required" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -324,28 +328,31 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    现金流水账目的修改
+                    收支账目修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
                 <input  id="id" type="hidden" name="id" />
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">所属酒店：</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" required id="hotelId" name="hotelId">
-                        </select>
-                    </div>
-                </div>
+                <input type="hidden" name="accountTime" id="accountTime_" />
+                <input type="hidden" name="accountTimeEnd" id="accountTimeEnd_" />
+                <input type="hidden" name="totalPay"/>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属现金流水科目：</label>
+                        <label class="col-sm-3 control-label">店面名称：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required id="hotelId" name="hotelId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收支科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subjectId" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目类型：</label>
+                        <label class="col-sm-3 control-label">收支类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -354,16 +361,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">现金流水账目金额：</label>
+                        <label class="col-sm-3 control-label">金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" id="totalPay" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">支付方式：</label>
+                        <label class="col-sm-3 control-label">选择方式：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="payTypeId" name="payTypeId">
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收支周期：</label>
+                        <div class="col-sm-8">
+                            <input  type="datetime" name="loop" id="test2_" class="form-control" required="required" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -372,11 +385,17 @@
                             <textarea  name="description" id="description" class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账目批注：</label>
+                        <div class="col-sm-8">
+                            <textarea  name="remark" class="form-control" required="" aria-required="true"></textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
+                    <button type="button" id="update" class="btn btn-primary" >
                         确认修改
                     </button>
                 </div>
@@ -392,7 +411,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="shenheModalLabel">
-                    现金流水账目的审核
+                    收支账目的审核
                 </h4>
             </div>
             <form class="form-horizontal" id="shenheform" >
@@ -434,7 +453,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="manyShenheModalLabel">
-                    现金流水账目的批量审核
+                    收支账目的批量审核
                 </h4>
             </div>
             <form class="form-horizontal" id="manyshenheform" >
@@ -476,7 +495,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="remarkModalLabel">
-                    现金流水账目的批注
+                    收支账目的批注
                 </h4>
             </div>
             <form class="form-horizontal" id="remarkform" >
@@ -521,26 +540,27 @@
 
 <%--</script>--%>
 <script>
-    var date = new Date();
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    var d = date.getDate();
-    $("#test21").val(y + '-' + m + '-' + d);
     //执行一个laydate实例
     laydate.render({
         elem: '#test1' //指定元素
-        ,type: 'datetime'
+        ,type: 'date'
     });
     laydate.render({
         elem: '#test2' //指定元素
-        ,type: 'datetime'
+        ,type: 'date'
+        ,range: true
     });
     laydate.render({
         elem: '#test21'
     });
     laydate.render({
         elem: '#test_2'//指定元素，
-        ,type: 'datetime'
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test2_'//指定元素，
+        ,type: 'date'
         ,range: true
     });
     laydate.render({
@@ -564,6 +584,11 @@
                     data: data
                 });
                 $("#select2-subject__id-container").remove();
+                $("#subjectId_").select2({
+                    data: data
+                });
+                $("#select2-subjectId_-container").remove();
+
             },
             "json"
 
@@ -580,9 +605,13 @@
                 $("#hotelid_").select2({
                     data: data
                 })
+                $("#hotel").select2({
+                    data: data
+                })
                 $("#select2-hotelId-container").remove();
                 $("#select2-hotel_id-container").remove();
                 $("#select2-hotelid_-container").remove();
+                $("#select2-hotel-container").remove();
             },
             "json"
 
@@ -623,7 +652,6 @@
                 hotelId:$("#hotelid_").val()
             },
             function(data){
-                alert("sum=="+data.sumMoneyIn);
                 $("#sumMoneyIn").html("￥"+data.sumMoneyIn);
                 $("#sumMoneyOut").html("￥"+data.sumMoneyOut);
                 $("#sumMoneyJieyu").html("￥"+data.sumMoneyJieyu);

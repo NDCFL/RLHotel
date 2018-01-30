@@ -35,61 +35,81 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '所属酒店',
-            field: 'hotelVo.title',
+            title: '录入日期',
+            field: 'createTime',
             align: 'center',
-            sortable: true
-        },
-        {
-            title: '酒店店长',
-            field: 'userVo.nickname',
-            align: 'center',
-            sortable: true
-        },
-
-        {
-            title: '收支金额',
-            field: 'totalPay',
-            align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value) {
+                var date = new Date(value);
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var mi = date.getMinutes();
+                var ss = date.getSeconds();
+                return y + '-' + m + '-' + d ;
+            }
         }
         ,
         {
-            title: '支付方式',
+            title: '收支类型',
+            field: 'accountType',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                if(value==0){
+                    return '<span style="color:green">收入</span>';
+                }else if(value==1){
+                    return '<span style="color:red">支出</span>';
+                }
+            }
+
+        }
+        ,
+        {
+            title: '账户',
             field: 'paymentTypeVo.title',
             align: 'center',
             sortable: true
         }
         ,
         {
-            title: '收支时间',
-            field: 'accountTime',
+            title: '金额',
+            field: 'totalPay',
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                if(value==""){
-                    return '<span style="color:red">暂未更新</span>';
-                }else{
-                    var date = new Date(value);
-                    var y = date.getFullYear();
-                    var m = date.getMonth() + 1;
-                    var d = date.getDate();
-                    var h = date.getHours();
-                    var mi = date.getMinutes();
-                    var ss = date.getSeconds();
-                    return y + '-' + m + '-' + d;
-                }
+                return '<span style="color:red">'+value+'</span>';
             }
         }
         ,
         {
-            title: '所属科目',
+            title: '收支科目',
             field: 'cashSubjectVo.title',
             align: 'center',
             sortable: true
         }
         ,
-
+        {
+            title: '收支日期',
+            field: 'loop',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
+            title: '收支说明',
+            field: 'description',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
+            title: '所属分店',
+            field: 'hotelVo.title',
+            align: 'center',
+            sortable: true
+        },
 
         {
             title: '审核状态',
@@ -110,21 +130,7 @@ $('#mytab').bootstrapTable({
         }
         ,
 
-        {
-            title: '账目类型',
-            field: 'accountType',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                if(value==0){
-                    return '<span style="color:green">收入</span>';
-                }else if(value==1){
-                    return '<span style="color:red">支出</span>';
-                }
-            }
 
-        }
-        ,
         {
             title: '操作人',
             field: 'hand',
@@ -134,49 +140,12 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '账目状态',
-            field: 'isActive',
-            align: 'center',
-            formatter: function (value, row, index) {
-                if (value == 0) {
-                    //表示启用状态
-                    return '<span style="color:green" >启用</span>';
-                } else {
-                    //表示启用状态
-                    return '<span style="color:red">停用</span>';
-                }
-            }
-        }
-        ,
-        {
-            title: '创建时间',
-            field: 'createTime',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d ;
-            }
-        }
-        ,
-
-        {
             title: '操作',
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var g='';
-                if(row.isCash==0){
-                    g = '<a title="审核" id="checker" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green"></i></a>';
-                }else{
-                    g = '<a title="批注" id="checker" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green"></i></a>';
-                }
+                var g = '<a title="审核" id="checker" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green">审核</i></a>';
+                var p = '<a title="批注" id="checker" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green">批注</i></a>';
                 var e = '<a title="编辑" href="javascript:void(0);" id="cashAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
@@ -185,7 +154,7 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                return g+e + d + f;
+                return p+g+e + d;
             }
         }
     ],
@@ -251,7 +220,13 @@ function edit(name) {
             //选中某一行
             colum.val(data.subjectId).trigger("change");
             colum.change();
+            var hotelId = $("#hotelId").select2();
+            //选中某一行
+            hotelId.val(data.hotelId).trigger("change");
+            hotelId.change();
             $("#accountTime").val(data.accountTime);
+            $("#select2-subjectId-container").remove();
+            $("#select2-hotelId-container").remove();
         },
         "json"
     );
@@ -286,27 +261,36 @@ function updatestatus(id, status) {
 //查询按钮事件
 $('#search_btn').click(function () {
     var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        times.replace("起","-").replace("止","");
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
     $('#mytab').bootstrapTable('refresh', {
         url: '/cashAccounts/findHotelCashAccountsList',
         query:{
             accountType:$("#accountType_").val(),
-            createTime:times.substring(0,19),
-            endTime:times.substring(21,times.length),
+            createTime:start,
+            endTime:end,
             totalPay:$("#totalPay_").val(),
             subjectId:$("#subjectId_").val(),
             description:$("#description_").val(),
             cashStatus:$("#cashStatus_").val(),
             payTypeId:$("#payTypeId_").val(),
             loopTime:$("#zhouqi_").val(),
-            hotelId:$("#hotelid_").val()
+            hotelId:$("#hotel").val()
         }
     });
     $.post(
         "/cashAccounts/cashSum",
         {
             accountType:$("#accountType_").val(),
-            createTime:times.substring(0,19),
-            endTime:times.substring(21,times.length),
+            createTime:start,
+            endTime:end,
             totalPay:$("#totalPay_").val(),
             subjectId:$("#subjectId_").val(),
             description:$("#description_").val(),
@@ -319,6 +303,9 @@ $('#search_btn').click(function () {
             $("#findin").html("￥"+data.sumMoneyIn);
             $("#findout").html("￥"+data.sumMoneyOut);
             $("#findjieyu").html("￥"+data.sumMoneyJieyu);
+            $(".findNameIn").html(data.payTypeName!=null?data.payTypeName+"总收入":'总账户总收入');
+            $(".findNameOut").html(data.payTypeName!=null?data.payTypeName+"总支出":'总账户总支出');
+            $(".findNameJieyu").html(data.payTypeName!=null?data.payTypeName+"总结余":'总账户总结余');
         },
         "json"
     );
@@ -355,6 +342,21 @@ $("#remarkAdd").click(function () {
     );
 });
 $("#update").click(function () {
+    var time = $("#test2_").val();
+    if(!time){
+        layer.alert("请选择收支周期", {icon: 6});
+        return;
+    }else{
+        time.replace("起","-").replace("止","");
+        if(time.indexOf("起")>-1){
+            $("#accountTime_").val(time.substring(0,10)+" 00:00:00");
+            $("#accountTimeEnd_").val(time.substring(11,time.length-1)+" 23:59:59");
+
+        }else{
+            $("#accountTime_").val(time.substring(0,11)+" 00:00:00");
+            $("#accountTimeEnd_").val(time.substring(13,time.length)+" 23:59:59");
+        }
+    }
     $.post(
         "/cashAccounts/cashAccountsUpdateSave",
         $("#updateform").serialize(),
@@ -366,6 +368,7 @@ $("#update").click(function () {
                 layer.alert(data.message, {icon: 6});
                 refush();
             }
+            $("#myModal").modal('hide');
         }, "json"
     );
 });
@@ -406,15 +409,6 @@ $('#formadd').bootstrapValidator({
 
             }
         },
-        accountTime: {
-            message: '收支时间验证失败',
-            validators: {
-                notEmpty: {
-                    message: '收支时间不能为空'
-                }
-
-            }
-        },
         description: {
             message: '账目说明验证失败',
             validators: {
@@ -428,6 +422,13 @@ $('#formadd').bootstrapValidator({
     e.preventDefault();
     var $form = $(e.target);
     var bv = $form.data('bootstrapValidator');
+    var time = $("#test2").val();
+    if(!time){
+        layer.alert("请选择收支周期", {icon: 6});
+        return;
+    }
+    $("#accountTime").val(time.substring(0,11)+" 00:00:00");
+    $("#accountTimeEnd").val(time.substring(13,time.length)+" 23:59:59");
     $.post(
         "/cashAccounts/cashAccountsAddSave",
         $("#formadd").serialize(),

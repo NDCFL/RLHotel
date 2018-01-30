@@ -1,6 +1,8 @@
 package top.cflwork.vo;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CashAccountsVo {
@@ -9,8 +11,6 @@ public class CashAccountsVo {
     private Long companyId;
 
     private Long hotelId;
-
-    private Long shopManagerId;
 
     private Byte accountType;
 
@@ -62,18 +62,6 @@ public class CashAccountsVo {
     private Double outMoneySum;//搜索总支出金额
     private Double jieyuMoneySum;//搜索总结余金额
     private String en;
-    public CashAccountsVo(Long id, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Date createTime, Byte isActive) {
-        this.id = id;
-        this.shopManagerId = shopManagerId;
-        this.accountType = accountType;
-        this.accountTime = accountTime;
-        this.totalPay = totalPay;
-        this.subjectId = subjectId;
-        this.description = description;
-        this.remark = remark;
-        this.createTime = createTime;
-        this.isActive = isActive;
-    }
 
     public CashAccountsVo() {
         super();
@@ -101,14 +89,6 @@ public class CashAccountsVo {
 
     public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
-    }
-
-    public Long getShopManagerId() {
-        return shopManagerId;
-    }
-
-    public void setShopManagerId(Long shopManagerId) {
-        this.shopManagerId = shopManagerId;
     }
 
     public Byte getAccountType() {
@@ -357,5 +337,10 @@ public class CashAccountsVo {
 
     public void setEn(String en) {
         this.en = en;
+    }
+
+    public  String getLoop(){
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        return  format1.format(accountTime)+"起"+format1.format(accountTimeEnd)+"止";
     }
 }
