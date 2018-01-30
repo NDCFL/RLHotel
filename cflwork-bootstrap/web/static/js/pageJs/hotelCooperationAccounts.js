@@ -180,9 +180,9 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 var g='';
                 if(row.isCash==0){
-                    g = '<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green"></i></a>';
+                    g = '<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green">审核</i></a>';
                 }else{
-                    g = '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green"></i></a>';
+                    g = '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green">批注</i></a>';
                 }
                 var e = '<a title="编辑" href="javascript:void(0);" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
@@ -254,6 +254,10 @@ function edit(name) {
     $.post("/cooperationAccounts/findCooperationAccounts/" + name,
         function (data) {
             $("#updateform").autofill(data);
+            var hotel__Id = $("#hotel__Id").select2();
+            //选中某一行
+            hotel__Id.val(data.hotelId).trigger("change");
+            hotel__Id.change();
             var colum = $("#subjectId").select2();
             //选中某一行
             colum.val(data.subjectId).trigger("change");
@@ -262,6 +266,9 @@ function edit(name) {
             //选中某一行
             colum1.val(data.cooperationCompanyId).trigger("change");
             colum1.change();
+            $("#select2-hotel__Id-container").remove();
+            $("#select2-subjectId-container").remove();
+            $("#select2-cooperationCompanyId-container").remove();
             $("#accountTime").val(data.accountTime);
 
         },
@@ -355,49 +362,20 @@ $("#shenhe").click(function () {
     );
 });
 
-$('#formadd').bootstrapValidator({
-    message: 'This value is not valid',
-    feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-        totalPay: {
-            message: '现金流水账目金额验证失败',
-            validators: {
-                notEmpty: {
-                    message: '现金流水账目金额不能为空'
-                },
-                regexp: {
-                    regexp: /^[0-9]+$/,
-                    message: '现金流水账目金额只能是数字'
-                }
-
-            }
-        },
-        accountTime: {
-            message: '收支时间验证失败',
-            validators: {
-                notEmpty: {
-                    message: '收支时间不能为空'
-                }
-
-            }
-        },
-        description: {
-            message: '账目说明验证失败',
-            validators: {
-                notEmpty: {
-                    message: '账目说明不能为空'
-                }
-            }
-        }
+$('#add').click(function () {
+    if(!$("#money_").val()){
+        layer.alert("金额不能为空", {icon: 5});
+        return;
     }
-}).on('success.form.bv', function(e) {//点击提交之后
-    e.preventDefault();
-    var $form = $(e.target);
-    var bv = $form.data('bootstrapValidator');
+    if(isNaN($("#money_").val())){
+        layer.alert("金额不能含有字符", {icon: 5});
+        return;
+    }
+    if(!$("#test1").val()) {
+        layer.alert("收支时间不能为空", {icon: 5});
+        return;
+    }
+    $("#accountTime").val($("#test1").val()+" 08:00:00");
     $.post(
         "/cooperationAccounts/cooperationAccountsAddSave",
         $("#formadd").serialize(),

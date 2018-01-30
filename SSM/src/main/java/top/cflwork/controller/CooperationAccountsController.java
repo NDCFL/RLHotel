@@ -106,7 +106,9 @@ public class CooperationAccountsController {
                 cooperationAccounts.setHotelId(employeeVo.getHotelId());
                 cooperationAccounts.setShopManagerId(employeeVo.getUserId());
             }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员") || userRoleVo.getRoleVo().getTitle().equals("管理员")){
-                cooperationAccounts.setHotelId(-1l);
+                if(cooperationAccounts.getHotelId()==null){
+                    cooperationAccounts.setHotelId(-1l);
+                }
             }
             cooperationAccounts.setRemark("暂无批注");
             cooperationAccounts.setIsCash((byte) 0);
@@ -117,6 +119,7 @@ public class CooperationAccountsController {
             cooperationAccountsService.save(cooperationAccounts);
             return  Message.success("新增成功!");
         }catch (Exception E){
+            E.printStackTrace();
             return Message.fail("新增失败!");
         }
 
@@ -128,6 +131,7 @@ public class CooperationAccountsController {
         List<Select2Vo> subjectList = cooperationAccountsService.getSubject(userVo.getCompanyId());
         return  subjectList;
     }
+    //公司的合作商家列表
     @RequestMapping("/getCooperationCompany")
     @ResponseBody
     public List<Select2Vo> getCooperationCompany(HttpSession session) throws  Exception {
@@ -135,11 +139,24 @@ public class CooperationAccountsController {
         UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
         EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
         PageQuery pageQuery = new PageQuery();
+        pageQuery.setHotelId(-1l);
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        List<Select2Vo> subjectList = cooperationAccountsService.getCooperationCompany(pageQuery);
+        return  subjectList;
+    }
+    //酒店合作商家列表
+    @RequestMapping("/getHotelCooperationCompany")
+    @ResponseBody
+    public List<Select2Vo> getHotelCooperationCompany(HttpSession session) throws  Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        UserRoleVo userRoleVo = (UserRoleVo) session.getAttribute("userRole");
+        EmployeeVo employeeVo = employeeService.getHotelId(userVo.getId());
+        PageQuery pageQuery = new PageQuery();
         if(userRoleVo.getRoleVo().getTitle().equals("店长")){
             HotelVo hotelVo = hotelService.findHotel(userVo.getId());
             pageQuery.setHotelId(hotelVo.getId());
-        }else if(userRoleVo.getRoleVo().getTitle().equals("录入员")){
-            pageQuery.setHotelId(employeeVo.getHotelId());
+        }else if(userRoleVo.getRoleVo().getTitle().equals("总管理员") || userRoleVo.getRoleVo().getTitle().equals("管理员")){
+            pageQuery.setHotelId(null);
         }
         pageQuery.setCompanyId(userVo.getCompanyId());
         List<Select2Vo> subjectList = cooperationAccountsService.getCooperationCompany(pageQuery);

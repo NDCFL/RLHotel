@@ -176,8 +176,9 @@
                     <div class="col-sm-2"  >
                         <select class="form-control" style="" id="cashStatus_" name="cashStatus">
                             <option value="">全部</option>
-                            <option value="0">审核通过</option>
-                            <option value="1">审核不通过</option>
+                            <option value="0">未审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">审核不通过</option>
                         </select>
                     </div>
                 </div>

@@ -65,6 +65,7 @@
         <if test="subjectId!=null"> and t.subject_id=#{subjectId}</if>
         <if test="cashStatus!=null"> and t.cash_status=#{cashStatus}</if>
         <if test="payTypeId!=null"> and t.pay_type_id=#{payTypeId}</if>
+        <if test="totalPay!=null"> and t.total_pay=#{totalPay}</if>
         <if test="loopTime!=null"> and #{loopTime} BETWEEN t.account_time AND t.account_time_end</if>
     </sql>
     <select id="getSubject" resultMap="select2VoMap" parameterType="long">
@@ -199,20 +200,48 @@
     </select>
     <select id="cashSum" resultType="top.cflwork.vo.SumCashVo">
       <if test="hotelId==-1">
+          <if test="accountType==null">
+              select
+              (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
+              (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and t.hotel_id=-1 and t.account_type=0 <include refid="find"></include>) as sumMoneyIn,
+              (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and t.hotel_id=-1 and t.account_type=1 <include refid="find"></include>)  as sumMoneyOut
+              from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+          </if>
+          <if test="accountType==1">
+              select
+              (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
+              (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and t.hotel_id=-1 and t.account_type=1 <include refid="find"></include>)  as sumMoneyOut
+              from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+          </if><if test="accountType==0">
           select
           (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
-          (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and t.hotel_id=-1 and t.account_type=0 <include refid="find"></include>) as sumMoneyIn,
-          (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and t.hotel_id=-1 and t.account_type=1 <include refid="find"></include>)  as sumMoneyOut
+          (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and t.hotel_id=-1 and t.account_type=0 <include refid="find"></include>) as sumMoneyIn
           from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
-
+      </if>
       </if>
         <if test="hotelId!=-1">
-            select
-            (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
-            (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and  t.hotel_id!=-1 <if test="hotelId!=null">and hotel_id=#{hotelId}</if> and t.account_type=0 <include refid="find"></include>) as sumMoneyIn,
-            (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and  t.hotel_id!=-1 <if test="hotelId!=null">and hotel_id=#{hotelId}</if> and t.account_type=1 <include refid="find"></include>)  as sumMoneyOut
-            from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+            <if test="accountType==null">
+                select
+                (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
+                (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and  t.hotel_id!=-1 <if test="hotelId!=null">and hotel_id=#{hotelId}</if> and t.account_type=0 <include refid="find"></include>) as sumMoneyIn,
+                (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and  t.hotel_id!=-1 <if test="hotelId!=null">and hotel_id=#{hotelId}</if> and t.account_type=1 <include refid="find"></include>)  as sumMoneyOut
+                from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
 
+            </if>
+            <if test="accountType==0">
+                select
+                (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
+                (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and  t.hotel_id!=-1 <if test="hotelId!=null">and hotel_id=#{hotelId}</if> and t.account_type=0 <include refid="find"></include>) as sumMoneyIn
+                from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+
+            </if>
+            <if test="accountType==1">
+                select
+                (select title from t_payment_type where id=#{payTypeId}) as payTypeName,
+                (select ifnull(sum(t.total_pay),0.0) from t_cash_accounts t where  t.company_id=1 and  t.hotel_id!=-1 <if test="hotelId!=null">and hotel_id=#{hotelId}</if> and t.account_type=1 <include refid="find"></include>)  as sumMoneyOut
+                from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
+
+            </if>
         </if>
     </select>
 </mapper>

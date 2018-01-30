@@ -119,9 +119,8 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">收支时间：</label>
-                        <div class="col-sm-8 date form_datetime">
-                            <input  name="accountTime"  type="datetime" class="form-control" required="" aria-required="true">
-                            <span class="add-on"><i class="icon-th"></i></span>
+                        <div class="col-sm-8">
+                            <input  name="accountTime"  type="text" id="test1" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -343,6 +342,10 @@
 
 <%--</script>--%>
 <script>
+    laydate.render({
+        elem: '#test1' //指定元素
+        ,type: 'date'
+    });
     $(function () {
         $.post(
             "/cooperationAccounts/getSubject",
@@ -355,7 +358,6 @@
                 })
             },
             "json"
-
         );
         $.post(
             "/cooperationAccounts/getCooperationCompany",

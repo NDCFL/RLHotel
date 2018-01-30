@@ -8,9 +8,9 @@ import java.util.function.DoubleBinaryOperator;
  */
 public class SumCashVo implements Serializable {
 
-    private Double sumMoneyIn;
-    private Double sumMoneyOut;
-    private Double sumMoneyJieyu;
+    private Double sumMoneyIn=0.0;
+    private Double sumMoneyOut=0.0;
+    private Double sumMoneyJieyu=0.0;
     private String payTypeName;
 
     public Double getSumMoneyIn() {

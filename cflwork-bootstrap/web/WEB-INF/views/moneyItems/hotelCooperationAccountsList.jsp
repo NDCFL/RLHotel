@@ -14,14 +14,130 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酒店合作商家账目列表</title>
+    <title>分店来往财务列表列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>酒店合作商家账目列表</h5>
+            <h5>收支账目统计</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right">全部商家</span>
+                                    <h5>当前应收</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h2 class="no-margins" id="sumMoneyIn" style="color: #099000;"></h2>
+                                    <div class="stat-percent font-bold text-info">收入
+                                        <i class="fa fa-level-up"></i>
+                                    </div>
+                                    <small>当前未结算账单应收合计</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right">全部商家</span>
+                                    <h5>当前应付</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h2 class="no-margins" id="sumMoneyOut" style="color: #ff0000;"></h2>
+                                    <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
+                                    </div>
+                                    <small>当前未结算账单应收合计</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right">全部商家</span>
+                                    <h5>总结余</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h2 class="no-margins" id="sumMoneyJieyu" style="color: #0060ff"></h2>
+                                    <div class="stat-percent font-bold text-info">结余 <i class="fa fa-level-up"></i>
+                                    </div>
+                                    <small>当前未结算应收减应付账单结余</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right findNameIn" >合计收入</span>
+                                    <h5 class="findNameIn">搜索统计</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h2 class="no-margins" id="findin" style="color: #099000;">0</h2>
+                                    <div class="stat-percent font-bold text-info">收入 <i class="fa fa-level-up"></i>
+                                    </div>
+                                    <small class="findNameIn">当前搜索数据合计总收入</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right findNameOut" >合计支出</span>
+                                    <h5 class="findNameOut">搜索统计</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h2 class="no-margins" id="findout" style="color: #ff0000;">0</h2>
+                                    <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
+                                    </div>
+                                    <small class="findNameOut">当前搜索数据合计总支出</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a style="color:#797979">
+                        <div class="col-sm-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right findNameJieyu" >对冲结余</span>
+                                    <h5 class="findNameJieyu">搜索统计</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h2 class="no-margins" id="findjieyu" style="color: #0060ff">0</h2>
+                                    <div class="stat-percent font-bold text-info">结余 <i class="fa fa-level-up"></i>
+                                    </div>
+                                    <small class="findNameJieyu">当前搜索数据合计总结余</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>分店来往财务列表列表</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -50,11 +166,9 @@
                 <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
                 </button>
-                <shiro:hasAnyRoles name="店长,酒店审核员,酒店录入员">
-                    <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                    </button>
-                </shiro:hasAnyRoles>
+                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                </button>
             </div>
         </div>
     </div>
@@ -69,27 +183,34 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增酒店合作商家账目
+                    新增分店来往财务
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属酒店合作商家：</label>
+                        <label class="col-sm-3 control-label">所属店面：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required name="hotelId" id="hotel_Id" name="cooperationCompanyId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">来往商家：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="cooperation_company_id" name="cooperationCompanyId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属酒店合作商家科目：</label>
+                        <label class="col-sm-3 control-label">来往科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subject_id" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">酒店合作商家账目类型：</label>
+                        <label class="col-sm-3 control-label">财务类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -98,16 +219,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">酒店合作商家账目金额：</label>
+                        <label class="col-sm-3 control-label">金额：</label>
                         <div class="col-sm-8">
-                            <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="totalPay" minlength="2" id="money_" maxlength="20" type="text" class="form-control" required aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">收支时间：</label>
-                        <div class="col-sm-8 date form_datetime">
-                            <input  name="accountTime"  type="datetime" class="form-control" required="" aria-required="true">
-                            <span class="add-on"><i class="icon-th"></i></span>
+                        <div class="col-sm-8">
+                            <input  type="text" class="form-control" id="test1" required aria-required="true">
+                            <input  name="accountTime"  type="hidden" class="form-control" id="accountTime" required aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -120,7 +241,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="submit" id="add" class="btn btn-primary">
+                    <button type="button" id="add" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -139,28 +260,35 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    酒店合作商家账目的修改
+                    分店来往财务修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
                 <input  id="id" type="hidden" name="id" />
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属酒店合作商家：</label>
+                        <label class="col-sm-3 control-label">所属店面：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required name="hotelId" id="hotel__Id" name="cooperationCompanyId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">来往商家：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="cooperationCompanyId" name="cooperationCompanyId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">所属酒店合作商家科目：</label>
+                        <label class="col-sm-3 control-label">来往科目：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required id="subjectId" name="subjectId">
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">酒店合作商家账目类型：</label>
+                        <label class="col-sm-3 control-label">财务类型：</label>
                         <div class="col-sm-8">
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
@@ -169,12 +297,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">酒店合作商家账目金额：</label>
+                        <label class="col-sm-3 control-label">金额：</label>
                         <div class="col-sm-8">
                             <input  name="totalPay" minlength="2" id="totalPay" maxlength="20" type="number" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-3 control-label">账目说明：</label>
                         <div class="col-sm-8">
@@ -201,7 +328,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="shenheModalLabel">
-                    酒店合作商家账目的审核
+                    分店来往财务审核
                 </h4>
             </div>
             <form class="form-horizontal" id="shenheform" >
@@ -243,7 +370,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="manyShenheModalLabel">
-                    酒店合作商家账目的批量审核
+                    分店来往财务批量审核
                 </h4>
             </div>
             <form class="form-horizontal" id="manyshenheform" >
@@ -285,7 +412,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="remarkModalLabel">
-                    酒店合作商家账目的批注
+                    分店来往财务批注
                 </h4>
             </div>
             <form class="form-horizontal" id="remarkform" >
@@ -312,23 +439,32 @@
 </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-<script src="<%=path%>/static/js/pageJs/hotelCooperationAccounts.js">/script>
+<script src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
+<script src="<%=path%>/static/js/pageJs/hotelCooperationAccounts.js"></script>
 </body>
-<%--<script>--%>
-    <%--$(function () {--%>
-        <%--alert("asdflsfa");--%>
-        <%--layer.msg('已发布', {icon:1,time:1000});--%>
-        <%--layer.msg('已发布', {icon:2,time:1000});--%>
-        <%--layer.msg('已发布', {icon:3,time:1000});--%>
-        <%--layer.msg('已发布', {icon:4,time:1000});--%>
-        <%--layer.msg('已发布', {icon:5,time:1000});--%>
-        <%--layer.msg('已发布', {icon:6,time:1000});--%>
-        <%--layer.msg('已发布', {icon:7,time:1000});--%>
-        <%----%>
-    <%--});--%>
-
-<%--</script>--%>
-<script>
+<script type="text/javascript">
+        laydate.render({
+            elem: '#test1' //指定元素
+            ,type: 'date'
+        });
+    $.post(
+        "/cashAccounts/getHotel",
+        function(data){
+            $("#hotelId").select2({
+                data: data
+            })
+            $("#select2-hotelId-container").remove();
+            $("#hotel__Id").select2({
+                data: data
+            })
+            $("#select2-hotel__Id-container").remove();
+            $("#hotel_Id").select2({
+                data: data
+            })
+            $("#select2-hotel_Id-container").remove();
+        },
+        "json"
+    );
     $(function () {
         $.post(
             "/cooperationAccounts/getSubject",
@@ -336,15 +472,16 @@
                 $("#subjectId").select2({
                     data: data
                 })
+                $("#select2-subjectId-container").remove();
                 $("#subject_id").select2({
                     data: data
                 })
+                $("#select2-subject_id-container").remove();
             },
             "json"
-
         );
         $.post(
-            "/cooperationAccounts/getCooperationCompany",
+            "/cooperationAccounts/getHotelCooperationCompany",
             function(data){
                 $("#cooperation_company_id").select2({
                     data: data
@@ -352,6 +489,8 @@
                 $("#cooperationCompanyId").select2({
                     data: data
                 })
+                $("#select2-cooperation_company_id-container").remove();
+                $("#select2-cooperationCompanyId-container").remove();
             },
             "json"
 
@@ -365,18 +504,4 @@
         });
     });
 </script>
-<script>
-    $.post(
-        "/cashAccounts/getHotel",
-        function(data){
-            $("#hotelId").select2({
-                data: data
-            })
-            $("#select2-hotelId-container").remove();
-        },
-        "json"
-
-    );
-</script>
-
 </html>
