@@ -90,6 +90,63 @@ public class CooperationAccountsController {
 
         return pagingBean;
     }
+    @RequestMapping("findHotelCooperationAccountsList")
+    @ResponseBody
+    public PagingBean findHotelCooperationAccountsList(int pageSize, int pageIndex,HttpSession session,CooperationAccountsVo cooperationAccountsVo) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            //分页参数
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setPageSize(pageSize);
+            pagingBean.setCurrentPage(pageIndex);
+            //赋值给pagequery对象
+            PageQuery pageQuery = new PageQuery();
+            pageQuery.setCompanyId(userVo.getCompanyId());
+            pageQuery.setPageSize(pagingBean.getPageSize());
+            pageQuery.setPageNo(pagingBean.getStartIndex());
+            pagingBean.setTotal(cooperationAccountsService.countByHotel(pageQuery,cooperationAccountsVo));
+            pagingBean.setrows(cooperationAccountsService.listPageByHotel(pageQuery,cooperationAccountsVo));
+            return pagingBean;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    @RequestMapping("cashSum")
+    @ResponseBody
+    public SumCashVo cashSum(CooperationAccountsVo cooperationAccountsVo,HttpSession session) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            cooperationAccountsVo.setCompanyId(userVo.getCompanyId());
+            return cooperationAccountsService.cashSum(cooperationAccountsVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    @RequestMapping("findCooperationAccountsList")
+    @ResponseBody
+    public PagingBean findCooperationAccountsList(int pageSize, int pageIndex, String searchVal, HttpSession session,CooperationAccountsVo cooperationAccountsVo) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            //分页参数
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setPageSize(pageSize);
+            pagingBean.setCurrentPage(pageIndex);
+            //赋值给pagequery对象
+            PageQuery pageQuery = new PageQuery();
+            pageQuery.setCompanyId(userVo.getCompanyId());
+            pageQuery.setSearchVal(searchVal);
+            pageQuery.setPageSize(pagingBean.getPageSize());
+            pageQuery.setPageNo(pagingBean.getStartIndex());
+            pagingBean.setTotal(cooperationAccountsService.countBy(pageQuery,cooperationAccountsVo));
+            pagingBean.setrows(cooperationAccountsService.listPageBy(pageQuery,cooperationAccountsVo));
+            return pagingBean;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
     @RequestMapping("/cooperationAccountsAddSave")
     @ResponseBody
     public Message addSavecooperationAccounts(CooperationAccountsVo cooperationAccounts,HttpSession session) throws  Exception {
@@ -130,6 +187,12 @@ public class CooperationAccountsController {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         List<Select2Vo> subjectList = cooperationAccountsService.getSubject(userVo.getCompanyId());
         return  subjectList;
+    }
+    @RequestMapping("/getCashVal")
+    @ResponseBody
+    public SumCashVo getCashVal(HttpSession session,Long hotelId) throws  Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        return cooperationAccountsService.sumCash(userVo.getCompanyId(),hotelId);
     }
     //公司的合作商家列表
     @RequestMapping("/getCooperationCompany")

@@ -1,13 +1,12 @@
 package top.cflwork.dao;
 
 import org.activiti.engine.impl.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.cflwork.query.PageQuery;
-import top.cflwork.vo.CashAccountsVo;
-import top.cflwork.vo.CooperationAccountsVo;
-import top.cflwork.vo.CooperationCompanyVo;
-import top.cflwork.vo.Select2Vo;
+import top.cflwork.vo.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,4 +21,10 @@ public interface CooperationAccountsDAO extends BaseDAO<CooperationAccountsVo>{
     void checkerManyCashAccount(List<CooperationAccountsVo> cooperationAccountsVos);
     List<CooperationAccountsVo> listPages(PageQuery pageQuery);
     Long counts(PageQuery pageQuery);
+    SumCashVo sumCash(@Param("companyId") Long companyId, @Param("hotelId") Long hotelId);
+    SumCashVo cashSum(CooperationAccountsVo cooperationAccountsVo);
+    List<CooperationAccountsVo> listPageBy(@Param("pageQuery") PageQuery pageQuery,@Param("cooperationAccountsVo") CooperationAccountsVo cooperationAccountsVo);
+    long countBy(@Param("pageQuery") PageQuery pageQuery,@Param("cooperationAccountsVo")  CooperationAccountsVo cooperationAccountsVo);
+    List<CooperationAccountsVo> listPageByHotel(@Param("pageQuery") PageQuery pageQuery,@Param("cooperationAccountsVo") CooperationAccountsVo cooperationAccountsVo);
+    long countByHotel(@Param("pageQuery") PageQuery pageQuery,@Param("cooperationAccountsVo")  CooperationAccountsVo cooperationAccountsVo);
 }

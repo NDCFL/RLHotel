@@ -20,7 +20,7 @@ $('#mytab').bootstrapTable({
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign: 'right',//工具栏对齐方式
     buttonsAlign: 'right',//按钮对齐方式
-    toolbar: '#toolbar', search: true,
+    toolbar: '#toolbar',
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -79,7 +79,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                return '<span style="color:red">'+value+'</span>';
+                return '<span style="color:red">￥ '+value+'</span>';
             }
         }
         ,
@@ -91,7 +91,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '收支日期',
+            title: '收支周期',
             field: 'loop',
             align: 'center',
             sortable: true
@@ -101,7 +101,20 @@ $('#mytab').bootstrapTable({
             title: '收支说明',
             field: 'description',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情"  data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+            }
+        }
+        ,
+        {
+            title: '批注',
+            field: 'remark',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情"  data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remarkss(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+            }
         }
         ,
         {
@@ -110,27 +123,22 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true
         },
-
         {
             title: '审核状态',
             field: 'cashStatus',
             align: 'center',
             formatter: function (value, row, index) {
                 if (value == 0) {
-                    //表示启用状态
-                    return '<span style="color:blue" >未审核</span>';
+                    return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情"  style="color:blue" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"未审核"+'</a>';
                 } else if(value==1){
-                    //表示启用状态
-                    return '<span style="color:green">审核通过</span>';
+                    return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情"  style="color:green" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"审核通过"+'</a>';
                 }else if(value==2){
                     //表示启用状态
-                    return '<span style="color:red">审核不通过</span>';
+                    return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情"  style="color:red" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"审核不通过"+'</a>';
                 }
             }
         }
         ,
-
-
         {
             title: '操作人',
             field: 'hand',
@@ -154,7 +162,12 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                return p+g+e + d;
+                if(row.cashStatus==1){
+                    return p+g+d;
+                }else{
+                    return p+g+e + d;
+                }
+
             }
         }
     ],
@@ -189,10 +202,6 @@ function queryParams(params) {
     }
 }
 function del(cashAccountsid, status) {
-    if (status == 0) {
-        layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
-        return;
-    }
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
@@ -211,6 +220,12 @@ function del(cashAccountsid, status) {
             },
         });
     });
+}
+function  remarks(val) {
+    $("#remarks").html(val);
+}
+function  remarkss(val) {
+    $("#remarkss").html(val);
 }
 function edit(name) {
     $.post("/cashAccounts/findCashAccounts/" + name,
@@ -236,6 +251,9 @@ function shenhe(name) {
 }
 function remark(name) {
     $("#remarkid").val(name);
+}
+function  checks(val) {
+    $("#checks").html(val);
 }
 function updatestatus(id, status) {
     $.post("/cashAccounts/updateStatus/" + id + "/" + status,
@@ -281,7 +299,8 @@ $('#search_btn').click(function () {
             description:$("#description_").val(),
             cashStatus:$("#cashStatus_").val(),
             payTypeId:$("#payTypeId_").val(),
-            loopTime:$("#zhouqi_").val(),
+            loopTime:$("#zhouqi_").val()!=''?$("#zhouqi_").val()+" 08:00:00":null,
+            hander:$("#handId").val(),
             hotelId:$("#hotel").val()
         }
     });
@@ -296,8 +315,9 @@ $('#search_btn').click(function () {
             description:$("#description_").val(),
             cashStatus:$("#cashStatus_").val(),
             payTypeId:$("#payTypeId_").val(),
-            loopTime:$("#zhouqi_").val(),
-            hotelId:$("#hotelid_").val()
+            loopTime:$("#zhouqi_").val()!=''?$("#zhouqi_").val()+" 08:00:00":null,
+            hander:$("#handId").val(),
+            hotelId:$("#hotel").val()
         },
         function (data) {
             $("#findin").html("￥"+data.sumMoneyIn);
@@ -324,7 +344,31 @@ function getInfo(val){
     );
 }
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/hotelCashAccountsList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        times.replace("起","-").replace("止","");
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', { url: '/cashAccounts/findHotelCashAccountsList',
+        query:{
+            accountType:$("#accountType_").val(),
+            createTime:start,
+            endTime:end,
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            payTypeId:$("#payTypeId_").val(),
+            loopTime:$("#zhouqi_").val()!=''?$("#zhouqi_").val()+" 08:00:00":null,
+            hander:$("#handId").val(),
+            hotelId:$("#hotel").val()
+        }
+    });
 }
 $("#remarkAdd").click(function () {
     $.post(

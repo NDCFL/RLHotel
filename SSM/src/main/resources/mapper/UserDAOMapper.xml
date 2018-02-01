@@ -39,6 +39,9 @@
     <select id="getUserIdAndName" resultMap="userIdAndNameMap">
         select id,nickname as text from t_user
     </select>
+	<select id="getUser" resultMap="userIdAndNameMap">
+		select id,realname as text from t_user where company_id=#{companyId}
+	</select>
 	<select id="count" resultType="long">
 		select count(*) from t_user
 	</select>

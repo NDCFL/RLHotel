@@ -33,4 +33,5 @@ public interface UserService extends BaseService<UserVo> {
     int landlordCount(String title);
     List<UserVo> landlordListPage(PageQuery pageQuery, String title);
     UserVo findByPhone(String phone);
+    List<Select2Vo> getUser(Long companyId);
 }

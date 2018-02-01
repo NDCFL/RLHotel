@@ -1,9 +1,11 @@
 package top.cflwork.service;
 
+import org.apache.ibatis.annotations.Param;
 import top.cflwork.query.PageQuery;
 import top.cflwork.vo.CashAccountsVo;
 import top.cflwork.vo.CooperationAccountsVo;
 import top.cflwork.vo.Select2Vo;
+import top.cflwork.vo.SumCashVo;
 
 import java.util.List;
 
@@ -18,4 +20,11 @@ public interface CooperationAccountsService extends BaseService<CooperationAccou
     void checkerManyCashAccount(List<CooperationAccountsVo> cooperationAccountsVos);
     List<CooperationAccountsVo> listPages(PageQuery pageQuery);
     Long counts(PageQuery pageQuery);
+    SumCashVo sumCash(Long companyId,Long hotelId);
+    List<CooperationAccountsVo> listPageBy(PageQuery pageQuery,CooperationAccountsVo cooperationAccountsVo);
+    long countBy(PageQuery pageQuery,CooperationAccountsVo cooperationAccountsVo);
+    List<CooperationAccountsVo> listPageByHotel(PageQuery pageQuery,CooperationAccountsVo cooperationAccountsVo);
+    long countByHotel(PageQuery pageQuery,CooperationAccountsVo cooperationAccountsVo);
+    SumCashVo cashSum(CooperationAccountsVo cooperationAccountsVo);
+
 }

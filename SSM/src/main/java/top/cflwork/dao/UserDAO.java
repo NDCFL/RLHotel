@@ -35,5 +35,6 @@ public interface UserDAO extends BaseDAO<UserVo> {
     int landlordCount(String title);
     UserVo findByPhone(String phone);
     List<UserVo> landlordListPage(@Param("pageQuery") PageQuery pageQuery,@Param("title") String title);
+    List<Select2Vo> getUser(Long companyId);
 
 }

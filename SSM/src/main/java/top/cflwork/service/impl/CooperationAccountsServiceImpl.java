@@ -7,6 +7,7 @@ import top.cflwork.query.StatusQuery;
 import top.cflwork.service.CooperationAccountsService;
 import top.cflwork.vo.CooperationAccountsVo;
 import top.cflwork.vo.Select2Vo;
+import top.cflwork.vo.SumCashVo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -51,6 +52,36 @@ public class CooperationAccountsServiceImpl implements CooperationAccountsServic
     @Override
     public Long counts(PageQuery pageQuery) {
         return cooperationAccountsDAO.counts(pageQuery);
+    }
+
+    @Override
+    public SumCashVo sumCash(Long companyId, Long hotelId) {
+        return cooperationAccountsDAO.sumCash(companyId, hotelId);
+    }
+
+    @Override
+    public List<CooperationAccountsVo> listPageBy(PageQuery pageQuery, CooperationAccountsVo cooperationAccountsVo) {
+        return cooperationAccountsDAO.listPageBy(pageQuery, cooperationAccountsVo);
+    }
+
+    @Override
+    public long countBy(PageQuery pageQuery, CooperationAccountsVo cooperationAccountsVo) {
+        return cooperationAccountsDAO.countBy(pageQuery, cooperationAccountsVo);
+    }
+
+    @Override
+    public List<CooperationAccountsVo> listPageByHotel(PageQuery pageQuery, CooperationAccountsVo cooperationAccountsVo) {
+        return cooperationAccountsDAO.listPageByHotel(pageQuery, cooperationAccountsVo);
+    }
+
+    @Override
+    public long countByHotel(PageQuery pageQuery, CooperationAccountsVo cooperationAccountsVo) {
+        return cooperationAccountsDAO.countByHotel(pageQuery, cooperationAccountsVo);
+    }
+
+    @Override
+    public SumCashVo cashSum(CooperationAccountsVo cooperationAccountsVo) {
+        return cooperationAccountsDAO.cashSum(cooperationAccountsVo);
     }
 
     @Override

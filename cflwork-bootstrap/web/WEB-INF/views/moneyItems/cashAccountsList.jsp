@@ -160,14 +160,14 @@
                     <div class="col-sm-2" >
                         <input type="number" class="form-control" style="" name="totalPay" id="totalPay_"/>
                     </div>
-                </div>
-                <div class="panel-body form-group" style="margin-bottom:0px;">
                     <label class="col-sm-1 control-label" style=" margin-top:5px">收支科目</label>
                     <div class="col-sm-2">
                         <select class="form-control" required  id="subjectId_" name="subjectId">
                             <option value="">全部</option>
                         </select>
                     </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
                     <label class="col-sm-1 control-label" style="margin-top:5px" >收支说明</label>
                     <div class="col-sm-2"  >
                         <input type="text" id="description_" style=""  class="form-control"  name="description"/>
@@ -181,8 +181,6 @@
                             <option value="2">审核不通过</option>
                         </select>
                     </div>
-                </div>
-                <div class="panel-body form-group" style="margin-bottom:0px;">
                     <label class="col-sm-1 control-label"  style="margin-top:5px" >收支账户</label>
                     <div class="col-sm-2"  >
                         <select class="form-control"  required id="payTypeId_"  name="payTypeId">
@@ -191,9 +189,17 @@
                     </div>
                     <label class="col-sm-1 control-label"  style="margin-top:5px" >收支周期</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" style=""   name="zhouqi" id="zhouqi"/>
+                        <input type="text" class="form-control" style=""   name="zhouqi" id="zhouqi_"/>
                     </div>
-                    <div class="col-sm-2" style="text-align: center;margin: auto" >
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">操作人</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required  id="handId" name="handle">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;margin: auto" >
                         <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
                     </div>
                 </div>
@@ -305,7 +311,6 @@
                 <input type="hidden" name="hotelId" value="-1" />
                 <input type="hidden" name="accountTime" id="accountTime_" />
                 <input type="hidden" name="accountTimeEnd" id="accountTimeEnd_" />
-                <input type="hidden" name="totalPay"/>
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">收支科目：</label>
@@ -483,6 +488,54 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class="modal fade" id="remark_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    收支账目说明详情
+                </h4>
+            </div>
+            <div class="modal-body" id="remarks">
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="remarks_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        批注详情
+                    </h4>
+                </div>
+                <div class="modal-body" id="remarkss">
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="modal fade" id="check_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">
+                            审核详情
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="checks">
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
@@ -527,7 +580,7 @@
         elem: '#test21'
     });
     laydate.render({
-        elem: '#zhouqi'
+        elem: '#zhouqi_'
     });
 </script>
 <script>
@@ -547,9 +600,23 @@
                     data: data
                 });
                 $("#select2-subject__id-container").remove();
+                $("#subjectId_").select2({
+                    data: data
+                });
+                $("#select2-subjectId_-container").remove();
             },
             "json"
 
+        );
+        $.post(
+            "/user/getUser",
+            function(data){
+                $("#handId").select2({
+                    data: data
+                })
+                $("#select2-handId-container").remove();
+            },
+            "json"
         );
         $.post(
             "/cashAccounts/getHotel",

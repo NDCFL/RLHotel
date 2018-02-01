@@ -20,7 +20,7 @@ $('#mytab').bootstrapTable({
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign: 'right',//工具栏对齐方式
     buttonsAlign: 'right',//按钮对齐方式
-    toolbar: '#toolbar', search: true,
+    toolbar: '#toolbar',
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -79,7 +79,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                return '<span style="color:red">'+value+'</span>';
+                return '<span style="color:red">￥'+value+'</span>';
             }
         }
         ,
@@ -101,7 +101,20 @@ $('#mytab').bootstrapTable({
             title: '收支说明',
             field: 'description',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+"..."+'</a>';
+            }
+        }
+        ,
+        {
+            title: '批注',
+            field: 'remark',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remarkss(\'' + value + '\')">'+value.substr(0.10)+"..."+'</a>';
+            }
         }
         ,
         {
@@ -110,14 +123,12 @@ $('#mytab').bootstrapTable({
             align: 'center',
             formatter: function (value, row, index) {
                 if (value == 0) {
-                    //表示启用状态
-                    return '<span style="color:blue" >未审核</span>';
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" style="color:blue" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"未审核"+'</a>';
                 } else if(value==1){
-                    //表示启用状态
-                    return '<span style="color:green">审核通过</span>';
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" style="color:green" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"审核通过"+'</a>';
                 }else if(value==2){
                     //表示启用状态
-                    return '<span style="color:red">审核不通过</span>';
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" style="color:red" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"审核不通过"+'</a>';
                 }
             }
         }
@@ -182,6 +193,15 @@ function queryParams(params) {
         searchVal: title,
         en:""
     }
+}
+function  remarks(val) {
+    $("#remarks").html(val);
+}
+function  remarkss(val) {
+    $("#remarkss").html(val);
+}
+function  checks(val) {
+    $("#checks").html(val);
 }
 function del(cashAccountsid, status) {
     if (status == 0) {
@@ -270,7 +290,8 @@ $('#search_btn').click(function () {
             description:$("#description_").val(),
             cashStatus:$("#cashStatus_").val(),
             payTypeId:$("#payTypeId_").val(),
-            loopTime:$("#zhouqi_").val(),
+            loopTime:$("#zhouqi_").val()!=''?$("#zhouqi_").val()+" 08:00:00":null,
+            hander:$("#handId").val(),
             hotelId:-1
         }
     });
@@ -285,7 +306,8 @@ $('#search_btn').click(function () {
             description:$("#description_").val(),
             cashStatus:$("#cashStatus_").val(),
             payTypeId:$("#payTypeId_").val(),
-            loopTime:$("#zhouqi_").val(),
+            loopTime:$("#zhouqi_").val()!=''?$("#zhouqi_").val()+" 08:00:00":null,
+            hander:$("#handId").val(),
             hotelId:-1
         },
         function (data) {
@@ -313,7 +335,31 @@ function getInfo(val){
     );
 }
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cashAccounts/cashAccountsList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/cashAccounts/findCashAccountsList',
+        query:{
+            accountType:$("#accountType_").val(),
+            createTime:start,
+            endTime:end,
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            payTypeId:$("#payTypeId_").val(),
+            loopTime:$("#zhouqi_").val()!=''?$("#zhouqi_").val()+" 08:00:00":null,
+            hander:$("#handId").val(),
+            hotelId:-1
+        }
+    });
 }
 $("#remarkAdd").click(function () {
     $.post(

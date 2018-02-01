@@ -82,6 +82,11 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
+    public List<Select2Vo> getUser(Long companyId) {
+        return userDAO.getUser(companyId);
+    }
+
+    @Override
     public void save(UserVo userVo) {
         userDAO.save(userVo);
     }

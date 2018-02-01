@@ -181,6 +181,12 @@ public class UserController {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         return userService.getById(userVo.getId());
     }
+    @RequestMapping("getUser")
+    @ResponseBody
+    public List<Select2Vo> getUser(HttpSession session) {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        return userService.getUser(userVo.getCompanyId());
+    }
 
     @RequestMapping("updateBossInfo")
     @ResponseBody

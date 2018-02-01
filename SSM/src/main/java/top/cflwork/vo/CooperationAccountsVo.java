@@ -16,6 +16,8 @@ public class CooperationAccountsVo {
 
     private Date accountTime;
 
+    private Date endTime;
+
     private BigDecimal totalPay;
 
     private Long subjectId;
@@ -49,6 +51,8 @@ public class CooperationAccountsVo {
     private CooperationSubjectVo cooperationSubjectVo;
 
     private CooperationCompanyVo cooperationCompanyVo;
+
+    private Long title;
 
     public CooperationAccountsVo(Long id, Long companyId, Long hotelId, Long shopManagerId, Byte accountType, Date accountTime, BigDecimal totalPay, Long subjectId, String description, String remark, Long cooperationCompanyId, Date createTime, Byte isActive) {
         this.id = id;
@@ -252,5 +256,21 @@ public class CooperationAccountsVo {
 
     public void setCooperationCompanyVo(CooperationCompanyVo cooperationCompanyVo) {
         this.cooperationCompanyVo = cooperationCompanyVo;
+    }
+
+    public Long getTitle() {
+        return title;
+    }
+
+    public void setTitle(Long title) {
+        this.title = title;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

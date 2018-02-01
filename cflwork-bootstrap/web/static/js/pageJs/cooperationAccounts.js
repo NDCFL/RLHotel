@@ -34,24 +34,24 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'middle'
         },
-
         {
-            title: '合作商家',
-            field: 'cooperationCompanyVo.name',
+            title: '账单类型',
+            field: 'accountType',
             align: 'center',
-            sortable: true
-        },
+            sortable: true,
+            formatter: function (value) {
+                if(value==0){
+                    return '<span style="color:green">收入</span>';
+                }else if(value==1){
+                    return '<span style="color:red">支出</span>';
+                }
+            }
 
-        {
-            title: '收支金额',
-            field: 'totalPay',
-            align: 'center',
-            sortable: true
         }
         ,
         {
-            title: '收支时间',
-            field: 'accountTime',
+            title: '账单日期',
+            field: 'createTime',
             align: 'center',
             sortable: true,
             formatter: function (value) {
@@ -70,14 +70,17 @@ $('#mytab').bootstrapTable({
             }
         }
         ,
+
         {
-            title: '所属科目',
-            field: 'cooperationSubjectVo.title',
+            title: '金额',
+            field: 'totalPay',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<span style="color:red" >￥'+value+'</span>';
+            }
         }
         ,
-
         {
             title: '结算状态',
             field: 'isCash',
@@ -86,10 +89,46 @@ $('#mytab').bootstrapTable({
                 if (value == 0) {
                     //表示启用状态
                     return '<span style="color:red" >未结算</span>';
-                } else {
+                } else if(value==1){
                     //表示启用状态
                     return '<span style="color:green">已结算</span>';
+                }else if(value==2){
+                    //表示启用状态
+                    return '<span style="color:orange">有异议</span>';
                 }
+            }
+        }
+        ,
+        {
+            title: '商家名称',
+            field: 'cooperationCompanyVo.name',
+            align: 'center',
+            sortable: true
+        },
+        {
+            title: '来往科目',
+            field: 'cooperationSubjectVo.title',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
+            title: '账单说明',
+            field: 'description',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+            }
+        }
+        ,
+        {
+            title: '批注',
+            field: 'remark',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remarkss(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
             }
         }
         ,
@@ -99,32 +138,14 @@ $('#mytab').bootstrapTable({
             align: 'center',
             formatter: function (value, row, index) {
                 if (value == 0) {
-                    //表示启用状态
-                    return '<span style="color:blue" >未审核</span>';
+                    return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" style="color:blue" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"未审核"+'</a>';
                 } else if(value==1){
-                    //表示启用状态
-                    return '<span style="color:green">审核通过</span>';
+                    return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" style="color:green" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"审核通过"+'</a>';
                 }else if(value==2){
                     //表示启用状态
-                    return '<span style="color:red">审核不通过</span>';
+                    return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" style="color:red" data-id="\'' + row.id + '\'" data-target="#check_modal" onclick="return checks(\'' + row.reason + '\')">'+"审核不通过"+'</a>';
                 }
             }
-        }
-        ,
-
-        {
-            title: '账目类型',
-            field: 'accountType',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                if(value==0){
-                    return '<span style="color:green">收入</span>';
-                }else if(value==1){
-                    return '<span style="color:red">支出</span>';
-                }
-            }
-
         }
         ,
         {
@@ -132,42 +153,8 @@ $('#mytab').bootstrapTable({
             field: 'hand',
             align: 'center',
             sortable: true
-
         }
         ,
-        {
-            title: '账目状态',
-            field: 'isActive',
-            align: 'center',
-            formatter: function (value, row, index) {
-                if (value == 0) {
-                    //表示启用状态
-                    return '<span style="color:green" >启用</span>';
-                } else {
-                    //表示启用状态
-                    return '<span style="color:red">停用</span>';
-                }
-            }
-        }
-        ,
-        {
-            title: '创建时间',
-            field: 'createTime',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d ;
-            }
-        }
-        ,
-
         {
             title: '操作',
             align: 'center',
@@ -175,9 +162,9 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 var g='';
                 if(row.isCash==0){
-                    g = '<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green"></i></a>';
+                    g = '<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green">审核</i></a>';
                 }else{
-                    g = '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green"></i></a>';
+                    g = '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green">批注</i></a>';
                 }
                 var e = '<a title="编辑" href="javascript:void(0);" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
@@ -187,7 +174,11 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                return g+e + d + f;
+                if(row.cashStatus==1){
+                    return g+d + f;
+                }else{
+                    return g+e + d + f;
+                }
             }
         }
     ],
@@ -221,11 +212,26 @@ function queryParams(params) {
         searchVal: title
     }
 }
+function getdate(value) {
+    var date = new Date(value);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + m + '-' + d;
+}
+function  remarks(val) {
+    $("#remarks").html(val);
+}
+function  remarkss(val) {
+    $("#remarkss").html(val);
+}
+function  checks(val) {
+    $("#checks").html(val);
+}
 function del(cooperationAccountsid, status) {
-    if (status == 0) {
-        layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
-        return;
-    }
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
@@ -258,7 +264,9 @@ function edit(name) {
             colum1.val(data.cooperationCompanyId).trigger("change");
             colum1.change();
             $("#accountTime").val(data.accountTime);
-
+            $("#select2-subjectId-container").remove();
+            $("#select2-cooperationCompanyId-container").remove();
+            $("#test21").val(getdate(data.accountTime));
         },
         "json"
     );
@@ -292,10 +300,83 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/cooperationAccountsList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        times.replace("起","-").replace("止","");
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/cooperationAccounts/findCooperationAccountsList',
+        query:{
+            accountType:$("#accountType_").val(),
+            createTime:start,
+            endTime:end,
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            hander:$("#handId").val(),
+            title:$("#cooperation_company_id_").val(),
+            hotelId:-1,
+            isCash:$("#iscash").val()
+        }
+    });
+    $.post(
+        "/cooperationAccounts/cashSum",
+        {
+            accountType:$("#accountType_").val(),
+            createTime:start,
+            endTime:end,
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            hander:$("#handId").val(),
+            title:$("#cooperation_company_id_").val(),
+            hotelId:-1,
+            isCash:$("#iscash").val()
+        },
+        function (data) {
+            $("#findin").html("￥"+data.sumMoneyIn);
+            $("#findout").html("￥"+data.sumMoneyOut);
+            $("#findjieyu").html("￥"+data.sumMoneyJieyu);
+        },
+        "json"
+    );
+
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/cooperationAccounts/cooperationAccountsList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        times.replace("起","-").replace("止","");
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/cooperationAccounts/findCooperationAccountsList',
+        query:{
+            accountType:$("#accountType_").val(),
+            createTime:start,
+            endTime:end,
+            totalPay:$("#totalPay_").val(),
+            subjectId:$("#subjectId_").val(),
+            description:$("#description_").val(),
+            cashStatus:$("#cashStatus_").val(),
+            hander:$("#handId").val(),
+            title:$("#cooperation_company_id_").val(),
+            hotelId:-1,
+            isCash:$("#iscash").val()
+        }
+    });
 }
 $("#remarkAdd").click(function () {
     $.post(
@@ -313,6 +394,14 @@ $("#remarkAdd").click(function () {
     );
 });
 $("#update").click(function () {
+
+    var time = $("#test21").val();
+    if(!time){
+        layer.alert("请选择收支周期", {icon: 6});
+        return;
+    }else{
+        $("#test_21").val(time+" 08:30:00");
+    }
     $.post(
         "/cooperationAccounts/cooperationAccountsUpdateSave",
         $("#updateform").serialize(),

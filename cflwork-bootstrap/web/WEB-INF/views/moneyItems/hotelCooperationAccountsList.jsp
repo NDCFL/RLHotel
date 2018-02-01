@@ -21,7 +21,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>收支账目统计</h5>
+            <h5>账单账目统计</h5>
             <div class="ibox-tools">
             </div>
         </div>
@@ -140,22 +140,82 @@
             <h5>分店来往财务列表列表</h5>
         </div>
         <div class="ibox-content">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    查询条件
-                </div>
-                <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <shiro:hasAnyRoles name="总管理员,管理员">
-                        <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">店面名称：</label>
+            <div class="panel-body form-group" style="margin-bottom:0px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        查询列表
+                    </div>
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">账单日期</label>
+                        <div class="col-sm-2" >
+                            <input type="text" class="form-control"   name="createTime" id="test_2"/>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">账单类型</label>
+                        <div class="col-sm-2"  >
+                            <select  class="form-control" id="accountType_" style="" name="accountType">
+                                <option value="">全部</option>
+                                <option value="0">收入</option>
+                                <option value="1">支出</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label"  style=" margin-top:5px;">金额</label>
+                        <div class="col-sm-2" >
+                            <input type="number" class="form-control" style="" name="totalPay" id="totalPay_"/>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">来往科目</label>
                         <div class="col-sm-2">
-                            <select class="form-control" required id="hotelId" name="hotelId">
+                            <select class="form-control" required  id="subjectId_" name="subjectId">
                                 <option value="">全部</option>
                             </select>
                         </div>
-                        <div class="col-sm-1 col-sm-offset-4" style="margin-left: 20px">
-                            <button class="btn btn-primary" id="search_btn">查询</button>
+                    </div>
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label" style="margin-top:5px" >账单说明</label>
+                        <div class="col-sm-2"  >
+                            <input type="text" id="description_" style=""  class="form-control"  name="description"/>
                         </div>
-                    </shiro:hasAnyRoles>
+                        <label class="col-sm-1 control-label" style="margin-top: 5px">审核状态</label>
+                        <div class="col-sm-2"  >
+                            <select class="form-control" style="" id="cashStatus_" name="cashStatus">
+                                <option value="">全部</option>
+                                <option value="0">未审核</option>
+                                <option value="1">审核通过</option>
+                                <option value="2">审核不通过</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">操作人</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required  id="handId" name="handle">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">商家名称</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required id="cooperation_company_id_" name="cooperationCompanyId">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label" style="margin-top: 5px">店面名称</label>
+                        <div class="col-sm-2"  >
+                            <select class="form-control" style="" required id="hotel" name="hotel">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label"  style="margin-top:5px" >结算状态</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" style="" required id="iscash" name="isCash">
+                                <option value="">全部</option>
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                                <option value="2">有异议</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3" style="text-align: center;margin: auto" >
+                            <button class="btn btn-primary"  id="search_btn" style="width: 280px;float: right">查询</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <table id="mytab" name="mytab" class="table table-hover"></table>
@@ -225,7 +285,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支时间：</label>
+                        <label class="col-sm-3 control-label">账单时间：</label>
                         <div class="col-sm-8">
                             <input  type="text" class="form-control" id="test1" required aria-required="true">
                             <input  name="accountTime"  type="hidden" class="form-control" id="accountTime" required aria-required="true">
@@ -303,9 +363,22 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">收支时间：</label>
+                        <div class="col-sm-8">
+                            <input   type="text" id="test21" class="form-control" required="" aria-required="true">
+                            <input  name="accountTime"  type="hidden" id="test_21" class="form-control" required="" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">账目说明：</label>
                         <div class="col-sm-8">
                             <textarea  name="description" id="description" class="form-control" required="" aria-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">批注：</label>
+                        <div class="col-sm-8">
+                            <textarea  name="remark" id="remarkes" class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>
@@ -437,16 +510,88 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class="modal fade" id="remark_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    账单说明详情
+                </h4>
+            </div>
+            <div class="modal-body" id="remarks">
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <div class="modal fade" id="remarks_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        批注详情
+                    </h4>
+                </div>
+                <div class="modal-body" id="remarkss">
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="modal fade" id="check_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">
+                            审核详情
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="checks">
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
 <script src="<%=path%>/static/js/pageJs/hotelCooperationAccounts.js"></script>
 </body>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#test1' //指定元素
+        ,type: 'date'
+    });
+    laydate.render({
+        elem: '#test2' //指定元素
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test21'
+    });
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test2_'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#zhouqi_'
+    });
+</script>
 <script type="text/javascript">
-        laydate.render({
-            elem: '#test1' //指定元素
-            ,type: 'date'
-        });
     $.post(
         "/cashAccounts/getHotel",
         function(data){
@@ -462,6 +607,21 @@
                 data: data
             })
             $("#select2-hotel_Id-container").remove();
+            $("#hotel").select2({
+                data: data
+            })
+            $("#select2-hotel-container").remove();
+
+        },
+        "json"
+    );
+    $.post(
+        "/user/getUser",
+        function(data){
+            $("#handId").select2({
+                data: data
+            })
+            $("#select2-handId-container").remove();
         },
         "json"
     );
@@ -477,6 +637,10 @@
                     data: data
                 })
                 $("#select2-subject_id-container").remove();
+                $("#subjectId_").select2({
+                    data: data
+                })
+                $("#select2-subjectId_-container").remove();
             },
             "json"
         );
@@ -491,17 +655,37 @@
                 })
                 $("#select2-cooperation_company_id-container").remove();
                 $("#select2-cooperationCompanyId-container").remove();
+                $("#cooperation_company_id_").select2({
+                    data: data
+                })
+                $("#select2-cooperation_company_id_-container").remove();
             },
             "json"
 
         );
-
-        $(".form_datetime").datetimepicker({
-            format: "yyyy-mm-dd hh:ii:ss",
-            language: 'zh-CN',
-            autoclose: true,
-            todayHighlight: true
-        });
     });
+</script>
+<script>
+    $(function () {
+        getVal();
+    });
+    $("#getDval").click(function () {
+        getVal($("#test21").val());
+    });
+    function getVal(val) {
+        $.post(
+            "/cooperationAccounts/getCashVal",
+            {
+                hotelId:$("#hotelid_").val()
+            },
+            function(data){
+                $("#sumMoneyIn").html("￥"+data.sumMoneyIn);
+                $("#sumMoneyOut").html("￥"+data.sumMoneyOut);
+                $("#sumMoneyJieyu").html("￥"+data.sumMoneyJieyu);
+            },
+            "json"
+
+        );
+    }
 </script>
 </html>
