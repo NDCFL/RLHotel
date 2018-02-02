@@ -30,9 +30,6 @@
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                        </button>
                         <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
                         </button>
@@ -42,7 +39,6 @@
         </div>
     </div>
 </div>
-
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/houseFactPay.js"></script>
@@ -59,6 +55,5 @@
         <%--layer.msg('已发布', {icon:7,time:1000});--%>
         <%----%>
     <%--});--%>
-
 <%--</script>--%>
 </html>

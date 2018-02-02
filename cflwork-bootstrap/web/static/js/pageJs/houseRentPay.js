@@ -199,7 +199,7 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:red"></i></a> ';
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:red">付款</i></a> ';
                 return p+e + d + f;
             }
         }

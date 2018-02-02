@@ -135,11 +135,11 @@ public class CooperationCompanyController {
     }
     @RequestMapping("/deleteManyCooperationCompany")
     @ResponseBody
-    public Message deleteManycooperationCompany(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManycooperationCompany(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                cooperationCompanyService.removeById(Long.parseLong(s));
+                cooperationCompanyService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
             return Message.success("删除成功!");
         }catch (Exception e){
