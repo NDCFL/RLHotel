@@ -226,7 +226,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3" >
-                        <button class="btn btn-primary"  id="search_btn" style="width: 280px;float: right">查询</button>
+                        <button class="btn btn-primary col-sm-12"  id="search_btn">查询</button>
                     </div>
                 </div>
             </div>

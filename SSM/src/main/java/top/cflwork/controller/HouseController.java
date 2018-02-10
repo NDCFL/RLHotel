@@ -130,6 +130,10 @@ public class HouseController {
     public String table() throws  Exception{
         return "house/houseList";
     }
+    @RequestMapping("/housePageList")
+    public String housePageList() throws  Exception{
+        return "house/room";
+    }
     @RequestMapping("/getHouseCardTitle/{id}")
     @ResponseBody
     public HouseVo getHouseCardTitle(@PathVariable("id") long id) throws  Exception{

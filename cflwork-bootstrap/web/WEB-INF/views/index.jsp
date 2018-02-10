@@ -96,6 +96,9 @@
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/item/houseOthersItemPage">增值业务账目</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/house/housePageList">房态</a>
+                            </li>
                         </ul>
                     </li>
                 <shiro:hasAnyRoles name="总管理员,管理员">

@@ -72,10 +72,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if(value==0){
                     //表示启用状态
-                    return '<i class="btn btn-primary" >启用</i>';
+                    return '<i style="color: green;" >启用</i>';
                 }else{
                     //表示启用状态
-                    return '<i class="btn btn-danger">停用</i>';
+                    return '<i style="color: red">停用</i>';
                 }
             }
         }
@@ -161,10 +161,12 @@ function edit(name){
             user.val(data.userId).trigger("change");
             //刷新列表
             user.change();
+            $("#select2-userId-container").remove();
             var role = $("#roleId").select2();//获取selectid
             role.val(data.roleId).trigger("change");
             role.change();
             $("#updateform").autofill(data);
+            $("#select2-roleId-container").remove();
         },
         "json"
     );
@@ -227,7 +229,7 @@ $("#add").click(function(){
         },"json"
     );
 });
-function deleteMany(){
+function deleteMany1(){
     var isactivity="";
     var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
         if(row.isActive==0){
@@ -269,3 +271,42 @@ function deleteMany(){
         );
     });
 }
+function deleteMany(){
+    var isactivity="";
+    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
+        if(row.isActive==0){
+            isactivity+=row.isActive;
+        }
+        return row.id ;
+    });
+    if(row==""){
+        layer.msg('修改失败，请勾选数据!', {
+            icon : 2,
+            time : 3000
+        });
+        return ;
+    }
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
+
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改用户角色状态吗？',function(index){
+        $.post(
+            "/userRole/deleteManyUserRole",
+            {
+                "manyId":$("#statusId").val(),
+                "status":$("#status").val()
+            },
+            function(data){
+                if(data.message=="修改成功!"){
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }else{
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }
+            },"json"
+        );
+    });
+});

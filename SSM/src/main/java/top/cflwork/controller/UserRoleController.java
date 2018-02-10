@@ -83,16 +83,16 @@ public class UserRoleController {
     }
     @RequestMapping("/deleteManyUserRole")
     @ResponseBody
-    public Message deleteManyuserRole(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManyuserRole(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                userRoleService.removeById(Long.parseLong(s));
+                userRoleService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("批量修改状态成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("批量修改状态失败!");
         }
     }
     @RequestMapping("/deleteUserRole/{id}")

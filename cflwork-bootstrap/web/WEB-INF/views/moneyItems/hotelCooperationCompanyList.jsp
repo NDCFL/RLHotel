@@ -30,14 +30,14 @@
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <shiro:hasAnyRoles name="总管理员,管理员">
-                        <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">店面名称：</label>
+                        <label class="col-sm-1 control-label" style="margin-top:5px">店面名称</label>
                         <div class="col-sm-2">
                             <select class="form-control" required id="hotelId" name="hotelId">
                                 <option value="">全部</option>
                             </select>
                         </div>
-                        <div class="col-sm-1 col-sm-offset-4" style="margin-left: 20px">
-                            <button class="btn btn-primary" id="search_btn">查询</button>
+                        <div class="col-sm-2" >
+                            <button class="btn btn-primary col-sm-12" id="search_btn">查询</button>
                         </div>
                     </shiro:hasAnyRoles>
                 </div>

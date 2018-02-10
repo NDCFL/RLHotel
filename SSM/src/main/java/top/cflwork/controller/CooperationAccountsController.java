@@ -168,7 +168,6 @@ public class CooperationAccountsController {
                 }
             }
             cooperationAccounts.setRemark("暂无批注");
-            cooperationAccounts.setIsCash((byte) 0);
             cooperationAccounts.setCashStatus((byte)0);
             cooperationAccounts.setReason("未审核");
             cooperationAccounts.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
@@ -315,16 +314,16 @@ public class CooperationAccountsController {
     }
     @RequestMapping("/deleteManyCooperationAccounts")
     @ResponseBody
-    public Message deleteManycooperationAccounts(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManycooperationAccounts(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                cooperationAccountsService.removeById(Long.parseLong(s));
+                cooperationAccountsService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("修改成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("修改失败!");
         }
     }
     @RequestMapping("/deleteCooperationAccounts/{id}")

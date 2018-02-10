@@ -82,16 +82,16 @@ public class ContractMasterController {
     }
     @RequestMapping("/deleteManyContractMaster")
     @ResponseBody
-    public Message deleteManycontractMaster(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManycontractMaster(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                contractMasterService.removeById(Long.parseLong(s));
+                contractMasterService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("批量修改状态成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("批量修改状态失败!");
         }
     }
     @RequestMapping("/deleteContractMaster/{id}")

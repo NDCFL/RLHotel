@@ -15,6 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>房型列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
+    <style>
+        label{
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -28,40 +33,42 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="line-height: 30px;width:100px">分店名称</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select class="form-control"  id="hotelId_" style="width: 130px;margin-left: -40px" onchange="getCardTitle(this.value);" required name="hotelId">
+                    <label class="col-sm-1 control-label">分店名称</label>
+                    <div class="col-sm-2"  >
+                        <select class="form-control"  id="hotelId_" onchange="getCardTitle(this.value);" required name="hotelId">
                             <option value="">全部</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房型名称</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select class="form-control"  id="houseType_" style="width: 130px;margin-left: -40px" required name="houseType">
+                    <label class="col-sm-1 control-label">房型名称</label>
+                    <div class="col-sm-2">
+                        <select class="form-control"  id="houseType_"  required name="houseType">
                             <option value="">全部</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房型状态</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select class="form-control"  id="isActive" style="width: 130px;margin-left: -40px" required name="isActive">
+                    <label class="col-sm-1 control-label" >房型状态</label>
+                    <div class="col-sm-2">
+                        <select class="form-control"  id="isActive"  required name="isActive">
                             <option value="">全部</option>
                             <option value="0">启用</option>
                             <option value="1">停用</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房型类别</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <select class="form-control"  id="house__Type" style="width: 130px;margin-left: -40px" required name="type">
+                    <label class="col-sm-1 control-label" >房型类别</label>
+                    <div class="col-sm-2">
+                        <select class="form-control"  id="house__Type" required name="type">
                             <option value="">全部</option>
                             <option value="0">真实房间</option>
                             <option value="1">虚拟房间</option>
                         </select>
                     </div>
-                    <label class="col-sm-1 control-label" style="width:100px;line-height: 30px;margin-left: -20px">房号</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <input type="text" class="form-control" id="title" placeholder="请输入房间名称" style="width: 160px;margin-left: -60px" name="title"/>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" >房号</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="title" placeholder="请输入房间名称" name="title"/>
                     </div>
-                    <div class="col-sm-1" style="width: 120px;margin-left: 20px" >
-                        <button class="btn btn-primary" id="search_btn" style="width: 120px">查询</button>
+                    <div class="col-sm-3" >
+                        <button class="btn btn-primary col-sm-12" id="search_btn">查询</button>
                     </div>
                 </div>
             </div>

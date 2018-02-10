@@ -31,7 +31,7 @@
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                 <shiro:hasAnyRoles name="总管理员,管理员">
-                    <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">分店名称：</label>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">分店名称</label>
                     <div class="col-sm-2">
                         <select class="form-control"  id="hotelId_"  required name="hotelId">
                             <option value="">全部</option>

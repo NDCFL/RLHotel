@@ -87,7 +87,7 @@
         insert into t_cooperation_accounts  ( company_id, hotel_id,  account_type, account_time, total_pay, subject_id, description, remark,cooperation_company_id, is_active, is_cash, cash_status, reason) values ( #{companyId}, #{hotelId}, #{accountType}, #{accountTime}, #{totalPay}, #{subjectId}, #{description}, #{remark},#{cooperationCompanyId}, #{isActive}, #{isCash}, #{cashStatus}, #{reason})
     </insert>
     <update id="updateStatus">
-        update t_cooperation_accounts set is_active=#{status} where id=#{id}
+        update t_cooperation_accounts set is_cash=#{status} where id=#{id}
     </update>
     <update id="updateRemark">
         update t_cooperation_accounts set remark=#{remark} where id=#{id}
@@ -96,7 +96,7 @@
         update t_cooperation_accounts set is_cash=#{isCash},cash_status=#{cashStatus},reason=#{reason},hander=#{hander} where id=#{id}
     </update>
     <update id="update" parameterType="cooperationAccountsVo">
-        update t_cooperation_accounts set account_type=#{accountType},total_pay=#{totalPay},subject_id=#{subjectId},description=#{description},cooperation_company_id=#{cooperationCompanyId},hotel_id=#{hotelId},remark=#{remark},account_time=#{accountTime} where id = #{id}
+        update t_cooperation_accounts set account_type=#{accountType},total_pay=#{totalPay},subject_id=#{subjectId},description=#{description},cooperation_company_id=#{cooperationCompanyId},hotel_id=#{hotelId},remark=#{remark},account_time=#{accountTime},is_cash=#{isCash} where id = #{id}
     </update>
     <update id="checkerManyCooperationAccount" parameterType="java.util.List" >
         <foreach collection="list" item="item" index="index" separator=";" >
@@ -106,14 +106,14 @@
     <select id="sumCash" resultMap="sumCashVoMap">
         <if test="hotelId==-1">
             select
-            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where  c.account_type=0  and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
-            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where  c.account_type=1  and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
+            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where  c.account_type=0  and c.is_cash=0 and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
+            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where  c.account_type=1  and c.is_cash=0 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
             from t_cooperation_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
         </if>
         <if test="hotelId!=-1">
             select
-            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where c.account_type=0  and c.hotel_id!=-1 and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
-            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where c.account_type=1  and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
+            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where c.account_type=0  and c.is_cash=0 and c.hotel_id!=-1 and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
+            (select ifnull(sum(c.total_pay),0.0) from t_cooperation_accounts c where c.account_type=1  and c.is_cash=0 and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
             from t_cooperation_accounts where company_id=#{companyId} and hotel_id!=-1 GROUP BY  company_id;
         </if>
     </select>

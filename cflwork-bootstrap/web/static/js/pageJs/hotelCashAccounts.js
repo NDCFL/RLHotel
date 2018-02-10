@@ -163,7 +163,7 @@ $('#mytab').bootstrapTable({
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
                 if(row.cashStatus==1){
-                    return p+g+d;
+                    return p+g;
                 }else{
                     return p+g+e + d;
                 }

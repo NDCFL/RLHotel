@@ -51,7 +51,7 @@ $('#mytab').bootstrapTable({
         ,
         {
             title: '账单日期',
-            field: 'createTime',
+            field: 'accountTime',
             align: 'center',
             sortable: true,
             formatter: function (value) {
@@ -166,12 +166,8 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var g='';
-                if(row.isCash==0){
-                    g = '<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green">审核</i></a>';
-                }else{
-                    g = '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green">批注</i></a>';
-                }
+                var g='<a title="审核" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#shenheModal" onclick="return shenhe(\'' + row.id + '\')"><i class="glyphicon glyphicon-import" alt="审核" style="color:green">审核</i></a>';
+                var p= '<a title="批注" id="checker" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#remarkModal" onclick="return remark(\'' + row.id + '\')"><i class="glyphicon glyphicon-pushpin" alt="批注" style="color:green">批注</i></a>';
                 var e = '<a title="编辑" href="javascript:void(0);" id="cooperationAccounts"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
@@ -181,9 +177,9 @@ $('#mytab').bootstrapTable({
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
                 if(row.cashStatus==1){
-                    return g+d + f;
+                    return g+p;
                 }else{
-                    return g+e + d + f;
+                    return g+p+e+d;
                 }
             }
         }
@@ -474,7 +470,7 @@ $('#add').click(function () {
         }, "json"
     );
 });
-function deleteMany() {
+function deleteMany1() {
     var isactivity = "";
     var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
         if (row.isActive == 0) {
@@ -516,6 +512,46 @@ function deleteMany() {
         );
     });
 }
+function deleteMany(){
+    var isactivity="";
+    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
+        if(row.isActive==0){
+            isactivity+=row.isActive;
+        }
+        return row.id ;
+    });
+    if(row==""){
+        layer.msg('修改失败，请勾选数据!', {
+            icon : 2,
+            time : 3000
+        });
+        return ;
+    }
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
+
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改结算状态吗？',function(index){
+        $.post(
+            "/cooperationAccounts/deleteManyCooperationAccounts",
+            {
+                "manyId":$("#statusId").val(),
+                "status":$("#status").val()
+            },
+            function(data){
+                if(data.message=="修改成功!"){
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }else{
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }
+            },"json"
+        );
+    });
+});
+
 function getAccounts(){
     $("#accountsshenhe").click(function () {
         var cashStatus = "";

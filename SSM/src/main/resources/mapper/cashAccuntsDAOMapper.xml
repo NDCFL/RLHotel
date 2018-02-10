@@ -132,14 +132,14 @@
     <select id="sumCash" resultMap="sumCashVoMap">
         <if test="hotelId==-1">
             select
-            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where  c.account_type=0 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
-            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where  c.account_type=1 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where   c.is_cash=0 and c.account_type=0 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where   c.is_cash=0 and c.account_type=1 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
             from t_cash_accounts where company_id=#{companyId} <if test="hotelId!=null">and hotel_id=#{hotelId}</if> GROUP BY  company_id;
         </if>
         <if test="hotelId!=-1">
             select
-            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where c.account_type=0 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.hotel_id!=-1 and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
-            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where c.account_type=1 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where c.is_cash=0 and c.account_type=0 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.hotel_id!=-1 and c.company_id=#{companyId}  <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyIn,
+            (select ifnull(sum(c.total_pay),0.0) from t_cash_accounts c where c.is_cash=0 and c.account_type=1 <if test="dateVal!=null">and month(c.create_time)=month(#{dateVal}) and YEAR (c.create_time)=YEAR(#{dateVal})</if> and c.hotel_id!=-1 and c.company_id=#{companyId} <if test="hotelId!=null">and c.hotel_id=#{hotelId}</if>) as sumMoneyOut
             from t_cash_accounts where company_id=#{companyId} and hotel_id!=-1 GROUP BY  company_id;
         </if>
     </select>

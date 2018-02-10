@@ -205,7 +205,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3" style="text-align: center;margin: auto" >
-                        <button class="btn btn-primary"  id="search_btn" style="width: 280px;float: right">查询</button>
+                        <button class="btn btn-primary col-sm-12"  id="search_btn">查询</button>
                     </div>
                 </div>
             </div>
@@ -214,7 +214,11 @@
                 <button id="btn_shenhe" type="button" onclick="return getAccounts();" class="btn btn-default" style="display: block; border-radius: 0" data-toggle="modal" data-target="#manayShenhe">
                     <span class="glyphicon glyphicon-import" aria-hidden="true" ></span>批量审核
                 </button>
-                <%--<button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">--%>
+                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量结算状态
+                </button>
+
+            <%--<button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">--%>
                     <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除--%>
                 <%--</button>--%>
                 <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
@@ -223,6 +227,42 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" >
+                    批量修改结算状态
+                </h4>
+            </div>
+            <form class="form-horizontal" method="post" id="update_status">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">结算状态：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control"  id="status" required name="status">
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                                <option value="2">有异议</option>
+                            </select>
+                        </div>
+                        <input id="statusId" type="hidden" name="manyId" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" id="updateSta" class="btn btn-primary" data-dismiss="modal">
+                        确认修改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 <%--网站数据的新增--%>
 <!-- 模态框（Modal） -->
@@ -234,12 +274,12 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增来往财务
+                    新增总部来往财务
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
-                    <input type="hidden" value="-1" name="hotelId"></input>
+                    <input type="hidden" value="-1" name="hotelId"/>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">来往商家：</label>
                         <div class="col-sm-8">
@@ -264,19 +304,30 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">结算状态：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required name="isCash">
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                                <option value="1">有异议</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">金额：</label>
                         <div class="col-sm-8">
-                            <input  name="totalPay" minlength="2" maxlength="20" type="number" class="form-control" required="" aria-required="true">
+                            <input  name="totalPay" minlength="2" id="money_" maxlength="20" type="text" class="form-control" required aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">收支时间：</label>
+                        <label class="col-sm-3 control-label">账单时间：</label>
                         <div class="col-sm-8">
-                            <input  name="accountTime"  type="text" id="test1" class="form-control" required="" aria-required="true">
+                            <input  type="text" class="form-control" id="test1" required aria-required="true">
+                            <input  name="accountTime"  type="hidden" class="form-control" id="accountTime" required aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">账单说明：</label>
+                        <label class="col-sm-3 control-label">账目说明：</label>
                         <div class="col-sm-8">
                             <textarea  name="description" class="form-control" required="" aria-required="true"></textarea>
                         </div>
@@ -285,7 +336,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="submit" id="add" class="btn btn-primary">
+                    <button type="button" id="add" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -331,6 +382,16 @@
                             <select class="form-control" required name="accountType">
                                 <option value="0">收入</option>
                                 <option value="1">支出</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">结算状态：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" required name="isCash">
+                                <option value="0">未结算</option>
+                                <option value="1">已结算</option>
+                                <option value="1">有异议</option>
                             </select>
                         </div>
                     </div>
