@@ -56,7 +56,7 @@
                                     <h2 class="no-margins" id="sumMoneyOut" style="color: #ff0000;"></h2>
                                     <div class="stat-percent font-bold text-info">支出 <i class="fa fa-level-up"></i>
                                     </div>
-                                    <small>当前未结算账单应收合计</small>
+                                    <small>当前未结算账单应付合计</small>
                                 </div>
                             </div>
                         </div>
@@ -727,7 +727,7 @@
     $("#getDval").click(function () {
         getVal($("#test21").val());
     });
-    function getVal(val) {
+    function getVal() {
         $.post(
             "/cooperationAccounts/getCashVal",
             {

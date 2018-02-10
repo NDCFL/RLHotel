@@ -140,7 +140,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '操作人',
+            title: '最后操作人',
             field: 'hand',
             align: 'center',
             sortable: true
@@ -369,6 +369,7 @@ function refush() {
             hotelId:$("#hotel").val()
         }
     });
+    getVal();
 }
 $("#remarkAdd").click(function () {
     $.post(

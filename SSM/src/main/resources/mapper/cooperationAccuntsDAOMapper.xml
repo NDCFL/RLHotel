@@ -98,7 +98,7 @@
     <update id="update" parameterType="cooperationAccountsVo">
         update t_cooperation_accounts set account_type=#{accountType},total_pay=#{totalPay},subject_id=#{subjectId},description=#{description},cooperation_company_id=#{cooperationCompanyId},hotel_id=#{hotelId},remark=#{remark},account_time=#{accountTime},is_cash=#{isCash} where id = #{id}
     </update>
-    <update id="checkerManyCooperationAccount" parameterType="java.util.List" >
+    <update id="checkerManyCashAccount" parameterType="java.util.List" >
         <foreach collection="list" item="item" index="index" separator=";" >
             update t_cooperation_accounts set is_cash=#{item.isCash},cash_status=#{item.cashStatus},reason=#{item.reason},hander=#{item.hander} where id=#{item.id}
         </foreach>

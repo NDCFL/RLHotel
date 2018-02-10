@@ -55,7 +55,7 @@
                 <div class="col-xs-1" style="margin-top:1%">
                     <small class="stats-label" ><h4>水费</h4></small>
                     <hr/>
-                    <p class="stats-label">7000</p>
+                    <p class="stats-label">0</p>
                     <p class="stats-label">&nbsp;</p>
                     <p class="stats-label">900</p>
                 </div>
@@ -172,7 +172,7 @@
                     <h5>每间/每月</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="houseMonthPayMoney">275,800</h1>
+                    <h1 class="no-margins" id="houseMonthPayMoney">0</h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>每间/每月</small>

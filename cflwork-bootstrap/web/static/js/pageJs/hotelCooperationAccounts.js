@@ -155,7 +155,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '操作人',
+            title: '最后操作人',
             field: 'hand',
             align: 'center',
             sortable: true
@@ -384,6 +384,7 @@ function refush() {
             isCash:$("#iscash").val()
         }
     });
+    getVal();
 }
 $("#remarkAdd").click(function () {
     $.post(
@@ -577,7 +578,7 @@ function getAccounts(){
 
         }
         $("#manyId").val(row);
-        layer.confirm('确认要执行批量审核现金流水账目吗？', function (index) {
+        layer.confirm('确认要执行批量审核分店商家来往账目吗？', function (index) {
             $.post(
                 "/cooperationAccounts/checkerCooperationAccounts",
                 $("#manyshenheform").serialize(),

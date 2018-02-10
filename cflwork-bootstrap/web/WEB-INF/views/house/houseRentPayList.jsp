@@ -84,7 +84,7 @@
                     <h5>每间/每月</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="houseMonthPayMoney">275,800</h1>
+                    <h1 class="no-margins" id="houseMonthPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>每间/每月</small>
@@ -142,7 +142,7 @@
                 </div>
                 <div class="col-xs-2">
                     <small class="stats-label"><h4>本月待付</h4></small>
-                    <h2 id="thisMonthNotPay">236 321.80</h2>
+                    <h2 id="thisMonthNotPay"></h2>
                     <hr/>
                     <small class="stats-label">本月待付租金总额</small>
                 </div>
@@ -606,17 +606,18 @@
                 "hotelId":hotelId
             },
             function (data) {
-                $("#houseTotal").html(data.houseTotal);//房源总数
-                $("#dfPayMoney").html("￥"+data.dfPayMoney);//代付资金
-                $("#monthPayMoney").html("￥"+data.monthPayMoney);//代付资金
-                $("#houseMonthPayMoney").html("￥"+data.houseMonthPayMoney);//每间每月
-                $("#houseDayPayMoney").html("￥"+data.houseDayPayMoney);//每间，每天
-                $("#chaoqiPayMoney").html("￥"+data.chaoqiPayMoney);//超期未付
-                $("#fiveDayPayMoney").html("￥"+data.fiveDayPayMoney);//近5日待付
-                $("#thisMonthPayMoney").html("￥"+data.thisMonthPayMoney);//本月应付
-                $("#thisMonthPayAll").html("￥"+data.thisMonthPayAll);//本月已付租金总额
-                $("#thisMonthNotPay").html("￥"+data.thisMonthNotPay);//本月待付
-                $("#nextMonthPay").html("￥"+data.nextMonthPay);//次月应付
+                alert(data);
+                $("#houseTotal").html(data.houseTotal==null?0:data.houseTotal);//房源总数
+                $("#dfPayMoney").html("￥"+data.dfPayMoney==null?0:data.dfPayMoney);//代付资金
+                $("#monthPayMoney").html("￥"+data.monthPayMoney==null?0:data.monthPayMoney);//代付资金
+                $("#houseMonthPayMoney").html("￥"+data.houseMonthPayMoney==null?0:data.houseMonthPayMoney);//每间每月
+                $("#houseDayPayMoney").html("￥"+data.houseDayPayMoney==null?0:data.houseDayPayMoney);//每间，每天
+                $("#chaoqiPayMoney").html("￥"+data.chaoqiPayMoney==null?0:data.chaoqiPayMoney);//超期未付
+                $("#fiveDayPayMoney").html("￥"+data.fiveDayPayMoney==null?0:data.fiveDayPayMoney);//近5日待付
+                $("#thisMonthPayMoney").html("￥"+data.thisMonthPayMoney==null?0:data.thisMonthPayMoney);//本月应付
+                $("#thisMonthPayAll").html("￥"+data.thisMonthPayAll==null?0:data.thisMonthPayAll);//本月已付租金总额
+                $("#thisMonthNotPay").html("￥"+data.thisMonthNotPay==null?0:data.thisMonthNotPay);//本月待付
+                $("#nextMonthPay").html("￥"+data.nextMonthPay==null?0:data.nextMonthPay);//次月应付
             },
             "json"
         );

@@ -82,7 +82,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '操作人',
+            title: '最后操作人',
             field: 'hander',
             align: 'center',
             sortable: true
