@@ -78,8 +78,30 @@ $('#mytab').bootstrapTable({
             field: 'totalPay',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
-                return '<span style="color:red">￥ '+value+'</span>';
+            formatter: function (value, row, index) {
+                if(row.accountType==0){
+                    return '<span style="color:green">￥ '+value+'</span>';
+                }else{
+                    return '<span style="color:red">￥ '+value+'</span>';
+                }
+            }
+        }
+        ,
+        {
+            title: '结算状态',
+            field: 'isCash',
+            align: 'center',
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color:red" >未结算</span>';
+                } else if(value==1){
+                    //表示启用状态
+                    return '<span style="color:green">已结算</span>';
+                }else if(value==2){
+                    //表示启用状态
+                    return '<span style="color:orange">有异议</span>';
+                }
             }
         }
         ,
@@ -549,14 +571,6 @@ function getAccounts(){
                 time: 2000
             });
             return;
-        }
-        if (cashStatus != "") {
-            layer.msg('审核失败，已经审核通过的的不允许再次审核!', {
-                icon: 2,
-                time: 2000
-            });
-            return;
-
         }
         $("#manyId").val(row);
         layer.confirm('确认要执行批量审核现金流水账目吗？', function (index) {

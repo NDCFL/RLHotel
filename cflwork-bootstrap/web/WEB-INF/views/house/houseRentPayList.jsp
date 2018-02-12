@@ -15,6 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>房租列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
+    <style>
+        label{
+            margin-top:5px;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
@@ -162,23 +167,6 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>房租列表</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-wrench"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#">选项1</a>
-                    </li>
-                    <li><a href="#">选项2</a>
-                    </li>
-                </ul>
-                <a class="close-link">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -186,17 +174,86 @@
                     房租列表
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <table id="mytab" name="mytab" class="table table-hover"></table>
+                    <label class="col-sm-1 control-label">付款日期</label>
+                    <div class="col-sm-3" >
+                        <input type="text" class="form-control" name="createTime" id="test11"/>
+                    </div>
+                    <label class="col-sm-1 control-label" >姓名</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bankAccountName" name="contractMasterVo.bankAccountName"/>
+                    </div>
+                    <label class="col-sm-1 control-label" >电话</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="phone" name="contractMasterVo.phone"/>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" >房号</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="houseName" name="houseName"/>
+                    </div>
+                    <label class="col-sm-1 control-label" >签约年限</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="payTime" id="payTime"/>
+                        <%--<select name="payTime" id="payTime" class="form-control"  required >--%>
+                            <%--<option value="">全部</option>--%>
+                            <%--<option value="1">1年</option>--%>
+                            <%--<option value="2">2年</option>--%>
+                            <%--<option value="3">3年</option>--%>
+                            <%--<option value="4">4年</option>--%>
+                            <%--<option value="5">5年</option>--%>
+                            <%--<option value="6">6年</option>--%>
+                            <%--<option value="7">7年</option>--%>
+                            <%--<option value="8">8年</option>--%>
+                            <%--<option value="9">9年</option>--%>
+                            <%--<option value="10">10年</option>--%>
+                        <%--</select>--%>
+                    </div>
+                    <label class="col-sm-1 control-label">付款方式</label>
+                    <div class="col-sm-2">
+                        <select class="form-control"  required name="payType" id="payType">
+                            <option value="">全部</option>
+                            <option value="1">1/月付</option>
+                            <option value="2">2/月付</option>
+                            <option value="3">3/月付</option>
+                            <option value="4">4/月付</option>
+                            <option value="6">6/月付</option>
+                            <option value="12">12/月付</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label" >说明</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="descriptions" name="description"/>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" >房源状态</label>
+                    <div class="col-sm-2">
+                        <select name="isActive" class="form-control" id="status"  required >
+                            <option value="">全部</option>
+                            <option value="0">启用</option>
+                            <option value="1">禁用</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label">房源归属</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="hotel_Ids" required name="hotelId">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" >
+                        <button class="btn btn-primary col-sm-12 " id="search_btn" >查询</button>
+                    </div>
                 </div>
             </div>
-
+            <table id="mytab" name="mytab" class="table table-hover"></table>
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
-                </button>
-                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
-                </button>
+                <%--<button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">--%>
+                    <%--<span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改--%>
+                <%--</button>--%>
+                <%--<button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">--%>
+                    <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除--%>
+                <%--</button>--%>
                 <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
                 </button>
@@ -204,6 +261,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="remark_modal" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    收支账目说明详情
+                </h4>
+            </div>
+            <div class="modal-body" id="remarks">
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
 <%--网站数据的新增--%>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="webAdd" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
@@ -535,6 +609,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+</div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/houseRentPay.js"></script>
@@ -555,6 +630,11 @@
     laydate.render({
         elem: '#test4' //指定元素
     });
+    laydate.render({
+        elem: '#test11' //指定元素
+        ,range: true
+        ,type:'date'
+    });
 </script>
 <script>
     $(function() {
@@ -565,9 +645,11 @@
                 $("#master_Id").select2({
                     data: data
                 })
+                $("#select2-master_Id-container").remove();
                 $("#masterId").select2({
                     data: data
                 })
+                $("#select2-masterId-container").remove();
             },
             "json"
         );
@@ -578,12 +660,19 @@
                 $("#hotel_Id").select2({
                     data: data
                 })
+                $("#hotel_Ids").select2({
+                    data: data
+                })
                 $("#hotelId").select2({
                     data: data
                 })
                 $("#hotelId_").select2({
                     data: data
                 })
+                $("#select2-hotel_Id-container").remove();
+                $("#select2-hotel_Ids-container").remove();
+                $("#select2-hotelId-container").remove();
+                $("#select2-hotelId_-container").remove();
             },
             "json"
         );
@@ -606,7 +695,6 @@
                 "hotelId":hotelId
             },
             function (data) {
-                alert(data);
                 $("#houseTotal").html(data.houseTotal==null?0:data.houseTotal);//房源总数
                 $("#dfPayMoney").html("￥"+data.dfPayMoney==null?0:data.dfPayMoney);//代付资金
                 $("#monthPayMoney").html("￥"+data.monthPayMoney==null?0:data.monthPayMoney);//代付资金

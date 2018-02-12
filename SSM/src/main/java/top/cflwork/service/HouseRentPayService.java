@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import org.springframework.stereotype.Service;
+import top.cflwork.query.PageQuery;
 import top.cflwork.vo.HouseRentPayVo;
 import top.cflwork.vo.HouseRentVo;
 import top.cflwork.vo.Select2Vo;
@@ -17,4 +17,6 @@ public interface HouseRentPayService extends BaseService<HouseRentPayVo>{
     HouseRentVo notHotelId();
     HouseRentVo haveHotelId(Long hotelId);
     void huankuan(Long id);
+    List<HouseRentPayVo> pageLists(PageQuery pageQuery, HouseRentPayVo houseRentPayVo);
+    Long counts(PageQuery pageQuery,HouseRentPayVo houseRentPayVo);
 }

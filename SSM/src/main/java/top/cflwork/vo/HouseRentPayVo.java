@@ -1,7 +1,8 @@
 package top.cflwork.vo;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HouseRentPayVo {
@@ -78,6 +79,14 @@ public class HouseRentPayVo {
     private Double wuye;//物业费用单位为平米
 
     private Integer[] count;
+
+    private String loopTime;
+
+    private Date endTime;
+
+    private String name;
+
+    private String phone;
 
     public Long getId() {
         return id;
@@ -200,7 +209,7 @@ public class HouseRentPayVo {
     }
 
     public String getDescription() {
-        return description;
+        return description==""?"暂无说明":description;
     }
 
     public void setDescription(String description) {
@@ -375,46 +384,36 @@ public class HouseRentPayVo {
         this.count = count;
     }
 
-    @Override
-    public String toString() {
-        return "HouseRentPayVo{" +
-                "id=" + id +
-                ", masterId=" + masterId +
-                ", hotelId=" + hotelId +
-                ", companyId=" + companyId +
-                ", contractId=" + contractId +
-                ", totalPay=" + totalPay +
-                ", factPayTimeStart=" + factPayTimeStart +
-                ", factPayTimeEnd=" + factPayTimeEnd +
-                ", factedPayTimeStart=" + factedPayTimeStart +
-                ", factedPayTimeEnd=" + factedPayTimeEnd +
-                ", factPay=" + factPay +
-                ", payTime=" + payTime +
-                ", payType=" + payType +
-                ", payPeriodStart=" + payPeriodStart +
-                ", payPeriodEnd=" + payPeriodEnd +
-                ", description='" + description + '\'' +
-                ", spareMoney=" + spareMoney +
-                ", payFactTime=" + payFactTime +
-                ", isCash=" + isCash +
-                ", createTime=" + createTime +
-                ", isActive=" + isActive +
-                ", firstPay=" + firstPay +
-                ", firstPayTime=" + firstPayTime +
-                ", sumPay=" + sumPay +
-                ", payCount=" + payCount +
-                ", dayPay=" + dayPay +
-                ", monthPay=" + monthPay +
-                ", houseName='" + houseName + '\'' +
-                ", contractMasterVo=" + contractMasterVo +
-                ", hotelVo=" + hotelVo +
-                ", area=" + area +
-                ", houseCount=" + houseCount +
-                ", shuidian=" + shuidian +
-                ", kongtiao=" + kongtiao +
-                ", gongnuan=" + gongnuan +
-                ", wuye=" + wuye +
-                ", count=" + Arrays.toString(count) +
-                '}';
+    public String getLoopTime() {
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        return format1.format(factPayTimeStart)+"至"+format1.format(factPayTimeEnd);
+    }
+
+    public void setLoopTime(String loopTime) {
+        this.loopTime = loopTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

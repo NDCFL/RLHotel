@@ -88,4 +88,14 @@ public class HouseRentPayServiceImpl implements HouseRentPayService {
     public void huankuan(Long id) {
         houseRentPayDAO.huankuan(id);
     }
+
+    @Override
+    public List<HouseRentPayVo> pageLists(PageQuery pageQuery, HouseRentPayVo houseRentPayVo) {
+        return houseRentPayDAO.pageLists(pageQuery, houseRentPayVo);
+    }
+
+    @Override
+    public Long counts(PageQuery pageQuery, HouseRentPayVo houseRentPayVo) {
+        return houseRentPayDAO.counts(pageQuery, houseRentPayVo);
+    }
 }

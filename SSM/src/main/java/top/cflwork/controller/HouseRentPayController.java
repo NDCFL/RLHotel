@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import top.cflwork.common.DateParseUtils;
 import top.cflwork.common.Message;
 import top.cflwork.common.PagingBean;
 import top.cflwork.enums.ActiveStatusEnum;
@@ -20,12 +18,9 @@ import top.cflwork.service.HouseRentPayService;
 import top.cflwork.vo.*;
 
 import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,6 +51,21 @@ public class HouseRentPayController  {
         pageQuery.setPageNo(pagingBean.getStartIndex());
         pageQuery.setPageSize(pagingBean.getPageSize());
         pagingBean.setrows(houseRentPayService.listPage(pageQuery));
+        return pagingBean;
+    }
+    @RequestMapping("findHouseRentPayList")
+    @ResponseBody
+    public PagingBean findHouseRentPayList(int pageSize, int pageIndex, HouseRentPayVo houseRentPayVo, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pagingBean.setTotal(houseRentPayService.counts(pageQuery,houseRentPayVo));
+        pagingBean.setrows(houseRentPayService.pageLists(pageQuery,houseRentPayVo));
         return pagingBean;
     }
     @RequestMapping("/getContractMaster")
@@ -112,17 +122,24 @@ public class HouseRentPayController  {
         try{
             UserVo userVo = (UserVo) session.getAttribute("userVo");
             HouseRentPayVo house = houseRentPayService.getById(houseRentPayVo.getId());
-            //准备还款事项
-            houseRentPayService.huankuan(houseRentPayVo.getId());
-            HouseFactPayVo houseFactPayVo = new HouseFactPayVo();
-            houseFactPayVo.setHouseRentId(houseRentPayVo.getId());
-            houseFactPayVo.setPayMoney(houseRentPayVo.getFirstPay());
-            houseFactPayVo.setCompanyId(userVo.getCompanyId());
-            houseFactPayVo.setStatus((byte)0);
-            //新增还款记录
-            houseFactPayService.save(houseFactPayVo);
-            //还款明细表中加入一条数据
-            return Message.success("还款成功!");
+            Long now = System.currentTimeMillis();
+            Long start = house.getFactedPayTimeStart().getTime();
+            Long end = house.getFactedPayTimeEnd().getTime();
+            //本期还款时间正确
+            if(start<=now && now<=end){
+                //准备还款事项
+                houseRentPayService.huankuan(houseRentPayVo.getId());
+                HouseFactPayVo houseFactPayVo = new HouseFactPayVo();
+                houseFactPayVo.setHouseRentId(houseRentPayVo.getId());
+                houseFactPayVo.setPayMoney(houseRentPayVo.getFirstPay());
+                houseFactPayVo.setCompanyId(userVo.getCompanyId());
+                houseFactPayVo.setStatus((byte)0);
+                //新增还款记录
+                houseFactPayService.save(houseFactPayVo);
+                //还款明细表中加入一条数据
+                return Message.success("还款成功!");
+            }
+            return  Message.fail("本期已还款");
         }catch (Exception e){
            e.printStackTrace();
             return Message.fail("还款失败!");

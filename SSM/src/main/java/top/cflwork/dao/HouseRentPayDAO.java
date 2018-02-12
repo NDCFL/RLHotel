@@ -1,6 +1,8 @@
 package top.cflwork.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import top.cflwork.query.PageQuery;
 import top.cflwork.vo.HouseRentPayVo;
 import top.cflwork.vo.HouseRentVo;
 import top.cflwork.vo.Select2Vo;
@@ -18,4 +20,6 @@ public interface HouseRentPayDAO extends BaseDAO<HouseRentPayVo>{
     HouseRentVo notHotelId();
     HouseRentVo haveHotelId(Long hotelId);
     void huankuan(Long id);
+    List<HouseRentPayVo> pageLists(@Param("pageQuery") PageQuery pageQuery, @Param("houseRentPayVo") HouseRentPayVo houseRentPayVo);
+    Long counts(@Param("pageQuery") PageQuery pageQuery, @Param("houseRentPayVo") HouseRentPayVo houseRentPayVo);
 }

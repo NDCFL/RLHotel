@@ -35,20 +35,14 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            title: '房间名称',
+            title: '房号',
             field: 'houseName',
             align: 'center',
             sortable: true
         },
         {
-            title: '房源归属',
-            field: 'hotelVo.title',
-            align: 'center',
-            sortable: true
-        },
-        {
-            title: '业主名称',
-            field: 'contractMasterVo.bankName',
+            title: '业主姓名',
+            field: 'contractMasterVo.bankAccountName',
             align: 'center',
             sortable: true
         }
@@ -61,6 +55,12 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
+            title: '房源归属',
+            field: 'hotelVo.title',
+            align: 'center',
+            sortable: true
+        },
+        {
             title: '签约年限',
             field: 'payTime',
             align: 'center',
@@ -71,7 +71,14 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '租房合计',
+            title: '合同周期',
+            field: 'loopTime',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
+            title: '租金总额',
             field: 'totalPay',
             align: 'center',
             sortable: true,
@@ -79,6 +86,16 @@ $('#mytab').bootstrapTable({
                 return '<span style="color:green">$'+value+'</span>';
             }
 
+        }
+        ,
+        {
+            title: '剩余未付',
+            field: 'spareMoney',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:red">￥'+value+'</span>';
+            }
         }
         ,
         {
@@ -119,69 +136,33 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '剩余支付',
-            field: 'spareMoney',
+            title: '备注',
+            field: 'description',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
-                return '<span style="color:red">￥'+value+'</span>';
+            formatter: function (value, row, index) {
+                if(value==null || value==''){
+                    value="暂无说明";
+                }
+                if(value.length<10){
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+'</a>';
+                }else{
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+"..."+'</a>';
+                }
             }
         }
         ,
         {
-            title: '开始支付时间',
-            field: 'payPeriodStart',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d ;
-            }
-        },
-        {
-            title: '结束支付时间',
-            field: 'payPeriodEnd',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d;
-            }
-        },
-
-        {
-            title: '创建时间',
-            field: 'createTime',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                return getdate(value);
-            }
-        }
-        ,
-        {
-            title: '状态',
+            title: '房态状态',
             field: 'isActive',
             align: 'center',
             formatter: function (value, row, index) {
                 if (value == 0) {
                     //表示启用状态
-                    return '<i class="btn btn-primary" >启用</i>';
+                    return '<i style="color: green">启用</i>';
                 } else {
                     //表示启用状态
-                    return '<i class="btn btn-danger">停用</i>';
+                    return '<i style="color: red">停用</i>';
                 }
             }
         }
@@ -191,7 +172,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:blue">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -199,7 +180,7 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:red">付款</i></a> ';
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
                 return p+e + d + f;
             }
         }
@@ -233,6 +214,9 @@ function queryParams(params) {
         pageIndex: this.pageNumber,
         searchVal: title
     }
+}
+function  remarks(val) {
+    $("#remarks").html(val);
 }
 function del(houseRentPayid, status) {
     if (status == 0) {
@@ -295,10 +279,36 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/houseRentPay/houseRentPayList'});
+    var times = $("#test11").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh',
+        {
+            url: '/houseRentPay/findHouseRentPayList',
+            query:{
+                createTime:start,
+                endTime:end,
+                name:$("#bankAccountName").val(),
+                phone:$("#phone").val(),
+                houseName:$("#houseName").val(),
+                payTime:$("#payTime").val(),
+                payType:$("#payType").val(),
+                descriptions:$("#descriptions").val(),
+                isActive:$("#status").val(),
+                hotelId:$("#hotel_Ids").val()
+            }
+        }
+    );
 })
 function refush() {
     $('#mytab').bootstrapTable('refresh', {url: '/houseRentPay/houseRentPayList'});
+    getHotelInfo();
 }
 $("#update").click(function () {
     $.post(
@@ -324,7 +334,7 @@ $("#huankuan").click(function () {
                 layer.alert(data.message, {icon: 6});
                 refush();
             } else {
-                layer.msg(data.message, {icon:2, time: 1000});
+                layer.alert(data.message, {icon:2});
                 refush();
             }
             $("#fukuan").modal('hide');
