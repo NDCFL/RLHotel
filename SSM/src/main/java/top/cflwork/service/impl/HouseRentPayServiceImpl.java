@@ -85,8 +85,13 @@ public class HouseRentPayServiceImpl implements HouseRentPayService {
     }
 
     @Override
-    public void huankuan(Long id) {
-        houseRentPayDAO.huankuan(id);
+    public void huankuan(HouseRentPayVo houseRentPayVo) {
+        houseRentPayDAO.huankuan(houseRentPayVo);
+    }
+
+    @Override
+    public HouseRentVo findHotelId(HouseRentPayVo houseRentPayVo) {
+        return houseRentPayDAO.findHotelId(houseRentPayVo);
     }
 
     @Override
@@ -97,5 +102,15 @@ public class HouseRentPayServiceImpl implements HouseRentPayService {
     @Override
     public Long counts(PageQuery pageQuery, HouseRentPayVo houseRentPayVo) {
         return houseRentPayDAO.counts(pageQuery, houseRentPayVo);
+    }
+
+    @Override
+    public Long chaoqicount(PageQuery pageQuery) {
+        return houseRentPayDAO.chaoqicount(pageQuery);
+    }
+
+    @Override
+    public List<HouseRentPayVo> chaoqilistPage(PageQuery pageQuery) {
+        return houseRentPayDAO.chaoqilistPage(pageQuery);
     }
 }

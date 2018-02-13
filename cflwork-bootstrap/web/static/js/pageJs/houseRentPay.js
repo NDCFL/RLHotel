@@ -48,13 +48,6 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '业主电话',
-            field: 'contractMasterVo.phone',
-            align: 'center',
-            sortable: true
-        }
-        ,
-        {
             title: '房源归属',
             field: 'hotelVo.title',
             align: 'center',
@@ -136,6 +129,21 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
+            title: '本期应付',
+            field: 'thisMoney',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                if((value+"").indexOf(".")>0){
+                    return '<span style="color:green">$'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
+                }else if((value+"").indexOf(".")<=0){
+                    return '<span style="color:green">$'+(value+"")+'</span>';
+                }
+
+            }
+        }
+        ,
+        {
             title: '备注',
             field: 'description',
             align: 'center',
@@ -148,6 +156,21 @@ $('#mytab').bootstrapTable({
                     return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+'</a>';
                 }else{
                     return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+"..."+'</a>';
+                }
+            }
+        }
+        ,
+        {
+            title: '本期支付状态',
+            field: 'isCash',
+            align: 'center',
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<i style="color: red">未支付</i>';
+                } else {
+                    //表示启用状态
+                    return '<i style="color: green">已支付</i>';
                 }
             }
         }
@@ -180,7 +203,7 @@ $('#mytab').bootstrapTable({
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
-                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ',' +row.payCount + ',' +12/parseInt(row.payType) + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
                 return p+e + d + f;
             }
         }
@@ -252,9 +275,43 @@ function edit(name) {
         "json"
     );
 }
-function fukuan(id,money){
-    $("#first_pay").val(money);
+function fukuan(id,money,shengyuqishu,sumqishu){
+    $("#summoney").html(0);
+    var yijingfukuan = parseInt(sumqishu)-parseInt(shengyuqishu);
+    var htmls='<div class="form-group">';
+    for(var i=1;i<=parseInt(sumqishu);i++){
+        if(yijingfukuan-i>=0){
+            htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger button">第'+i+'期</button></div>';
+        }else {
+            htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">第'+i+'期</button></div>';
+        }
+        if(i%6==0){
+            if(i!=sumqishu){
+                htmls = htmls+'</div><div class="form-group">';
+            }
+        }
+    }
+    $("#infohtml").html(htmls);
+    $(".button").click(function () {
+        if ($(this).hasClass("btn-success")) {
+            $(this).removeClass("btn-success");
+            $(this).addClass("btn-primary");
+        } else {
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-success");
+        }
+        var j = new Array();
+        $(".button").each(function(index,element){
+            if ($(this).hasClass("btn-primary")) {
+                j.push(index);
+            }
+        });
+        $("#ids").val(j);
+        $("#summoney").html(parseFloat(money)*j.length);
+    });
+    $("#firstPay").val(money);
     $("#id").val(id);
+    $("#huankuanqishu").val(sumqishu-shengyuqishu);
 }
 function updatestatus(id, status) {
     $.post("/houseRentPay/updateStatus/" + id + "/" + status,
@@ -305,11 +362,84 @@ $('#search_btn').click(function () {
             }
         }
     );
+    getInfos();
 })
-function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/houseRentPay/houseRentPayList'});
-    getHotelInfo();
+function getInfos(){
+    var times = $("#test11").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    var hotelId = $("#hotelId_").val();
+    $.post(
+        "/houseRentPay/findHotelInfo",
+        {
+            createTime:start,
+            endTime:end,
+            name:$("#bankAccountName").val(),
+            phone:$("#phone").val(),
+            houseName:$("#houseName").val(),
+            payTime:$("#payTime").val(),
+            payType:$("#payType").val(),
+            descriptions:$("#descriptions").val(),
+            isActive:$("#status").val(),
+            hotelId:$("#hotel_Ids").val()
+        },
+        function (data) {
+            $("#houseTotal").html(data.houseTotal==null?0:data.houseTotal);//房源总数
+            $("#dfPayMoney").html("￥"+data.dfPayMoney==null?0:data.dfPayMoney);//代付资金
+            $("#monthPayMoney").html("￥"+data.monthPayMoney==null?0:data.monthPayMoney);//代付资金
+            $("#houseMonthPayMoney").html("￥"+data.houseMonthPayMoney==null?0:data.houseMonthPayMoney);//每间每月
+            $("#houseDayPayMoney").html("￥"+data.houseDayPayMoney==null?0:data.houseDayPayMoney);//每间，每天
+            $("#chaoqiPayMoney").html("￥"+data.chaoqiPayMoney==null?0:data.chaoqiPayMoney);//超期未付
+            $("#fiveDayPayMoney").html("￥"+data.fiveDayPayMoney==null?0:data.fiveDayPayMoney);//近5日待付
+            $("#thisMonthPayMoney").html("￥"+data.thisMonthPayMoney==null?0:data.thisMonthPayMoney);//本月应付
+            $("#thisMonthPayAll").html("￥"+data.thisMonthPayAll==null?0:data.thisMonthPayAll);//本月已付租金总额
+            $("#thisMonthNotPay").html("￥"+data.thisMonthNotPay==null?0:data.thisMonthNotPay);//本月待付
+            $("#nextMonthPay").html("￥"+data.nextMonthPay==null?0:data.nextMonthPay);//次月应付
+        },
+        "json"
+    );
 }
+function refush() {
+    var times = $("#test11").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh',
+        {
+            url: '/houseRentPay/houseRentPayList',
+            query: {
+                createTime: start,
+                endTime: end,
+                name: $("#bankAccountName").val(),
+                phone: $("#phone").val(),
+                houseName: $("#houseName").val(),
+                payTime: $("#payTime").val(),
+                payType: $("#payType").val(),
+                descriptions: $("#descriptions").val(),
+                isActive: $("#status").val(),
+                hotelId: $("#hotel_Ids").val()
+        }
+    });
+    getInfos();
+}
+function chaoqi() {
+    $('#mytab').bootstrapTable('refresh',
+        {
+            url: '/houseRentPay/chaoqiPayList'
+        });
+}
+
 $("#update").click(function () {
     $.post(
         "/houseRentPay/houseRentPayUpdateSave",
@@ -326,6 +456,21 @@ $("#update").click(function () {
     );
 });
 $("#huankuan").click(function () {
+    var ids = new Array();
+    ids = $("#ids").val().split(',');
+    var first = parseInt(ids[0]);
+    var end = parseInt(ids[ids.length-1]);
+    var len = ids.length;
+    var huankuanqishu = parseInt($("#huankuanqishu").val());
+    if(huankuanqishu!=ids[0]){
+        layer.alert("请按顺序还款", {icon: 5});
+        return;
+    }
+    if((first+(len-1))!=end){
+        layer.alert("不允许跨期还款", {icon: 5});
+        return;
+    }
+    $("#thisPayMoney").val($("#summoney").html())
     $.post(
         "/houseRentPay/huankuan",
         $("#fu_kuan").serialize(),

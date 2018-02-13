@@ -19,7 +19,10 @@ public interface HouseRentPayDAO extends BaseDAO<HouseRentPayVo>{
     List<Select2Vo> getHotel(Long companyId);
     HouseRentVo notHotelId();
     HouseRentVo haveHotelId(Long hotelId);
-    void huankuan(Long id);
+    HouseRentVo findHotelId(HouseRentPayVo houseRentPayVo);
+    void huankuan(HouseRentPayVo houseRentPayVo);
+    Long chaoqicount(PageQuery pageQuery);
+    List<HouseRentPayVo> chaoqilistPage(PageQuery pageQuery);
     List<HouseRentPayVo> pageLists(@Param("pageQuery") PageQuery pageQuery, @Param("houseRentPayVo") HouseRentPayVo houseRentPayVo);
     Long counts(@Param("pageQuery") PageQuery pageQuery, @Param("houseRentPayVo") HouseRentPayVo houseRentPayVo);
 }

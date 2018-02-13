@@ -3,6 +3,7 @@ package top.cflwork.vo;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class HouseRentPayVo {
@@ -87,6 +88,12 @@ public class HouseRentPayVo {
     private String name;
 
     private String phone;
+
+    private Float thisMoney;//本期需要支付的金额
+
+    private Float thisPayMoney;
+
+    private Integer thisCount;//本次还款总期数
 
     public Long getId() {
         return id;
@@ -233,7 +240,12 @@ public class HouseRentPayVo {
     }
 
     public Integer getIsCash() {
-        return isCash;
+        int cnt = monthCnt();
+        if(cnt<0){
+            return 1;
+        }else{
+            return  0;
+        }
     }
 
     public void setIsCash(Integer isCash) {
@@ -415,5 +427,68 @@ public class HouseRentPayVo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    //计算本期应付多少钱
+    public Float getThisMoney() {
+        int cnt = monthCnt();
+        System.out.println(cnt+"====????");
+        if(cnt<0){
+            return 0.0f;
+        }else{
+            return  Float.parseFloat(firstPay+"");
+        }
+    }
+
+    public void setThisMoney(Float thisMoney) {
+        this.thisMoney = thisMoney;
+    }
+    public Integer monthCnt(){
+       try{
+           Calendar bef = Calendar.getInstance();
+           Calendar aft = Calendar.getInstance();
+           bef.setTime(factPayTimeEnd);
+           aft.setTime(new Date());
+           int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
+           int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
+           //计算当前是第几期
+           int monthCount = Math.abs(month + result);
+           return payCount-((int)Math.ceil((float)monthCount/payType));
+       }catch (Exception e){
+           System.out.println("计算相隔期数出错");
+           e.printStackTrace();
+            return 0;
+       }
+    }
+    public static void main(String [] arg){
+        try{
+            DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar bef = Calendar.getInstance();
+            Calendar aft = Calendar.getInstance();
+            bef.setTime(format1.parse("2019-01-01"));
+            aft.setTime(new Date());
+            int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
+            int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
+            //计算当前是第几期
+            int monthCount = Math.abs(month + result);
+            System.out.println(Math.ceil((float)monthCount/3)+"====>>>");
+        }catch (Exception e){
+            System.out.println("计算相隔期数出错");
+            e.printStackTrace();
+        }
+    }
+    public Float getThisPayMoney() {
+        return thisPayMoney;
+    }
+
+    public void setThisPayMoney(Float thisPayMoney) {
+        this.thisPayMoney = thisPayMoney;
+    }
+
+    public Integer getThisCount() {
+        return thisCount;
+    }
+
+    public void setThisCount(Integer thisCount) {
+        this.thisCount = thisCount;
     }
 }

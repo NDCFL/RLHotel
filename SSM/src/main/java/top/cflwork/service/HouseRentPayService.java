@@ -16,7 +16,10 @@ public interface HouseRentPayService extends BaseService<HouseRentPayVo>{
     List<Select2Vo> getHotel(Long companyId);
     HouseRentVo notHotelId();
     HouseRentVo haveHotelId(Long hotelId);
-    void huankuan(Long id);
+    void huankuan(HouseRentPayVo houseRentPayVo);
+    HouseRentVo findHotelId(HouseRentPayVo houseRentPayVo);
     List<HouseRentPayVo> pageLists(PageQuery pageQuery, HouseRentPayVo houseRentPayVo);
     Long counts(PageQuery pageQuery,HouseRentPayVo houseRentPayVo);
+    Long chaoqicount(PageQuery pageQuery);
+    List<HouseRentPayVo> chaoqilistPage(PageQuery pageQuery);
 }

@@ -53,6 +53,21 @@ public class HouseRentPayController  {
         pagingBean.setrows(houseRentPayService.listPage(pageQuery));
         return pagingBean;
     }
+    @RequestMapping("chaoqiPayList")
+    @ResponseBody
+    public PagingBean chaoqiPayList(int pageSize, int pageIndex, HttpSession session) throws  Exception{
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pagingBean.setTotal(houseRentPayService.chaoqicount(pageQuery));
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pagingBean.setrows(houseRentPayService.chaoqilistPage(pageQuery));
+        return pagingBean;
+    }
     @RequestMapping("findHouseRentPayList")
     @ResponseBody
     public PagingBean findHouseRentPayList(int pageSize, int pageIndex, HouseRentPayVo houseRentPayVo, HttpSession session) throws  Exception{
@@ -121,25 +136,18 @@ public class HouseRentPayController  {
     public Message huankuan(HouseRentPayVo houseRentPayVo,HttpSession session){
         try{
             UserVo userVo = (UserVo) session.getAttribute("userVo");
-            HouseRentPayVo house = houseRentPayService.getById(houseRentPayVo.getId());
-            Long now = System.currentTimeMillis();
-            Long start = house.getFactedPayTimeStart().getTime();
-            Long end = house.getFactedPayTimeEnd().getTime();
-            //本期还款时间正确
-            if(start<=now && now<=end){
-                //准备还款事项
-                houseRentPayService.huankuan(houseRentPayVo.getId());
-                HouseFactPayVo houseFactPayVo = new HouseFactPayVo();
-                houseFactPayVo.setHouseRentId(houseRentPayVo.getId());
-                houseFactPayVo.setPayMoney(houseRentPayVo.getFirstPay());
-                houseFactPayVo.setCompanyId(userVo.getCompanyId());
-                houseFactPayVo.setStatus((byte)0);
-                //新增还款记录
-                houseFactPayService.save(houseFactPayVo);
-                //还款明细表中加入一条数据
-                return Message.success("还款成功!");
-            }
-            return  Message.fail("本期已还款");
+            houseRentPayVo.setThisCount(houseRentPayVo.getCount().length);
+            // /准备还款事项
+            houseRentPayService.huankuan(houseRentPayVo);
+            HouseFactPayVo houseFactPayVo = new HouseFactPayVo();
+            houseFactPayVo.setHouseRentId(houseRentPayVo.getId());
+            //本次付款总额
+            houseFactPayVo.setCompanyId(userVo.getCompanyId());
+            houseFactPayVo.setStatus((byte)0);
+            //新增还款记录
+            houseFactPayService.save(houseFactPayVo);
+            //还款明细表中加入一条数据
+            return Message.success("还款成功!");
         }catch (Exception e){
            e.printStackTrace();
             return Message.fail("还款失败!");
@@ -160,6 +168,11 @@ public class HouseRentPayController  {
             return  houseRentPayService.haveHotelId(hotelId);
         }
 
+    }
+    @RequestMapping("/findHotelInfo")
+    @ResponseBody
+    public HouseRentVo findHotelInfo(HouseRentPayVo houseRentPayVo){
+        return  houseRentPayService.findHotelId(houseRentPayVo);
     }
     @RequestMapping("/houseRentPayUpdateSave")
     @ResponseBody

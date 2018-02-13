@@ -2,7 +2,6 @@ package top.cflwork.dao;
 
 import org.springframework.stereotype.Repository;
 import top.cflwork.query.PageQuery;
-import top.cflwork.vo.HouseRentPayVo;
 import top.cflwork.vo.HouseRentVo;
 import top.cflwork.vo.RentPayVo;
 import top.cflwork.vo.Select2Vo;
