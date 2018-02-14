@@ -30,6 +30,11 @@
         <result column="gongnuan" property="gongnuan"></result>
         <result column="wuye" property="wuye"></result>
         <result column="spare_money" property="spareMoney"></result>
+        <result column="zhuangxiu" property="zhuangxiu"></result>
+        <result column="yajin" property="yajin"></result>
+        <result column="bucaofei" property="bucaofei"></result>
+        <result column="buzhiqi" property="buzhiqi"></result>
+        <result column="nid" property="nid"></result>
         <association property="contractMasterVo" javaType="top.cflwork.vo.ContractMasterVo">
             <id column="cid" property="id"></id>
             <result column="bank_account_name" property="bankAccountName"></result>
@@ -100,41 +105,41 @@
     </select>
 
     <insert id="save" parameterType="houseRentPayVo">
-        insert into t_rent_pay (master_id, hotel_id, company_id, total_pay, fact_pay_time_start, fact_pay_time_end, facted_pay_time_end, facted_pay_time_start, fact_pay, pay_count, pay_time, pay_type, spare_money, pay_fact_time, pay_period_start, pay_period_end, is_cash, description,is_active, house_name, first_pay, first_pay_time, sum_pay, day_pay, month_pay,area,house_count,shuidian,kongtiao,gongnuan,wuye) values
-        (#{masterId}, #{hotelId}, #{companyId}, #{totalPay}, #{factPayTimeStart}, #{factPayTimeEnd}, #{factedPayTimeEnd}, #{factedPayTimeStart}, #{factPay}, #{payCount}, #{payTime}, #{payType}, #{spareMoney}, #{payFactTime}, #{payPeriodStart}, #{payPeriodEnd}, #{isCash}, #{description},  #{isActive}, #{houseName}, #{firstPay}, #{firstPayTime}, #{sumPay}, #{dayPay}, #{monthPay},#{area},#{houseCount},#{shuidian},#{kongtiao},#{gongnuan},#{wuye})
+        insert into t_rent_pay (master_id, hotel_id, company_id, total_pay, fact_pay_time_start, fact_pay_time_end, facted_pay_time_end, facted_pay_time_start, fact_pay, pay_count, pay_time, pay_type, spare_money, pay_fact_time, pay_period_start, pay_period_end, is_cash, description,is_active, house_name, first_pay, first_pay_time, sum_pay, day_pay, month_pay,area,house_count,shuidian,kongtiao,gongnuan,wuye,yajin,bucaofei,buzhiqi,nid,zhuangxiu) values
+        (#{masterId}, #{hotelId}, #{companyId}, #{totalPay}, #{factPayTimeStart}, #{factPayTimeEnd}, #{factedPayTimeEnd}, #{factedPayTimeStart}, #{factPay}, #{payCount}, #{payTime}, #{payType}, #{spareMoney}, #{payFactTime}, #{payPeriodStart}, #{payPeriodEnd}, #{isCash}, #{description},  #{isActive}, #{houseName}, #{firstPay}, #{firstPayTime}, #{sumPay}, #{dayPay}, #{monthPay},#{area},#{houseCount},#{shuidian},#{kongtiao},#{gongnuan},#{wuye},#{yajin},#{bucaofei},#{buzhiqi},#{nid},#{zhuangxiu})
     </insert>
     <update id="updateStatus">
         update t_rent_pay set is_active=#{status} where id=#{id}
     </update>
     <update id="update">
-        update t_rent_pay set master_id=#{masterId},hotel_id=#{hotelId},total_pay=#{totalPay},pay_type=#{payType},house_name=#{houseName},first_pay=#{firstPay},pay_period_start=#{payPeriodStart},pay_period_end=#{payPeriodEnd},is_cash=#{isCash},description=#{description} where id = #{id}
+        update t_rent_pay set master_id=#{masterId},hotel_id=#{hotelId},house_name=#{houseName},description=#{description},area=#{area},house_count=#{houseCount},zhuangxiu=#{zhuangxiu},shuidian=#{shuidian},kongtiao=#{kongtiao},gongnuan=#{gongnuan},wuye=#{wuye},yajin=#{yajin},bucaofei=#{bucaofei},buzhiqi=#{buzhiqi} where nid = #{nid}
     </update>
     <select id="notHotelId" resultMap="houseRentMap">
         select
-          (select IfNULL(count(house_name),0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) ) as 'houseTotal',
-          (select IfNULL(sum(spare_money),0) from t_rent_pay where  is_cash=0 and year(facted_pay_time_end)=year(now())) as 'dfPayMoney',
-          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start) as 'chaoqiPayMoney',
-          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now())) as 'monthPayMoney',
-          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now())) as 'houseMonthPayMoney',
-          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now())) as 'houseDayPayMoney',
-          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where  is_cash=0 and year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end) as 'fiveDayPayMoney',
-          (select IfNULL(avg(datediff(facted_pay_time_end,facted_pay_time_start))*sum(day_pay),0) from t_rent_pay where  is_cash=0 and year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end) as 'thisMonthPayMoney',
-          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now())) as 'thisMonthPayAll',
-          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end)) as 'nextMonthPay'
+          (select IfNULL(count(house_name),0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseTotal',
+          (select IfNULL(sum(spare_money),0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and is_active=0) as 'dfPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start and is_active=0) as 'chaoqiPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'monthPayMoney',
+          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseMonthPayMoney',
+          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseDayPayMoney',
+          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'fiveDayPayMoney',
+          (select IfNULL(avg(datediff(facted_pay_time_end,facted_pay_time_start))*sum(day_pay),0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'thisMonthPayMoney',
+          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now()) and is_active=0) as 'thisMonthPayAll',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end) and is_active=0) as 'nextMonthPay'
         from t_rent_pay limit 0,1;
     </select>
         <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
            select
-          (select IfNULL(count(house_name),0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) ) as 'houseTotal',
-          (select IfNULL(sum(spare_money),0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and year(facted_pay_time_end)=year(now())) as 'dfPayMoney',
-          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start) as 'chaoqiPayMoney',
-          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now())) as 'monthPayMoney',
-          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now())) as 'houseMonthPayMoney',
-          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now())) as 'houseDayPayMoney',
-          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end ) as 'fiveDayPayMoney',
-          (select IfNULL(avg(datediff(facted_pay_time_end,facted_pay_time_start))*sum(day_pay),0) from t_rent_pay where hotel_id=#{hotelId} and is_cash=0 and year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end) as 'thisMonthPayMoney',
-          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where r.hotel_id=#{hotelId} and t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now())) as 'thisMonthPayAll',
-          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end)) as 'nextMonthPay'
+          (select IfNULL(count(house_name),0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0 ) as 'houseTotal',
+          (select IfNULL(sum(spare_money),0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and is_active=0) as 'dfPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start and is_active=0) as 'chaoqiPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0) as 'monthPayMoney',
+          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseMonthPayMoney',
+          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseDayPayMoney',
+          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end  and is_active=0) as 'fiveDayPayMoney',
+          (select IfNULL(avg(datediff(facted_pay_time_end,facted_pay_time_start))*sum(day_pay),0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'thisMonthPayMoney',
+          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where r.hotel_id=#{hotelId} and t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now()) and is_active=0) as 'thisMonthPayAll',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end) and is_active=0) as 'nextMonthPay'
       from t_rent_pay where hotel_id=#{hotelId} GROUP BY  hotel_id;
     </select>
     <sql id="find">

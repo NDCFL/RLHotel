@@ -79,6 +79,8 @@ public class HouseRentPayVo {
 
     private Double wuye;//物业费用单位为平米
 
+    private Integer zhaungxiu;
+
     private Integer[] count;
 
     private String loopTime;
@@ -94,6 +96,16 @@ public class HouseRentPayVo {
     private Float thisPayMoney;
 
     private Integer thisCount;//本次还款总期数
+
+    private Double yajin;
+
+    private Double bucaofei;
+
+    private Integer buzhiqi;
+
+    private String nid;
+
+    private Integer zhuangxiu;
 
     public Long getId() {
         return id;
@@ -444,15 +456,19 @@ public class HouseRentPayVo {
     }
     public Integer monthCnt(){
        try{
-           Calendar bef = Calendar.getInstance();
-           Calendar aft = Calendar.getInstance();
-           bef.setTime(factPayTimeEnd);
-           aft.setTime(new Date());
-           int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
-           int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
-           //计算当前是第几期
-           int monthCount = Math.abs(month + result);
-           return payCount-((int)Math.ceil((float)monthCount/payType));
+           if(factPayTimeStart.getYear()!=new Date().getYear()){
+               return 1;
+           }else{
+               Calendar bef = Calendar.getInstance();
+               Calendar aft = Calendar.getInstance();
+               bef.setTime(factPayTimeEnd);
+               aft.setTime(new Date());
+               int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
+               int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
+               //计算当前是第几期
+               int monthCount = Math.abs(month + result);
+               return payCount-((int)Math.ceil((float)monthCount/payType));
+           }
        }catch (Exception e){
            System.out.println("计算相隔期数出错");
            e.printStackTrace();
@@ -464,13 +480,13 @@ public class HouseRentPayVo {
             DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             Calendar bef = Calendar.getInstance();
             Calendar aft = Calendar.getInstance();
-            bef.setTime(format1.parse("2019-01-01"));
+            bef.setTime(format1.parse("2020-02-01"));
             aft.setTime(new Date());
             int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
             int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
             //计算当前是第几期
             int monthCount = Math.abs(month + result);
-            System.out.println(Math.ceil((float)monthCount/3)+"====>>>");
+            System.out.println(monthCount+"====>>>");
         }catch (Exception e){
             System.out.println("计算相隔期数出错");
             e.printStackTrace();
@@ -490,5 +506,53 @@ public class HouseRentPayVo {
 
     public void setThisCount(Integer thisCount) {
         this.thisCount = thisCount;
+    }
+
+    public Double getYajin() {
+        return yajin;
+    }
+
+    public void setYajin(Double yajin) {
+        this.yajin = yajin;
+    }
+
+    public Double getBucaofei() {
+        return bucaofei;
+    }
+
+    public void setBucaofei(Double bucaofei) {
+        this.bucaofei = bucaofei;
+    }
+
+    public Integer getBuzhiqi() {
+        return buzhiqi;
+    }
+
+    public void setBuzhiqi(Integer buzhiqi) {
+        this.buzhiqi = buzhiqi;
+    }
+
+    public String getNid() {
+        return nid;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
+    }
+
+    public Integer getZhaungxiu() {
+        return zhaungxiu;
+    }
+
+    public void setZhaungxiu(Integer zhaungxiu) {
+        this.zhaungxiu = zhaungxiu;
+    }
+
+    public Integer getZhuangxiu() {
+        return zhuangxiu;
+    }
+
+    public void setZhuangxiu(Integer zhuangxiu) {
+        this.zhuangxiu = zhuangxiu;
     }
 }

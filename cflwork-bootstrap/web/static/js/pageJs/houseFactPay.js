@@ -36,7 +36,7 @@ $('#mytab').bootstrapTable({
         },
         {
             title: '房间名称',
-            field: 'houseRentPayVo.houseName',
+            field: 'houseName',
             align: 'center',
             sortable: true
         },

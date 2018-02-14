@@ -1,8 +1,5 @@
 package top.cflwork.vo;
 
-import com.sun.xml.internal.ws.api.pipe.ServerPipeAssemblerContext;
-
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +15,7 @@ public class ContractMasterVo{
     private int isActive;
     private String password;
     private String codeType;
-
+    private String identity;
     private long companyId;
     public long getId() {
         return id;
@@ -98,5 +95,13 @@ public class ContractMasterVo{
 
     public void setCodeType(String codeType) {
         this.codeType = codeType;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }

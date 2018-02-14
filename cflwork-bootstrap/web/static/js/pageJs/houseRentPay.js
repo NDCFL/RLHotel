@@ -20,7 +20,7 @@ $('#mytab').bootstrapTable({
     clickToSelect: true,//是否启用点击选中行
     toolbarAlign: 'right',//工具栏对齐方式
     buttonsAlign: 'right',//按钮对齐方式
-    toolbar: '#toolbar', search: true,
+    toolbar: '#toolbar',
     uniqueId: "id",                     //每一行的唯一标识，一般为主键列
     showExport: true,
     exportDataType: 'all',
@@ -38,13 +38,20 @@ $('#mytab').bootstrapTable({
             title: '房号',
             field: 'houseName',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a title="点击查看详情" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')">'+value+'</a>';
+            }
         },
         {
             title: '业主姓名',
             field: 'contractMasterVo.bankAccountName',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return  '<a title="点击查看详情" href="javascript:void(0);" id="contractMaster"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#fd" onclick="return fd(\'' + row.contractMasterVo.id + '\')">'+value+'</a> ';
+
+            }
         }
         ,
         {
@@ -58,7 +65,7 @@ $('#mytab').bootstrapTable({
             field: 'payTime',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
+            formatter: function (value, row, index) {
                 return '<span style="color:green">'+value+'年</span>';
             }
         }
@@ -75,8 +82,8 @@ $('#mytab').bootstrapTable({
             field: 'totalPay',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
-                return '<span style="color:green">$'+value+'</span>';
+            formatter: function (value, row, index) {
+                return '<span style="color:green">￥'+value+'</span>';
             }
 
         }
@@ -86,7 +93,7 @@ $('#mytab').bootstrapTable({
             field: 'spareMoney',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
+            formatter: function (value, row, index) {
                 return '<span style="color:red">￥'+value+'</span>';
             }
         }
@@ -96,7 +103,7 @@ $('#mytab').bootstrapTable({
             field: 'payType',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
+            formatter: function (value, row, index) {
                 if(value==1){
                     return '<span>1/月付</span>';
                 }else if(value==2){
@@ -118,11 +125,11 @@ $('#mytab').bootstrapTable({
             field: 'firstPay',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
+            formatter: function (value, row, index) {
                 if((value+"").indexOf(".")>0){
-                    return '<span style="color:green">$'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
+                    return '<span >￥'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
                 }else if((value+"").indexOf(".")<=0){
-                    return '<span style="color:green">$'+(value+"")+'</span>';
+                    return '<span >￥'+(value+"")+'</span>';
                 }
 
             }
@@ -133,11 +140,11 @@ $('#mytab').bootstrapTable({
             field: 'thisMoney',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
+            formatter: function (value, row, index) {
                 if((value+"").indexOf(".")>0){
-                    return '<span style="color:green">$'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
+                    return '<span style="color:green">￥'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
                 }else if((value+"").indexOf(".")<=0){
-                    return '<span style="color:green">$'+(value+"")+'</span>';
+                    return '<span style="color:green">￥'+(value+"")+'</span>';
                 }
 
             }
@@ -149,13 +156,10 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
-                if(value==null || value==''){
-                    value="暂无说明";
-                }
                 if(value.length<10){
-                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+'</a>';
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+'</a>';
                 }else{
-                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0.10)+"..."+'</a>';
+                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
                 }
             }
         }
@@ -195,16 +199,17 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:blue">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModals" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:blue">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ',' +row.payCount + ',' +12/parseInt(row.payType) + ',' +row.factPayTimeStart + ',' +row.payType + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
                     f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
+                    return d + f;
                 } else if (row.isActive == 0) {
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                    return p+e + d + f;
                 }
-                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ',' +row.payCount + ',' +12/parseInt(row.payType) + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
-                return p+e + d + f;
             }
         }
     ],
@@ -242,14 +247,10 @@ function  remarks(val) {
     $("#remarks").html(val);
 }
 function del(houseRentPayid, status) {
-    if (status == 0) {
-        layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
-        return;
-    }
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/houseRentPay/deleteCashSubject/' + houseRentPayid,
+            url: '/houseRentPay/deleteHouseRentPay/' + houseRentPayid,
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -265,31 +266,62 @@ function del(houseRentPayid, status) {
         });
     });
 }
+function  getDate(value) {
+    var date = new Date(value);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + m + '-' + d;
+}
+function fd(name) {
+    $.post("/contractMaster/findContractMaster/" + name,
+        function (data) {
+            $("#fdinfo").autofill(data);
+        },
+        "json"
+    );
+}
 function edit(name) {
     $.post("/houseRentPay/findHouseRentPay/" + name,
         function (data) {
             $("#updateform").autofill(data);
             $("#test_3").val(getdate(data.firstPayTime));
             $("#test_4").val(getdate(data.payPeriodStart));
+            $("#updateforms").autofill(data);
         },
         "json"
     );
 }
-function fukuan(id,money,shengyuqishu,sumqishu){
+function fukuan(id,money,shengyuqishu,sumqishu,thisTime,payType){
     $("#summoney").html(0);
     var yijingfukuan = parseInt(sumqishu)-parseInt(shengyuqishu);
     var htmls='<div class="form-group">';
+    var d = new Date(thisTime);
+    var  nowTime = "";
+    nowTime = new Date().getTime();
     for(var i=1;i<=parseInt(sumqishu);i++){
         if(yijingfukuan-i>=0){
-            htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger button">第'+i+'期</button></div>';
+            if(d.getTime()<=nowTime && new Date(d.setMonth(d.getMonth()+payType)).getTime()>=nowTime){
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">本期房租</button></div>';
+            }else{
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">'+getDate(d)+'</button></div>';
+            }
         }else {
-            htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">第'+i+'期</button></div>';
+            if(d.getTime()<=nowTime && new Date(d.setMonth(d.getMonth()+payType)).getTime()>=nowTime){
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">本期房租</button></div>';
+            }else{
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">'+getDate(d)+'</button></div>';
+            }
         }
         if(i%6==0){
             if(i!=sumqishu){
                 htmls = htmls+'</div><div class="form-group">';
             }
         }
+        d.setMonth(d.getMonth()+payType);
     }
     $("#infohtml").html(htmls);
     $(".button").click(function () {
@@ -303,7 +335,7 @@ function fukuan(id,money,shengyuqishu,sumqishu){
         var j = new Array();
         $(".button").each(function(index,element){
             if ($(this).hasClass("btn-primary")) {
-                j.push(index);
+                j.push(index+parseInt($("#huankuanqishu").val()));
             }
         });
         $("#ids").val(j);
@@ -356,7 +388,7 @@ $('#search_btn').click(function () {
                 houseName:$("#houseName").val(),
                 payTime:$("#payTime").val(),
                 payType:$("#payType").val(),
-                descriptions:$("#descriptions").val(),
+                description:$("#descriptions").val(),
                 isActive:$("#status").val(),
                 hotelId:$("#hotel_Ids").val()
             }
@@ -443,7 +475,7 @@ function chaoqi() {
 $("#update").click(function () {
     $.post(
         "/houseRentPay/houseRentPayUpdateSave",
-        $("#updateform").serialize(),
+        $("#updateforms").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
                 layer.alert(data.message, {icon: 6});
@@ -501,7 +533,7 @@ $("#add").click(function () {
         }, "json"
     );
 });
-function deleteMany() {
+function deleteMany11() {
     var isactivity = "";
     var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
         if (row.isActive == 0) {
@@ -543,6 +575,46 @@ function deleteMany() {
         );
     });
 }
+function deleteMany(){
+    var isactivity="";
+    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
+        if(row.isActive==0){
+            isactivity+=row.isActive;
+        }
+        return row.id ;
+    });
+    if(row==""){
+        layer.msg('修改失败，请勾选数据!', {
+            icon : 2,
+            time : 3000
+        });
+        return ;
+    }
+    $("#statusId").val(row);
+    $("#updateStatus").modal('show');
+
+}
+$("#updateSta").click(function () {
+    layer.confirm('确认要执行批量修改房租状态吗？',function(index){
+        $.post(
+            "/houseRentPay/deleteManyHouseRentPay",
+            {
+                "manyId":$("#statusId").val(),
+                "status":$("#statuss").val()
+            },
+            function(data){
+                if(data.message=="修改成功!"){
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }else{
+                    layer.alert(data.message, {icon:6});
+                    refush();
+                }
+            },"json"
+        );
+    });
+});
+
 function getdate(value) {
     var date = new Date(parseInt(value));
     var y = date.getFullYear();
@@ -551,5 +623,5 @@ function getdate(value) {
     var h = date.getHours();
     var mi = date.getMinutes();
     var ss = date.getSeconds();
-    return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
+    return y + '-' + m + '-' + d ;
 }

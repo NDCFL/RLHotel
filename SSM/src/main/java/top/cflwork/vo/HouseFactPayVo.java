@@ -11,6 +11,7 @@ public class HouseFactPayVo implements Serializable {
     private Date createTime;
     private Byte status;
     private Long companyId;
+    private String houseName;
     private HouseRentPayVo houseRentPayVo;
 
     public Long getHouseRentId() {
@@ -67,5 +68,13 @@ public class HouseFactPayVo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
     }
 }

@@ -13,14 +13,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房东列表</title>
+    <title>业主列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>房东列表</h5>
+            <h5>业主列表</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -52,46 +52,52 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="webAddTitle">
-                    新增房东
+                    新增业主
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">登录账号：</label>
+                        <label class="col-sm-3 control-label">业主联系方式：</label>
                         <div class="col-sm-8">
-                            <input  name="phone" minlength="2" maxlength="20" type="text" class="form-control">
+                            <input  name="phone" id="phones" minlength="2" maxlength="20" type="text" placeholder="联系方式作为登陆账号" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">登录密码：</label>
                         <div class="col-sm-8">
-                            <input  name="password" minlength="2" maxlength="20" type="password" class="form-control">
+                            <input  name="password" id="pwd" minlength="2" maxlength="20" placeholder="登录密码" type="password" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">房东姓名：</label>
+                        <label class="col-sm-3 control-label">业主姓名：</label>
                         <div class="col-sm-8">
-                            <input  name="bankAccountName" minlength="2" maxlength="20" type="text" class="form-control" required="true" aria-required="true">
+                            <input  name="bankAccountName" id="name" minlength="2" maxlength="20" placeholder="业主姓名" type="text" class="form-control" required="true" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">身份证号：</label>
+                        <div class="col-sm-8">
+                            <input  name="identity" id="ids" minlength="2" maxlength="20" placeholder="18位的身份证号" type="text" class="form-control" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">银行名称：</label>
                         <div class="col-sm-8">
-                            <input  name="bankName" minlength="2" maxlength="20" type="text" class="form-control" required="true"  aria-required="true">
+                            <input  name="bankName" id="banknames" placeholder="银行名称" minlength="2" maxlength="20" type="text" class="form-control" required="true"  aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">银行卡号：</label>
                         <div class="col-sm-8">
-                            <input  name="bankAccountNo" minlength="2" maxlength="20" type="text" class="form-control" required="true"  aria-required="true">
+                            <input  name="bankAccountNo" id="card" minlength="2" maxlength="20" placeholder="银行卡号" type="text" class="form-control" required="true"  aria-required="true">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" id="add" class="btn btn-primary" data-dismiss="modal">
+                    <button type="button" id="add" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -114,7 +120,7 @@
             <form class="form-horizontal" method="post" id="update_status">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">经营状态：</label>
+                        <label class="col-sm-3 control-label">业主状态：</label>
                         <div class="col-sm-8">
                             <select class="form-control"  id="status" required name="status">
                                 <option value="0">启用</option>
@@ -145,7 +151,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    房东的修改
+                    业主的修改
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform" >
@@ -153,7 +159,13 @@
                     <input type="hidden" name="id" id="id" value="">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">房东姓名：</label>
+                            <label class="col-sm-3 control-label">业主联系方式：</label>
+                            <div class="col-sm-8">
+                                <input  name="phone" id="phone" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">业主姓名：</label>
                             <div class="col-sm-8">
                                 <input  name="bankAccountName" id="bankAccountName" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                             </div>
@@ -165,6 +177,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">身份证号：</label>
+                            <div class="col-sm-8">
+                                <input  name="identity" id="identity" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">银行卡号：</label>
                             <div class="col-sm-8">
                                 <input  name="bankAccountNo" id="bankAccountNo" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
@@ -173,7 +191,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                             </button>
-                            <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
+                            <button type="button" id="update" class="btn btn-primary" >
                                 确认修改
                             </button>
                         </div>

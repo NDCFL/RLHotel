@@ -22,10 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by chenfeilong on 2017/12/24.
@@ -107,6 +104,8 @@ public class HouseRentPayController  {
             houseRentPayVo.setCompanyId(userVo.getCompanyId());
             houseRentPayVo.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
             Integer countInfo[] = houseRentPayVo.getCount();
+            houseRentPayVo.setNid(UUID.randomUUID().toString());
+            houseRentPayVo.setIsCash(0);
             int cnt = countInfo.length;
             for (int i=0;i<cnt;i++){
                 houseRentPayVo.setSpareMoney(Double.parseDouble(countInfo[i]+""));//当前合同剩余支付金额，默认初始化为未支付状态
@@ -142,6 +141,7 @@ public class HouseRentPayController  {
             HouseFactPayVo houseFactPayVo = new HouseFactPayVo();
             houseFactPayVo.setHouseRentId(houseRentPayVo.getId());
             //本次付款总额
+            houseFactPayVo.setPayMoney(houseRentPayVo.getThisPayMoney());
             houseFactPayVo.setCompanyId(userVo.getCompanyId());
             houseFactPayVo.setStatus((byte)0);
             //新增还款记录
@@ -178,10 +178,6 @@ public class HouseRentPayController  {
     @ResponseBody
     public Message updateHouseRentPay(HouseRentPayVo houseRentPayVo) throws  Exception{
         try{
-            houseRentPayVo.setPayPeriodEnd(getDate(houseRentPayVo.getPayPeriodStart(),houseRentPayVo.getPayTime()));
-            double firstPay = houseRentPayVo.getPayTime()*12;
-            double sum = Double.parseDouble(houseRentPayVo.getTotalPay()+"");
-            houseRentPayVo.setFirstPay(sum/firstPay);
             houseRentPayService.update(houseRentPayVo);
             return  Message.success("修改成功!");
         }catch (Exception e){
@@ -190,16 +186,16 @@ public class HouseRentPayController  {
     }
     @RequestMapping("/deleteManyHouseRentPay")
     @ResponseBody
-    public Message deleteManyhouse(@Param("manyId") String manyId) throws  Exception{
+    public Message deleteManyhouse(@Param("manyId") String manyId,Integer status) throws  Exception{
         try{
             String str[] = manyId.split(",");
             for (String s: str) {
-                houseRentPayService.removeById(Long.parseLong(s));
+                houseRentPayService.updateStatus(new StatusQuery(Long.parseLong(s),status));
             }
-            return Message.success("删除成功!");
+            return Message.success("修改成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return  Message.fail("删除失败!");
+            return  Message.fail("修改失败!");
         }
     }
     @RequestMapping("/deleteHouseRentPay/{id}")

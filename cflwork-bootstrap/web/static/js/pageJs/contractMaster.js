@@ -62,6 +62,13 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
+            title: '身份证号',
+            field: 'identity',
+            align: 'center',
+            sortable: true
+        }
+        ,
+        {
             title: '创建时间',
             field: 'createTime',
             align: 'center',
@@ -74,7 +81,7 @@ $('#mytab').bootstrapTable({
                 var h = date.getHours();
                 var mi = date.getMinutes();
                 var ss = date.getSeconds();
-                return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
+                return y + '-' + m + '-' + d ;
             }
         }
         ,
@@ -146,10 +153,6 @@ function queryParams(params) {
     }
 }
 function del(contractMasterid, status) {
-    if (status == 0) {
-        layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
-        return;
-    }
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
@@ -206,6 +209,39 @@ function refush() {
     $('#mytab').bootstrapTable('refresh', {url: '/contractMaster/contractMasterList'});
 }
 $("#update").click(function () {
+    var phone = $("#phone").val();
+    if(phone==''){
+        layer.alert("业主联系方式不能为空", {icon: 5});
+        return;
+    }
+    if(phone.length!=11){
+        layer.alert("业主联系方式输入有误", {icon: 5});
+        return;
+    }
+    var bankAccountName = $("#bankAccountName").val();
+    if(bankAccountName==''){
+        layer.alert("业主姓名不能为空", {icon: 5});
+        return;
+    }
+    var identity = $("#identity").val();
+    if(identity==''){
+        layer.alert("业主身份证号不能为空", {icon: 5});
+        return;
+    }
+    if(phone.length>18){
+        layer.alert("业主身份证号不得超过18位", {icon: 5});
+        return;
+    }
+    var bankName = $("#bankName").val();
+    if(bankName==''){
+        layer.alert("银行名称不能为空", {icon: 5});
+        return;
+    }
+    var bankAccountNo = $("#bankAccountNo").val();
+    if(bankAccountNo==''){
+        layer.alert("银行卡号不能为空", {icon: 5});
+        return;
+    }
     $.post(
         "/contractMaster/contractMasterUpdateSave",
         $("#updateform").serialize(),
@@ -217,10 +253,45 @@ $("#update").click(function () {
                 layer.alert(data.message, {icon: 6});
                 refush();
             }
+            $("#myModal").modal("hide");
         }, "json"
     );
 });
 $("#add").click(function () {
+    var phone = $("#phones").val();
+    if(phone==''){
+        layer.alert("业主联系方式不能为空", {icon: 5});
+        return;
+    }
+    if(phone.length!=11){
+        layer.alert("业主联系方式输入有误", {icon: 5});
+        return;
+    }
+    var pwd = $("#pwd").val();
+    if(pwd==''){
+        layer.alert("登录密码不能为空", {icon: 5});
+        return;
+    }
+    var name = $("#name").val();
+    if(name==''){
+        layer.alert("业主姓名不能为空", {icon: 5});
+        return;
+    }
+    var ids = $("#ids").val();
+    if(ids==''){
+        layer.alert("业主身份证号不能为空", {icon: 5});
+        return;
+    }
+    var banknames = $("#banknames").val();
+    if(banknames==''){
+        layer.alert("银行名称不能为空", {icon: 5});
+        return;
+    }
+    var card = $("#card").val();
+    if(card==''){
+        layer.alert("银行卡号不能为空", {icon: 5});
+        return;
+    }
     $.post(
         "/contractMaster/contractMasterAddSave",
         $("#formadd").serialize(),
@@ -232,6 +303,7 @@ $("#add").click(function () {
                 layer.alert(data.message, {icon: 6});
                 refush();
             }
+            $("#webAdd").modal("hide");
         }, "json"
     );
 });
