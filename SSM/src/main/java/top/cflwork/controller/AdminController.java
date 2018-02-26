@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.cflwork.enums.AppControllerStatusEnum;
-import top.cflwork.query.PageQuery;
 import top.cflwork.vo.AdminLoginVO;
 import top.cflwork.vo.ControllerStatusVO;
 

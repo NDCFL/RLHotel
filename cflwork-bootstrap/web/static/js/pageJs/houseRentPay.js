@@ -300,18 +300,25 @@ function fukuan(id,money,shengyuqishu,sumqishu,thisTime,payType){
     var yijingfukuan = parseInt(sumqishu)-parseInt(shengyuqishu);
     var htmls='<div class="form-group">';
     var d = new Date(thisTime);
+    var temp = new Date(thisTime);
     var  nowTime = "";
     nowTime = new Date().getTime();
     for(var i=1;i<=parseInt(sumqishu);i++){
         if(yijingfukuan-i>=0){
-            if(d.getTime()<=nowTime && new Date(d.setMonth(d.getMonth()+payType)).getTime()>=nowTime){
+            if(d.getTime()<=nowTime && new Date(temp.setMonth(temp.getMonth()+payType)).getTime()>=nowTime){
                 htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">本期房租</button></div>';
+                if(d.getMonth()!=new Date().getMonth()){
+                    d.setMonth(d.getMonth()-1);
+                }
             }else{
                 htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">'+getDate(d)+'</button></div>';
             }
         }else {
-            if(d.getTime()<=nowTime && new Date(d.setMonth(d.getMonth()+payType)).getTime()>=nowTime){
+            if(d.getTime()<=nowTime && new Date(temp.setMonth(temp.getMonth()+payType)).getTime()>=nowTime){
                 htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">本期房租</button></div>';
+                if(d.getMonth()!=new Date().getMonth()){
+                    d.setMonth(d.getMonth()-1);
+                }
             }else{
                 htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">'+getDate(d)+'</button></div>';
             }
@@ -322,6 +329,7 @@ function fukuan(id,money,shengyuqishu,sumqishu,thisTime,payType){
             }
         }
         d.setMonth(d.getMonth()+payType);
+        temp=d;
     }
     $("#infohtml").html(htmls);
     $(".button").click(function () {

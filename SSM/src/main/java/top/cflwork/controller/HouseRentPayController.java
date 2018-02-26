@@ -117,7 +117,7 @@ public class HouseRentPayController  {
                 houseRentPayVo.setFactPayTimeStart(getDate(houseRentPayVo.getPayPeriodStart(),i));//第一期合同开始时间
                 houseRentPayVo.setFactPayTimeEnd(getDate(houseRentPayVo.getPayPeriodStart(),(i+1)));//第一期合同结束时间
                 houseRentPayVo.setFactedPayTimeStart(getDate(houseRentPayVo.getFirstPayTime(),i));//第一个合同首付租金日期
-                houseRentPayVo.setFactedPayTimeEnd(getDateByMonth(houseRentPayVo.getFactPayTimeStart(),houseRentPayVo.getPayType()));//第一个合同首付结束时间
+                houseRentPayVo.setFactedPayTimeEnd(getDateByMonth(houseRentPayVo.getFactedPayTimeStart(),houseRentPayVo.getPayType()));//第一个合同首付结束时间
                 houseRentPayVo.setDayPay(houseRentPayVo.getFactPay()/(datediffDay(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每天付款金额总金额/总天数
                 houseRentPayVo.setMonthPay(houseRentPayVo.getFactPay()/(monthCount(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每月的租金总和
                 houseRentPayVoList.add(houseRentPayVo);
