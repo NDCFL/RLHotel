@@ -116,28 +116,28 @@
     </update>
     <select id="notHotelId" resultMap="houseRentMap">
         select
-        (select IfNULL(count(house_name),0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseTotal',
-        (select IfNULL(sum(spare_money),0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and is_active=0) as 'dfPayMoney',
-        (select IfNULL(sum(round(datediff(now(),facted_pay_time_end)/30/pay_time)*first_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start and is_active=0) as 'chaoqiPayMoney',
-        (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'monthPayMoney',
-        (select IfNULL(avg(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseMonthPayMoney',
-        (select IfNULL(avg(day_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseDayPayMoney',
-        (select IfNULL(sum(first_pay),0.0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'fiveDayPayMoney',
-        (select IfNULL(sum(month_pay),0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'thisMonthPayMoney',
-        (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now()) and is_active=0) as 'thisMonthPayAll',
-        (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end) and is_active=0) as 'nextMonthPay'
+          (select IfNULL(count(house_name),0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseTotal',
+          (select IfNULL(sum(spare_money),0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and is_active=0) as 'dfPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start and is_active=0) as 'chaoqiPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'monthPayMoney',
+          (select IfNULL(avg(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseMonthPayMoney',
+          (select IfNULL(avg(day_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseDayPayMoney',
+          (select IfNULL(sum(first_pay),0.0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'fiveDayPayMoney',
+          (select IfNULL(avg(datediff(facted_pay_time_end,facted_pay_time_start))*sum(day_pay),0) from t_rent_pay where   year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'thisMonthPayMoney',
+          (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now()) and is_active=0) as 'thisMonthPayAll',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where  year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end) and is_active=0) as 'nextMonthPay'
         from t_rent_pay limit 0,1;
     </select>
-    <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
+        <select id="haveHotelId" resultMap="houseRentMap" parameterType="long">
            select
           (select IfNULL(count(house_name),0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0 ) as 'houseTotal',
           (select IfNULL(sum(spare_money),0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and is_active=0) as 'dfPayMoney',
-          (select IfNULL(sum(round(datediff(now(),facted_pay_time_end)/30/pay_time)*first_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start and is_active=0) as 'chaoqiPayMoney',
+          (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and NOW()>facted_pay_time_start and is_active=0) as 'chaoqiPayMoney',
           (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0) as 'monthPayMoney',
           (select IfNULL(avg(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseMonthPayMoney',
           (select IfNULL(avg(day_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and is_active=0) as 'houseDayPayMoney',
           (select IfNULL(sum(first_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and date_add(now(), interval 5 day) BETWEEN facted_pay_time_start and facted_pay_time_end  and is_active=0) as 'fiveDayPayMoney',
-          (select IfNULL(sum(month_pay),0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'thisMonthPayMoney',
+          (select IfNULL(avg(datediff(facted_pay_time_end,facted_pay_time_start))*sum(day_pay),0) from t_rent_pay where hotel_id=#{hotelId} and  year(facted_pay_time_end)=year(now()) and now() BETWEEN facted_pay_time_start and facted_pay_time_end and is_active=0) as 'thisMonthPayMoney',
           (select IfNULL(sum(pay_money),0.0) from t_house_fact_pay t,t_rent_pay r where r.hotel_id=#{hotelId} and t.house_rent_id=r.id and t.house_rent_id=r.id and year(r.facted_pay_time_end)=year(now()) and is_active=0) as 'thisMonthPayAll',
           (select IfNULL(sum(month_pay),0.0) from t_rent_pay where hotel_id=#{hotelId} and year(facted_pay_time_end)=year(now()) and month(date_add(NOW(), interval 1 month))=month(facted_pay_time_end) and is_active=0) as 'nextMonthPay'
       from t_rent_pay where hotel_id=#{hotelId} GROUP BY  hotel_id;
@@ -157,7 +157,7 @@
         select
         (select IfNULL(count(t.house_name),0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) <include refid="find"/>) as 'houseTotal',
         (select IfNULL(sum(t.spare_money),0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) <include refid="find"/>) as 'dfPayMoney',
-        (select IfNULL(SUM(round(datediff(now(),t.facted_pay_time_end)/30/t.pay_time)*t.first_pay),0.0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) and NOW()>t.facted_pay_time_end <include refid="find"/>) as 'chaoqiPayMoney',
+        (select IfNULL(sum(t.month_pay),0.0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) and NOW()>t.facted_pay_time_end <include refid="find"/>) as 'chaoqiPayMoney',
         (select IfNULL(sum(t.month_pay),0.0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) <include refid="find"/>) as 'monthPayMoney',
         (select IfNULL(avg(t.month_pay),0.0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) <include refid="find"/>) as 'houseMonthPayMoney',
         (select IfNULL(avg(t.day_pay),0.0) from t_rent_pay t,t_contract_master c where  t.master_id=c.id and <if test="hotelId!=null">t.hotel_id=#{hotelId} and</if> year(t.facted_pay_time_end)=year(now()) <include refid="find"/>) as 'houseDayPayMoney',
