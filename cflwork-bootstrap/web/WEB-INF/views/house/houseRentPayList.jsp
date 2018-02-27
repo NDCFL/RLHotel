@@ -845,7 +845,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">房东身份证号：</label>
                             <div class="col-sm-8">
-                                <input  name="identiy" readonly minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                                <input  name="identity" readonly minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">

@@ -469,9 +469,10 @@ function refush() {
                 descriptions: $("#descriptions").val(),
                 isActive: $("#status").val(),
                 hotelId: $("#hotel_Ids").val()
-        }
-    });
+            }
+        });
     getInfos();
+    getHotelInfo();
 }
 function chaoqi() {
     $('#mytab').bootstrapTable('refresh',

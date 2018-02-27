@@ -29,7 +29,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("houseRentPay")
-public class HouseRentPayController  { 
+public class HouseRentPayController  {
     @Resource
     private HouseRentPayService houseRentPayService;
     @Resource
@@ -149,7 +149,7 @@ public class HouseRentPayController  {
             //还款明细表中加入一条数据
             return Message.success("还款成功!");
         }catch (Exception e){
-           e.printStackTrace();
+            e.printStackTrace();
             return Message.fail("还款失败!");
         }
     }
