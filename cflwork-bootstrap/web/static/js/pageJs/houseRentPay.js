@@ -201,7 +201,7 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 var e = '<a title="编辑" href="javascript:void(0);" id="houseRentPay"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModals" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:blue">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ',' +row.payCount + ',' +12/parseInt(row.payType) + ',' +row.factPayTimeStart + ',' +row.payType + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
+                var p = '<a title="付款" href="javascript:void(0);"  data-toggle="modal" data-id="\\\'\' + row.id + \'\\\'" data-target="#fukuan" onclick="fukuan(' + row.id + ',' +row.firstPay + ',' +row.payCount + ',' +12/parseInt(row.payType) + ',' +row.firstPayTime + ',' +row.payType + ')"><i class="glyphicon glyphicon-euro" alt="付款" style="color:orange">付款</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
                     f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';

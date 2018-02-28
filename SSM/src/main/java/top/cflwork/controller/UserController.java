@@ -1,6 +1,5 @@
 package top.cflwork.controller;
 
-import org.activiti.engine.identity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -14,14 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.cflwork.common.Message;
-import top.cflwork.common.PagingBean;
-import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.query.UserAccountPasswordQuery;
 import top.cflwork.service.RoleService;
 import top.cflwork.service.UserRoleService;
 import top.cflwork.service.UserService;
-import top.cflwork.service.impl.UserRoleServiceImpl;
 import top.cflwork.vo.RoleVo;
 import top.cflwork.vo.Select2Vo;
 import top.cflwork.vo.UserRoleVo;
@@ -30,8 +26,10 @@ import top.cflwork.vo.UserVo;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
-import java.util.regex.Matcher;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chenfeilong on 2017/10/27.
@@ -124,7 +122,6 @@ public class UserController {
         return result;
 
     }
-
     @RequestMapping("getInfo")
     @ResponseBody
     public Message getInfo(String phone,String password) {
