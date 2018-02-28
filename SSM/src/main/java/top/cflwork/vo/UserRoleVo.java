@@ -1,8 +1,6 @@
 package top.cflwork.vo;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
-import javax.management.relation.Role;
 import java.util.Date;
 
 public class UserRoleVo {

@@ -79,6 +79,8 @@ public class HouseRentPayVo {
 
     private Double wuye;//物业费用单位为平米
 
+    private String qixian;//期限
+
     private Integer zhaungxiu;
 
     private Integer[] count;
@@ -554,5 +556,13 @@ public class HouseRentPayVo {
 
     public void setZhuangxiu(Integer zhuangxiu) {
         this.zhuangxiu = zhuangxiu;
+    }
+
+    public String getQixian() {
+        return qixian;
+    }
+
+    public void setQixian(String qixian) {
+        this.qixian = qixian;
     }
 }

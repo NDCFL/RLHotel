@@ -127,7 +127,7 @@ public class UserController {
     public Message getInfo(String phone,String password) {
         try{
             UserVo userVo = userService.getByAccountPassword(new UserAccountPasswordQuery(phone, new Md5Hash(password).toString()));
-            if(userVo.getPhone().equals(phone) && userVo.getPassword().equals(new Md5Hash(password).toString())){
+            if((userVo.getPhone().equals(phone) || userVo.getAccountName().equals(phone) || userVo.getRealname().equals(phone) || userVo.getNickname().equals(phone) || userVo.getEmail().equals(phone)) && userVo.getPassword().equals(new Md5Hash(password).toString())){
                 Subject subject = SecurityUtils.getSubject();
                 subject.login(new UsernamePasswordToken(phone, new Md5Hash(password).toString()));
                 Session session = subject.getSession();

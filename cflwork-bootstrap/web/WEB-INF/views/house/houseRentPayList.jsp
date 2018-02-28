@@ -349,19 +349,19 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">房间名称：</label>
                             <div class="col-sm-4">
-                                <input name="houseName" min="0" placeholder="房间名称" type="text" class="form-control"
+                                <input name="houseName" min="0" id="house_name" placeholder="房间名称" type="text" class="form-control"
                                        required="" aria-required="true">
                             </div>
                             <label class="col-sm-2 control-label">支付总金额：</label>
                             <div class="col-sm-4">
-                                <input name="totalPay" min="0" placeholder="支付总金额" max="100" type="number"
+                                <input name="totalPay" id="total_pay" min="0" placeholder="支付总金额" max="100" type="number"
                                        class="form-control" required="" aria-required="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">签约年限：</label>
                             <div class="col-sm-4">
-                                <input name="payTime" min="0" max="100" onchange="addCount(this.value);"
+                                <input name="payTime" min="0" id="pay_time" max="100" onchange="addCount(this.value);"
                                        placeholder="签约年限" type="number" class="form-control" required=""
                                        aria-required="true">
                             </div>
@@ -380,12 +380,12 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">首次支付日期：</label>
                             <div class="col-sm-4">
-                                <input name="firstPayTime" minlength="2" id="test2" maxlength="20" type="date" value=""
+                                <input name="firstPayTime" minlength="2" id="test2" maxlength="20" type="text" value=""
                                        class="form-control" required="" aria-required="true">
                             </div>
                             <label class="col-sm-2 control-label">合同开始日期：</label>
                             <div class="col-sm-4">
-                                <input name="payPeriodStart" minlength="2" maxlength="20" type="date" id="test1"
+                                <input name="payPeriodStart"  minlength="2" maxlength="20" type="text" id="test1"
                                        value="" class="form-control" required="" aria-required="true">
                             </div>
                         </div>
@@ -476,7 +476,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                         </button>
-                        <button type="button" id="add" class="btn btn-primary" data-dismiss="modal">
+                        <button type="button" id="add" class="btn btn-primary" >
                             确认新增
                         </button>
                     </div>
@@ -877,7 +877,6 @@
 <script src="<%=path%>/static/js/select2.min.js"></script>
 </body>
 <script>
-    lay('#version').html('-v' + laydate.v);
     //执行一个laydate实例
     laydate.render({
         elem: '#test1' //指定元素
@@ -982,10 +981,10 @@
 </script>
 <script>
     function addCount(sum) {
-        var info = '<label class="col-sm-1 control-label">第*年</label><div class="col-sm-2"><input  name="count" min="0" placeholder="第*年的房租" max="100" type="number" class="form-control" required="" aria-required="true"></div>';
+        var info = '<label class="col-sm-1 control-label">第*年</label><div class="col-sm-2"><input  name="count" id="count*" min="0" placeholder="第*年的房租" max="100" type="number" class="form-control" required="required"></div>';
         var allhtml = "";
         for (var i = 0; i < sum; i++) {
-            allhtml = allhtml + (info.replace("*", (i + 1)).replace("*", (i + 1)).replace("*", (i + 1)));
+            allhtml = allhtml + (info.replace("*", (i + 1)).replace("*", (i + 1)).replace("*", (i + 1)).replace("*", (i + 1)));
         }
         $("#house_count").html(allhtml);
     }

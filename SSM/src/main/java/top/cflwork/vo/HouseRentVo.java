@@ -92,8 +92,7 @@ public class HouseRentVo implements Serializable {
     }
 
     public Double getThisMonthNotPay() {
-        //本月代付租金用总租金减去已付租金
-        return thisMonthPayMoney-thisMonthPayAll<=0?0:thisMonthPayMoney-thisMonthPayAll;
+        return thisMonthNotPay;
     }
 
     public void setThisMonthNotPay(Double thisMonthNotPay) {

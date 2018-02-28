@@ -528,6 +528,41 @@ $("#huankuan").click(function () {
     );
 });
 $("#add").click(function () {
+    var house_name = $("#house_name").val();
+    var total_pay  = $("#total_pay").val();
+    if(!house_name){
+        layer.alert("房间名称不能为空", {icon:2});
+        return;
+    }
+    if(!total_pay){
+        layer.alert("支付总金额不能为空", {icon:2});
+        return;
+    }
+    if(isNaN(total_pay)){
+        layer.alert("支付总金额只能为数字", {icon:2});
+        return;
+    }
+    var pay_time  = $("#pay_time").val();
+    if(!pay_time){
+        layer.alert("签约年限不能为空", {icon:2});
+        return;
+    }
+    var firstPayTime_  = $("#test2").val();
+    if(!firstPayTime_){
+        layer.alert("首次付款日期不能为空", {icon:2});
+        return;
+    }
+    var payPeriodStart_  = $("#test1").val();
+    if(!payPeriodStart_){
+        layer.alert("合同开始时间不能为空", {icon:2});
+        return;
+    }
+    for(var j=0;j<parseInt(pay_time);j++){
+        if(!($("#count"+(j+1)).val())){
+            layer.alert("第"+(j+1)+"年房租不能为空", {icon:2});
+            return false;
+        }
+    }
     $.post(
         "/houseRentPay/houseRentPayAddSave",
         $("#formadd").serialize(),
@@ -535,6 +570,7 @@ $("#add").click(function () {
             if (data.message == "新增成功!") {
                 layer.alert(data.message, {icon: 6});
                 refush();
+                $("#webAdd").modal('hide');
             } else {
                 layer.alert(data.message, {icon: 6});
                 refush();

@@ -24,7 +24,6 @@
     <meta name="copyright" content="Copyright (c) zhipin.com" />
     <title>【瑞蓝公寓】-瑞蓝公寓</title>
     <link href="https://login.zhipin.com/v2/web/geek/css/main.css" type="text/css" rel="stylesheet">
-
 </head>
 <body class="page-sign">
 <div id="wrap">
@@ -39,13 +38,7 @@
             <!--<div class="sign-tab"><span class="link-signin cur" onclick="showlogin(0);">密码登录</span><span class="link-sms" onclick="showlogin(1);">短信登录</span><span class="link-scan" onclick="showlogin(2);">扫码登录</span></div>-->
             <form action="/login/account.json" method="post" style="margin-top:-35px">
                 <div class="form-row row-select" >
-                    <span class="dropdown-select"><em class="text-select">+86</em><input type="hidden" name="regionCode" value="+86" /></span>
-                    <span class="ipt-wrap"><i class="icon-sign-phone"></i><input type="tel" class="ipt ipt-phone required" ka="signin-account" placeholder="手机号" id="loginphone" name="phone" /></span>
-                    <div class="dropdown-menu">
-                        <ul>
-                            <li data-val="+86"><span class="num">+86</span>中国大陆</li>
-                        </ul>
-                    </div>
+                    <span class="ipt-wrap"><i class="icon-sign-phone"></i><input type="tel" class="ipt ipt-pwd required" ka="signin-account" placeholder="手机号/邮箱/昵称/用户名/姓名" id="loginphone" name="phone" /></span>
                 </div>
                 <div class="form-row">
                     <span class="ipt-wrap"><i class="icon-sign-pwd"></i><input type="password" class="ipt ipt-pwd required" ka="signin-password" placeholder="密码" id="loginpassword" name="password" /></span>
@@ -198,7 +191,7 @@
         var loginphone = $("#loginphone").val();
         var loginpassword = $("#loginpassword").val();
         if(loginphone==''){
-            $(".tip-error").html("手机号不能为空");
+            $(".tip-error").html("登陆账号不能为空");
             return;
         }
         if(loginpassword==''){

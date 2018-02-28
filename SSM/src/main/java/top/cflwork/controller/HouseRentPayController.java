@@ -92,7 +92,6 @@ public class HouseRentPayController  {
     public List<Select2Vo> getHotel(HttpSession session) throws  Exception {
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         return  houseRentPayService.getHotel(userVo.getCompanyId());
-
     }
     @RequestMapping("/houseRentPayAddSave")
     @ResponseBody
@@ -121,6 +120,15 @@ public class HouseRentPayController  {
                 houseRentPayVo.setDayPay(houseRentPayVo.getFactPay()/(datediffDay(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每天付款金额总金额/总天数
                 houseRentPayVo.setMonthPay(houseRentPayVo.getFactPay()/(monthCount(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每月的租金总和
                 houseRentPayVoList.add(houseRentPayVo);
+                String qixian = "";
+                for(int j=1;j<=houseRentPayVo.getPayCount();j++){
+                    if(j!=houseRentPayVo.getPayCount()){
+                        qixian +=getDateByString(houseRentPayVo.getFirstPayTime(),j)+",";
+                    }else{
+                        qixian +=getDateByString(houseRentPayVo.getFirstPayTime(),j);
+                    }
+                }
+                houseRentPayVo.setQixian(qixian);
                 houseRentPayService.save(houseRentPayVo);
             }
             return  Message.success("新增成功!");
@@ -239,6 +247,20 @@ public class HouseRentPayController  {
             Date dt1=rightNow.getTime();
             String reStr = sdf.format(dt1);
             return  sdf.parse(reStr);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+    public String getDateByString(Date date, Integer cnt){
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.setTime(date);
+            rightNow.add(Calendar.MONTH,cnt);
+            Date dt1=rightNow.getTime();
+            String reStr = sdf.format(dt1);
+            return  reStr;
         }catch (Exception e){
             e.printStackTrace();
             return  null;

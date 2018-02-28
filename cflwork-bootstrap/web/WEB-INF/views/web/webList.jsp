@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">平台名称：</label>
                         <div class="col-sm-8">
-                            <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required="" aria-required="true">
+                            <input  name="title" minlength="2" maxlength="20" type="text" class="form-control" required/>
                         </div>
                     </div>
                     <div class="form-group">
