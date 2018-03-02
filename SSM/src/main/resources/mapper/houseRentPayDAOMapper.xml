@@ -35,6 +35,7 @@
         <result column="bucaofei" property="bucaofei"></result>
         <result column="buzhiqi" property="buzhiqi"></result>
         <result column="nid" property="nid"></result>
+        <result column="qixian" property="qixian"></result>
         <association property="contractMasterVo" javaType="top.cflwork.vo.ContractMasterVo">
             <id column="cid" property="id"></id>
             <result column="bank_account_name" property="bankAccountName"></result>

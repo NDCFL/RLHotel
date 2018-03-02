@@ -381,12 +381,12 @@
                             <label class="col-sm-2 control-label">首次支付日期：</label>
                             <div class="col-sm-4">
                                 <input name="firstPayTime" minlength="2" id="test2" maxlength="20" type="text" value=""
-                                       class="form-control" required="" aria-required="true">
+                                       class="form-control" required="" placeholder="首次支付日期" aria-required="true">
                             </div>
                             <label class="col-sm-2 control-label">合同开始日期：</label>
                             <div class="col-sm-4">
                                 <input name="payPeriodStart"  minlength="2" maxlength="20" type="text" id="test1"
-                                       value="" class="form-control" required="" aria-required="true">
+                                       value="" class="form-control" required="" placeholder="合同开始日期"  aria-required="true">
                             </div>
                         </div>
                         <div class="form-group" id="house_count">

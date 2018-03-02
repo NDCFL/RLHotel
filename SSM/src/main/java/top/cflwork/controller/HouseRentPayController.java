@@ -119,6 +119,7 @@ public class HouseRentPayController  {
                 houseRentPayVo.setFactedPayTimeEnd(getDateByMonth(houseRentPayVo.getFactedPayTimeStart(),houseRentPayVo.getPayType()));//第一个合同首付结束时间
                 houseRentPayVo.setDayPay(houseRentPayVo.getFactPay()/(datediffDay(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每天付款金额总金额/总天数
                 houseRentPayVo.setMonthPay(houseRentPayVo.getFactPay()/(monthCount(getDate(houseRentPayVo.getFirstPayTime(),i),getDate(houseRentPayVo.getPayPeriodStart(),(i+1)))));//每月的租金总和
+                houseRentPayVo.setFirstPayTime(getDate(houseRentPayVo.getFirstPayTime(),i));
                 houseRentPayVoList.add(houseRentPayVo);
                 String qixian = "";
                 for(int j=1;j<=houseRentPayVo.getPayCount();j++){

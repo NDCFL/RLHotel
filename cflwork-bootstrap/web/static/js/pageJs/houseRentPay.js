@@ -303,24 +303,25 @@ function fukuan(id,money,shengyuqishu,sumqishu,thisTime,payType){
     var temp = new Date(thisTime);
     var  nowTime = "";
     nowTime = new Date().getTime();
-    for(var i=1;i<=parseInt(sumqishu);i++){
+    var times = new Array();
+    for(var j=1;j<=parseInt(sumqishu);j++){
+        times.push(getDate(d));
+        d.setMonth(d.getMonth()+payType);
+    }
+    var cnt = parseInt(times.length);
+    for(var i=1;i<=cnt;i++){
+        console.log(i+"---"+getDate(times[i]));
         if(yijingfukuan-i>=0){
-            if(d.getTime()<=nowTime && new Date(temp.setMonth(temp.getMonth()+payType)).getTime()>=nowTime){
+            if(new Date(times[i-1]).getTime()<=nowTime && new Date(times[i]).getTime()>=nowTime){
                 htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">本期房租</button></div>';
-                if(d.getMonth()!=new Date().getMonth()){
-                    d.setMonth(d.getMonth()-1);
-                }
             }else{
-                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">'+getDate(d)+'</button></div>';
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">'+getDate(times[i-1])+'</button></div>';
             }
         }else {
-            if(d.getTime()<=nowTime && new Date(temp.setMonth(temp.getMonth()+payType)).getTime()>=nowTime){
+            if(new Date(times[i-1]).getTime()<=nowTime && new Date(times[i]).getTime()>=nowTime){
                 htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">本期房租</button></div>';
-                if(d.getMonth()!=new Date().getMonth()){
-                    d.setMonth(d.getMonth()-1);
-                }
             }else{
-                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">'+getDate(d)+'</button></div>';
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">'+getDate(times[i-1])+'</button></div>';
             }
         }
         if(i%6==0){
@@ -328,8 +329,6 @@ function fukuan(id,money,shengyuqishu,sumqishu,thisTime,payType){
                 htmls = htmls+'</div><div class="form-group">';
             }
         }
-        d.setMonth(d.getMonth()+payType);
-        temp=d;
     }
     $("#infohtml").html(htmls);
     $(".button").click(function () {
