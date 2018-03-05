@@ -122,8 +122,8 @@ public class HouseRentPayController  {
                 houseRentPayVo.setFirstPayTime(getDate(houseRentPayVo.getFirstPayTime(),i));
                 houseRentPayVoList.add(houseRentPayVo);
                 String qixian = "";
-                for(int j=1;j<=houseRentPayVo.getPayCount();j++){
-                    if(j!=houseRentPayVo.getPayCount()){
+                for(int j=0;j<houseRentPayVo.getPayCount();j++){
+                    if(j!=(houseRentPayVo.getPayCount()-1)){
                         qixian +=getDateByString(houseRentPayVo.getFirstPayTime(),j)+",";
                     }else{
                         qixian +=getDateByString(houseRentPayVo.getFirstPayTime(),j);
