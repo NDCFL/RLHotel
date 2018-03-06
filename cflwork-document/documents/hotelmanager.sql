@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-01-01 14:28:11
+Date: 2018-03-06 21:40:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,10 +39,10 @@ DROP TABLE IF EXISTS `t_cash_accounts`;
 CREATE TABLE `t_cash_accounts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
-  `hotel_id` bigint(20) NOT NULL,
-  `shop_manager_id` bigint(20) NOT NULL,
+  `hotel_id` bigint(20) DEFAULT NULL,
   `account_type` tinyint(4) NOT NULL,
   `account_time` datetime NOT NULL,
+  `account_time_end` datetime DEFAULT NULL,
   `total_pay` decimal(18,2) NOT NULL,
   `subject_id` bigint(20) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
@@ -53,23 +53,30 @@ CREATE TABLE `t_cash_accounts` (
   `cash_status` tinyint(4) DEFAULT NULL,
   `reason` varchar(500) DEFAULT NULL,
   `hander` bigint(20) DEFAULT NULL,
+  `day_pay` double(255,0) DEFAULT NULL,
+  `pay_type_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`) USING BTREE,
-  KEY `shop_manager_id` (`shop_manager_id`) USING BTREE,
   KEY `subject_id` (`subject_id`) USING BTREE,
   KEY `hotel_id` (`hotel_id`) USING BTREE,
   CONSTRAINT `t_cash_accounts_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
-  CONSTRAINT `t_cash_accounts_ibfk_2` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_cash_accounts_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `t_cash_subject` (`id`),
-  CONSTRAINT `t_cash_accounts_ibfk_4` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  CONSTRAINT `t_cash_accounts_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `t_cash_subject` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cash_accounts
 -- ----------------------------
-INSERT INTO `t_cash_accounts` VALUES ('1', '1', '2', '7', '0', '2017-12-03 22:56:17', '500.00', '1', '采购牙刷', '采购牙刷', '2017-12-03 22:56:56', '0', '1', '1', '审核通过', '7');
-INSERT INTO `t_cash_accounts` VALUES ('2', '1', '2', '7', '0', '2017-12-05 09:25:09', '900.00', '1', '牙刷进货', '暂无批注', '2017-12-05 21:27:48', '0', '1', '1', '审核通过', '7');
-INSERT INTO `t_cash_accounts` VALUES ('3', '1', '2', '7', '1', '2017-12-05 21:30:56', '700.00', '2', '被套支出', '账单无误', '2017-12-05 21:33:25', '0', '1', '1', '审核通过', '7');
+INSERT INTO `t_cash_accounts` VALUES ('1', '1', '2', '0', '2017-12-03 22:56:17', '2018-02-01 18:47:34', '500.00', '1', '采购牙刷', '采购牙刷', '2017-12-03 22:56:56', '0', '1', '1', '审核通过', '7', '30', '1');
+INSERT INTO `t_cash_accounts` VALUES ('2', '1', '2', '0', '2017-12-05 09:25:09', '2018-02-01 18:47:34', '900.00', '1', '牙刷进货', '暂无批注', '2017-12-05 21:27:48', '1', '0', '2', '不通过', '6', '30', '2');
+INSERT INTO `t_cash_accounts` VALUES ('3', '1', '-1', '1', '2017-12-05 00:00:00', '2018-02-01 23:59:59', '800.00', '2', '被套支出', '账单无误', '2017-12-05 21:33:25', '0', '1', '1', '审核通过', '7', '14', '3');
+INSERT INTO `t_cash_accounts` VALUES ('4', '1', '-1', '1', '2018-01-04 18:40:57', '2018-02-01 18:47:34', '3000.00', '4', '房租缴纳', '暂无批注', '2018-01-04 18:44:21', '1', '0', '0', '未审核', null, '30', '4');
+INSERT INTO `t_cash_accounts` VALUES ('6', '1', '4', '1', '2018-01-01 00:00:00', '2018-01-31 23:59:59', '3000.00', '1', '牙刷支出总费用', '暂无批注', '2018-01-04 18:59:54', '0', '0', '0', '未审核', null, '100', '2');
+INSERT INTO `t_cash_accounts` VALUES ('7', '1', '4', '1', '2018-01-01 00:00:00', '2018-01-31 23:59:59', '3000.00', '2', '被套支出', '很好喔', '2018-01-04 19:02:36', '0', '1', '1', '', '6', '100', '3');
+INSERT INTO `t_cash_accounts` VALUES ('8', '1', '-1', '0', '2018-01-17 00:00:00', '2018-02-15 23:59:59', '8000.00', '1', '收入', '暂无批注', '2018-01-29 17:11:19', '0', '1', '0', '未审核', null, '276', '1');
+INSERT INTO `t_cash_accounts` VALUES ('9', '1', '-1', '0', '2018-01-16 00:00:00', '2018-02-21 23:59:59', '90.00', '2', '收入', '暂无批注', '2018-01-29 17:29:40', '0', '1', '0', '未审核', null, '2', '1');
+INSERT INTO `t_cash_accounts` VALUES ('10', '1', '-1', '0', '2018-01-01 00:00:00', '2018-01-31 23:59:59', '90.00', '2', '收入', '收入无误', '2018-01-29 17:43:21', '0', '0', '2', '不通过', '6', '3', '1');
+INSERT INTO `t_cash_accounts` VALUES ('11', '1', '2', '0', '2018-01-17 00:00:00', '2018-01-31 23:59:59', '800.00', '2', '收入', '审核通过神核通过审核通过神核通过审核通过神核通过审核通过神核通过审核通过神核通过审核通过神核通过审核通过神核通过', '2018-01-29 23:04:26', '0', '1', '0', '未审核', null, '57', '1');
+INSERT INTO `t_cash_accounts` VALUES ('12', '1', '4', '0', '2018-01-01 00:00:00', '2018-01-31 23:59:59', '820.00', '4', '房租收入', '暂无审核暂无审核暂无审核暂无审核暂无审核暂无审核暂无审核暂无审核', '2018-01-29 23:33:20', '0', '1', '1', '审核通过', '6', '27', '4');
 
 -- ----------------------------
 -- Table structure for t_cash_subject
@@ -97,6 +104,25 @@ INSERT INTO `t_cash_subject` VALUES ('3', '押金', '押金', '2017-12-10 21:30:
 INSERT INTO `t_cash_subject` VALUES ('4', '房费缴纳', '房费缴纳', '2017-12-10 21:30:23', '1', '0');
 
 -- ----------------------------
+-- Table structure for t_code
+-- ----------------------------
+DROP TABLE IF EXISTS `t_code`;
+CREATE TABLE `t_code` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `phone` varchar(11) NOT NULL,
+  `code` int(11) NOT NULL,
+  `msg` varchar(100) NOT NULL,
+  `end_time` datetime NOT NULL,
+  `status` int(11) NOT NULL,
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_code
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_company
 -- ----------------------------
 DROP TABLE IF EXISTS `t_company`;
@@ -105,7 +131,7 @@ CREATE TABLE `t_company` (
   `name` varchar(20) NOT NULL,
   `represent` varchar(50) DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
-  `tel` varchar(11) DEFAULT NULL,
+  `tel` varchar(20) DEFAULT NULL,
   `address` varchar(150) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -117,7 +143,7 @@ CREATE TABLE `t_company` (
 -- ----------------------------
 -- Records of t_company
 -- ----------------------------
-INSERT INTO `t_company` VALUES ('1', '瑞蓝酒店', '陈闯', '15563906390', '15563906390', '山东省青岛市', '瑞蓝酒店是一个大型具有24个连锁酒店的公司', '2017-11-14 20:41:17', '0');
+INSERT INTO `t_company` VALUES ('1', '青岛瑞蓝铂悦酒店管理有限公司', '陈闯', '15679760329', '0532-85696999', '山东省青岛市市北区新疆路8号中联自由港湾A座 2829', '瑞蓝瑞蓝瑞蓝瑞蓝瑞蓝瑞蓝瑞蓝', '2017-11-14 20:41:17', '0');
 INSERT INTO `t_company` VALUES ('2', '瑞蓝酒店1', '陈闯', '15563906390', '15563906390', '山东省青岛市', '瑞蓝酒店是一个大型具有24个连锁酒店的公司，规模宏大	', '2017-11-14 20:41:17', '0');
 
 -- ----------------------------
@@ -165,15 +191,18 @@ CREATE TABLE `t_contract_master` (
   `is_active` int(11) DEFAULT NULL,
   `company_id` bigint(20) DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `identity` varchar(18) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_contract_master
 -- ----------------------------
-INSERT INTO `t_contract_master` VALUES ('1', '中国银行', '皓月', '1111111111', '2017-11-16 22:50:16', '0', '1', '1567960322');
-INSERT INTO `t_contract_master` VALUES ('3', '中国建设银行', '心空', '222222', '2017-11-16 23:18:56', '0', '2', '1567960322');
-INSERT INTO `t_contract_master` VALUES ('4', '农村信用社', '信用', '33333', '2017-11-18 22:50:40', '0', '1', '1567960322');
+INSERT INTO `t_contract_master` VALUES ('1', '中国银行', '皓月', '1111111111', '2017-11-16 22:50:16', '0', '1', '15679760322', '96e79218965eb72c92a549dd5a330112', '1111111111');
+INSERT INTO `t_contract_master` VALUES ('3', '中国建设银行', '心空', '222222', '2017-11-16 23:18:56', '0', '2', '1567960322', '96e79218965eb72c92a549dd5a330112', null);
+INSERT INTO `t_contract_master` VALUES ('4', '农村信用社', '信用', '33333', '2017-11-18 22:50:40', '0', '1', '15679760322', '96e79218965eb72c92a549dd5a330112', '11111111');
+INSERT INTO `t_contract_master` VALUES ('5', '中国银行', '李四', '1111111111111', '2018-01-03 21:19:50', '0', '1', '15679760320', 'e10adc3949ba59abbe56e057f20f883e', '222222');
 
 -- ----------------------------
 -- Table structure for t_cooperation_accounts
@@ -183,7 +212,6 @@ CREATE TABLE `t_cooperation_accounts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
   `hotel_id` bigint(20) NOT NULL,
-  `shop_manager_id` bigint(20) NOT NULL,
   `account_type` tinyint(4) NOT NULL,
   `account_time` datetime NOT NULL,
   `total_pay` decimal(18,2) NOT NULL,
@@ -199,20 +227,19 @@ CREATE TABLE `t_cooperation_accounts` (
   `hander` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`) USING BTREE,
-  KEY `shop_manager_id` (`shop_manager_id`) USING BTREE,
   KEY `subject_id` (`subject_id`) USING BTREE,
   KEY `hotel_id` (`hotel_id`) USING BTREE,
   CONSTRAINT `t_cooperation_accounts_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
-  CONSTRAINT `t_cooperation_accounts_ibfk_2` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_cooperation_accounts_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `t_cooperation_company` (`id`),
-  CONSTRAINT `t_cooperation_accounts_ibfk_4` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `t_cooperation_accounts_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `t_cooperation_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cooperation_accounts
 -- ----------------------------
-INSERT INTO `t_cooperation_accounts` VALUES ('1', '1', '2', '7', '0', '2017-12-06 22:08:41', '700.00', '1', '借牙刷', '无批注', '1', '2017-12-06 22:09:23', '0', '0', '2', '审核不通过', '7');
-INSERT INTO `t_cooperation_accounts` VALUES ('2', '1', '2', '7', '1', '2017-12-06 06:05:02', '500.00', '1', '茅台进货', '账目无误', '1', '2017-12-06 23:05:32', '0', '1', '1', '通过', '7');
+INSERT INTO `t_cooperation_accounts` VALUES ('1', '1', '4', '0', '2017-12-06 22:08:41', '700.00', '1', '借牙刷总费用收入情况', '无批注', '1', '2017-12-06 22:09:23', '0', '0', '2', '审核不通过', '7');
+INSERT INTO `t_cooperation_accounts` VALUES ('2', '1', '4', '1', '2017-12-06 06:05:02', '500.00', '1', '茅台进货总费用', '账目有异议', '1', '2017-12-06 23:05:32', '0', '1', '1', '通过', '7');
+INSERT INTO `t_cooperation_accounts` VALUES ('3', '1', '-1', '0', '2018-01-30 08:30:00', '1000.00', '1', '收入总费用', '通过', '6', '2018-01-30 12:54:17', '0', '0', '0', '未审核', null);
+INSERT INTO `t_cooperation_accounts` VALUES ('4', '1', '-1', '1', '2018-01-30 08:30:00', '1000.00', '1', '费用总收入', '账目无误', '7', '2018-01-30 13:00:30', '0', '0', '0', '未审核', null);
 
 -- ----------------------------
 -- Table structure for t_cooperation_company
@@ -222,29 +249,34 @@ CREATE TABLE `t_cooperation_company` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
   `hotel_id` bigint(20) NOT NULL,
-  `shop_manager_id` bigint(20) DEFAULT NULL,
   `name` varchar(20) NOT NULL,
   `address` varchar(150) NOT NULL,
   `contact` varchar(20) NOT NULL,
-  `tel` varchar(11) DEFAULT NULL,
-  `phone` varchar(11) NOT NULL,
+  `tel` varchar(20) DEFAULT NULL,
+  `phone` varchar(20) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`) USING BTREE,
-  KEY `shop_manager_id` (`shop_manager_id`) USING BTREE,
   KEY `hotel_id` (`hotel_id`) USING BTREE,
-  CONSTRAINT `t_cooperation_company_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
-  CONSTRAINT `t_cooperation_company_ibfk_2` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_cooperation_company_ibfk_3` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `t_cooperation_company_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cooperation_company
 -- ----------------------------
-INSERT INTO `t_cooperation_company` VALUES ('1', '1', '2', '7', '茅台', '茅台', '茅台酒家', '13237675702', '13237675702', '茅台酒香', '2017-12-06 21:28:15', '0');
-INSERT INTO `t_cooperation_company` VALUES ('2', '1', '2', '7', '章贡王', '江西赣州章贡区', '章贡王', '13609090909', '13609090909', '章贡王', '2017-12-06 22:04:05', '0');
+INSERT INTO `t_cooperation_company` VALUES ('1', '1', '2', '茅台', '茅台', '茅台酒家', '13237675702', '13237675702', '茅台酒香', '2017-12-06 21:28:15', '0');
+INSERT INTO `t_cooperation_company` VALUES ('2', '1', '2', '章贡王', '江西赣州章贡区', '章贡王', '13609090909', '13609090909', '章贡王', '2017-12-06 22:04:05', '0');
+INSERT INTO `t_cooperation_company` VALUES ('5', '1', '-1', '茅台酒家', '茅台酒家', '茅台酒家', '511-200-555', '15679589216', '茅台酒家', '2018-01-18 13:39:58', '0');
+INSERT INTO `t_cooperation_company` VALUES ('6', '1', '-1', '餐具商家', '餐具商家', '餐具商家', '400-200-200', '15679235626', '餐具商家', '2018-01-18 13:54:58', '0');
+INSERT INTO `t_cooperation_company` VALUES ('7', '1', '-1', '众联', '众联', '众联', '200-500-600', '18966666666', '众联', '2018-01-19 17:25:14', '0');
+INSERT INTO `t_cooperation_company` VALUES ('8', '1', '2', '布草商家', '江西赣州', '布草商家', '455-5545', '15679712351', '布草商家', '2018-01-20 18:28:21', '0');
+INSERT INTO `t_cooperation_company` VALUES ('9', '1', '2', '布草商家1', '江西赣州', '布草商家1', '455-5545', '15679712351', '布草商家1', '2018-01-20 18:29:14', '0');
+INSERT INTO `t_cooperation_company` VALUES ('10', '1', '-1', '轻松', '轻松轻松轻松', '轻松', '5656-656', '19679762058', '轻松轻松轻松轻松', '2018-01-20 18:37:51', '0');
+INSERT INTO `t_cooperation_company` VALUES ('11', '1', '-1', '阿萨德1', '江西赣州', '阿萨德1', '500-200-00', '18370940766', '阿萨德', '2018-01-20 18:44:46', '0');
+INSERT INTO `t_cooperation_company` VALUES ('12', '1', '4', '三大范式', '江西赣州', '三大范式', '500-100', '15679705110', '江西赣州', '2018-01-20 18:46:04', '0');
+INSERT INTO `t_cooperation_company` VALUES ('13', '1', '-1', '人', '赣州', '15679763333', '15679763333', '15679763333', '', '2018-02-10 14:36:07', '0');
 
 -- ----------------------------
 -- Table structure for t_cooperation_subject
@@ -282,7 +314,7 @@ CREATE TABLE `t_cooperation_website` (
   `company_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_cooperation_website
@@ -291,6 +323,8 @@ INSERT INTO `t_cooperation_website` VALUES ('1', '携程网', '携程网', '2017
 INSERT INTO `t_cooperation_website` VALUES ('2', '途牛', '途牛', '2017-11-30 21:43:48', '0', '1');
 INSERT INTO `t_cooperation_website` VALUES ('3', '线下入住', '线下入住', '2017-12-10 21:25:13', '0', '1');
 INSERT INTO `t_cooperation_website` VALUES ('4', '去哪旅行', '去哪旅行', '2017-12-10 21:27:43', '0', '1');
+INSERT INTO `t_cooperation_website` VALUES ('5', '58同城', '', '2018-01-19 13:44:19', '0', '1');
+INSERT INTO `t_cooperation_website` VALUES ('8', '', '', '2018-03-01 00:18:10', '0', '1');
 
 -- ----------------------------
 -- Table structure for t_customer_order
@@ -362,6 +396,42 @@ INSERT INTO `t_customer_order` VALUES ('19', '1', '2', '7', '4', '1', '商家送
 INSERT INTO `t_customer_order` VALUES ('20', '1', '2', '7', '6', '1', '订单', '414131', '13131', null, null, '1', null, '5', '2000.00', null, null, null, null, '4', '2017-12-22 21:00:15', '2017-12-27 21:00:15', null, '', '0', '2017-12-22 21:04:12', '0', null, '0', null, '1', '4', '0', '-1', '0', '1');
 
 -- ----------------------------
+-- Table structure for t_customer_order_ota
+-- ----------------------------
+DROP TABLE IF EXISTS `t_customer_order_ota`;
+CREATE TABLE `t_customer_order_ota` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `company_id` bigint(20) NOT NULL,
+  `order_no` varchar(200) DEFAULT NULL,
+  `hotel_name` varchar(100) DEFAULT NULL,
+  `house_name` varchar(100) DEFAULT NULL,
+  `order_time` datetime DEFAULT NULL,
+  `customer_name` varchar(200) DEFAULT NULL,
+  `website_name` varchar(20) DEFAULT NULL,
+  `website_id` bigint(20) DEFAULT NULL,
+  `unit_price` decimal(18,2) DEFAULT NULL,
+  `total_days` tinyint(4) NOT NULL,
+  `total_pay` decimal(18,2) NOT NULL,
+  `ota_commission` decimal(18,2) DEFAULT NULL,
+  `actual_money` decimal(18,2) DEFAULT NULL,
+  `checkin_time` datetime DEFAULT NULL,
+  `checkout_time` datetime DEFAULT NULL,
+  `remark` varchar(500) DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_active` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_customer_order_ota
+-- ----------------------------
+INSERT INTO `t_customer_order_ota` VALUES ('1', '1', '20180101', '酒店1', '房间1', '2018-01-01 00:00:00', '小明', '携程网', null, null, '1', '200.00', '0.00', '200.00', '2018-01-02 00:00:00', '2018-01-03 00:00:00', null, '2018-01-09 11:45:52', '0');
+INSERT INTO `t_customer_order_ota` VALUES ('2', '1', '20180101', '酒店2', '房间2', '2018-01-01 00:00:00', '小华', '去哪儿网', null, null, '2', '400.00', '0.00', '400.00', '2018-01-03 00:00:00', '2018-01-05 00:00:00', null, '2018-01-09 11:45:52', '0');
+INSERT INTO `t_customer_order_ota` VALUES ('3', '1', '20180101', '酒店1', '房间1', '2018-01-01 00:00:00', '小明', '携程网', null, null, '1', '200.00', '0.00', '200.00', '2018-01-02 00:00:00', '2018-01-03 00:00:00', null, '2018-01-09 12:51:01', '0');
+INSERT INTO `t_customer_order_ota` VALUES ('4', '1', null, null, null, null, null, null, null, null, '0', '0.00', '0.00', '0.00', null, null, null, '2018-01-09 12:51:01', '0');
+INSERT INTO `t_customer_order_ota` VALUES ('5', '1', '20180101', '酒店2', '房间2', '2018-01-01 00:00:00', '小华', '去哪儿网', null, null, '2', '400.00', '0.00', '400.00', '2018-01-03 00:00:00', '2018-01-05 00:00:00', null, '2018-01-09 12:51:01', '0');
+
+-- ----------------------------
 -- Table structure for t_customer_service
 -- ----------------------------
 DROP TABLE IF EXISTS `t_customer_service`;
@@ -409,19 +479,15 @@ CREATE TABLE `t_employee` (
   `user_id` bigint(20) DEFAULT NULL,
   `employee_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_employee
 -- ----------------------------
-INSERT INTO `t_employee` VALUES ('4', '1', '2', '7', '14');
-INSERT INTO `t_employee` VALUES ('5', '1', '2', '7', '15');
-INSERT INTO `t_employee` VALUES ('6', '1', '2', '7', '16');
-INSERT INTO `t_employee` VALUES ('7', '1', '2', '7', '17');
-INSERT INTO `t_employee` VALUES ('8', '1', '-1', '6', '18');
-INSERT INTO `t_employee` VALUES ('9', '1', '-1', '6', '19');
-INSERT INTO `t_employee` VALUES ('10', '1', '-1', '6', '20');
-INSERT INTO `t_employee` VALUES ('11', '1', '-1', '6', '0');
+INSERT INTO `t_employee` VALUES ('17', '1', '2', '7', '27');
+INSERT INTO `t_employee` VALUES ('18', '1', '2', '7', '28');
+INSERT INTO `t_employee` VALUES ('19', '1', '-1', '6', '29');
+INSERT INTO `t_employee` VALUES ('20', '1', '-1', '6', '30');
 
 -- ----------------------------
 -- Table structure for t_hotel
@@ -430,26 +496,26 @@ DROP TABLE IF EXISTS `t_hotel`;
 CREATE TABLE `t_hotel` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
-  `contract_id` bigint(20) NOT NULL,
   `hotel_manager_id` bigint(20) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `tel` varchar(11) NOT NULL,
+  `tel` varchar(20) NOT NULL,
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL,
+  `provice` varchar(20) DEFAULT NULL,
+  `city` varchar(150) DEFAULT NULL,
+  `town` varchar(200) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `t_hotel_title_uindex` (`title`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE,
-  KEY `contract_id` (`contract_id`) USING BTREE,
-  KEY `hotel_manager_id` (`hotel_manager_id`) USING BTREE,
-  CONSTRAINT `t_hotel_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
-  CONSTRAINT `t_hotel_ibfk_2` FOREIGN KEY (`contract_id`) REFERENCES `t_contract` (`id`),
-  CONSTRAINT `t_hotel_ibfk_3` FOREIGN KEY (`hotel_manager_id`) REFERENCES `t_user` (`id`)
+  KEY `hotel_manager_id` (`hotel_manager_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_hotel
 -- ----------------------------
-INSERT INTO `t_hotel` VALUES ('2', '1', '1', '7', '红古轩酒店', '15679760322', '2017-11-21 20:56:03', '0');
-INSERT INTO `t_hotel` VALUES ('4', '1', '1', '6', '800', '800-800-800', '2017-11-21 22:18:47', '0');
+INSERT INTO `t_hotel` VALUES ('2', '1', '7', '红古轩酒店', '15679760322', '2017-11-21 20:56:03', '0', '河北省', '石家庄市', '长安区', '河北省唐山市路北区');
+INSERT INTO `t_hotel` VALUES ('4', '1', '7', '800', '800-800-800', '2017-11-21 22:18:47', '0', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_hotel_employee
@@ -480,44 +546,48 @@ DROP TABLE IF EXISTS `t_house`;
 CREATE TABLE `t_house` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `card_title` varchar(50) NOT NULL,
-  `area` double NOT NULL,
-  `unit_price` decimal(18,2) NOT NULL,
-  `sale_price` decimal(18,2) NOT NULL,
   `type` tinyint(4) NOT NULL,
   `description` text,
   `hotel_id` bigint(20) NOT NULL,
-  `shop_manager_id` bigint(20) NOT NULL,
-  `shop_agent_id` bigint(20) NOT NULL,
   `house_status` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL,
   `leave_time` datetime DEFAULT NULL,
+  `company_id` bigint(20) DEFAULT NULL,
+  `house_type` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `shop_manager_id` (`shop_manager_id`) USING BTREE,
-  KEY `shop_agent_id` (`shop_agent_id`) USING BTREE,
-  KEY `hotel_id` (`hotel_id`) USING BTREE,
-  CONSTRAINT `t_house_ibfk_1` FOREIGN KEY (`shop_manager_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_house_ibfk_2` FOREIGN KEY (`shop_agent_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_house_ibfk_3` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  KEY `hotel_id` (`hotel_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_house
 -- ----------------------------
-INSERT INTO `t_house` VALUES ('2', '101', '50', '200.00', '200.00', '1', '大床房', '2', '7', '7', '1', '2017-11-23 22:36:29', '0', '2017-12-26 20:30:25');
-INSERT INTO `t_house` VALUES ('3', '111', '111', '111.00', '111.00', '2', '大床房', '2', '6', '6', '1', '2017-11-26 15:42:15', '0', '2017-12-21 22:30:21');
-INSERT INTO `t_house` VALUES ('4', '112', '111', '111.00', '111.00', '1', '大床房', '2', '6', '6', '1', '2017-11-26 15:42:15', '0', '2017-12-27 20:55:09');
-INSERT INTO `t_house` VALUES ('5', '113', '111', '108.00', '111.00', '1', '大床房', '2', '6', '6', '1', '2017-11-26 16:51:00', '0', '2017-12-21 22:30:21');
-INSERT INTO `t_house` VALUES ('6', '114', '111', '108.00', '111.00', '1', '大床房', '2', '6', '6', '1', '2017-11-26 16:51:00', '0', '2017-12-27 21:00:15');
-INSERT INTO `t_house` VALUES ('7', '106', '111', '111.00', '111.00', '1', '大床房', '2', '6', '6', '0', '2017-11-26 16:52:10', '0', '2017-12-20 12:50:12');
-INSERT INTO `t_house` VALUES ('8', '109', '111', '111.00', '106.00', '1', '大床房', '2', '6', '6', '0', '2017-11-26 16:59:09', '0', '2017-12-19 21:50:57');
-INSERT INTO `t_house` VALUES ('9', '220', '111', '111.00', '106.00', '1', '大床房', '2', '6', '6', '0', '2017-11-26 16:59:09', '0', '2017-12-26 20:30:38');
-INSERT INTO `t_house` VALUES ('10', '201', '111', '111.00', '106.00', '1', '大床房', '4', '6', '6', '0', '2017-11-26 17:05:15', '0', '2017-12-21 22:30:21');
-INSERT INTO `t_house` VALUES ('11', '202', '111', '111.00', '106.00', '1', '大床房', '2', '6', '6', '0', '2017-11-26 17:05:15', '0', '2017-12-22 20:34:13');
-INSERT INTO `t_house` VALUES ('12', '103', '111', '111.00', '111.00', '1', '大床房', '2', '6', '6', '1', '2017-11-26 18:11:06', '0', '2017-12-21 22:30:21');
-INSERT INTO `t_house` VALUES ('13', '102', '111', '111.00', '111.00', '1', '大床房', '2', '6', '6', '0', '2017-11-26 18:11:06', '0', '2017-12-21 22:30:21');
-INSERT INTO `t_house` VALUES ('14', '108', '111', '111.00', '108.00', '1', '大床房', '2', '6', '6', '0', '2017-11-29 23:02:17', '0', '2017-12-21 22:30:21');
-INSERT INTO `t_house` VALUES ('15', '107', '111', '111.00', '108.00', '1', '大床房', '2', '6', '6', '0', '2017-11-29 23:02:17', '0', '2017-12-19 21:55:10');
+INSERT INTO `t_house` VALUES ('2', '101', '3', '大床房', '2', '1', '2017-11-23 22:36:29', '0', '2017-12-26 20:30:25', '1', '0');
+INSERT INTO `t_house` VALUES ('3', '111', '3', '大床房', '2', '1', '2017-11-26 15:42:15', '0', '2017-12-21 22:30:21', '1', '0');
+INSERT INTO `t_house` VALUES ('4', '112', '3', '大床房', '2', '1', '2017-11-26 15:42:15', '0', '2017-12-27 20:55:09', '1', '0');
+INSERT INTO `t_house` VALUES ('5', '113', '3', '大床房', '2', '1', '2017-11-26 16:51:00', '0', '2017-12-21 22:30:21', '1', '0');
+INSERT INTO `t_house` VALUES ('6', '114', '3', '大床房', '2', '1', '2017-11-26 16:51:00', '0', '2017-12-27 21:00:15', '1', '0');
+INSERT INTO `t_house` VALUES ('7', '106', '3', '大床房', '2', '0', '2017-11-26 16:52:10', '0', '2017-12-20 12:50:12', '1', '0');
+INSERT INTO `t_house` VALUES ('8', '109', '3', '大床房', '2', '0', '2017-11-26 16:59:09', '0', '2017-12-19 21:50:57', '1', '0');
+INSERT INTO `t_house` VALUES ('9', '220', '3', '大床房', '2', '0', '2017-11-26 16:59:09', '0', '2017-12-26 20:30:38', '1', '0');
+INSERT INTO `t_house` VALUES ('10', '201', '3', '大床房', '4', '0', '2017-11-26 17:05:15', '0', '2017-12-21 22:30:21', '1', '0');
+INSERT INTO `t_house` VALUES ('11', '202', '3', '大床房', '2', '0', '2017-11-26 17:05:15', '0', '2017-12-22 20:34:13', '1', '0');
+INSERT INTO `t_house` VALUES ('12', '103', '3', '大床房', '2', '1', '2017-11-26 18:11:06', '0', '2017-12-21 22:30:21', '1', '0');
+INSERT INTO `t_house` VALUES ('13', '102', '3', '大床房', '2', '0', '2017-11-26 18:11:06', '0', '2017-12-21 22:30:21', '1', '0');
+INSERT INTO `t_house` VALUES ('14', '108', '3', '大床房', '2', '0', '2017-11-29 23:02:17', '0', '2017-12-21 22:30:21', '1', '0');
+INSERT INTO `t_house` VALUES ('15', '107', '3', '大床房', '2', '0', '2017-11-29 23:02:17', '0', '2017-12-19 21:55:10', '1', '0');
+INSERT INTO `t_house` VALUES ('16', '101', '4', '天鼎酒店', '5', '0', '2018-01-14 21:07:23', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('17', '102', '4', '天鼎酒店', '5', '0', '2018-01-14 21:07:23', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('18', '103', '4', '天鼎酒店', '5', '0', '2018-01-14 21:07:24', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('19', '104', '4', '天鼎酒店', '5', '0', '2018-01-14 21:07:25', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('20', '202', '4', '202', '4', '0', '2018-01-14 21:45:00', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('21', '610', '9', '暗示法发顺丰', '8', '0', '2018-01-15 13:01:12', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('22', '815', '13', '而玩儿玩儿玩儿', '8', '0', '2018-01-15 13:02:23', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('23', '930', '13', '而玩儿玩儿玩儿', '8', '0', '2018-01-15 13:02:23', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('24', '1018', '13', '而玩儿玩儿玩儿', '8', '0', '2018-01-15 13:02:23', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('25', '1008', '13', '而玩儿玩儿玩儿', '8', '0', '2018-01-15 13:02:23', '0', null, '1', '0');
+INSERT INTO `t_house` VALUES ('26', '610', '14', '1123123123', '2', '0', '2018-01-15 14:45:54', '1', null, '1', '0');
+INSERT INTO `t_house` VALUES ('27', '815', '14', '1123123123', '2', '0', '2018-01-15 14:45:54', '1', null, '1', '0');
 
 -- ----------------------------
 -- Table structure for t_house_fact_pay
@@ -529,12 +599,35 @@ CREATE TABLE `t_house_fact_pay` (
   `pay_money` double NOT NULL COMMENT '支付金额',
   `create_time` datetime NOT NULL COMMENT '支付时间',
   `status` int(11) NOT NULL COMMENT '状态',
+  `company_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_house_fact_pay
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_house_fact_pay_copy
+-- ----------------------------
+DROP TABLE IF EXISTS `t_house_fact_pay_copy`;
+CREATE TABLE `t_house_fact_pay_copy` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '房租缴纳费用',
+  `house_rent_id` bigint(20) NOT NULL COMMENT '房租id',
+  `pay_money` double NOT NULL COMMENT '支付金额',
+  `create_time` datetime NOT NULL COMMENT '支付时间',
+  `status` int(11) NOT NULL COMMENT '状态',
+  `company_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_house_fact_pay_copy
+-- ----------------------------
+INSERT INTO `t_house_fact_pay_copy` VALUES ('1', '24', '500', '2018-01-03 20:13:13', '0', '1');
+INSERT INTO `t_house_fact_pay_copy` VALUES ('2', '24', '500', '2018-01-03 20:14:59', '0', '1');
+INSERT INTO `t_house_fact_pay_copy` VALUES ('3', '24', '500', '2018-01-03 20:15:37', '0', '1');
+INSERT INTO `t_house_fact_pay_copy` VALUES ('4', '24', '500', '2018-01-03 20:16:58', '0', '1');
 
 -- ----------------------------
 -- Table structure for t_house_others_item
@@ -566,6 +659,45 @@ INSERT INTO `t_house_others_item` VALUES ('5', '1', '2', '6', '5', '100', '2017-
 INSERT INTO `t_house_others_item` VALUES ('6', '1', '2', '6', '4', '300', '2017-12-24 20:35:56', '1', null, '旅游包车', '2017-12-24 20:35:56');
 
 -- ----------------------------
+-- Table structure for t_house_rent_pay
+-- ----------------------------
+DROP TABLE IF EXISTS `t_house_rent_pay`;
+CREATE TABLE `t_house_rent_pay` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `master_id` bigint(20) DEFAULT NULL,
+  `hotel_id` bigint(20) NOT NULL,
+  `company_id` bigint(20) NOT NULL,
+  `baodi_pay` decimal(18,2) NOT NULL,
+  `pay_time` int(11) NOT NULL,
+  `pay_type` int(11) NOT NULL,
+  `pay_period_start` date NOT NULL,
+  `pay_period_end` date NOT NULL,
+  `is_cash` int(11) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_active` tinyint(4) NOT NULL,
+  `house_id` varchar(30) NOT NULL,
+  `first_pay` double DEFAULT NULL,
+  `first_pay_time` date DEFAULT NULL,
+  `sum_pay` double(255,0) DEFAULT NULL,
+  `area` double(255,0) DEFAULT NULL,
+  `house_count` int(255) DEFAULT NULL,
+  `shuidian` int(255) DEFAULT NULL,
+  `kongtiao` int(255) DEFAULT NULL,
+  `gongnuan` int(255) DEFAULT NULL,
+  `wuye` double(255,0) DEFAULT NULL,
+  PRIMARY KEY (`id`,`pay_time`),
+  KEY `company_id` (`company_id`) USING BTREE,
+  KEY `hotel_id` (`hotel_id`) USING BTREE,
+  CONSTRAINT `t_house_rent_pay_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
+  CONSTRAINT `t_house_rent_pay_ibfk_2` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_house_rent_pay
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_house_type
 -- ----------------------------
 DROP TABLE IF EXISTS `t_house_type`;
@@ -576,17 +708,20 @@ CREATE TABLE `t_house_type` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(4) NOT NULL,
   `company_id` bigint(20) NOT NULL,
+  `price` double DEFAULT '0',
+  `hotel_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE,
   CONSTRAINT `t_house_type_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_house_type
 -- ----------------------------
-INSERT INTO `t_house_type` VALUES ('1', '大床房', '大床房', '2017-11-23 22:04:59', '0', '1');
-INSERT INTO `t_house_type` VALUES ('2', '豪华大床房', '豪华大床房', '2017-11-23 22:05:11', '0', '1');
+INSERT INTO `t_house_type` VALUES ('14', '御筑大床房', '御筑大床房', '2018-01-15 14:38:48', '0', '1', '800', '2');
+INSERT INTO `t_house_type` VALUES ('16', '800', '800酒店', '2018-01-15 19:13:30', '1', '1', '800', '2');
+INSERT INTO `t_house_type` VALUES ('17', '总统套房', '总统套房', '2018-01-17 19:35:33', '0', '1', '500', '2');
+INSERT INTO `t_house_type` VALUES ('19', '总统套房', '总统套房', '2018-01-24 11:57:45', '0', '1', '800', '4');
 
 -- ----------------------------
 -- Table structure for t_leave
@@ -645,15 +780,16 @@ CREATE TABLE `t_payment_type` (
   `company_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_payment_type
 -- ----------------------------
-INSERT INTO `t_payment_type` VALUES ('1', '支付宝', '支付宝', '2017-11-15 12:58:29', '0', '1');
-INSERT INTO `t_payment_type` VALUES ('2', '微信', '微信', '2017-11-15 12:58:35', '0', '1');
-INSERT INTO `t_payment_type` VALUES ('3', '银联', '银联', '2017-11-30 21:52:37', '0', '1');
-INSERT INTO `t_payment_type` VALUES ('4', '现金', '现金支付', '2017-12-10 21:23:44', '0', '1');
+INSERT INTO `t_payment_type` VALUES ('1', '支付宝', '支付宝支付', '2018-01-17 20:09:24', '0', '1');
+INSERT INTO `t_payment_type` VALUES ('2', '微信', '微信支付', '2018-01-17 20:09:33', '0', '1');
+INSERT INTO `t_payment_type` VALUES ('3', '银联', '银联支付', '2018-01-17 20:09:45', '0', '1');
+INSERT INTO `t_payment_type` VALUES ('4', '现金', '现金支付', '2018-01-17 20:09:58', '0', '1');
+INSERT INTO `t_payment_type` VALUES ('5', '通联', '通联支付', '2018-01-19 13:56:13', '0', '1');
 
 -- ----------------------------
 -- Table structure for t_permission
@@ -733,6 +869,12 @@ CREATE TABLE `t_rent_pay` (
   `kongtiao` int(255) DEFAULT NULL,
   `gongnuan` int(255) DEFAULT NULL,
   `wuye` double(255,0) DEFAULT NULL,
+  `yajin` double(255,0) DEFAULT NULL,
+  `bucaofei` double(255,0) DEFAULT NULL,
+  `buzhiqi` int(255) DEFAULT NULL,
+  `nid` varchar(255) DEFAULT NULL,
+  `zhuangxiu` int(255) DEFAULT NULL,
+  `qixian` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `master_id` (`master_id`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE,
@@ -740,29 +882,13 @@ CREATE TABLE `t_rent_pay` (
   CONSTRAINT `t_rent_pay_ibfk_1` FOREIGN KEY (`master_id`) REFERENCES `t_contract_master` (`id`),
   CONSTRAINT `t_rent_pay_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_rent_pay_ibfk_3` FOREIGN KEY (`hotel_id`) REFERENCES `t_hotel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_rent_pay
 -- ----------------------------
-INSERT INTO `t_rent_pay` VALUES ('1', '1', '2', '1', '60000.00', '2017-12-24', '2018-12-24', '2018-01-24', '2017-12-24', '10000', '1', '3', '0', '10000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A101', '833.33', '2017-12-24', '0', '27', '833', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('2', '1', '2', '1', '60000.00', '2018-12-24', '2019-12-24', '2019-01-24', '2018-12-24', '20000', '1', '3', '0', '20000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A101', '1666.66', '2018-12-24', '0', '55', '1667', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('3', '1', '2', '1', '60000.00', '2019-12-24', '2020-12-24', '2020-01-24', '2019-12-24', '30000', '1', '3', '0', '30000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A101', '2500', '2019-12-24', '0', '82', '2500', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('4', '1', '2', '1', '60000.00', '2017-12-24', '2018-12-24', '2018-01-24', '2017-12-24', '10000', '1', '3', '0', '10000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A102', '833.33', '2017-12-24', '0', '27', '833', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('5', '1', '2', '1', '60000.00', '2018-12-24', '2019-12-24', '2019-01-24', '2018-12-24', '20000', '1', '3', '0', '20000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A102', '1666.66', '2018-12-24', '0', '55', '1667', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('6', '1', '2', '1', '60000.00', '2019-12-24', '2020-12-24', '2020-01-24', '2019-12-24', '30000', '1', '3', '0', '30000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A102', '2500', '2019-12-24', '0', '82', '2500', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('7', '1', '4', '1', '60000.00', '2017-12-24', '2018-12-24', '2018-01-24', '2017-12-24', '10000', '1', '3', '0', '10000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A103', '833.33', '2017-12-24', '0', '27', '833', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('8', '1', '4', '1', '60000.00', '2018-12-24', '2019-12-24', '2019-01-24', '2018-12-24', '20000', '1', '3', '0', '20000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A103', '1666.66', '2018-12-24', '0', '55', '1667', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('9', '1', '4', '1', '60000.00', '2019-12-24', '2020-12-24', '2020-01-24', '2019-12-24', '30000', '1', '3', '0', '30000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A103', '2500', '2019-12-24', '0', '82', '2500', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('10', '1', '4', '1', '60000.00', '2017-12-24', '2018-12-24', '2018-01-24', '2017-12-24', '10000', '1', '3', '0', '10000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A104', '833.33', '2017-12-24', '0', '27', '833', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('11', '1', '4', '1', '60000.00', '2018-12-24', '2019-12-24', '2019-01-24', '2018-12-24', '20000', '1', '3', '0', '20000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A104', '1666.66', '2018-12-24', '0', '55', '1667', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('12', '1', '4', '1', '60000.00', '2019-12-24', '2020-12-24', '2020-01-24', '2019-12-24', '30000', '1', '3', '0', '30000', '1', '2017-12-24', '2020-12-24', '0', '3年房租', '2017-12-24 21:29:11', '0', 'A104', '2500', '2019-12-24', '0', '82', '2500', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('19', '1', '2', '1', '60000.00', '2018-01-01', '2019-01-01', '2018-03-01', '2018-01-01', '10000', '6', '3', '2', '10000', '1', '2018-01-01', '2021-01-01', '0', 'A105房租详细', '2018-01-01 13:31:46', '0', 'A105,30', '1666.6666666666667', '2018-01-01', '0', '27', '833', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('20', '1', '2', '1', '60000.00', '2019-01-01', '2020-01-01', '2019-03-01', '2019-01-01', '20000', '6', '3', '2', '20000', '1', '2018-01-01', '2021-01-01', '0', 'A105房租详细', '2018-01-01 13:31:46', '0', 'A105,30', '3333.3333333333335', '2018-01-01', '0', '55', '1667', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('21', '1', '2', '1', '60000.00', '2020-01-01', '2021-01-01', '2020-03-01', '2020-01-01', '30000', '6', '3', '2', '30000', '1', '2018-01-01', '2021-01-01', '0', 'A105房租详细', '2018-01-01 13:31:46', '0', 'A105,30', '5000', '2018-01-01', '0', '82', '2500', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('22', '1', '2', '1', '60000.00', '2018-01-01', '2019-01-01', '2018-03-01', '2018-01-01', '10000', '6', '3', '2', '10000', '1', '2018-01-01', '2021-01-01', '0', 'A106房间明细', '2018-01-01 14:24:26', '0', 'A106', '1666.6666666666667', '2018-01-01', '0', '27', '833', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('23', '1', '2', '1', '60000.00', '2019-01-01', '2020-01-01', '2019-03-01', '2019-01-01', '20000', '6', '3', '2', '20000', '1', '2018-01-01', '2021-01-01', '0', 'A106房间明细', '2018-01-01 14:24:26', '0', 'A106', '3333.3333333333335', '2018-01-01', '0', '55', '1667', null, null, null, null, null, null);
-INSERT INTO `t_rent_pay` VALUES ('24', '1', '2', '1', '60000.00', '2020-01-01', '2021-01-01', '2020-03-01', '2020-01-01', '3000', '6', '3', '2', '3000', '1', '2018-01-01', '2021-01-01', '0', 'A106房间明细', '2018-01-01 14:24:26', '0', 'A106', '500', '2018-01-01', '0', '8', '250', null, null, null, null, null, null);
+INSERT INTO `t_rent_pay` VALUES ('46', '1', '2', '1', '24000.00', '2018-01-01', '2019-01-01', '2018-02-01', '2018-01-01', '12000', '12', '2', '1', '12000', '1', '2018-01-01', '2020-01-01', '0', '暂无说明', '2018-03-02 22:25:40', '0', 'A101', '1000', '2018-01-01', '0', '33', '1000', null, null, '0', '0', '0', null, null, null, null, '5a7c34c4-fdb2-43de-96bf-a58b60d777b0', '0', '2018-02-01,2018-03-01,2018-04-01,2018-05-01,2018-06-01,2018-07-01,2018-08-01,2018-09-01,2018-10-01,2018-11-01,2018-12-01,2019-01-01');
+INSERT INTO `t_rent_pay` VALUES ('47', '1', '2', '1', '24000.00', '2019-01-01', '2020-01-01', '2019-02-01', '2019-01-01', '12000', '12', '2', '1', '12000', '1', '2018-01-01', '2020-01-01', '0', '暂无说明', '2018-03-02 22:25:40', '0', 'A101', '1000', '2019-01-01', '0', '33', '1000', null, null, '0', '0', '0', null, null, null, null, '5a7c34c4-fdb2-43de-96bf-a58b60d777b0', '0', '2019-02-01,2019-03-01,2019-04-01,2019-05-01,2019-06-01,2019-07-01,2019-08-01,2019-09-01,2019-10-01,2019-11-01,2019-12-01,2020-01-01');
 
 -- ----------------------------
 -- Table structure for t_role
@@ -776,7 +902,7 @@ CREATE TABLE `t_role` (
   `is_active` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role
@@ -785,6 +911,9 @@ INSERT INTO `t_role` VALUES ('1', '总管理员', '总管理员', '2017-11-15 12
 INSERT INTO `t_role` VALUES ('2', '店长', '店长', '2017-11-15 12:41:53', '0');
 INSERT INTO `t_role` VALUES ('3', '录入员', '录入员', '2017-11-15 12:42:01', '0');
 INSERT INTO `t_role` VALUES ('5', '审核员', '审核员', '2017-11-27 22:26:53', '0');
+INSERT INTO `t_role` VALUES ('6', '管理员', '管理员', '2018-01-16 20:25:33', '0');
+INSERT INTO `t_role` VALUES ('7', '酒店审核员', '酒店审核员', '2018-01-16 20:54:00', '0');
+INSERT INTO `t_role` VALUES ('8', '酒店录入员', '酒店录入员', '2018-01-17 21:20:30', '0');
 
 -- ----------------------------
 -- Table structure for t_role_permission
@@ -820,14 +949,14 @@ CREATE TABLE `t_service_subject` (
   `company_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_service_subject
 -- ----------------------------
-INSERT INTO `t_service_subject` VALUES ('1', '送客', '送客', '2017-11-30 22:01:08', '0', '1');
-INSERT INTO `t_service_subject` VALUES ('4', '旅游包车', '旅游包车', '2017-12-10 21:29:32', '0', '1');
-INSERT INTO `t_service_subject` VALUES ('5', ' 饮料消费', ' 饮料消费', '2017-12-10 21:29:57', '0', '1');
+INSERT INTO `t_service_subject` VALUES ('1', '旅游', '旅游增值科目', '2018-01-17 20:29:19', '0', '1');
+INSERT INTO `t_service_subject` VALUES ('2', '包车', '包车增值科目', '2018-01-17 20:29:29', '0', '1');
+INSERT INTO `t_service_subject` VALUES ('3', '饮料消费', '饮料消费增值科目', '2018-01-17 20:29:46', '0', '1');
 
 -- ----------------------------
 -- Table structure for t_user
@@ -866,21 +995,17 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `wechat_openid` (`wechat_openid`) USING BTREE,
   KEY `company_id` (`company_id`) USING BTREE,
   CONSTRAINT `t_user_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('6', '275300091@qq.com', '15679760329', '15679760329', '96e79218965eb72c92a549dd5a330112', '15679760329', '360730199712200617', '陈飞龙', '0', '2017-11-26', '21', '江西赣州章贡区', '275300091', 'xljx_888888', null, null, null, null, 'static/img/face.gif', '', '2017-11-15 12:45:01', '1', '0');
-INSERT INTO `t_user` VALUES ('7', '275300090@qq.com', '15679760321', null, '96e79218965eb72c92a549dd5a330112', '15679760321', '360730199712200617', '陈飞龙', '0', '2017-11-26', '21', '江西赣州章贡区', '275300091', 'xljx#_888888', null, null, null, null, 'static/img/face.gif', null, '2017-11-21 21:02:57', '1', '0');
-INSERT INTO `t_user` VALUES ('14', null, '15679760320', null, '96e79218965eb72c92a549dd5a330112', '15679760320', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-11-29 20:33:53', '1', '0');
-INSERT INTO `t_user` VALUES ('15', null, '15679760322', null, '96e79218965eb72c92a549dd5a330112', '15679760322', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-11-29 20:34:46', '1', '0');
-INSERT INTO `t_user` VALUES ('16', null, '13237675701', null, '96e79218965eb72c92a549dd5a330112', '13237675701', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-11-29 20:45:58', '1', '0');
-INSERT INTO `t_user` VALUES ('17', null, '15679760323', null, '96e79218965eb72c92a549dd5a330112', '15679760323', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-11-29 20:48:38', '1', '0');
-INSERT INTO `t_user` VALUES ('18', null, '17607976701', null, '96e79218965eb72c92a549dd5a330112', '17607976701', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-11-30 21:26:45', '1', '0');
-INSERT INTO `t_user` VALUES ('19', null, '17607975700', null, '96e79218965eb72c92a549dd5a330112', '17607975700', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-11-30 21:27:47', '1', '0');
-INSERT INTO `t_user` VALUES ('20', null, '18888888888', null, '96e79218965eb72c92a549dd5a330112', '18888888888', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-12-14 14:57:49', '1', '0');
-INSERT INTO `t_user` VALUES ('21', null, '13666666666', null, '96e79218965eb72c92a549dd5a330112', '13666666666', null, null, null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2017-12-14 14:58:29', '1', '0');
+INSERT INTO `t_user` VALUES ('6', '275300091@qq.com', '15679760329', 'admin', '96e79218965eb72c92a549dd5a330112', 'admin', '360706199712200618', '陈闯', '0', '2017-11-26', '21', '江西赣州章贡区宁都县', '275300091', 'xljx_888888', null, null, null, null, 'static/img/face.gif', null, '2017-11-15 12:45:01', '1', '0');
+INSERT INTO `t_user` VALUES ('7', '275300090@qq.com', '15679760321', null, '96e79218965eb72c92a549dd5a330112', '15679760321', '360730199712200617', '惊鸿', '0', '2017-11-26', '21', '江西赣州章贡区', '275300091', 'xljx#_888888', null, null, null, null, 'static/img/face.gif', null, '2017-11-21 21:02:57', '1', '0');
+INSERT INTO `t_user` VALUES ('27', null, '15679760323', null, '96e79218965eb72c92a549dd5a330112', '15679760323', '11111111111', '酒店审核员', null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2018-01-17 21:37:11', '1', '0');
+INSERT INTO `t_user` VALUES ('28', null, '15679760324', null, '96e79218965eb72c92a549dd5a330112', '15679760324', '111111111', '酒店录入员', null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2018-01-17 21:37:45', '1', '0');
+INSERT INTO `t_user` VALUES ('29', null, '15679760325', null, '96e79218965eb72c92a549dd5a330112', '15679760325', '11111111', '录入员', null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2018-01-17 21:39:36', '1', '0');
+INSERT INTO `t_user` VALUES ('30', null, '15679760000', null, '96e79218965eb72c92a549dd5a330112', '15679760000', '360730199712200666', '管理员', null, null, null, null, null, null, null, null, null, null, 'static/img/face.gif', null, '2018-02-06 20:00:14', '1', '0');
 
 -- ----------------------------
 -- Table structure for t_user_role
@@ -897,18 +1022,34 @@ CREATE TABLE `t_user_role` (
   KEY `role_id` (`role_id`) USING BTREE,
   CONSTRAINT `t_user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_role
 -- ----------------------------
 INSERT INTO `t_user_role` VALUES ('1', '6', '1', '2017-11-15 12:45:01', '0');
 INSERT INTO `t_user_role` VALUES ('2', '7', '2', '2017-11-21 21:02:57', '0');
-INSERT INTO `t_user_role` VALUES ('6', '14', '5', '2017-11-29 20:33:53', '0');
-INSERT INTO `t_user_role` VALUES ('7', '15', '5', '2017-11-29 20:34:46', '0');
-INSERT INTO `t_user_role` VALUES ('8', '16', '3', '2017-11-29 20:45:58', '0');
-INSERT INTO `t_user_role` VALUES ('9', '17', '3', '2017-11-29 20:48:38', '0');
-INSERT INTO `t_user_role` VALUES ('10', '18', '5', '2017-11-30 21:26:45', '0');
-INSERT INTO `t_user_role` VALUES ('11', '19', '3', '2017-11-30 21:27:47', '0');
-INSERT INTO `t_user_role` VALUES ('12', '20', '5', '2017-12-14 14:57:49', '0');
-INSERT INTO `t_user_role` VALUES ('13', '21', '2', '2017-12-14 14:58:29', '0');
+INSERT INTO `t_user_role` VALUES ('19', '27', '7', '2018-01-17 21:37:11', '0');
+INSERT INTO `t_user_role` VALUES ('20', '28', '8', '2018-01-17 21:37:45', '0');
+INSERT INTO `t_user_role` VALUES ('21', '29', '3', '2018-01-17 21:39:36', '0');
+INSERT INTO `t_user_role` VALUES ('22', '30', '6', '2018-02-06 20:00:14', '0');
+
+-- ----------------------------
+-- Table structure for t_verifcode
+-- ----------------------------
+DROP TABLE IF EXISTS `t_verifcode`;
+CREATE TABLE `t_verifcode` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `mobile` varchar(20) NOT NULL COMMENT '手机号',
+  `code` varchar(6) NOT NULL COMMENT '验证码',
+  `msg` varchar(200) DEFAULT NULL COMMENT '内容',
+  `addtime` datetime NOT NULL COMMENT '添加时间',
+  `status` int(11) DEFAULT '0' COMMENT '短信状态',
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_verifcode
+-- ----------------------------
+INSERT INTO `t_verifcode` VALUES ('37', '15679760320', '141560', '【瑞蓝酒店】找回密码，你的验证码是：141560', '2018-01-05 20:40:28', '1', '2018-01-05 20:35:28');

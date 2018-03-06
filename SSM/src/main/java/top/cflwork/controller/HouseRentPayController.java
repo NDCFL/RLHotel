@@ -50,18 +50,19 @@ public class HouseRentPayController  {
         pagingBean.setrows(houseRentPayService.listPage(pageQuery));
         return pagingBean;
     }
-    @RequestMapping("chaoqiPayList")
+    @RequestMapping("chaoqiPayList/{temp}")
     @ResponseBody
-    public PagingBean chaoqiPayList(int pageSize, int pageIndex, HttpSession session) throws  Exception{
+    public PagingBean chaoqiPayList(@PathVariable("temp") Integer temp,int pageSize, int pageIndex, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
         PagingBean pagingBean = new PagingBean();
         PageQuery pageQuery = new PageQuery();
         pageQuery.setCompanyId(userVo.getCompanyId());
-        pagingBean.setTotal(houseRentPayService.chaoqicount(pageQuery));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
         pageQuery.setPageNo(pagingBean.getStartIndex());
         pageQuery.setPageSize(pagingBean.getPageSize());
+        pageQuery.setTemp(temp);
+        pagingBean.setTotal(houseRentPayService.chaoqicount(pageQuery));
         pagingBean.setrows(houseRentPayService.chaoqilistPage(pageQuery));
         return pagingBean;
     }
@@ -171,10 +172,19 @@ public class HouseRentPayController  {
     @RequestMapping("/hotelInfo")
     @ResponseBody
     public HouseRentVo hotelInfo(Long hotelId){
+        HouseRentVo houseRentVo = new HouseRentVo();
         if(hotelId==null){
-            return houseRentPayService.notHotelId();
+            houseRentVo = houseRentPayService.notHotelId();
+            if(houseRentVo==null){
+                houseRentVo = new HouseRentVo();
+            }
+            return houseRentVo;
         }else{
-            return  houseRentPayService.haveHotelId(hotelId);
+            houseRentVo = houseRentPayService.haveHotelId(hotelId);
+            if(houseRentVo==null){
+                houseRentVo = new HouseRentVo();
+            }
+            return houseRentVo;
         }
 
     }

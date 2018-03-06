@@ -120,38 +120,38 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-xs-2" id="cq" onclick="chaoqi();">
+                <div class="col-xs-2" id="cq" onclick="chaoqi(0);">
                     <small class="stats-label"><h4>超期未付</h4></small>
                     <h2 id="chaoqiPayMoney"></h2>
                     <hr/>
                     <small class="stats-label">已超期未支付租金总额</small>
                 </div>
 
-                <div class="col-xs-2">
+                <div class="col-xs-2" onclick="chaoqi(1);">
                     <small class="stats-label"><h4>近五日待付</h4></small>
                     <h2 id="fiveDayPayMoney"></h2>
                     <hr/>
                     <small class="stats-label">近五日急付租金总额</small>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-2" onclick="chaoqi(2);">
                     <small class="stats-label"><h4>本月应付</h4></small>
                     <h2 id="thisMonthPayMoney"></h2>
                     <hr/>
                     <small class="stats-label">本月应付租金总额</small>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-2" onclick="chaoqi(3);">
                     <small class="stats-label"><h4>本月已付租金总额</h4></small>
                     <h2 id="thisMonthPayAll"></h2>
                     <hr/>
                     <small class="stats-label">本月已付租金总额</small>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-2" onclick="chaoqi(4);">
                     <small class="stats-label"><h4>本月待付</h4></small>
                     <h2 id="thisMonthNotPay"></h2>
                     <hr/>
                     <small class="stats-label">本月待付租金总额</small>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-2"  onclick="chaoqi(5);">
                     <small class="stats-label"><h4>次月应付</h4></small>
                     <h2 id="nextMonthPay"></h2>
                     <hr/>
@@ -270,7 +270,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title">
-                    收支账目备注详情
+                    房源备注
                 </h4>
             </div>
             <div class="modal-body" id="remarks">
@@ -323,7 +323,7 @@
                         &times;
                     </button>
                     <h4 class="modal-title" id="webAddTitle">
-                        新增房租
+                        新增房租<span style="color:red;">本合约为多年期合约，系统已为你自动打包成多分整年合约，并依次执行</span>
                     </h4>
                 </div>
                 <form class="form-horizontal" method="post" id="formadd">

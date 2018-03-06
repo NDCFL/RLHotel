@@ -18,6 +18,7 @@ public class HouseRentVo implements Serializable {
     private Double thisMonthPayAll=0.0;//本月已付租金总额
     private Double thisMonthNotPay=0.0;//本月待付
     private Double nextMonthPay=0.0;//次月应付
+    private Integer code;
 
     public Integer getHouseTotal() {
         return houseTotal;
@@ -105,5 +106,31 @@ public class HouseRentVo implements Serializable {
 
     public void setNextMonthPay(Double nextMonthPay) {
         this.nextMonthPay = nextMonthPay;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "HouseRentVo{" +
+                "houseTotal=" + houseTotal +
+                ", dfPayMoney=" + dfPayMoney +
+                ", monthPayMoney=" + monthPayMoney +
+                ", houseMonthPayMoney=" + houseMonthPayMoney +
+                ", houseDayPayMoney=" + houseDayPayMoney +
+                ", chaoqiPayMoney=" + chaoqiPayMoney +
+                ", fiveDayPayMoney=" + fiveDayPayMoney +
+                ", thisMonthPayMoney=" + thisMonthPayMoney +
+                ", thisMonthPayAll=" + thisMonthPayAll +
+                ", thisMonthNotPay=" + thisMonthNotPay +
+                ", nextMonthPay=" + nextMonthPay +
+                ", code=" + code +
+                '}';
     }
 }

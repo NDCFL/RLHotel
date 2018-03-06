@@ -75,7 +75,6 @@
 	<update id="update">
 		update t_user set
 			email = #{email},
-			account_name = #{accountName},
 			nickname = #{nickname},
 			identity = #{identity},
 			realname = #{realname},

@@ -19,6 +19,7 @@ public class PageQuery {
     private Long houseId;
     private Integer type;
     private String dateVal;
+    private Integer temp;
 
     public PageQuery() {
     }
@@ -119,5 +120,13 @@ public class PageQuery {
 
     public void setDateVal(String dateVal) {
         this.dateVal = dateVal;
+    }
+
+    public Integer getTemp() {
+        return temp;
+    }
+
+    public void setTemp(Integer temp) {
+        this.temp = temp;
     }
 }
