@@ -261,6 +261,27 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            <span class="nav-label">商会管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/businessMan/businessManPage">商会管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/hotelType/hotelTypePage">商会房型管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/priceItem/priceItemPage">商会报价管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/char/charPage">商会论坛管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">权限管理 </span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>

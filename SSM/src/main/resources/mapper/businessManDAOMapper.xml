@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cflwork.dao.BusinessManDAO">
+    <resultMap id="businessManMap" type="top.cflwork.vo.BusinessManVo"></resultMap>
+        <resultMap id="select2VoMap" type="top.cflwork.vo.Select2Vo"></resultMap>
+    <select id="getById" resultMap="businessManMap" parameterType="long">
+        select * from t_businessman where id = #{id}
+    </select>
+    <delete id="removeById" parameterType="long">
+        delete from t_businessman where id = #{id}
+    </delete>
+    <select id="listPage" resultMap="businessManMap">
+        select * from t_businessman  order by create_time desc limit #{pageNo},#{pageSize}
+    </select>
+    <select id="listAll" resultMap="businessManMap">
+        select * from t_businessman
+    </select>
+    <select id="count" resultType="java.lang.Long">
+        select count(*) from t_businessman
+    </select>
+    <select id="businessManList" resultMap="select2VoMap">
+        select id,hotel_sin_name as text from t_businessman where is_active=0
+    </select>
+    <select id="getByOpenid" resultMap="businessManMap">
+      select count(id) from t_businessman where wxopenid=#{openId}
+    </select>
+    <insert id="save" parameterType="businessManVo">
+        insert into t_businessman (name, phone, tel, nickname, hotel_sin_name, hotel_name, wxopenid, remark, is_active,type ) values ( #{name}, #{phone}, #{tel}, #{nickname}, #{hotelSinName}, #{hotelName}, #{wxopenid}, #{remark}, #{isActive},#{type} )
+    </insert>
+    <update id="updateStatus">
+        update t_businessman set is_active=#{status} where id=#{id}
+    </update>
+    <update id="updateType">
+        update t_businessman set type=#{status} where id=#{id}
+    </update>
+    <update id="update">
+        update t_businessman set
+                name = #{name},
+                phone = #{phone},
+                tel = #{tel},
+                nickname = #{nickname},
+                hotel_sin_name = #{hotelSinName},
+                remark = #{remark}
+        where id = #{id}
+    </update>
+</mapper>

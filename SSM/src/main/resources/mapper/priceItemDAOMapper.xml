@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cflwork.dao.PriceItemDAO">
+    <resultMap id="priceItemMap" type="top.cflwork.vo.PriceItemVo">
+        <id column="id" property="id"></id>
+        <result column="businessman_id" property="businessManId"></result>
+        <result column="hotel_type_id" property="hotelTypeId"></result>
+        <result column="price" property="price"></result>
+        <result column="number" property="number"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="is_active" property="isActive"></result>
+        <association property="businessManVo" javaType="top.cflwork.vo.BusinessManVo">
+            <result column="hotel_sin_name" property="hotelSinName"></result>
+        </association>
+        <association property="hotelTypeVo" javaType="top.cflwork.vo.HotelTypeVo">
+            <result column="title" property="title"></result>
+        </association>
+    </resultMap>
+    <select id="getById" resultMap="priceItemMap" parameterType="long">
+        select t.*,b.hotel_sin_name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and t.id = #{id}
+    </select>
+    <delete id="removeById" parameterType="long">
+        delete from t_price_item where id = #{id}
+    </delete>
+    <select id="listPage" resultMap="priceItemMap">
+        select t.*,b.hotel_sin_name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id order by t.create_time desc limit #{pageNo},#{pageSize}
+    </select>
+    <select id="listAll" resultMap="priceItemMap">
+        select * from t_price_item
+    </select>
+    <select id="count" resultType="java.lang.Long">
+        select count(*) from t_price_item
+    </select>
+    <insert id="save" parameterType="priceItemVo">
+        insert into t_price_item (businessman_id, hotel_type_id, price, number,is_active) values (#{businessManId}, #{hotelTypeId},#{price}, #{number},#{isActive})
+    </insert>
+    <update id="updateStatus">
+        update t_price_item set is_active=#{status} where id=#{id}
+    </update>
+    <update id="update">
+        update t_price_item set
+        businessman_id=#{businessManId},
+        hotel_type_id=#{hotelTypeId},
+        price = #{price},
+        number = #{number}
+        where id = #{id}
+    </update>
+</mapper>

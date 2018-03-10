@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cflwork.dao.CharDAO">
+    <resultMap id="charMap" type="top.cflwork.vo.CharVo">
+        <id column="id" property="id"></id>
+        <result column="content" property="content"></result>
+        <result column="is_active" property="isActive"></result>
+        <result column="create_time" property="createTime"></result>
+        <association property="businessManVo" javaType="top.cflwork.vo.BusinessManVo">
+            <result column="hotel_sin_name" property="hotelSinName"></result>
+        </association>
+    </resultMap>
+    <select id="getById" resultMap="charMap" parameterType="long">
+        select t.*,b.hotel_sin_name from t_char t ,t_businessman b where t.businessman_id=b.id and t.id = #{id}
+    </select>
+    <delete id="removeById" parameterType="long">
+        delete from t_char where id = #{id}
+    </delete>
+    <select id="listPage" resultMap="charMap">
+        select t.*,b.hotel_sin_name from t_char t ,t_businessman b where t.businessman_id=b.id order by t.create_time desc limit #{pageNo},#{pageSize}
+    </select>
+    <select id="listAll" resultMap="charMap">
+        select * from t_char
+    </select>
+    <select id="count" resultType="java.lang.Long">
+        select count(t.id) from t_char t ,t_businessman b where t.businessman_id=b.id
+    </select>
+    <insert id="save" parameterType="charVo">
+        insert into t_char (businessman_id, content, is_active) values ( #{businessManId}, #{content}, #{isActive})
+    </insert>
+    <update id="updateStatus">
+        update t_char set is_active=#{status} where id=#{id}
+    </update>
+    <update id="update">
+        update t_char set
+                content = #{content}
+        where id = #{id}
+    </update>
+</mapper>
