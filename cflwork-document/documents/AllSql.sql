@@ -615,3 +615,11 @@ from t_cash_accounts where company_id=1 and hotel_id!=-1  GROUP BY company_id;
 <==        Row: 3, 1, 2, 7, 1, 2017-12-05 21:30:56.0, 2018-02-01 18:47:34.0, 700.00, 2, 被套支出, 账单无误, 2017-12-05 21:33:25.0, 0, 1, 1, 审核通过, 7, 30, 3, 15679760321, 15679760321, 青岛瑞蓝铂悦酒店管理有限公司, 被套, 银联
 <==        Row: 1, 1, 2, 7, 0, 2017-12-03 22:56:17.0, 2018-02-01 18:47:34.0, 500.00, 1, 采购牙刷, 采购牙刷, 2017-12-03 22:56:56.0, 0, 1, 1, 审核通过, 7, 30, 1, 15679760321, 15679760321, 青岛瑞蓝铂悦酒店管理有限公司, 牙刷, 支付宝
 <==      Total: 4
+
+create database bag;
+(select * from t_rent_pay where   year(facted_pay_time_end)=year(now()) and facted_pay_time_start BETWEEN NOW() and date_add(NOW(),interval 5 day) or date_add(NOW(),interval 5 day)>facted_pay_time_start and is_active=0)
+(select IfNULL(sum(ceil(datediff(now(),facted_pay_time_start)/30/pay_time)*first_pay),0.0) from t_rent_pay where  year(fact_pay_time_start)=year(now()) and NOW()>facted_pay_time_start and is_active=0)
+select id,ceil(datediff(now(),facted_pay_time_start)/30) from t_rent_pay where year(fact_pay_time_start)=year(now())
+
+select datediff(now(),facted_pay_time_start) from t_rent_pay
+

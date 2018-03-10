@@ -305,23 +305,22 @@ function fukuan(id,money,shengyuqishu,sumqishu,thisTime,payType){
     nowTime = new Date().getTime();
     var times = new Array();
     for(var j=1;j<=parseInt(sumqishu);j++){
-        times.push(getDate(d));
+        times.push(getdate(d));
         d.setMonth(d.getMonth()+payType);
     }
     var cnt = parseInt(times.length);
     for(var i=1;i<=cnt;i++){
-        console.log(i+"---"+getDate(times[i]));
         if(yijingfukuan-i>=0){
-            if(new Date(times[i-1]).getTime()<=nowTime && new Date(times[i]).getTime()>=nowTime){
-                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">本期房租</button></div>';
+            if(getYear(times[i-1])==getYear(nowTime) && getMonth(times[i-1])==getMonth(nowTime)){
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray;letter-spacing:4px">本期房租</button></div>';
             }else{
-                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">'+getDate(times[i-1])+'</button></div>';
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-danger disabled" style="background-color: dimgray">'+getdate(times[i-1])+'</button></div>';
             }
         }else {
-            if(new Date(times[i-1]).getTime()<=nowTime && new Date(times[i]).getTime()>=nowTime){
-                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">本期房租</button></div>';
+            if(getYear(times[i-1])==getYear(nowTime) && getMonth(times[i-1])==getMonth(nowTime)){
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button" style="letter-spacing:4px">本期房租</button></div>';
             }else{
-                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">'+getDate(times[i-1])+'</button></div>';
+                htmls = htmls+'<div class="col-sm-2"><button type="button" id="qishu'+i+'" class="btn btn-success button">'+getdate(times[i-1])+'</button></div>';
             }
         }
         if(i%6==0){
@@ -473,10 +472,10 @@ function refush() {
     getInfos();
     getHotelInfo();
 }
-function chaoqi() {
+function chaoqi(temp) {
     $('#mytab').bootstrapTable('refresh',
         {
-            url: '/houseRentPay/chaoqiPayList'
+            url: '/houseRentPay/chaoqiPayList/'+temp
         });
 }
 
@@ -660,12 +659,22 @@ $("#updateSta").click(function () {
 });
 
 function getdate(value) {
-    var date = new Date(parseInt(value));
+    var date = new Date(value);
     var y = date.getFullYear();
     var m = date.getMonth() + 1;
     var d = date.getDate();
     var h = date.getHours();
     var mi = date.getMinutes();
     var ss = date.getSeconds();
-    return y + '-' + m + '-' + d ;
+    return y + '-' + (parseInt(m)<10?"0"+m:m) + '-' + (parseInt(d)<10?"0"+d:d) ;
+}
+function getMonth(value) {
+    var date = new Date(value);
+    var m = date.getMonth() + 1;
+    return m;
+}
+function getYear(value) {
+    var date = new Date(value);
+    var y = date.getFullYear();
+    return y;
 }
