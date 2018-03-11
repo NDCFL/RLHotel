@@ -31,6 +31,17 @@
     <select id="count" resultType="java.lang.Long">
         select count(*) from t_price_item
     </select>
+    <sql id="find">
+        <if test="priceItemVo.createTime!=null"> and t.create_time BETWEEN #{priceItemVo.createTime} AND #{priceItemVo.endTime}</if>
+        <if test="priceItemVo.businessManId!=null"> and t.businessman_id=#{priceItemVo.businessManId}</if>
+        <if test="priceItemVo.hotelTypeId!=null"> and t.hotel_type_id=#{priceItemVo.hotelTypeId}</if>
+    </sql>
+    <select id="findPriceItemList" resultMap="priceItemMap">
+        select t.*,b.hotel_sin_name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id <include refid="find"></include> order by t.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+    </select>
+    <select id="findPriceItemByCount" resultType="java.lang.Long">
+        select count(t.id) from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id  <include refid="find"></include>
+    </select>
     <insert id="save" parameterType="priceItemVo">
         insert into t_price_item (businessman_id, hotel_type_id, price, number,is_active) values (#{businessManId}, #{hotelTypeId},#{price}, #{number},#{isActive})
     </insert>

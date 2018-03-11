@@ -28,15 +28,36 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <table id="mytab" name="mytab" class="table table-hover"></table>
-                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
-                        </button>
-                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                        </button>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control"   name="createTime" id="test_2"/>
                     </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">商会名称</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required  id="businessManId_" name="businessManId">
+                            <option value="">全部</option>
+
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">房型名称</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required  id="hotelTypeId_" name="hotelTypeId">
+                            <option value="">全部</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;margin: auto" >
+                        <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
+                    </div>
+                </div>
+                <table id="mytab" name="mytab" class="table table-hover"></table>
+                <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+                    <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
+                    </button>
+                    <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                    </button>
                 </div>
             </div>
         </div>
@@ -187,8 +208,19 @@
 </div>
 <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
+<script src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
 <script src="<%=path%>/static/js/pageJs/priceItem.js"></script>
 </body>
+<script>
+
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+
+</script>
+
 <%--<script>--%>
     <%--$(function () {--%>
         <%--alert("asdflsfa");--%>
@@ -213,8 +245,12 @@
                 $("#businessMan_Id").select2({
                     data: data
                 })
+                $("#businessManId_").select2({
+                    data: data
+                })
                 $("#select2-businessManId-container").remove();
                 $("#select2-businessMan_Id-container").remove();
+                $("#select2-businessManId_-container").remove();
             },
             "json"
         );
@@ -227,8 +263,12 @@
                 $("#hotelType_Id").select2({
                     data: data
                 })
+                $("#hotelTypeId_").select2({
+                    data: data
+                })
                 $("#select2-hotelTypeId-container").remove();
                 $("#select2-hotelType_Id-container").remove();
+                $("#select2-hotelTypeId_-container").remove();
             },
             "json"
         );

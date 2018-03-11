@@ -25,6 +25,16 @@
     <select id="count" resultType="java.lang.Long">
         select count(t.id) from t_char t ,t_businessman b where t.businessman_id=b.id
     </select>
+    <sql id="find">
+        <if test="charVo.createTime!=null"> and t.create_time BETWEEN #{charVo.createTime} AND #{charVo.endTime}</if>
+        <if test="charVo.businessManId!=null"> and t.businessman_id=#{charVo.businessManId}</if>
+    </sql>
+    <select id="findCharList" resultMap="charMap">
+        select t.*,b.hotel_sin_name from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include> order by t.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+    </select>
+    <select id="findCharByCount" resultType="java.lang.Long">
+        select count(t.id) from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include>
+    </select>
     <insert id="save" parameterType="charVo">
         insert into t_char (businessman_id, content, is_active) values ( #{businessManId}, #{content}, #{isActive})
     </insert>

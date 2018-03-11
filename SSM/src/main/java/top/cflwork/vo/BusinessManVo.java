@@ -15,7 +15,7 @@ public class BusinessManVo implements Serializable {
     private String remark;//'酒店的签名',
     private Integer type;
     private Byte isActive;//'酒店状态',
-
+    private Date endTime;
     private Date createTime;//'酒店创建时间'
 
     public Long getId() {
@@ -112,5 +112,13 @@ public class BusinessManVo implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

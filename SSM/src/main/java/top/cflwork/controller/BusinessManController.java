@@ -45,6 +45,30 @@ public class BusinessManController {
         pagingBean.setrows(businessManService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
+    @RequestMapping("findBusinessManList")
+    @ResponseBody
+    public PagingBean findBusinessManList(int pageSize, int pageIndex, String searchVal, HttpSession session,BusinessManVo businessManVo) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setPageSize(pageSize);
+            pagingBean.setCurrentPage(pageIndex);
+            //赋值给pagequery对象
+            PageQuery pageQuery = new PageQuery();
+            pageQuery.setHotelId(-1l);
+            pageQuery.setCompanyId(userVo.getCompanyId());
+            pageQuery.setSearchVal(searchVal);
+            pageQuery.setPageSize(pagingBean.getPageSize());
+            pageQuery.setPageNo(pagingBean.getStartIndex());
+            pagingBean.setTotal(businessManService.findBusinessByCount(pageQuery,businessManVo));
+            pagingBean.setrows(businessManService.findBusinessManList(pageQuery,businessManVo));
+            return pagingBean;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+
     @RequestMapping("/businessManAddSave")
     @ResponseBody
     public Message addSavebusinessMan(BusinessManVo businessMan,HttpSession session) throws  Exception {

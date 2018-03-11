@@ -43,6 +43,29 @@ public class CharController {
         pagingBean.setrows(charService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
+    @RequestMapping("findCharList")
+    @ResponseBody
+    public PagingBean findCharList(int pageSize, int pageIndex, String searchVal, HttpSession session,CharVo charVo) throws  Exception{
+        try{
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            PagingBean pagingBean = new PagingBean();
+            pagingBean.setPageSize(pageSize);
+            pagingBean.setCurrentPage(pageIndex);
+            //赋值给pagequery对象
+            PageQuery pageQuery = new PageQuery();
+            pageQuery.setHotelId(-1l);
+            pageQuery.setCompanyId(userVo.getCompanyId());
+            pageQuery.setSearchVal(searchVal);
+            pageQuery.setPageSize(pagingBean.getPageSize());
+            pageQuery.setPageNo(pagingBean.getStartIndex());
+            pagingBean.setTotal(charService.findCharByCount(pageQuery,charVo));
+            pagingBean.setrows(charService.findCharList(pageQuery,charVo));
+            return pagingBean;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
     @RequestMapping("/charAddSave")
     @ResponseBody
     public Message addSavechar(CharVo chars,HttpSession session) throws  Exception {

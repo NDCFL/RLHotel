@@ -58,4 +58,14 @@ public class PriceItemServiceImpl implements PriceItemService {
     public long count(PageQuery pageQuery) {
         return priceItemDAO.count(pageQuery);
     }
+
+    @Override
+    public List<PriceItemVo> findPriceItemList(PageQuery pageQuery, PriceItemVo priceItemVo) {
+        return priceItemDAO.findPriceItemList(pageQuery, priceItemVo);
+    }
+
+    @Override
+    public long findPriceItemByCount(PageQuery pageQuery, PriceItemVo priceItemVo) {
+        return priceItemDAO.findPriceItemByCount(pageQuery, priceItemVo);
+    }
 }

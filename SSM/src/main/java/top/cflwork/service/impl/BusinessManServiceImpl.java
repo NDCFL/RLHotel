@@ -68,4 +68,14 @@ public class BusinessManServiceImpl implements BusinessManService {
     public void updateType(StatusQuery statusQuery) {
         businessManDAO.updateType(statusQuery);
     }
+
+    @Override
+    public List<BusinessManVo> findBusinessManList(PageQuery pageQuery, BusinessManVo businessManVo) {
+        return businessManDAO.findBusinessManList(pageQuery, businessManVo);
+    }
+
+    @Override
+    public long findBusinessByCount(PageQuery pageQuery, BusinessManVo businessManVo) {
+        return businessManDAO.findBusinessByCount(pageQuery, businessManVo);
+    }
 }

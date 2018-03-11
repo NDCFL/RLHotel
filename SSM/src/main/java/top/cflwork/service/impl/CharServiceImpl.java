@@ -58,4 +58,14 @@ public class CharServiceImpl implements CharService {
     public long count(PageQuery pageQuery) {
         return charDAO.count(pageQuery);
     }
+
+    @Override
+    public List<CharVo> findCharList(PageQuery pageQuery, CharVo charVo) {
+        return charDAO.findCharList(pageQuery, charVo);
+    }
+
+    @Override
+    public long findCharByCount(PageQuery pageQuery, CharVo charVo) {
+        return charDAO.findCharByCount(pageQuery, charVo);
+    }
 }

@@ -11,6 +11,7 @@ public class PriceItemVo implements Serializable {
     private Integer number;
     private Byte isActive;
     private Date createTime;
+    private Date endTime;
     private BusinessManVo businessManVo;
     private HotelTypeVo hotelTypeVo;
 
@@ -84,5 +85,13 @@ public class PriceItemVo implements Serializable {
 
     public void setIsActive(Byte isActive) {
         this.isActive = isActive;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

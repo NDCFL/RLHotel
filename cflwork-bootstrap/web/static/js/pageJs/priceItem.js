@@ -212,10 +212,46 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/priceItem/priceItemList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {url: '/priceItem/findPriceItemList',
+        query:{
+            createTime:start,
+            endTime:end,
+            businessManId:$("#businessManId_").val(),
+            hotelTypeId:$("#hotelTypeId_").val()
+
+
+        }
+    });
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/priceItem/priceItemList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {url: '/priceItem/findPriceItemList',
+        query:{
+            createTime:start,
+            endTime:end,
+            businessManId:$("#businessManId_").val(),
+            hotelTypeId:$("#hotelTypeId_").val()
+
+
+        }
+    });
 }
 $("#update").click(function () {
     var price = $("#prices").val();

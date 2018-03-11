@@ -24,6 +24,24 @@
     <select id="getByOpenid" resultMap="businessManMap">
       select count(id) from t_businessman where wxopenid=#{openId}
     </select>
+    <sql id="find">
+        <if test="businessManVo.createTime!=null"> and create_time BETWEEN #{businessManVo.createTime} AND #{businessManVo.endTime}</if>
+        <if test="businessManVo.name!=null"> and name like concat('%${businessManVo.name}%')</if>
+        <if test="businessManVo.phone!=null"> and phone like concat('%${businessManVo.phone}%')</if>
+        <if test="businessManVo.tel!=null"> and tel  like concat('%${businessManVo.tel}%')</if>
+        <if test="businessManVo.nickname!=null"> and nickname like concat('%${businessManVo.nickname}%')</if>
+        <if test="businessManVo.hotelSinName!=null"> and hotel_sin_name like concat('%${businessManVo.hotelSinName}%')</if>
+        <if test="businessManVo.hotelName!=null"> and hotel_name  like concat('%${businessManVo.hotelName}%')</if>
+        <if test="businessManVo.remark!=null"> and remark  like concat('%${businessManVo.remark}%')</if>
+        <if test="businessManVo.isActive!=null"> and is_active=#{businessManVo.isActive}</if>
+        <if test="businessManVo.type!=null"> and `type`=#{businessManVo.type}</if>
+    </sql>
+    <select id="findBusinessManList" resultMap="businessManMap">
+        select * from t_businessman where 1=1 <include refid="find"></include> order by create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+    </select>
+    <select id="findBusinessByCount" resultType="java.lang.Long">
+        select count(id) from t_businessman where 1=1  <include refid="find"></include>
+    </select>
     <insert id="save" parameterType="businessManVo">
         insert into t_businessman (name, phone, tel, nickname, hotel_sin_name, hotel_name, wxopenid, remark, is_active,type ) values ( #{name}, #{phone}, #{tel}, #{nickname}, #{hotelSinName}, #{hotelName}, #{wxopenid}, #{remark}, #{isActive},#{type} )
     </insert>

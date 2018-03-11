@@ -622,4 +622,4 @@ create database bag;
 select id,ceil(datediff(now(),facted_pay_time_start)/30) from t_rent_pay where year(fact_pay_time_start)=year(now())
 
 select datediff(now(),facted_pay_time_start) from t_rent_pay
-
+create database bag;

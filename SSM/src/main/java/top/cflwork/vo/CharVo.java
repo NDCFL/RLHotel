@@ -9,6 +9,7 @@ public class CharVo implements Serializable {
     private String content;
     private Byte isActive;
     private Date createTime;
+    private Date endTime;
     private BusinessManVo businessManVo;
 
     public Long getId() {
@@ -57,5 +58,13 @@ public class CharVo implements Serializable {
 
     public void setBusinessManVo(BusinessManVo businessManVo) {
         this.businessManVo = businessManVo;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

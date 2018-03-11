@@ -274,10 +274,60 @@ function updateType(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/businessMan/businessManList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/businessMan/findBusinessManList',
+        query:{
+            createTime:start,
+            endTime:end,
+            name:$("#name_").val(),
+            phone:$("#phone_").val(),
+            tel:$("#tel_").val(),
+            hotelSinName:$("#hotelSinName_").val(),
+            hotelName:$("#hotelName_").val(),
+            remark:$("#remark_").val(),
+            isActive:$("#isActive_").val(),
+            type:$("#type_").val()
+
+        }
+
+    });
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/businessMan/businessManList'});
+    var times = $("#test_2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }else {
+        start = times.substring(0,11)+"00:00:00";
+        end = times.substring(13,times.length)+" 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/businessMan/findBusinessManList',
+        query:{
+            createTime:start,
+            endTime:end,
+            name:$("#name_").val(),
+            phone:$("#phone_").val(),
+            tel:$("#tel_").val(),
+            hotelSinName:$("#hotelSinName_").val(),
+            hotelName:$("#hotelName_").val(),
+            remark:$("#remark_").val(),
+            isActive:$("#isActive_").val(),
+            type:$("#type_").val()
+
+        }
+
+    });
 }
 $("#update").click(function () {
     var tel = $("#tels").val();

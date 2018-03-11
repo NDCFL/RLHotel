@@ -28,15 +28,66 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <table id="mytab" name="mytab" class="table table-hover"></table>
-                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
-                        </button>
-                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                        </button>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control"   name="createTime" id="test_2"/>
                     </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">姓名</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" class="form-control" name="name" id="name_"/>
+                    </div>
+                    <label class="col-sm-1 control-label"  style=" margin-top:5px;">联系方式</label>
+                    <div class="col-sm-2" >
+                        <input type="number" class="form-control" name="phone" id="phone_"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">酒店热线</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" name="tel" id="tel_"/>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style="margin-top:5px" >酒店简称</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" id="hotelSinName_" style=""  class="form-control"  name="hotelSinName"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style="margin-top: 5px">酒店全称</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" id="hotelName_" style=""  class="form-control"  name="hotelName"/>
+                    </div>
+                    <label class="col-sm-1 control-label"  style="margin-top:5px" >酒店签名</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" id="remark_"  name="remark" style=""  class="form-control"/>
+                    </div>
+                    <label class="col-sm-1 control-label"  style="margin-top:5px" >状态</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required  id="isActive_" name="isActive">
+                            <option value="">全部</option>
+                            <option value="0">启用</option>
+                            <option value="1">禁用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">类型</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required  id="type_" name="type">
+                            <option value="">全部</option>
+                            <option value="0">普通用户</option>
+                            <option value="1">商会成员</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;margin: auto" >
+                        <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
+                    </div>
+                </div>
+                <table id="mytab" name="mytab" class="table table-hover"></table>
+                <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+                    <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
+                    </button>
+                    <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                    </button>
                 </div>
             </div>
         </div>
@@ -241,8 +292,37 @@
 
     <%--网站信息的修改--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
+<script src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
 <script src="<%=path%>/static/js/pageJs/busincessMan.js"></script>
 </body>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#test1' //指定元素
+        ,type: 'datetime'
+    });
+    laydate.render({
+        elem: '#test2_'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test2' //指定元素
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+    laydate.render({
+        elem: '#test21'
+    });
+    laydate.render({
+        elem: '#zhouqi_'
+    });
+</script>
 <%--<script>--%>
     <%--$(function () {--%>
         <%--alert("asdflsfa");--%>
