@@ -1,7 +1,5 @@
 package top.cflwork.common;
 
-import com.sun.net.httpserver.Authenticator;
-
 /**
  * Created by Administrator on 2017/9/8.
  */
@@ -45,6 +43,6 @@ public class Message {
 
     public static  Message fail(String message){
 
-        return new Message(SUCCESS,message);
+        return new Message(FAIL,message);
     }
 }

@@ -12,6 +12,7 @@ public class Verifcode implements Serializable{
     private int status=0;//0 未验证
     private Date createTime = new Date();
     private String codeType;
+    private String password;
     public Long getId() {
         return id;
     }
@@ -74,6 +75,14 @@ public class Verifcode implements Serializable{
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

@@ -36,11 +36,15 @@ public class CharController {
     @ResponseBody
     public PagingBean charList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
         UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PageQuery pageQuery = new PageQuery();
         PagingBean pagingBean = new PagingBean();
-        pagingBean.setTotal(charService.count(new PageQuery(searchVal,userVo.getCompanyId())));
         pagingBean.setPageSize(pageSize);
         pagingBean.setCurrentPage(pageIndex);
-        pagingBean.setrows(charService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
+        pageQuery.setSearchVal(searchVal);
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pagingBean.setTotal(charService.count(pageQuery));
+        pagingBean.setrows(charService.listPage(pageQuery));
         return pagingBean;
     }
     @RequestMapping("findCharList")

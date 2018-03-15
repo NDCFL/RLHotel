@@ -78,4 +78,24 @@ public class BusinessManServiceImpl implements BusinessManService {
     public long findBusinessByCount(PageQuery pageQuery, BusinessManVo businessManVo) {
         return businessManDAO.findBusinessByCount(pageQuery, businessManVo);
     }
+
+    @Override
+    public BusinessManVo getByAccountPassword(String phone, String password) {
+        return businessManDAO.getByAccountPassword(phone, password);
+    }
+
+    @Override
+    public Integer checkPhone(String phone) {
+        return businessManDAO.checkPhone(phone);
+    }
+
+    @Override
+    public void updatePwd(String phone, String password) {
+        businessManDAO.updatePwd(phone, password);
+    }
+
+    @Override
+    public void updateFaceImg(Long id, String url) {
+        businessManDAO.updateFaceImg(id, url);
+    }
 }

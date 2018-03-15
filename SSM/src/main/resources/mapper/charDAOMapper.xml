@@ -8,16 +8,17 @@
         <result column="create_time" property="createTime"></result>
         <association property="businessManVo" javaType="top.cflwork.vo.BusinessManVo">
             <result column="hotel_sin_name" property="hotelSinName"></result>
+            <result column="face_img" property="faceImg"></result>
         </association>
     </resultMap>
     <select id="getById" resultMap="charMap" parameterType="long">
-        select t.*,b.hotel_sin_name from t_char t ,t_businessman b where t.businessman_id=b.id and t.id = #{id}
+        select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id and t.id = #{id}
     </select>
     <delete id="removeById" parameterType="long">
         delete from t_char where id = #{id}
     </delete>
     <select id="listPage" resultMap="charMap">
-        select t.*,b.hotel_sin_name from t_char t ,t_businessman b where t.businessman_id=b.id order by t.create_time desc limit #{pageNo},#{pageSize}
+        select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id order by t.create_time desc limit #{pageNo},#{pageSize}
     </select>
     <select id="listAll" resultMap="charMap">
         select * from t_char
@@ -30,7 +31,7 @@
         <if test="charVo.businessManId!=null"> and t.businessman_id=#{charVo.businessManId}</if>
     </sql>
     <select id="findCharList" resultMap="charMap">
-        select t.*,b.hotel_sin_name from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include> order by t.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+        select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include> order by t.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
     </select>
     <select id="findCharByCount" resultType="java.lang.Long">
         select count(t.id) from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include>

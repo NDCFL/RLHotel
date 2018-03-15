@@ -26,6 +26,16 @@ public class VerifcodeServiceImpl implements VerifcodeService {
     }
 
     @Override
+    public Verifcode getVerifcode(String mobile) {
+        return verifcodeDAO.getVerifcode(mobile);
+    }
+
+    @Override
+    public Integer cnt(String mobile) {
+        return verifcodeDAO.cnt(mobile);
+    }
+
+    @Override
     public void save(Verifcode verifcode) {
         verifcodeDAO.save(verifcode);
     }

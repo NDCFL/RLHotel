@@ -5,6 +5,12 @@
     <select id="queryByCode" parameterType="string" resultType="string">
         select code from t_verifcode  where  mobile = #{mobile} and addtime>=now() and status=0 order by  create_time limit 0,1
     </select>
+    <select id="getVerifcode" parameterType="string" resultMap="entityMap">
+        select * from t_verifcode  where  mobile = #{mobile} and addtime>=now() and status=0 order by  create_time limit 0,1
+    </select>
+    <select id="cnt" resultType="int" parameterType="string">
+      select count(id) from t_verifcode where mobile=#{mobile} and DATE_FORMAT(create_time, '%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d')
+    </select>
     <delete id="delete" parameterType="String">
         delete from t_verifcode where mobile = #{mobile}
     </delete>

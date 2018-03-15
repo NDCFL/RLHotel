@@ -8,10 +8,11 @@ import top.cflwork.common.Message;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.ContractMasterService;
 import top.cflwork.service.VerifcodeService;
+import top.cflwork.util.HttpClientUtil;
+import top.cflwork.util.MsgInfo;
 import top.cflwork.vo.Verifcode;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.Random;
 
 @Controller
@@ -33,6 +34,10 @@ public class VerifcodeController {
         try{
             //查询改手机号在有效期5分钟之内是否还有未使用的短信，如果有则返回code如果没有则返回-1
             String dbCode = verifcodeService.queryByCode(verifcode.getMobile());
+            Integer cnts = verifcodeService.cnt(verifcode.getMobile());
+            if(cnts>=10){
+                return Message.fail("今天操作过于频繁");
+            }
             if(dbCode==null || dbCode.equals("")){
                 //生成6位数的验证码
                 int code = new Random().nextInt(888888)+100000;
@@ -54,12 +59,28 @@ public class VerifcodeController {
                     }
                 }
                 verifcodeService.save(verifcode);
+                HttpClientUtil client = HttpClientUtil.getInstance();
+                //UTF发送
+                int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, verifcode.getMsg(), verifcode.getMobile());
+                if(result>0){
+                    return  Message.fail("短信发送成功!");
+                }else{
+                    return  Message.fail(client.getErrorMsg(result));
+                }
             }else{
                 //发送数据库原来就有的验证码dbcode
                 //模拟接收验证码
+                Verifcode verifcode1 = verifcodeService.getVerifcode(verifcode.getMobile());
                 System.out.println(dbCode+"====来自于数据库的验证码====>>>");
+                HttpClientUtil client = HttpClientUtil.getInstance();
+                //UTF发送
+                int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, verifcode1.getMsg(), verifcode1.getMobile());
+                if(result>0){
+                    return  Message.fail("短信发送成功!");
+                }else{
+                    return  Message.fail(client.getErrorMsg(result));
+                }
             }
-            return  Message.success("验证码发送成功!");
         }catch (Exception e){
             e.printStackTrace();
             return  Message.success("验证码发送失败!");

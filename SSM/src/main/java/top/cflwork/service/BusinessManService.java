@@ -1,6 +1,5 @@
 package top.cflwork.service;
 
-import org.apache.ibatis.annotations.Param;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.vo.BusinessManVo;
@@ -13,5 +12,8 @@ public interface BusinessManService extends BaseService<BusinessManVo>{
     void updateType(StatusQuery statusQuery);
     List<BusinessManVo> findBusinessManList(PageQuery pageQuery, BusinessManVo businessManVo);
     long findBusinessByCount(PageQuery pageQuery,BusinessManVo businessManVo);
-
+    BusinessManVo getByAccountPassword(String phone,String password);
+    Integer checkPhone(String phone);
+    void updatePwd(String phone,String password);
+    void updateFaceImg(Long id,String url);
 }

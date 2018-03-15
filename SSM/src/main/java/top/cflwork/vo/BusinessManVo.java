@@ -17,7 +17,8 @@ public class BusinessManVo implements Serializable {
     private Byte isActive;//'酒店状态',
     private Date endTime;
     private Date createTime;//'酒店创建时间'
-
+    private String password;//密码
+    private String faceImg;
     public Long getId() {
         return id;
     }
@@ -120,5 +121,21 @@ public class BusinessManVo implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFaceImg() {
+        return faceImg;
+    }
+
+    public void setFaceImg(String faceImg) {
+        this.faceImg = faceImg;
     }
 }

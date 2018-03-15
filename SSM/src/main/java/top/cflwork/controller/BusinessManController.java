@@ -1,6 +1,8 @@
 package top.cflwork.controller;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -8,22 +10,30 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import top.cflwork.common.Message;
 import top.cflwork.common.PagingBean;
 import top.cflwork.enums.ActiveStatusEnum;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.BusinessManService;
+import top.cflwork.service.VerifcodeService;
+import top.cflwork.util.HttpClientUtil;
+import top.cflwork.util.MsgInfo;
 import top.cflwork.vo.BusinessManVo;
 import top.cflwork.vo.Select2Vo;
 import top.cflwork.vo.UserVo;
+import top.cflwork.vo.Verifcode;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by chenfeilong on 2017/10/21.
@@ -34,6 +44,8 @@ public class BusinessManController {
 
     @Resource
     private BusinessManService businessManService;
+    @Resource
+    private VerifcodeService verifcodeService;
     @RequestMapping("businessManList")
     @ResponseBody
     public PagingBean businessManList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
@@ -74,6 +86,10 @@ public class BusinessManController {
     public Message addSavebusinessMan(BusinessManVo businessMan,HttpSession session) throws  Exception {
         try{
             UserVo userVo = (UserVo) session.getAttribute("userVo");
+            if(businessMan.getName()==null){
+                businessMan.setName(businessMan.getPhone());
+            }
+            businessMan.setPassword(new Md5Hash(businessMan.getPhone()).toString());
             businessMan.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
             businessMan.setType(ActiveStatusEnum.ACTIVE.getValue());
             businessManService.save(businessMan);
@@ -88,6 +104,21 @@ public class BusinessManController {
     public BusinessManVo findbusinessMan(@PathVariable("id") long id){
         BusinessManVo businessMan = businessManService.getById(id);
         return businessMan;
+    }
+    @RequestMapping("updateImg")
+    @ResponseBody
+    public Message upload(MultipartFile file, HttpServletRequest request,Long id) throws  Exception{
+        System.out.println(id+"---------");
+        String newname = getFileName(file.getOriginalFilename());
+        String path = request.getSession().getServletContext().getRealPath("/upload");
+        FileUtils.copyInputStreamToFile(file.getInputStream(),new File(path,newname));
+        businessManService.updateFaceImg(id,"/upload/"+newname);
+        return Message.success("ok");
+    }
+    private synchronized String getFileName(String filename) {
+        int position = filename.lastIndexOf(".");
+        String ext = filename.substring(position);
+        return System.nanoTime() + ext;
     }
     @RequestMapping("/businessManUpdateSave")
     @ResponseBody
@@ -152,6 +183,115 @@ public class BusinessManController {
         }catch (Exception e){
             e.printStackTrace();
             return  Message.fail("fail");
+        }
+    }
+    @RequestMapping("checkPhone")
+    @ResponseBody
+    public Message checkPhone(String phone) throws  Exception{
+        try{
+           int cnt = businessManService.checkPhone(phone);
+            if(cnt==0){
+                return Message.fail("账号不存在");
+            }else{
+                return Message.success("账号已存在");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("账号不存在");
+        }
+    }
+    @RequestMapping("login")
+    @ResponseBody
+    public Message login(String phone,String password) throws  Exception{
+        try{
+            BusinessManVo businessManVo = businessManService.getByAccountPassword(phone, new Md5Hash(password).toString());
+            if(businessManVo==null){
+                return Message.fail("账号或密码输入有误,或已被禁用");
+            }else{
+                if(phone.equals(businessManVo.getPhone()) && (new Md5Hash(password).toString()).equals(businessManVo.getPassword())){
+                    return Message.success(businessManVo.getId()+"");
+                }else{
+                    return Message.fail("账号或密码输入有误,或已被禁用");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("账号或密码输入有误,或已被禁用");
+        }
+    }
+    @RequestMapping("sendCode")
+    @ResponseBody
+    public Message addCode(Verifcode verifcode){
+        try{
+            int cnt = businessManService.checkPhone(verifcode.getMobile());
+            if(cnt==0){
+                return  Message.fail("账号不存在!");
+            }
+            //查询改手机号在有效期5分钟之内是否还有未使用的短信，如果有则返回code如果没有则返回-1
+            String dbCode = verifcodeService.queryByCode(verifcode.getMobile());
+            Integer cnts = verifcodeService.cnt(verifcode.getMobile());
+            if(cnts>=10){
+                return Message.fail("今天操作过于频繁");
+            }
+            if(dbCode==null || dbCode.equals("")){
+                //生成6位数的验证码
+                int code = new Random().nextInt(888888)+100000;
+                //执行注册发送的验证码
+                if(verifcode.getCodeType().equals("register")){
+                    //保存到数据库中并且发送到手机上
+                    verifcode.setCode(code+"");
+                    verifcode.setMsg("【瑞蓝酒店】注册验证码，你的验证码是："+code);
+                    System.out.println(code+"====注册发送的验证码==>>>");
+                }else if(verifcode.getCodeType().equals("findPwd")){
+                    //保存到数据库中并且发送到手机上
+                    verifcode.setCode(code+"");
+                    verifcode.setMsg("【瑞蓝酒店】找回密码，你的验证码是："+code);
+                    System.out.println(code+"====找回密码注册发送的验证码==>>>");
+                }
+                verifcodeService.save(verifcode);
+                HttpClientUtil client = HttpClientUtil.getInstance();
+                //UTF发送
+                int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, verifcode.getMsg(), verifcode.getMobile());
+                if(result>0){
+                    return  Message.success("短信发送成功!");
+                }else{
+                    return  Message.fail(client.getErrorMsg(result));
+                }
+            }else{
+                //发送数据库原来就有的验证码dbcode
+                //模拟接收验证码
+                Verifcode verifcode1 = verifcodeService.getVerifcode(verifcode.getMobile());
+                System.out.println(dbCode+"====来自于数据库的验证码====>>>");
+                HttpClientUtil client = HttpClientUtil.getInstance();
+                //UTF发送
+                int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, verifcode1.getMsg(), verifcode1.getMobile());
+                if(result>0){
+                    return  Message.fail("短信发送成功!");
+                }else{
+                    return  Message.fail(client.getErrorMsg(result));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.success("验证码发送失败!");
+        }
+    }
+    @RequestMapping("findPassWord")
+    @ResponseBody
+    public Message findPassWord(Verifcode verifcode) throws  Exception{
+        try{
+            //查询改手机号在有效期5分钟之内是否还有未使用的短信，如果有则返回code如果没有则返回-1
+            String dbCode = verifcodeService.queryByCode(verifcode.getMobile());
+            if(!dbCode.equals(verifcode.getCode())){
+                return  Message.fail("验证码输入错误!");
+            }else{
+                verifcodeService.updateCodeStatus(new StatusQuery(1,verifcode.getMobile()));
+                businessManService.updatePwd(verifcode.getMobile(),new Md5Hash(verifcode.getPassword()).toString());
+                return  Message.success("密码找回成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("账号不存在");
         }
     }
     @InitBinder
