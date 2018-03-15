@@ -16,6 +16,10 @@
             <result column="title" property="title"></result>
         </association>
     </resultMap>
+    <resultMap id="busnissVoMap" type="top.cflwork.vo.BusinessVo"></resultMap>
+    <select id="getInfo" resultMap="busnissVoMap">
+        select sum(number) as sumHotel,avg(price) as sumPrice,count(businessman_id) as countBusincess from t_price_item where DATE_FORMAT(create_time, '%Y-%m-%d')=DATE_FORMAT(#{times},'%Y-%m-%d')
+    </select>
     <select id="getById" resultMap="priceItemMap" parameterType="long">
         select t.*,b.hotel_sin_name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and t.id = #{id}
     </select>

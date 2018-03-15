@@ -5,6 +5,7 @@ import top.cflwork.dao.PriceItemDAO;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.PriceItemService;
+import top.cflwork.vo.BusinessVo;
 import top.cflwork.vo.PriceItemVo;
 
 import javax.annotation.Resource;
@@ -67,5 +68,10 @@ public class PriceItemServiceImpl implements PriceItemService {
     @Override
     public long findPriceItemByCount(PageQuery pageQuery, PriceItemVo priceItemVo) {
         return priceItemDAO.findPriceItemByCount(pageQuery, priceItemVo);
+    }
+
+    @Override
+    public BusinessVo getInfo(String times) {
+        return priceItemDAO.getInfo(times);
     }
 }

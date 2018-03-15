@@ -14,6 +14,7 @@ import top.cflwork.enums.ActiveStatusEnum;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.PriceItemService;
+import top.cflwork.vo.BusinessVo;
 import top.cflwork.vo.PriceItemVo;
 import top.cflwork.vo.UserVo;
 
@@ -77,6 +78,17 @@ public class PriceItemController {
             return Message.fail("新增失败!");
         }
 
+    }
+    @RequestMapping("/priceItemInfo")
+    @ResponseBody
+    public BusinessVo priceItemInfo(BusinessVo businessVo) throws  Exception {
+        try{
+            BusinessVo businessVo1 = priceItemService.getInfo(businessVo.getTimes());
+            return businessVo1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new BusinessVo();
+        }
     }
     @RequestMapping("/findPriceItem/{id}")
     @ResponseBody
