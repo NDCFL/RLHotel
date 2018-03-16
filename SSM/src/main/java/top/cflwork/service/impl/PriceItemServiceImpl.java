@@ -74,4 +74,24 @@ public class PriceItemServiceImpl implements PriceItemService {
     public BusinessVo getInfo(String times) {
         return priceItemDAO.getInfo(times);
     }
+
+    @Override
+    public List<BusinessVo> getInfos(String times) {
+        return priceItemDAO.getInfos(times);
+    }
+
+    @Override
+    public int findItems(PriceItemVo priceItemVo) {
+        return priceItemDAO.findItems(priceItemVo);
+    }
+
+    @Override
+    public void updatePriceItem(PriceItemVo priceItemVo) {
+        priceItemDAO.updatePriceItem(priceItemVo);
+    }
+
+    @Override
+    public List<PriceItemVo> priceItems(PriceItemVo priceItemVo) {
+        return priceItemDAO.priceItems(priceItemVo);
+    }
 }

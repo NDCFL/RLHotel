@@ -14,7 +14,8 @@ public class PriceItemVo implements Serializable {
     private Date endTime;
     private BusinessManVo businessManVo;
     private HotelTypeVo hotelTypeVo;
-
+    private String hotelName;
+    private String time[];
     public Long getId() {
         return id;
     }
@@ -93,5 +94,21 @@ public class PriceItemVo implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String[] getTime() {
+        return time;
+    }
+
+    public void setTime(String[] time) {
+        this.time = time;
     }
 }

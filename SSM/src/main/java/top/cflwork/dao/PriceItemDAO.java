@@ -13,4 +13,8 @@ public interface PriceItemDAO extends BaseDAO<PriceItemVo>{
     List<PriceItemVo> findPriceItemList(@Param("pageQuery")PageQuery pageQuery, @Param("priceItemVo") PriceItemVo priceItemVo);
     long findPriceItemByCount(@Param("pageQuery")PageQuery pageQuery,@Param("priceItemVo") PriceItemVo priceItemVo);
     BusinessVo getInfo(String times);
+    List<BusinessVo> getInfos(String times);
+    int findItems(PriceItemVo priceItemVo);
+    void updatePriceItem(PriceItemVo priceItemVo);
+    List<PriceItemVo>  priceItems(PriceItemVo priceItemVo);
 }

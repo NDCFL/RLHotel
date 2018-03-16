@@ -3,9 +3,14 @@ package top.cflwork.vo;
 import java.io.Serializable;
 public class BusinessVo implements Serializable {
     private Integer sumHotel=0;
-    private Integer sumPrice=0;
+    private Double sumPrice=0.0d;
     private Integer countBusincess=0;
     private String times;
+    private Integer sumHotels=0;
+    private Double sumPrices=0.0d;
+    private Integer countBusincesss=0;
+    private String hotelName;
+    private Long hotelTypeId;
     public Integer getSumHotel() {
         return sumHotel;
     }
@@ -14,11 +19,11 @@ public class BusinessVo implements Serializable {
         this.sumHotel = sumHotel;
     }
 
-    public Integer getSumPrice() {
+    public Double getSumPrice() {
         return sumPrice;
     }
 
-    public void setSumPrice(Integer sumPrice) {
+    public void setSumPrice(Double sumPrice) {
         this.sumPrice = sumPrice;
     }
 
@@ -36,5 +41,45 @@ public class BusinessVo implements Serializable {
 
     public void setTimes(String times) {
         this.times = times;
+    }
+
+    public Integer getSumHotels() {
+        return sumHotels;
+    }
+
+    public void setSumHotels(Integer sumHotels) {
+        this.sumHotels = sumHotels;
+    }
+
+    public Double getSumPrices() {
+        return sumPrices;
+    }
+
+    public void setSumPrices(Double sumPrices) {
+        this.sumPrices = sumPrices;
+    }
+
+    public Integer getCountBusincesss() {
+        return countBusincesss;
+    }
+
+    public void setCountBusincesss(Integer countBusincesss) {
+        this.countBusincesss = countBusincesss;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public Long getHotelTypeId() {
+        return hotelTypeId;
+    }
+
+    public void setHotelTypeId(Long hotelTypeId) {
+        this.hotelTypeId = hotelTypeId;
     }
 }

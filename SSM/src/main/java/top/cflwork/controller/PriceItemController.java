@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by chenfeilong on 2017/10/21.
@@ -79,16 +79,44 @@ public class PriceItemController {
         }
 
     }
+    @RequestMapping("/priceItemAddSaves")
+    @ResponseBody
+    public Message priceItemAddSaves(PriceItemVo priceItem) throws  Exception {
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            for(int i=0;i<priceItem.getTime().length;i++){
+                priceItem.setCreateTime(sdf.parse(priceItem.getTime()[i]));
+                int cnt = priceItemService.findItems(priceItem);
+                if(cnt==0){
+                    priceItem.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
+                    priceItem.setCreateTime(priceItem.getCreateTime());
+                    priceItemService.save(priceItem);
+                }else{
+                    priceItemService.updatePriceItem(priceItem);
+                }
+            }
+            return  Message.success("新增成功!");
+        }catch (Exception E){
+            return Message.fail("新增失败!");
+        }
+    }
     @RequestMapping("/priceItemInfo")
     @ResponseBody
-    public BusinessVo priceItemInfo(BusinessVo businessVo) throws  Exception {
+    public Map<Integer,Object> priceItemInfo(BusinessVo businessVo) throws  Exception {
         try{
-            BusinessVo businessVo1 = priceItemService.getInfo(businessVo.getTimes());
-            return businessVo1;
+            Map<Integer,Object> businessVos = new HashMap<>();
+            businessVos.put(0,priceItemService.getInfo(businessVo.getTimes()));
+            businessVos.put(1,priceItemService.getInfos(businessVo.getTimes()));
+            return businessVos;
         }catch (Exception e){
             e.printStackTrace();
-            return  new BusinessVo();
+            return  null;
         }
+    }
+    @RequestMapping("/priceItems")
+    @ResponseBody
+    public List<PriceItemVo> priceItems(PriceItemVo priceItemVo) throws  Exception {
+        return  priceItemService.priceItems(priceItemVo);
     }
     @RequestMapping("/findPriceItem/{id}")
     @ResponseBody
@@ -147,7 +175,7 @@ public class PriceItemController {
     }
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }

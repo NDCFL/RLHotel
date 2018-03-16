@@ -10,4 +10,8 @@ public interface PriceItemService extends BaseService<PriceItemVo>{
     List<PriceItemVo> findPriceItemList(PageQuery pageQuery, PriceItemVo priceItemVo);
     long findPriceItemByCount(PageQuery pageQuery,PriceItemVo priceItemVo);
     BusinessVo getInfo(String times);
+    List<BusinessVo> getInfos(String times);
+    int findItems(PriceItemVo priceItemVo);
+    void updatePriceItem(PriceItemVo priceItemVo);
+    List<PriceItemVo>  priceItems(PriceItemVo priceItemVo);
 }
