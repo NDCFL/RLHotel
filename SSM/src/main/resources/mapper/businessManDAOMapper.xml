@@ -43,7 +43,10 @@
         select count(id) from t_businessman where 1=1  <include refid="find"></include>
     </select>
     <insert id="save" parameterType="businessManVo">
-        insert into t_businessman (name, phone, tel, nickname, hotel_sin_name, hotel_name, wxopenid, remark, is_active,type ) values ( #{name}, #{phone}, #{tel}, #{nickname}, #{hotelSinName}, #{hotelName}, #{wxopenid}, #{remark}, #{isActive},#{type} )
+        <selectKey keyProperty='id' resultType='long' order='AFTER'  >
+            select LAST_INSERT_ID();
+        </selectKey>
+        insert into t_businessman (name, phone, tel, nickname, hotel_sin_name, hotel_name, wxopenid, remark, is_active,type,face_img) values ( #{name}, #{phone}, #{tel}, #{nickname}, #{hotelSinName}, #{hotelName}, #{wxopenid}, #{remark}, #{isActive},#{type},#{faceImg} )
     </insert>
     <update id="updateStatus">
         update t_businessman set is_active=#{status} where id=#{id}
@@ -59,8 +62,8 @@
                 name = #{name},
                 phone = #{phone},
                 tel = #{tel},
-                nickname = #{nickname},
                 hotel_sin_name = #{hotelSinName},
+                hotel_name=#{hotelName},
                 remark = #{remark}
         where id = #{id}
     </update>
@@ -69,6 +72,9 @@
     </select>
     <select id="checkPhone" parameterType="string" resultType="int">
         select count(id) from t_businessman where phone=#{phone}
+    </select>
+    <select id="findByOpenId" parameterType="string" resultMap="businessManMap">
+        select * from t_businessman where wxopenid=#{openId}
     </select>
     <select id="updatePwd">
          update t_businessman set

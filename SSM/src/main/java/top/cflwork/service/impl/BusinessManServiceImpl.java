@@ -98,4 +98,9 @@ public class BusinessManServiceImpl implements BusinessManService {
     public void updateFaceImg(Long id, String url) {
         businessManDAO.updateFaceImg(id, url);
     }
+
+    @Override
+    public BusinessManVo findByOpenId(String openId) {
+        return businessManDAO.findByOpenId(openId);
+    }
 }

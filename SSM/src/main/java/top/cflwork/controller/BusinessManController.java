@@ -46,6 +46,11 @@ public class BusinessManController {
     private BusinessManService businessManService;
     @Resource
     private VerifcodeService verifcodeService;
+    @RequestMapping("businessManLogin")
+    @ResponseBody
+    public Message businessManLogin() throws  Exception{
+        return Message.success("ok");
+    }
     @RequestMapping("businessManList")
     @ResponseBody
     public PagingBean businessManList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{
@@ -57,6 +62,7 @@ public class BusinessManController {
         pagingBean.setrows(businessManService.listPage(new PageQuery(pagingBean.getStartIndex(),pagingBean.getPageSize(),searchVal,userVo.getCompanyId())));
         return pagingBean;
     }
+
     @RequestMapping("findBusinessManList")
     @ResponseBody
     public PagingBean findBusinessManList(int pageSize, int pageIndex, String searchVal, HttpSession session,BusinessManVo businessManVo) throws  Exception{

@@ -16,4 +16,5 @@ public interface BusinessManService extends BaseService<BusinessManVo>{
     Integer checkPhone(String phone);
     void updatePwd(String phone,String password);
     void updateFaceImg(Long id,String url);
+    BusinessManVo findByOpenId(String openId);
 }
