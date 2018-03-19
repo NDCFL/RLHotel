@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class BusinessManVo implements Serializable {
     private Long id;
-    private String name;//'姓名',
-    private String phone;//'联系方式',
-    private String tel;//'酒店联系方式',
-    private String nickname;//'微信名称',
-    private String hotelSinName;//'酒店简称',
-    private String hotelName;//'酒店全称',
+    private String name="未填写";//'姓名',
+    private String phone="未填写";//'联系方式',
+    private String tel="未填写";//'酒店联系方式',
+    private String nickname="未填写";//'微信名称',
+    private String hotelSinName="未填写";//'酒店简称',
+    private String hotelName="未填写";//'酒店全称',
     private String wxopenid;//'微信的openid',
-    private String remark;//'酒店的签名',
+    private String remark="未填写";//'酒店的签名',
     private Integer type;
     private Byte isActive;//'酒店状态',
     private Date endTime;
