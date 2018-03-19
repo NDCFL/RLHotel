@@ -230,9 +230,6 @@ public class BusinessManController {
     public Message addCode(Verifcode verifcode){
         try{
             int cnt = businessManService.checkPhone(verifcode.getMobile());
-            if(cnt==0){
-                return  Message.fail("账号不存在!");
-            }
             //查询改手机号在有效期5分钟之内是否还有未使用的短信，如果有则返回code如果没有则返回-1
             String dbCode = verifcodeService.queryByCode(verifcode.getMobile());
             Integer cnts = verifcodeService.cnt(verifcode.getMobile());
@@ -244,11 +241,17 @@ public class BusinessManController {
                 int code = new Random().nextInt(888888)+100000;
                 //执行注册发送的验证码
                 if(verifcode.getCodeType().equals("register")){
+                    if(cnt!=0){
+                        return  Message.fail("账号已被注册!");
+                    }
                     //保存到数据库中并且发送到手机上
                     verifcode.setCode(code+"");
                     verifcode.setMsg("【瑞蓝酒店】注册验证码，你的验证码是："+code);
                     System.out.println(code+"====注册发送的验证码==>>>");
                 }else if(verifcode.getCodeType().equals("findPwd")){
+                    if(cnt==0){
+                        return  Message.fail("账号不存在!");
+                    }
                     //保存到数据库中并且发送到手机上
                     verifcode.setCode(code+"");
                     verifcode.setMsg("【瑞蓝酒店】找回密码，你的验证码是："+code);
@@ -294,6 +297,34 @@ public class BusinessManController {
                 verifcodeService.updateCodeStatus(new StatusQuery(1,verifcode.getMobile()));
                 businessManService.updatePwd(verifcode.getMobile(),new Md5Hash(verifcode.getPassword()).toString());
                 return  Message.success("密码找回成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return  Message.fail("账号不存在");
+        }
+    }
+    @RequestMapping("reg")
+    @ResponseBody
+    public Message reg(Verifcode verifcode) throws  Exception{
+        try{
+            //查询改手机号在有效期5分钟之内是否还有未使用的短信，如果有则返回code如果没有则返回-1
+            String dbCode = verifcodeService.queryByCode(verifcode.getMobile());
+            if(!dbCode.equals(verifcode.getCode())){
+                return  Message.fail("验证码输入错误!");
+            }else{
+                verifcodeService.updateCodeStatus(new StatusQuery(1,verifcode.getMobile()));
+                BusinessManVo businessManVo1 = new BusinessManVo();
+                businessManVo1.setName(verifcode.getMobile());
+                businessManVo1.setHotelSinName("未填写");
+                businessManVo1.setHotelName("未填写");
+                businessManVo1.setName(verifcode.getMobile());
+                businessManVo1.setIsActive((byte) 0);
+                businessManVo1.setCreateTime(new Date());
+                businessManVo1.setType(0);
+                businessManVo1.setPhone(verifcode.getMobile());
+                businessManVo1.setPassword(new Md5Hash(verifcode.getPassword()).toString());
+                businessManService.save(businessManVo1);
+                return  Message.success(businessManVo1.getId()+"");
             }
         }catch (Exception e){
             e.printStackTrace();
