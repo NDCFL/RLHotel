@@ -94,4 +94,9 @@ public class PriceItemServiceImpl implements PriceItemService {
     public List<PriceItemVo> priceItems(PriceItemVo priceItemVo) {
         return priceItemDAO.priceItems(priceItemVo);
     }
+
+    @Override
+    public List<PriceItemVo> findItemes(PriceItemVo priceItemVo) {
+        return priceItemDAO.findItemes(priceItemVo);
+    }
 }

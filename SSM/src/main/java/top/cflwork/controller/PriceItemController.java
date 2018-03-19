@@ -118,6 +118,11 @@ public class PriceItemController {
     public List<PriceItemVo> priceItems(PriceItemVo priceItemVo) throws  Exception {
         return  priceItemService.priceItems(priceItemVo);
     }
+    @RequestMapping("/priceItemes")
+    @ResponseBody
+    public List<PriceItemVo> priceItemes(PriceItemVo priceItemVo) throws  Exception {
+        return  priceItemService.findItemes(priceItemVo);
+    }
     @RequestMapping("/findPriceItem/{id}")
     @ResponseBody
     public PriceItemVo findpriceItem(@PathVariable("id") long id){

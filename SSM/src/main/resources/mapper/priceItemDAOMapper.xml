@@ -59,6 +59,9 @@
     <select id="priceItems" resultMap="priceItemMap">
         select t.*,b.hotel_sin_name,b.name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and t.businessman_id=#{businessManId} and t.create_time BETWEEN #{createTime} and #{endTime} order by t.create_time desc
     </select>
+    <select id="findItemes" resultMap="priceItemMap">
+        select t.*,b.hotel_sin_name,b.name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and  DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d') and t.hotel_type_id=#{hotelTypeId} order by t.create_time desc
+    </select>
     <update id="updateStatus">
         update t_price_item set is_active=#{status} where id=#{id}
     </update>

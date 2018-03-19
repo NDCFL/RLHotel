@@ -46,7 +46,7 @@
         <selectKey keyProperty='id' resultType='long' order='AFTER'  >
             select LAST_INSERT_ID();
         </selectKey>
-        insert into t_businessman (name, phone, tel, nickname, hotel_sin_name, hotel_name, wxopenid, remark, is_active,type,face_img) values ( #{name}, #{phone}, #{tel}, #{nickname}, #{hotelSinName}, #{hotelName}, #{wxopenid}, #{remark}, #{isActive},#{type},#{faceImg} )
+        insert into t_businessman (password,name, phone, tel, nickname, hotel_sin_name, hotel_name, wxopenid, remark, is_active,type,face_img) values ( #{password},#{name}, #{phone}, #{tel}, #{nickname}, #{hotelSinName}, #{hotelName}, #{wxopenid}, #{remark}, #{isActive},#{type},#{faceImg} )
     </insert>
     <update id="updateStatus">
         update t_businessman set is_active=#{status} where id=#{id}
@@ -68,7 +68,7 @@
         where id = #{id}
     </update>
     <select id="getByAccountPassword" resultMap="businessManMap">
-        select * from t_businessman where phone=#{phone} and password=#{password}
+        select * from t_businessman where phone=#{phone} and password=#{password} and is_active=0
     </select>
     <select id="checkPhone" parameterType="string" resultType="int">
         select count(id) from t_businessman where phone=#{phone}
