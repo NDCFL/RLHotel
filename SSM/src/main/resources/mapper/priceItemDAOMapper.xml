@@ -69,7 +69,7 @@
         select t.id as hotelTypeId,SUM(t.number) as sumHotel,avg(t.price) as sumPrice,count(t.hotel_type_id) as types,b.hotel_sin_name as hotelName,b.face_img as faceImg,b.id as id from t_price_item t,t_businessman b where t.businessman_id=b.id and DATE_FORMAT(t.create_time,"%Y-%m-%d")=DATE_FORMAT(#{times},"%Y-%m-%d") and t.businessman_id=#{id} group by t.businessman_id
     </select>
     <select id="allPriceInfo" resultMap="busnissVoMap">
-        select h.id as hotelTypeId,h.title as hotelName,sum(t.number) as sumHotels,avg(price) as sumPrices,t.price as sumPrice from  t_price_item t,t_hotel_type h where t.hotel_type_id=h.id and  DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT(#{times},'%Y-%m-%d') and t.number>0 and  t.businessman_id=#{id} group by t.hotel_type_id
+        select h.title as hotelName,t.price as sumPrice,(select sum(number) from t_price_item where  DATE_FORMAT(create_time, '%Y-%m-%d')=DATE_FORMAT(#{times},'%Y-%m-%d') and hotel_type_id=t.hotel_type_id) as sumHotels,(select avg(price) from t_price_item where  DATE_FORMAT(create_time, '%Y-%m-%d')=DATE_FORMAT(#{times},'%Y-%m-%d') and hotel_type_id=t.hotel_type_id) as sumPrices from t_price_item t,t_businessman b,t_hotel_type h where t.hotel_type_id=h.id and DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT(#{times},'%Y-%m-%d') and t.businessman_id=b.id and t.businessman_id=#{id}
     </select>
     <update id="updateStatus">
         update t_price_item set is_active=#{status} where id=#{id}

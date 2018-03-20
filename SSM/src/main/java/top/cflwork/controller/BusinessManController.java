@@ -130,6 +130,7 @@ public class BusinessManController {
     @ResponseBody
     public Message updatebusinessMan(BusinessManVo businessMan) throws  Exception{
         try{
+            System.out.println(businessMan.getId()+"==========");
             businessManService.update(businessMan);
             return  Message.success("修改成功!");
         }catch (Exception e){

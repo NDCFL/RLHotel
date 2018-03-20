@@ -19,6 +19,7 @@ public class BusinessManVo implements Serializable {
     private Date createTime;//'酒店创建时间'
     private String password;//密码
     private String faceImg;
+
     public Long getId() {
         return id;
     }
@@ -91,22 +92,6 @@ public class BusinessManVo implements Serializable {
         this.remark = remark;
     }
 
-    public Byte getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Byte isActive) {
-        this.isActive = isActive;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public Integer getType() {
         return type;
     }
@@ -115,12 +100,28 @@ public class BusinessManVo implements Serializable {
         this.type = type;
     }
 
+    public Byte getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Byte isActive) {
+        this.isActive = isActive;
+    }
+
     public Date getEndTime() {
         return endTime;
     }
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public String getPassword() {

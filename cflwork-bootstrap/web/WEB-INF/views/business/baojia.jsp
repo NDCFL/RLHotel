@@ -13,6 +13,6 @@
 <body>
 </body>
 <script>
-    location.href="http://baojia.mykefang.com/index.html?id=${id}"
+    location.href="http://baojia.mykefang.com/text.html?id=${id}"
 </script>
 </html>
