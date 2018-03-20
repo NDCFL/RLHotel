@@ -15,4 +15,7 @@ public interface PriceItemService extends BaseService<PriceItemVo>{
     void updatePriceItem(PriceItemVo priceItemVo);
     List<PriceItemVo>  priceItems(PriceItemVo priceItemVo);
     List<PriceItemVo> findItemes(PriceItemVo priceItemVo);
+    List<PriceItemVo> infos(String times);
+    List<BusinessVo> priceInfo(String times,Long id);
+    List<BusinessVo> allPriceInfo(String times,Long id);
 }

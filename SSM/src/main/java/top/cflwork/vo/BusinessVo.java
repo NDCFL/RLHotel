@@ -11,6 +11,9 @@ public class BusinessVo implements Serializable {
     private Integer countBusincesss=0;
     private String hotelName;
     private Long hotelTypeId;
+    private String faceImg;
+    private Long types;
+    private Long id;
     public Integer getSumHotel() {
         return sumHotel;
     }
@@ -81,5 +84,29 @@ public class BusinessVo implements Serializable {
 
     public void setHotelTypeId(Long hotelTypeId) {
         this.hotelTypeId = hotelTypeId;
+    }
+
+    public String getFaceImg() {
+        return faceImg;
+    }
+
+    public void setFaceImg(String faceImg) {
+        this.faceImg = faceImg;
+    }
+
+    public Long getTypes() {
+        return types;
+    }
+
+    public void setTypes(Long types) {
+        this.types = types;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

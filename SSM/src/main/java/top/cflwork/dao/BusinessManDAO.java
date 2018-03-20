@@ -20,4 +20,5 @@ public interface BusinessManDAO extends BaseDAO<BusinessManVo>{
     void updatePwd(@Param("phone") String phone,@Param("password") String password);
     void updateFaceImg(@Param("id") Long id,@Param("url")String url);
     BusinessManVo findByOpenId(String openId);
+
 }

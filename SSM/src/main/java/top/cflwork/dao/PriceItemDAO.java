@@ -18,4 +18,7 @@ public interface PriceItemDAO extends BaseDAO<PriceItemVo>{
     void updatePriceItem(PriceItemVo priceItemVo);
     List<PriceItemVo>  priceItems(PriceItemVo priceItemVo);
     List<PriceItemVo> findItemes(PriceItemVo priceItemVo);
+    List<PriceItemVo> infos(String times);
+    List<BusinessVo> priceInfo(@Param("times") String times,@Param("id") Long id);
+    List<BusinessVo> allPriceInfo(@Param("times") String times,@Param("id") Long id);
 }

@@ -66,10 +66,12 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
-                if(value.length<10){
-                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+'</a>';
-                }else{
-                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+                if(value){
+                    if(value.length<10){
+                        return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+'</a>';
+                    }else{
+                        return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+                    }
                 }
             }
         },
@@ -79,10 +81,12 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
-                if(value.length<10){
-                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remark(\'' + value + '\')">'+value.substr(0,10)+'</a>';
-                }else{
-                    return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remark(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+                if(value){
+                    if(value.length<10){
+                        return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remark(\'' + value + '\')">'+value.substr(0,10)+'</a>';
+                    }else{
+                        return '<a   data-toggle="modal" title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remark(\'' + value + '\')">'+value.substr(0,10)+"..."+'</a>';
+                    }
                 }
             }
         }

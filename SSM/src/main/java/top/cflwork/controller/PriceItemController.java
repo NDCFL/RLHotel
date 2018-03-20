@@ -113,6 +113,19 @@ public class PriceItemController {
             return  null;
         }
     }
+    @RequestMapping("/priceInfo")
+    @ResponseBody
+    public Map<Integer,Object> priceInfo(String times,Long id) throws  Exception {
+        try{
+            Map<Integer,Object> businessVos = new HashMap<>();
+            businessVos.put(0,priceItemService.priceInfo(times, id));
+            businessVos.put(1,priceItemService.allPriceInfo(times, id));
+            return businessVos;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
     @RequestMapping("/priceItems")
     @ResponseBody
     public List<PriceItemVo> priceItems(PriceItemVo priceItemVo) throws  Exception {
@@ -128,6 +141,11 @@ public class PriceItemController {
     public PriceItemVo findpriceItem(@PathVariable("id") long id){
         PriceItemVo priceItem = priceItemService.getById(id);
         return priceItem;
+    }
+    @RequestMapping("/infos")
+    @ResponseBody
+    public List<PriceItemVo> infos(String times){
+        return priceItemService.infos(times);
     }
     @RequestMapping("/priceItemUpdateSave")
     @ResponseBody
