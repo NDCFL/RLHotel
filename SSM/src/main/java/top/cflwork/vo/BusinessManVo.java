@@ -13,12 +13,12 @@ public class BusinessManVo implements Serializable {
     private String hotelName="未填写";//'酒店全称',
     private String wxopenid;//'微信的openid',
     private String remark="未填写";//'酒店的签名',
-    private Integer type;
-    private Byte isActive;//'酒店状态',
+    private Integer type=0;
+    private Byte isActive=0;//'酒店状态',
     private Date endTime;
-    private Date createTime;//'酒店创建时间'
+    private Date createTime = new Date();//'酒店创建时间'
     private String password;//密码
-    private String faceImg;
+    private String faceImg = "/upload/face.gif"  ;
 
     public Long getId() {
         return id;
