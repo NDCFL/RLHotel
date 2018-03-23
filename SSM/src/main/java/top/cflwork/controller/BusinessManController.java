@@ -1,6 +1,5 @@
 package top.cflwork.controller;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import top.cflwork.common.Message;
 import top.cflwork.common.PagingBean;
 import top.cflwork.enums.ActiveStatusEnum;
@@ -26,9 +24,7 @@ import top.cflwork.vo.UserVo;
 import top.cflwork.vo.Verifcode;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -113,13 +109,14 @@ public class BusinessManController {
     }
     @RequestMapping("updateImg")
     @ResponseBody
-    public Message upload(MultipartFile file, HttpServletRequest request,Long id) throws  Exception{
-        System.out.println(id+"---------");
-        String newname = getFileName(file.getOriginalFilename());
-        String path = request.getSession().getServletContext().getRealPath("/upload");
-        FileUtils.copyInputStreamToFile(file.getInputStream(),new File(path,newname));
-        businessManService.updateFaceImg(id,"/upload/"+newname);
-        return Message.success("ok");
+    public Message upload(Long id,String files) throws  Exception{
+        try{
+            businessManService.updateFaceImg(id,files);
+            return Message.success("修改成功");
+        }catch (Exception e){
+            return Message.fail("修改失败");
+        }
+
     }
     private synchronized String getFileName(String filename) {
         int position = filename.lastIndexOf(".");
