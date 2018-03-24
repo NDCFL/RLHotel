@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by chenfeilong on 2017/10/21.
@@ -46,6 +47,11 @@ public class CharController {
         pagingBean.setTotal(charService.count(pageQuery));
         pagingBean.setrows(charService.listPage(pageQuery));
         return pagingBean;
+    }
+    @RequestMapping("myCharList")
+    @ResponseBody
+    public List<CharVo> myCharList(Long id) throws  Exception{
+        return charService.myCharList(id);
     }
     @RequestMapping("findCharList")
     @ResponseBody

@@ -20,6 +20,9 @@
     <select id="listPage" resultMap="charMap">
         select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id order by t.create_time desc limit #{pageNo},#{pageSize}
     </select>
+    <select id="myCharList" resultMap="charMap">
+        select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id and t.businessman_id=#{id} order by t.create_time desc
+    </select>
     <select id="listAll" resultMap="charMap">
         select * from t_char
     </select>

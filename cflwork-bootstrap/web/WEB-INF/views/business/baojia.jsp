@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+%>
 <html>
 <head>
     <title>Title</title>
@@ -13,6 +16,12 @@
 <body>
 </body>
 <script>
-    location.href="http://baojia.mykefang.com/text.html?id=${id}"
+    //location.href="http://baojia.mykefang.com/text.html?id=${id}"
+</script>
+<script src="<%=path%>/static/js/jquery.min.js"></script>
+<script>
+    $.get("/try/ajax/demo_test.php",function(data,status){
+        alert();
+    });
 </script>
 </html>
