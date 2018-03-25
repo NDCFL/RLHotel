@@ -127,9 +127,13 @@ public class BusinessManController {
     @ResponseBody
     public Message updatebusinessMan(BusinessManVo businessMan) throws  Exception{
         try{
-            System.out.println(businessMan.getId()+"==========");
-            businessManService.update(businessMan);
-            return  Message.success("修改成功!");
+            int cnt = businessManService.checkPhone(businessMan.getPhone());
+            if(cnt>0){
+                return  Message.fail("修改失败，账户已存在!");
+            }else{
+                businessManService.update(businessMan);
+                return  Message.success("修改成功!");
+            }
         }catch (Exception e){
             return Message.fail("修改失败!");
         }
@@ -163,9 +167,9 @@ public class BusinessManController {
     public String table() throws  Exception{
         return "business/businessManList";
     }
-    @RequestMapping("/getBusinessManList")
+    @RequestMapping("/getBusinessManLists")
     @ResponseBody
-    public List<Select2Vo> getBusinessManList() throws  Exception{
+    public List<Select2Vo> getBusinessManLists() throws  Exception{
         return businessManService.businessManList();
     }
     @RequestMapping("updateStatus/{id}/{status}")
@@ -203,6 +207,11 @@ public class BusinessManController {
             e.printStackTrace();
             return  Message.fail("账号不存在");
         }
+    }
+    @RequestMapping("getBusinessManList")
+    @ResponseBody
+    public List<BusinessManVo> getBusinessManList(BusinessManVo businessManVo) throws  Exception{
+        return businessManService.getBusinessManList(businessManVo);
     }
     @RequestMapping("login")
     @ResponseBody
@@ -244,7 +253,7 @@ public class BusinessManController {
                     }
                     //保存到数据库中并且发送到手机上
                     verifcode.setCode(code+"");
-                    verifcode.setMsg("【瑞蓝酒店】注册验证码，你的验证码是："+code);
+                    verifcode.setMsg("【瑞蓝软件】注册验证码，你的验证码是："+code);
                     System.out.println(code+"====注册发送的验证码==>>>");
                 }else if(verifcode.getCodeType().equals("findPwd")){
                     if(cnt==0){
@@ -252,7 +261,7 @@ public class BusinessManController {
                     }
                     //保存到数据库中并且发送到手机上
                     verifcode.setCode(code+"");
-                    verifcode.setMsg("【瑞蓝酒店】找回密码，你的验证码是："+code);
+                    verifcode.setMsg("【瑞蓝软件】找回密码，你的验证码是："+code);
                     System.out.println(code+"====找回密码注册发送的验证码==>>>");
                 }
                 verifcodeService.save(verifcode);

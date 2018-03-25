@@ -19,7 +19,7 @@ public class BusinessManVo implements Serializable {
     private Date createTime = new Date();//'酒店创建时间'
     private String password;//密码
     private String faceImg = "/upload/face.gif"  ;
-
+    private String findName;
     public Long getId() {
         return id;
     }
@@ -138,5 +138,13 @@ public class BusinessManVo implements Serializable {
 
     public void setFaceImg(String faceImg) {
         this.faceImg = faceImg;
+    }
+
+    public String getFindName() {
+        return findName;
+    }
+
+    public void setFindName(String findName) {
+        this.findName = findName;
     }
 }

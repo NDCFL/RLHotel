@@ -12,6 +12,7 @@
         <association property="businessManVo" javaType="top.cflwork.vo.BusinessManVo">
             <result column="hotel_sin_name" property="hotelSinName"></result>
             <result column="name" property="name"></result>
+            <result column="face_img" property="faceImg"></result>
         </association>
         <association property="hotelTypeVo" javaType="top.cflwork.vo.HotelTypeVo">
             <result column="title" property="title"></result>
@@ -60,7 +61,7 @@
         select t.*,b.hotel_sin_name,b.name,h.title,b.id as id from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and t.businessman_id=#{businessManId} and t.create_time BETWEEN #{createTime} and #{endTime} order by t.create_time desc
     </select>
     <select id="findItemes" resultMap="priceItemMap">
-        select t.*,b.hotel_sin_name,b.name,h.title,b.id as id from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and  DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d') and t.hotel_type_id=#{hotelTypeId} order by t.create_time desc
+        select t.*,b.hotel_sin_name,b.name,b.face_img,h.title,b.id as id from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id and  DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT(#{createTime},'%Y-%m-%d') and t.hotel_type_id=#{hotelTypeId} order by t.create_time desc
     </select>
     <select id="infos" resultMap="busnissVoMap">
         select t.id as hotelTypeId,SUM(t.number) as sumHotel,avg(t.price) as sumPrice,count(t.hotel_type_id) as types,b.hotel_sin_name as hotelName,b.face_img as faceImg,b.id as id from t_price_item t,t_businessman b where t.businessman_id=b.id and DATE_FORMAT(t.create_time,"%Y-%m-%d")=DATE_FORMAT(#{times},"%Y-%m-%d") and t.number>0 group by t.businessman_id

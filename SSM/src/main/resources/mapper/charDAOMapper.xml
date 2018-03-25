@@ -11,6 +11,21 @@
             <result column="face_img" property="faceImg"></result>
         </association>
     </resultMap>
+    <resultMap id="charsMap" type="top.cflwork.vo.CharVo">
+        <id column="id" property="id"></id>
+        <result column="content" property="content"></result>
+        <result column="is_active" property="isActive"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="img_url" property="imgUrl"></result>
+        <association property="businessManVo" javaType="top.cflwork.vo.BusinessManVo">
+            <result column="hotel_sin_name" property="hotelSinName"></result>
+            <result column="face_img" property="faceImg"></result>
+        </association>
+        <collection property="charSayVoList" ofType="top.cflwork.vo.CharSayVo">
+            <result column="scontent" property="content"></result>
+            <result column="name" property="name"></result>
+        </collection>
+    </resultMap>
     <select id="getById" resultMap="charMap" parameterType="long">
         select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id and t.id = #{id}
     </select>
@@ -34,13 +49,13 @@
         <if test="charVo.businessManId!=null"> and t.businessman_id=#{charVo.businessManId}</if>
     </sql>
     <select id="findCharList" resultMap="charMap">
-        select t.*,b.hotel_sin_name,b.face_img from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include> order by t.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
+        select t.*,b.hotel_sin_name,b.face_img  from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include> order by t.create_time desc limit #{pageQuery.pageNo},#{pageQuery.pageSize}
     </select>
     <select id="findCharByCount" resultType="java.lang.Long">
         select count(t.id) from t_char t ,t_businessman b where t.businessman_id=b.id <include refid="find"></include>
     </select>
     <insert id="save" parameterType="charVo">
-        insert into t_char (businessman_id, content, is_active) values ( #{businessManId}, #{content}, #{isActive})
+        insert into t_char (businessman_id, content, is_active,img_url) values ( #{businessManId}, #{content}, #{isActive},#{imgUrl})
     </insert>
     <update id="updateStatus">
         update t_char set is_active=#{status} where id=#{id}

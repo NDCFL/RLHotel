@@ -103,4 +103,9 @@ public class BusinessManServiceImpl implements BusinessManService {
     public BusinessManVo findByOpenId(String openId) {
         return businessManDAO.findByOpenId(openId);
     }
+
+    @Override
+    public List<BusinessManVo> getBusinessManList(BusinessManVo businessManVo) {
+        return businessManDAO.getBusinessManList(businessManVo);
+    }
 }

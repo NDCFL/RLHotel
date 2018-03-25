@@ -2,24 +2,30 @@ package top.cflwork.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-public class CharVo implements Serializable {
+public class CharSayVo implements Serializable {
     private Long id;
+    private Long charId;
     private Long businessManId;
     private String content;
     private Byte isActive;
     private Date createTime;
-    private Date endTime;
-    private String imgUrl;
+    private String  name;
     private BusinessManVo businessManVo;
-    private List<CharSayVo> charSayVoList;
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCharId() {
+        return charId;
+    }
+
+    public void setCharId(Long charId) {
+        this.charId = charId;
     }
 
     public Long getBusinessManId() {
@@ -62,27 +68,11 @@ public class CharVo implements Serializable {
         this.businessManVo = businessManVo;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public String getName() {
+        return name;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public List<CharSayVo> getCharSayVoList() {
-        return charSayVoList;
-    }
-
-    public void setCharSayVoList(List<CharSayVo> charSayVoList) {
-        this.charSayVoList = charSayVoList;
+    public void setName(String name) {
+        this.name = name;
     }
 }

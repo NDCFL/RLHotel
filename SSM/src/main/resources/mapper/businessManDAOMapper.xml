@@ -76,6 +76,9 @@
     <select id="findByOpenId" parameterType="string" resultMap="businessManMap">
         select * from t_businessman where wxopenid=#{openId}
     </select>
+    <select id="getBusinessManList" resultMap="businessManMap" parameterType="string">
+        select id,hotel_sin_name,face_img from t_businessman where is_active=0 <if test="#{findName}!=null">and hotel_sin_name like concat('%${findName}%')</if>
+    </select>
     <select id="updatePwd">
          update t_businessman set
                 password = #{password}
