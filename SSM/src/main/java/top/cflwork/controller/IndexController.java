@@ -89,9 +89,9 @@ public class IndexController {
                         businessManVo1.setHotelSinName("未填写");
                         businessManVo1.setHotelName("未填写");
                         businessManVo1.setName(userInfoJSON.getString("nickname"));
-                        businessManVo1.setIsActive((byte) 0);
+                        businessManVo1.setIsActive((byte) 1);
                         businessManVo1.setCreateTime(new Date());
-                        businessManVo1.setType(0);
+                        businessManVo1.setType(1);
                         businessManService.save(businessManVo1);
                         modelAndView.addObject("id",businessManVo1.getId());
                     } catch (UnsupportedEncodingException e) {

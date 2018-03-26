@@ -26,13 +26,13 @@
     </select>
     <sql id="find">
         <if test="businessManVo.createTime!=null and businessManVo.endTime!=null"> and create_time BETWEEN #{businessManVo.createTime} AND #{businessManVo.endTime}</if>
-        <if test="businessManVo.name!=null"> and name like concat('%${businessManVo.name}%')</if>
-        <if test="businessManVo.phone!=null"> and phone like concat('%${businessManVo.phone}%')</if>
-        <if test="businessManVo.tel!=null"> and tel  like concat('%${businessManVo.tel}%')</if>
-        <if test="businessManVo.nickname!=null"> and nickname like concat('%${businessManVo.nickname}%')</if>
-        <if test="businessManVo.hotelSinName!=null"> and hotel_sin_name like concat('%${businessManVo.hotelSinName}%')</if>
-        <if test="businessManVo.hotelName!=null"> and hotel_name  like concat('%${businessManVo.hotelName}%')</if>
-        <if test="businessManVo.remark!=null"> and remark  like concat('%${businessManVo.remark}%')</if>
+        <if test="businessManVo.name!=null and businessManVo.name!=''"> and name like concat('%${businessManVo.name}%')</if>
+        <if test="businessManVo.phone!=null and businessManVo.phone!=''"> and phone like concat('%${businessManVo.phone}%')</if>
+        <if test="businessManVo.tel!=null and businessManVo.tel!=''"> and tel  like concat('%${businessManVo.tel}%')</if>
+        <if test="businessManVo.nickname!=null and businessManVo.nickname!=''"> and nickname like concat('%${businessManVo.nickname}%')</if>
+        <if test="businessManVo.hotelSinName!=null and businessManVo.hotelSinName!=''"> and hotel_sin_name like concat('%${businessManVo.hotelSinName}%')</if>
+        <if test="businessManVo.hotelName!=null and businessManVo.hotelName!=''"> and hotel_name  like concat('%${businessManVo.hotelName}%')</if>
+        <if test="businessManVo.remark!=null and businessManVo.remark!=''"> and remark  like concat('%${businessManVo.remark}%')</if>
         <if test="businessManVo.isActive!=null"> and is_active=#{businessManVo.isActive}</if>
         <if test="businessManVo.type!=null"> and `type`=#{businessManVo.type}</if>
     </sql>

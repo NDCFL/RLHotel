@@ -132,13 +132,20 @@ public class BusinessManController {
     @ResponseBody
     public Message updatebusinessMan(BusinessManVo businessMan) throws  Exception{
         try{
-            int cnt = businessManService.checkPhone(businessMan.getPhone());
-            if(cnt>0){
-                return  Message.fail("修改失败，账户已存在!");
-            }else{
+            BusinessManVo businessManVo = businessManService.getById(businessMan.getId());
+            if(businessManVo.getPhone().equals(businessMan.getPhone())){
                 businessManService.update(businessMan);
                 return  Message.success("修改成功!");
+            }else {
+                int cnt = businessManService.checkPhone(businessMan.getPhone());
+                if(cnt>0){
+                    return  Message.fail("修改失败，账户已存在!");
+                }else{
+                    businessManService.update(businessMan);
+                    return  Message.success("修改成功!");
+                }
             }
+
         }catch (Exception e){
             return Message.fail("修改失败!");
         }
@@ -195,7 +202,7 @@ public class BusinessManController {
         try{
             BusinessManVo b = businessManService.getById(id);
             businessManService.updateType(new StatusQuery(id,status));
-            if(b.getPhone().indexOf("未填写")>-1){
+            if(b.getPhone()==null || b.getPhone().equals("") ||  b.getPhone().indexOf("未填写")>-1){
                 return Message.success("ok");
             }else{
                 //发送短信通知
