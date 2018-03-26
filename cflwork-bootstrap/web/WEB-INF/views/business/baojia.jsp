@@ -16,12 +16,6 @@
 <body>
 </body>
 <script>
-    //location.href="http://baojia.mykefang.com/text.html?id=${id}"
-</script>
-<script src="<%=path%>/static/js/jquery.min.js"></script>
-<script>
-    $.get("/try/ajax/demo_test.php",function(data,status){
-        alert();
-    });
+    location.href="http://baojia.mykefang.com/text.html?id=${id}"
 </script>
 </html>

@@ -144,10 +144,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if (value == 0) {
                     //表示启用状态
-                    return '<span style="color: red;" >审核不通过</span>';
+                    return '<span style="color: #ff954b;" >审核通过</span>';
                 } else {
                     //表示启用状态
-                    return '<span style="color:#ff954b">审核通过</span>';
+                    return '<span style="color:red">审核不通过</span>';
                 }
             }
         }
@@ -167,9 +167,9 @@ $('#mytab').bootstrapTable({
                 }
                 var p ='';
                 if (row.type == 1) {
-                    p = '<a title="审核不通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-remove-sign" style="color:red">审核不通过</i></a> ';
+                    p = '<a title="审核通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 0 + ',' +row.phone+ ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">审核通过</i></a> ';
                 } else if (row.type == 0) {
-                    p = '<a title="审核通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-ok-sign"  style="color:green">审核通过</i></a> ';
+                    p = '<a title="审核不通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 1 + ',' +row.phone+ ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">审核不通过</i></a> ';
                 }
                 return e + d + f+p;
             }
@@ -211,11 +211,8 @@ function queryParams(params) {
     }
 }
 function del(businessManid, status) {
-    if (status == 0) {
-        layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
-        return;
-    }
-    layer.confirm('确认要删除吗？', function (index) {
+
+    layer.confirm('删除商会成员，将同时删除他的所有信息，继续吗？', function (index) {
         $.ajax({
             type: 'POST',
             url: '/businessMan/deleteBusinessMan/' + businessManid,
@@ -263,8 +260,8 @@ function updatestatus(id, status) {
         "json"
     );
 }
-function updateType(id, status) {
-    $.post("/businessMan/updateType/" + id + "/" + status,
+function updateType(id, status,phone) {
+    $.post("/businessMan/updateType/" + id + "/" + status+"/"+phone,
         function (data) {
             if(data.message=="ok"){
                 layer.alert("操作成功", {icon:1});

@@ -55,7 +55,7 @@
         update t_businessman set face_img=#{url} where id=#{id}
     </update>
     <update id="updateType">
-        update t_businessman set type=#{status} where id=#{id}
+        update t_businessman set type=#{status},is_active=#{status} where id=#{id}
     </update>
     <update id="update">
         update t_businessman set

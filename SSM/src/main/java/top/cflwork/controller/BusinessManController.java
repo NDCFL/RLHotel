@@ -15,6 +15,8 @@ import top.cflwork.enums.ActiveStatusEnum;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.BusinessManService;
+import top.cflwork.service.CharService;
+import top.cflwork.service.PriceItemService;
 import top.cflwork.service.VerifcodeService;
 import top.cflwork.util.HttpClientUtil;
 import top.cflwork.util.MsgInfo;
@@ -42,6 +44,10 @@ public class BusinessManController {
     private BusinessManService businessManService;
     @Resource
     private VerifcodeService verifcodeService;
+    @Resource
+    private PriceItemService priceItemService;
+    @Resource
+    private CharService charService;
     @RequestMapping("businessManLogin")
     @ResponseBody
     public Message businessManLogin() throws  Exception{
@@ -157,6 +163,8 @@ public class BusinessManController {
     public Message deletebusinessMan(@PathVariable("id") long id) throws  Exception{
         try{
             businessManService.removeById(id);
+            priceItemService.deletePriceItem(id);
+            charService.deleteChar(id);
             return Message.success("删除成功!");
         }catch (Exception e){
             e.printStackTrace();
@@ -182,11 +190,15 @@ public class BusinessManController {
             return  Message.fail("fail");
         }
     }
-    @RequestMapping("updateType/{id}/{status}")
+    @RequestMapping("updateType/{id}/{status}/{phone}")
     @ResponseBody
-    public Message updateType(@PathVariable("id") long id,@PathVariable("status") int status) throws  Exception{
+    public Message updateType(@PathVariable("id") long id,@PathVariable("status") int status,@PathVariable("phone") String phone) throws  Exception{
         try{
             businessManService.updateType(new StatusQuery(id,status));
+            //发送短信通知
+            HttpClientUtil client = HttpClientUtil.getInstance();
+            //UTF发送
+            int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, "【瑞蓝软件】你的账户已被管理员禁用，将无法进入系统，详情请联系管理员", phone);
             return Message.success("ok");
         }catch (Exception e){
             e.printStackTrace();

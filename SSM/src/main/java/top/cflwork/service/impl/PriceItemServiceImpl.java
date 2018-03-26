@@ -114,4 +114,9 @@ public class PriceItemServiceImpl implements PriceItemService {
     public List<BusinessVo> allPriceInfo(String times, Long id) {
         return priceItemDAO.allPriceInfo(times, id);
     }
+
+    @Override
+    public void deletePriceItem(Long id) {
+        priceItemDAO.deletePriceItem(id);
+    }
 }

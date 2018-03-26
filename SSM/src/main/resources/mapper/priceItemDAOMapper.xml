@@ -31,6 +31,9 @@
     <delete id="removeById" parameterType="long">
         delete from t_price_item where id = #{id}
     </delete>
+    <delete id="deletePriceItem" parameterType="long">
+        delete from t_price_item where businessman_id = #{id}
+    </delete>
     <select id="listPage" resultMap="priceItemMap">
         select t.*,b.hotel_sin_name,h.title from t_price_item t,t_businessman b,t_hotel_type h where t.businessman_id=b.id and  t.hotel_type_id=h.id order by t.create_time desc limit #{pageNo},#{pageSize}
     </select>

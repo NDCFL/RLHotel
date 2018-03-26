@@ -73,4 +73,9 @@ public class CharServiceImpl implements CharService {
     public List<CharVo> myCharList(Long id) {
         return charDAO.myCharList(id);
     }
+
+    @Override
+    public void deleteChar(Long id) {
+        charDAO.deleteChar(id);
+    }
 }
