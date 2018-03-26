@@ -21,4 +21,6 @@ public interface BusinessManDAO extends BaseDAO<BusinessManVo>{
     void updateFaceImg(@Param("id") Long id,@Param("url")String url);
     BusinessManVo findByOpenId(String openId);
     List<BusinessManVo> getBusinessManList(BusinessManVo businessManVo);
+    Integer checkName(BusinessManVo businessManVo);
+    Integer checkPhones(BusinessManVo businessManVo);
 }

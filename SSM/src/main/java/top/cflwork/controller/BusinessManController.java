@@ -132,21 +132,19 @@ public class BusinessManController {
     @ResponseBody
     public Message updatebusinessMan(BusinessManVo businessMan) throws  Exception{
         try{
-            BusinessManVo businessManVo = businessManService.getById(businessMan.getId());
-            if(businessManVo.getPhone().equals(businessMan.getPhone())){
-                businessManService.update(businessMan);
-                return  Message.success("修改成功!");
-            }else {
-                int cnt = businessManService.checkPhone(businessMan.getPhone());
-                if(cnt>0){
-                    return  Message.fail("修改失败，账户已存在!");
-                }else{
-                    businessManService.update(businessMan);
-                    return  Message.success("修改成功!");
-                }
+            System.out.println(businessMan.getPhone()+"======"+businessMan.getHotelSinName());
+            int cnt = businessManService.checkPhones(businessMan);
+            int count = businessManService.checkName(businessMan);
+            if(cnt>0){
+                return  Message.fail("修改失败，手机号已被占用!");
             }
-
+            if(count>0){
+                return  Message.fail("修改失败，酒店简称已被占用!");
+            }
+            businessManService.update(businessMan);
+            return  Message.success("修改成功!");
         }catch (Exception e){
+            e.printStackTrace();
             return Message.fail("修改失败!");
         }
     }

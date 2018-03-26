@@ -18,4 +18,6 @@ public interface BusinessManService extends BaseService<BusinessManVo>{
     void updateFaceImg(Long id,String url);
     BusinessManVo findByOpenId(String openId);
     List<BusinessManVo> getBusinessManList(BusinessManVo businessManVo);
+    Integer checkName(BusinessManVo businessManVo);
+    Integer checkPhones(BusinessManVo businessManVo);
 }

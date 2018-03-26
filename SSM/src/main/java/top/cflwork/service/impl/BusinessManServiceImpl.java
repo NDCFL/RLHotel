@@ -108,4 +108,16 @@ public class BusinessManServiceImpl implements BusinessManService {
     public List<BusinessManVo> getBusinessManList(BusinessManVo businessManVo) {
         return businessManDAO.getBusinessManList(businessManVo);
     }
+
+    @Override
+    public Integer checkName(BusinessManVo businessManVo) {
+        return businessManDAO.checkName(businessManVo);
+    }
+
+    @Override
+    public Integer checkPhones(BusinessManVo businessManVo) {
+        return businessManDAO.checkPhones(businessManVo);
+    }
+
+
 }

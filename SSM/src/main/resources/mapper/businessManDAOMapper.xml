@@ -73,6 +73,12 @@
     <select id="checkPhone" parameterType="string" resultType="int">
         select count(id) from t_businessman where phone=#{phone}
     </select>
+    <select id="checkName" resultType="int">
+        select count(id) from t_businessman where hotel_sin_name=#{hotelSinName} and id!=#{id}
+    </select>
+    <select id="checkPhones" resultType="int">
+        select count(id) from t_businessman where phone=#{phone} and id!=#{id}
+    </select>
     <select id="findByOpenId" parameterType="string" resultMap="businessManMap">
         select * from t_businessman where wxopenid=#{openId}
     </select>
