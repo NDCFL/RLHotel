@@ -167,9 +167,9 @@ $('#mytab').bootstrapTable({
                 }
                 var p ='';
                 if (row.type == 1) {
-                    p = '<a title="审核通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 0 + ',' +row.phone+ ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">审核通过</i></a> ';
+                    p = '<a title="审核通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">审核通过</i></a> ';
                 } else if (row.type == 0) {
-                    p = '<a title="审核不通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 1 + ',' +row.phone+ ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">审核不通过</i></a> ';
+                    p = '<a title="审核不通过" href="javascript:void(0);" onclick="updateType(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">审核不通过</i></a> ';
                 }
                 return e + d + f+p;
             }
@@ -260,8 +260,12 @@ function updatestatus(id, status) {
         "json"
     );
 }
-function updateType(id, status,phone) {
-    $.post("/businessMan/updateType/" + id + "/" + status+"/"+phone,
+function updateType(id, status) {
+    $.post("/businessMan/updateType",
+        {
+            id:id,
+            status:status
+        },
         function (data) {
             if(data.message=="ok"){
                 layer.alert("操作成功", {icon:1});

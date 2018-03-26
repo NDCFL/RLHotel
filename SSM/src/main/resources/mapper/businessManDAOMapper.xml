@@ -25,7 +25,7 @@
       select count(id) from t_businessman where wxopenid=#{openId}
     </select>
     <sql id="find">
-        <if test="businessManVo.createTime!=null"> and create_time BETWEEN #{businessManVo.createTime} AND #{businessManVo.endTime}</if>
+        <if test="businessManVo.createTime!=null and businessManVo.endTime!=null"> and create_time BETWEEN #{businessManVo.createTime} AND #{businessManVo.endTime}</if>
         <if test="businessManVo.name!=null"> and name like concat('%${businessManVo.name}%')</if>
         <if test="businessManVo.phone!=null"> and phone like concat('%${businessManVo.phone}%')</if>
         <if test="businessManVo.tel!=null"> and tel  like concat('%${businessManVo.tel}%')</if>

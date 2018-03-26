@@ -76,7 +76,6 @@ public class BusinessManController {
             //赋值给pagequery对象
             PageQuery pageQuery = new PageQuery();
             pageQuery.setHotelId(-1l);
-            pageQuery.setCompanyId(userVo.getCompanyId());
             pageQuery.setSearchVal(searchVal);
             pageQuery.setPageSize(pagingBean.getPageSize());
             pageQuery.setPageNo(pagingBean.getStartIndex());
@@ -190,16 +189,25 @@ public class BusinessManController {
             return  Message.fail("fail");
         }
     }
-    @RequestMapping("updateType/{id}/{status}/{phone}")
+    @RequestMapping("updateType")
     @ResponseBody
-    public Message updateType(@PathVariable("id") long id,@PathVariable("status") int status,@PathVariable("phone") String phone) throws  Exception{
+    public Message updateType(long id,int status) throws  Exception{
         try{
+            BusinessManVo b = businessManService.getById(id);
             businessManService.updateType(new StatusQuery(id,status));
-            //发送短信通知
-            HttpClientUtil client = HttpClientUtil.getInstance();
-            //UTF发送
-            int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, "【瑞蓝软件】你的账户已被管理员禁用，将无法进入系统，详情请联系管理员", phone);
-            return Message.success("ok");
+            if(b.getPhone().indexOf("未填写")>-1){
+                return Message.success("ok");
+            }else{
+                //发送短信通知
+                HttpClientUtil client = HttpClientUtil.getInstance();
+                //UTF发送
+                if(status==0){
+                    int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, "【瑞蓝软件】非常抱歉，您的账户已被系统停用，您将无法进入系统，详情请联系管理员，电话0532-85696999", b.getPhone());
+                }else{
+                    int result = client.sendMsgUtf8(MsgInfo.UID, MsgInfo.KEY, "【瑞蓝软件】恭喜您！您在公寓联盟平台注册的账号已通过系统授权，可以正常进入平台，请及时维护个人信息", b.getPhone());
+                }
+                return Message.success("ok");
+            }
         }catch (Exception e){
             e.printStackTrace();
             return  Message.fail("fail");
@@ -265,7 +273,7 @@ public class BusinessManController {
                     }
                     //保存到数据库中并且发送到手机上
                     verifcode.setCode(code+"");
-                    verifcode.setMsg("【瑞蓝软件】注册验证码，你的验证码是："+code);
+                    verifcode.setMsg("【瑞蓝软件】注册验证码，你的验证码是："+code+"，请妥善保管5分钟内有效。");
                     System.out.println(code+"====注册发送的验证码==>>>");
                 }else if(verifcode.getCodeType().equals("findPwd")){
                     if(cnt==0){
@@ -273,7 +281,7 @@ public class BusinessManController {
                     }
                     //保存到数据库中并且发送到手机上
                     verifcode.setCode(code+"");
-                    verifcode.setMsg("【瑞蓝软件】找回密码，你的验证码是："+code);
+                    verifcode.setMsg("【瑞蓝软件】找回密码，你的验证码是："+code+"，请妥善保管5分钟内有效。");
                     System.out.println(code+"====找回密码注册发送的验证码==>>>");
                 }
                 verifcodeService.save(verifcode);
@@ -337,9 +345,9 @@ public class BusinessManController {
                 businessManVo1.setHotelSinName("未填写");
                 businessManVo1.setHotelName("未填写");
                 businessManVo1.setName(verifcode.getMobile());
-                businessManVo1.setIsActive((byte) 0);
+                businessManVo1.setIsActive((byte) 1);
                 businessManVo1.setCreateTime(new Date());
-                businessManVo1.setType(0);
+                businessManVo1.setType(1);
                 businessManVo1.setPhone(verifcode.getMobile());
                 businessManVo1.setPassword(new Md5Hash(verifcode.getPassword()).toString());
                 businessManService.save(businessManVo1);
