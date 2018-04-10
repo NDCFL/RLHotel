@@ -12,20 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import top.cflwork.common.Message;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.query.UserAccountPasswordQuery;
 import top.cflwork.service.RoleService;
 import top.cflwork.service.UserRoleService;
 import top.cflwork.service.UserService;
-import top.cflwork.vo.RoleVo;
-import top.cflwork.vo.Select2Vo;
-import top.cflwork.vo.UserRoleVo;
-import top.cflwork.vo.UserVo;
+import top.cflwork.vo.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -272,7 +271,43 @@ public class UserController {
             return Message.fail("删除失败!");
         }
     }
-
+    //修改头像
+    @RequestMapping("updateHeadIcon")
+    @ResponseBody
+    public FileVo fileUp(MultipartFile file, HttpServletRequest request,HttpSession session){
+        FileVo fileVo = new FileVo();
+        try{
+            //使用原始文件名称
+            String fileName = file.getOriginalFilename();
+            //重新格式化文件名称
+            //String fileName = getFileName(file.getOriginalFilename());
+            String path = request.getSession().getServletContext().getRealPath("upload");
+            UserVo userVo1 = (UserVo) session.getAttribute("userVo");
+            String names = getFileName(fileName);
+            File dir = new File(path,names);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            file.transferTo(dir);
+            Map<String,String> data = new HashMap<String, String>();
+            data.put("src","/upload/"+names);
+            fileVo.setData(data);
+            System.out.println("保存到数据库的图片地址:/upload/"+names);
+            fileVo.setCode(0);
+            //如果修改了头像择删除原来的头像
+            File file1 = new File(path+userVo1.getHeadicon());
+            file1.delete();
+            UserVo userVo = new UserVo();
+            userVo.setId(userVo1.getId());
+            userVo.setHeadicon("/upload/"+names);
+            userService.updateHeadIcon(userVo);//保存头像
+        }catch (Exception e){
+            e.printStackTrace();
+            fileVo.setCode(1);
+        }
+        fileVo.setMsg("上传成功!");
+        return  fileVo;
+    }
     @RequestMapping("/deleteUser/{id}")
     @ResponseBody
     public Message deletecashSubject(@PathVariable("id") long id) throws Exception {
@@ -284,6 +319,10 @@ public class UserController {
             return Message.fail("删除失败!");
         }
     }
-
+    private synchronized String getFileName(String filename) {
+        int position = filename.lastIndexOf(".");
+        String ext = filename.substring(position);
+        return System.nanoTime() + ext;
+    }
 
 }

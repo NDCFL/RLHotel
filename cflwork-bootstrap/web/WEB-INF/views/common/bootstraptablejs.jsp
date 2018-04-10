@@ -33,4 +33,5 @@
 <script type="text/javascript" src="<%=path%>/static/js/plugins/datapicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="<%=path%>/static/js/select2.min.js"></script>
 <script type="text/javascript" src="<%=path%>/static/js/plugins/laydate/laydate.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/plugins/layui/layui.js"></script>
 </html>

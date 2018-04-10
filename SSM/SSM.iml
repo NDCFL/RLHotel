@@ -27,7 +27,6 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.47" level="application_server_libraries" />
     <orderEntry type="module" module-name="cflwork-common" />
     <orderEntry type="module" module-name="cflwork-common" />
     <orderEntry type="library" name="Maven: net.sf.dozer:dozer-spring:5.5.1" level="project" />
@@ -148,5 +147,6 @@
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0" level="application_server_libraries" />
   </component>
 </module>

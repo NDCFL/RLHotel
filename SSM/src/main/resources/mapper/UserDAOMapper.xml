@@ -66,6 +66,9 @@
 	<update id="updatePhone">
 		update t_user set phone=#{phone} where id=#{id}
 	</update>
+	<update id="updateHeadIcon">
+		update t_user set headicon=#{headicon} where id=#{id}
+	</update>
 	<select id="landlordCount" resultType="int" parameterType="string">
 		select count(*) from t_user u,t_role r,t_user_role t where u.id=t.user_id and r.id=t.role_id and r.id=(select id from t_role where title=#{title})
 	</select>

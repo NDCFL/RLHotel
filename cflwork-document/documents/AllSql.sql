@@ -623,3 +623,30 @@ select id,ceil(datediff(now(),facted_pay_time_start)/30) from t_rent_pay where y
 
 select datediff(now(),facted_pay_time_start) from t_rent_pay
 create database bag;
+
+select t.*,b.hotel_sin_name from t_price_item t,t_businessman b where t.businessman_id=b.id and  DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT('2018-03-19','%Y-%m-%d') and t.hotel_type_id='10' order by t.create_time desc
+
+select t.*,b.hotel_sin_name from t_price_item t,t_businessman b where t.businessman_id=b.id and DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT('2018-03-19','%Y-%m-%d') order by t.create_time desc
+
+
+select t.*,b.hotel_sin_name from t_price_item t,t_businessman b where t.businessman_id=b.id
+
+
+select t.*,b.hotel_sin_name from t_price_item t,t_businessman b where t.businessman_id=b.id and DATE_FORMAT(t.create_time, '%Y-%m-%d')=DATE_FORMAT('2018-03-19','%Y-%m-%d') and t.hotel_type_id=10 order by t.create_time desc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

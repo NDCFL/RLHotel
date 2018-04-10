@@ -87,6 +87,11 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
+    public void updateHeadIcon(UserVo userVo) {
+        userDAO.updateHeadIcon(userVo);
+    }
+
+    @Override
     public void save(UserVo userVo) {
         userDAO.save(userVo);
     }

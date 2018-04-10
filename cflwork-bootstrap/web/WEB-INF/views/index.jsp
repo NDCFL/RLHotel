@@ -22,7 +22,7 @@
     <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <jsp:include page="common/css.jsp"></jsp:include>
+    <jsp:include page="common/bootstraptablecss.jsp"></jsp:include>
 
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -35,7 +35,7 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element" style="text-align: center">
-                        <span><img alt="image" class="img-circle" src="<%=path%>/static/img/profile_small1.jpg" /></span>
+                        <span><img alt="image" id="updateHeadIcon" class="img-circle" src="${userVo.headicon}" style="width: 60px;height: 60px" /></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
                                <span class="block m-t-xs">${userRole.roleVo.title}</span>
@@ -50,6 +50,9 @@
                             </shiro:hasAnyRoles>
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/user/bossInfoPage">个人资料</a>
+                            </li>
+                            <li>
+                                <a id="update_headIcon">修改头像</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="<%=path%>/user/exit">安全退出</a>
@@ -839,6 +842,75 @@
         </a>
     </div>
 </div>
-<jsp:include page="common/js.jsp"></jsp:include>
+<jsp:include page="common/bootstraptablejs.jsp"></jsp:include>
+<script>
+    document.getElementById("updateHeadIcon").src=localStorage.getItem("icon");
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#updateHeadIcon'
+            , url: '/user/updateHeadIcon'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#updateHeadIcon').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }else{
+                    localStorage.removeItem("icon");
+                    localStorage.setItem("icon",res.data.src);
+                    document.getElementById("updateHeadIcon").src=res.data.src;
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#update_headIcon'
+            , url: '/user/updateHeadIcon'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#update_headIcon').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }else{
+                    localStorage.removeItem("icon");
+                    localStorage.setItem("icon",res.data.src);
+                    document.getElementById("updateHeadIcon").src=res.data.src;
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

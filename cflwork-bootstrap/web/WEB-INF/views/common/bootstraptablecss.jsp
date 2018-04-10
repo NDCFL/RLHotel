@@ -20,6 +20,7 @@
     <link href="<%=path%>/static/css/style.min.css?v=4.0.0" rel="stylesheet">
     <link href="<%=path%>/static/css/bootstrapValidator.css" rel="stylesheet">
     <link href="<%=path%>/static/css/plugins/datapicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="<%=path%>/static/js/plugins/layui/css/layui.css" rel="stylesheet">
 </head>
 <body>
 
