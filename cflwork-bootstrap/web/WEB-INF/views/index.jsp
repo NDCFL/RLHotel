@@ -22,7 +22,7 @@
     <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <jsp:include page="common/bootstraptablecss.jsp"></jsp:include>
+    <jsp:include page="common/css.jsp"></jsp:include>
 
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -842,7 +842,7 @@
         </a>
     </div>
 </div>
-<jsp:include page="common/bootstraptablejs.jsp"></jsp:include>
+<jsp:include page="common/js.jsp"></jsp:include>
 <script>
     document.getElementById("updateHeadIcon").src=localStorage.getItem("icon");
     layui.use('upload', function() {

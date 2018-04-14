@@ -24,4 +24,5 @@
 <script src="<%=path%>/static/js/hplus.min.js?v=4.0.0"></script>
 <script src="<%=path%>/static/js/contabs.min.js"></script>
 <script src="<%=path%>/static/js/plugins/pace/pace.min.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/plugins/layui/layui.js"></script>
 </html>

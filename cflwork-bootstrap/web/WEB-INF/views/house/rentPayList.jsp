@@ -634,6 +634,9 @@
                 $("#hotelId_").select2({
                     data: data
                 })
+                $("#select2-hotel_Id-container").remove();
+                $("#select2-hotelId-container").remove();
+                $("#select2-hotelId_-container").remove();
                 $.post(
                     "/rentPay/getHouse/"+data[0].id,
                     function (data) {
@@ -661,6 +664,8 @@
                 $("#house_Id").select2({
                     data: data
                 })
+                $("#select2-houseId-container").remove();
+                $("#select2-house_Id-container").remove();
             },
             "json"
         );
