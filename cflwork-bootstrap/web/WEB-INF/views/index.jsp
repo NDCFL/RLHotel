@@ -295,6 +295,13 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="J_menuItem" href="/druid/index.html">
+                            <i class="glyphicon glyphicon-time"></i>
+                            <span class="nav-label"> 系统监控</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                    </li>
                 </shiro:hasAnyRoles>
             </ul>
         </div>
