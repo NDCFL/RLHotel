@@ -63,6 +63,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        contractDAO.removeMany(id);
+    }
+
+    @Override
     public List<ContractVo> listPages(PageQuery pageQuery, long companyId) {
         return contractDAO.listPages(pageQuery,companyId);
     }

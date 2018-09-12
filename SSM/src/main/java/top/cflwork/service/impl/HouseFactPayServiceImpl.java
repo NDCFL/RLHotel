@@ -57,4 +57,9 @@ public class HouseFactPayServiceImpl implements HouseFactPayService {
     public long count(PageQuery pageQuery) {
         return houseFactPayDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        houseFactPayDAO.removeMany(id);
+    }
 }

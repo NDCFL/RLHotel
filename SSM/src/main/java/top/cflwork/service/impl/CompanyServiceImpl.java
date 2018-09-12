@@ -63,6 +63,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        companyDAO.removeMany(id);
+    }
+
+    @Override
     public int checkName(String name,long id) {
         return companyDAO.checkName(name,id);
     }

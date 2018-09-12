@@ -61,6 +61,11 @@ public class HouseTypeServiceImpl implements HouseTypeService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        houseTypeDAO.removeMany(id);
+    }
+
+    @Override
     public Long findCount(PageQuery pageQuery, HouseTypeVo houseTypeVo) {
         return houseTypeDAO.findCount(pageQuery, houseTypeVo);
     }

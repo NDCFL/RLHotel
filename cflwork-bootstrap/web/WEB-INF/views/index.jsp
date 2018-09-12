@@ -296,11 +296,18 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/druid/index.html">
-                            <i class="glyphicon glyphicon-time"></i>
-                            <span class="nav-label"> 系统监控</span>
-                            <span class="fa arrow"></span>
-                        </a>
+                        <a href="#"><i class="glyphicon glyphicon-time"></i> <span class="nav-label">任务操作 </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="/druid/index.html">系统监控</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="/generator/table">代码生成</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="/outcome/outcomePage">支出</a>
+                            </li>
+                        </ul>
                     </li>
                 </shiro:hasAnyRoles>
             </ul>

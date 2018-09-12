@@ -136,4 +136,9 @@ public class UserServiceImpl  implements UserService {
         return userDAO.count(pageQuery);
     }
 
+    @Override
+    public void removeMany(Long[] id) {
+        userDAO.removeMany(id);
+    }
+
 }

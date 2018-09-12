@@ -93,4 +93,9 @@ public class HotelServiceImpl implements HotelService {
     public long count(PageQuery pageQuery) {
         return hotelDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        hotelDAO.removeMany(id);
+    }
 }

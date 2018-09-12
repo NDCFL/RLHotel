@@ -59,4 +59,9 @@ public class OrderItemsServiceImpl implements OrderItemsService {
     public long count(PageQuery pageQuery) {
         return orderItemsDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        orderItemsDAO.removeMany(id);
+    }
 }

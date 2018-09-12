@@ -76,6 +76,11 @@ public class TemplateServiceImpl implements TemplateService {
         return 0;
     }
 
+    @Override
+    public void removeMany(Long[] id) {
+        templateDAO.removeMany(id);
+    }
+
     @Resource
     public void setDozerMapper(Mapper dozerMapper) {
         this.dozerMapper = dozerMapper;

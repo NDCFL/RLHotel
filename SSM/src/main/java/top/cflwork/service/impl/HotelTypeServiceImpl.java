@@ -61,6 +61,11 @@ public class HotelTypeServiceImpl implements HotelTypeService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        hotelTypeDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> hotelTypeList() {
         return hotelTypeDAO.hotelTypeList();
     }

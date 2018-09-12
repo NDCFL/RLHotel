@@ -67,6 +67,11 @@ public class CashAccountsServiceImpl implements CashAccountsService{
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        cashAccountsDAO.removeMany(id);
+    }
+
+    @Override
     public void updateCashStatus(CashAccountsVo cashAccountsVo) {
         cashAccountsDAO.updateCashStatus(cashAccountsVo);
     }

@@ -65,6 +65,11 @@ public class HouseRentPayServiceImpl implements HouseRentPayService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        houseRentPayDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> getContractMaster(Long companyId) {
         return houseRentPayDAO.getContractMaster(companyId);
     }

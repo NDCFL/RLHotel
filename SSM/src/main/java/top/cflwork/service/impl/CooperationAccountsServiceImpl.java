@@ -128,4 +128,9 @@ public class CooperationAccountsServiceImpl implements CooperationAccountsServic
     public long count(PageQuery pageQuery) {
         return cooperationAccountsDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        cooperationAccountsDAO.removeMany(id);
+    }
 }

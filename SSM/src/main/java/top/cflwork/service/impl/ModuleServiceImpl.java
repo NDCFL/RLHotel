@@ -74,6 +74,11 @@ public class ModuleServiceImpl extends AbstractBaseService implements ModuleServ
         return 0;
     }
 
+    @Override
+    public void removeMany(Long[] id) {
+        moduleDAO.removeMany(id);
+    }
+
     @Resource
     public void setModuleDAO(ModuleDAO moduleDAO) {
         this.moduleDAO = moduleDAO;

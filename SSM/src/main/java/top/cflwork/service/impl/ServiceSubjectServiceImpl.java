@@ -62,4 +62,9 @@ public class ServiceSubjectServiceImpl implements ServiceSubjectService {
     public long count(PageQuery pageQuery) {
         return serviceSubjectDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        serviceSubjectDAO.removeMany(id);
+    }
 }

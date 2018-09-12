@@ -72,4 +72,10 @@ public interface BaseDAO<T> {
      * @return 记录数
      */
     long count(PageQuery pageQuery);
+
+    /**
+     * 批量删除
+     * @param id
+     */
+    void removeMany(Long[] id);
 }

@@ -62,4 +62,9 @@ public class CooperationSubjectServiceImpl implements CooperationSubjectService 
     public long count(PageQuery pageQuery) {
         return cooperationSubjectDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        cooperationSubjectDAO.removeMany(id);
+    }
 }

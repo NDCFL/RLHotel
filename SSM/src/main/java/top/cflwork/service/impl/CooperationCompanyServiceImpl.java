@@ -63,6 +63,11 @@ public class CooperationCompanyServiceImpl implements CooperationCompanyService 
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        cooperationCompanyDAO.removeMany(id);
+    }
+
+    @Override
     public List<CooperationCompanyVo> listPages(PageQuery pageQuery) {
         return cooperationCompanyDAO.listPages(pageQuery);
     }

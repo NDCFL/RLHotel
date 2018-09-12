@@ -61,6 +61,11 @@ public class CharSayServiceImpl implements CharSayService{
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        charSayDAO.removeMany(id);
+    }
+
+    @Override
     public List<CharSayVo> findCharSayList(PageQuery pageQuery, CharSayVo charSayVo) {
         return charSayDAO.findCharSayList(pageQuery, charSayVo);
     }

@@ -62,4 +62,9 @@ public class CooperationWebsiteServiceImpl implements CooperationWebsiteService 
     public long count(PageQuery pageQuery) {
         return cooperationWebsiteDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        cooperationWebsiteDAO.removeMany(id);
+    }
 }

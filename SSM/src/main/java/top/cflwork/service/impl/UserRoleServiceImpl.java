@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
     @Resource
-    private UserRoleDAO userRoleDAO;
+    protected UserRoleDAO userRoleDAO;
     @Override
     public void save(UserRoleVo userRoleVo) {
         userRoleDAO.save(userRoleVo);
@@ -60,6 +60,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public long count(PageQuery pageQuery) {
         return userRoleDAO.count(pageQuery);
+    }
+
+    @Override
+    public void removeMany(Long[] id) {
+        userRoleDAO.removeMany(id);
     }
 
     @Override

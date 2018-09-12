@@ -58,6 +58,11 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        codeDAO.removeMany(id);
+    }
+
+    @Override
     public Integer getCode(String phone) {
         return codeDAO.getCode(phone);
     }

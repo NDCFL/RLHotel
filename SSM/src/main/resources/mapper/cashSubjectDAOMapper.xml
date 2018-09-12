@@ -27,7 +27,6 @@
     <select id="count" resultType="java.lang.Long">
         select count(*) from t_cash_subject where company_id=#{companyId} <include refid="search"/>
     </select>
-    <select id=""></select>
     <insert id="save" parameterType="cashSubjectVo">
         insert into t_cash_subject ( title,description,is_active,company_id) values ( #{title},#{description},#{isActive},#{companyId})
     </insert>

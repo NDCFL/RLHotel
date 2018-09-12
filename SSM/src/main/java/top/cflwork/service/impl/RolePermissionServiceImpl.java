@@ -62,6 +62,10 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+    }
+
+    @Override
     public List<String> pageListByRoleId(String roleId) {
         return null;
     }

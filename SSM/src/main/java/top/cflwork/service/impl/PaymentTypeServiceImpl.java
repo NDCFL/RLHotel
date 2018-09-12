@@ -62,4 +62,9 @@ public class PaymentTypeServiceImpl implements PaymentTypeService {
     public long count(PageQuery pageQuery) {
         return paymentTypeDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        paymentTypeDAO.removeMany(id);
+    }
 }

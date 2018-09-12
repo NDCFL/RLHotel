@@ -60,6 +60,11 @@ public class BusinessManServiceImpl implements BusinessManService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        businessManDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> businessManList() {
         return businessManDAO.businessManList();
     }

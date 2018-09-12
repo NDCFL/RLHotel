@@ -60,6 +60,11 @@ public class CharServiceImpl implements CharService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        charDAO.removeMany(id);
+    }
+
+    @Override
     public List<CharVo> findCharList(PageQuery pageQuery, CharVo charVo) {
         return charDAO.findCharList(pageQuery, charVo);
     }

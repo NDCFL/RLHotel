@@ -64,6 +64,11 @@ public class HotelManagerServiceImpl implements HotelManagerService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        hotelManagerDAO.removeMany(id);
+    }
+
+    @Override
     public List<UserVo> listPages(PageQuery pageQuery) {
         return hotelManagerDAO.listPages(pageQuery);
     }

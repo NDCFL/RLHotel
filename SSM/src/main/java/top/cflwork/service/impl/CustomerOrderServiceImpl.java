@@ -67,6 +67,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService{
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        customerOrderDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> getSubject(Long companyId) {
         return customerOrderDAO.getSubject(companyId);
     }

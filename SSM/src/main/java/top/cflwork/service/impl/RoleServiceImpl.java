@@ -92,6 +92,11 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
         return roleDAO.count(pageQuery);
     }
 
+    @Override
+    public void removeMany(Long[] id) {
+        roleDAO.removeMany(id);
+    }
+
     @Resource
     public void setRoleDAO(RoleDAO roleDAO) {
         this.roleDAO = roleDAO;

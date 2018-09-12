@@ -103,6 +103,11 @@ public class PermissionServiceImpl extends AbstractBaseService implements Permis
         return 0;
     }
 
+    @Override
+    public void removeMany(Long[] id) {
+        permissionDAO.removeMany(id);
+    }
+
     @Resource
     public void setPermissionDAO(PermissionDAO permissionDAO) {
         this.permissionDAO = permissionDAO;

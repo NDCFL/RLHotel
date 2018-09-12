@@ -79,4 +79,9 @@ public class VerifcodeServiceImpl implements VerifcodeService {
     public long count(PageQuery pageQuery) {
         return verifcodeDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        verifcodeDAO.removeMany(id);
+    }
 }

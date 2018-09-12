@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/cflwork-document/documents/AllSql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/cflwork-document/documents/hotelmanager.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/cflwork-document/documents/template.sql" dialect="MySQL" />
   </component>
 </project>

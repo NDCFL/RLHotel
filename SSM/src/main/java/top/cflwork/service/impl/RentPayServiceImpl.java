@@ -63,6 +63,11 @@ public class RentPayServiceImpl implements RentPayService{
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        rentPayDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> getContractMaster(Long companyId) {
         return rentPayDAO.getContractMaster(companyId);
     }

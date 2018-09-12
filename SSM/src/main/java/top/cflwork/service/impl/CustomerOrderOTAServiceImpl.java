@@ -62,6 +62,11 @@ public class CustomerOrderOTAServiceImpl implements CustomerOrderOTAService {
         return customerOrderOTADAO.count(pageQuery);
     }
 
+    @Override
+    public void removeMany(Long[] id) {
+        customerOrderOTADAO.removeMany(id);
+    }
+
     @Transactional
     @Override
     public void batchSave(List<Object> orders) {

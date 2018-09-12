@@ -63,6 +63,11 @@ public class KeyInServiceImpl implements KeyInService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        keyInDAO.removeMany(id);
+    }
+
+    @Override
     public long counts(PageQuery pageQuery) {
         return keyInDAO.counts(pageQuery);
     }

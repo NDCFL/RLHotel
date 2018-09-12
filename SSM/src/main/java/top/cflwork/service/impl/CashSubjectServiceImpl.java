@@ -63,4 +63,9 @@ public class CashSubjectServiceImpl implements CashSubjectService {
     public long count(PageQuery pageQuery) {
         return cashSubjectDAO.count(pageQuery);
     }
+
+    @Override
+    public void removeMany(Long[] id) {
+        cashSubjectDAO.removeMany(id);
+    }
 }

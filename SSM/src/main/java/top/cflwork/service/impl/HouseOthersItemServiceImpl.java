@@ -64,6 +64,11 @@ public class HouseOthersItemServiceImpl implements HouseOthersItemService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        houseOthersItemDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> subjectList(Long companyId) {
         return houseOthersItemDAO.subjectList(companyId);
     }

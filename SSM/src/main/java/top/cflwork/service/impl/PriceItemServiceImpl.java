@@ -61,6 +61,11 @@ public class PriceItemServiceImpl implements PriceItemService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        priceItemDAO.removeMany(id);
+    }
+
+    @Override
     public List<PriceItemVo> findPriceItemList(PageQuery pageQuery, PriceItemVo priceItemVo) {
         return priceItemDAO.findPriceItemList(pageQuery, priceItemVo);
     }

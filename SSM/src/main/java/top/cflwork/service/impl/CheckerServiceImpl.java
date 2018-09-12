@@ -63,6 +63,11 @@ public class CheckerServiceImpl implements CheckerService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        checkerDAO.removeMany(id);
+    }
+
+    @Override
     public long counts(PageQuery pageQuery) {
         return checkerDAO.counts(pageQuery);
     }

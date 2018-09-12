@@ -65,6 +65,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        houserDAO.removeMany(id);
+    }
+
+    @Override
     public List<Select2Vo> houseTypeList(long companyId,Long id) {
         return houserDAO.houseTypeList(companyId,id);
     }

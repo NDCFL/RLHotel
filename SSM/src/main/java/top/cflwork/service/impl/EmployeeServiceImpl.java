@@ -63,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        employeeDAO.removeMany(id);
+    }
+
+    @Override
     public EmployeeVo getHotelId(Long employeeId) {
         return employeeDAO.getHotelId(employeeId);
     }

@@ -65,6 +65,11 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
+    public void removeMany(Long[] id) {
+        landlordDAO.removeMany(id);
+    }
+
+    @Override
     public List<UserVo> listPages(PageQuery pageQuery) {
         return landlordDAO.listPages(pageQuery);
     }
