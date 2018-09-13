@@ -1,5 +1,7 @@
 package top.cflwork.vo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 public class BusinessVo implements Serializable {
     private Integer sumHotel=0;

@@ -6,100 +6,33 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a5a346d-4c75-4470-b146-75ef20938da4" name="Default" comment="1、修改店铺模块">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_49.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_configuration_commons_configuration_1_10.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_1_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_4_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_velocity_velocity_1_7.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_16_20.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/GeneratorController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/OutcomeController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/dao/GeneratorMapper.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/dao/OutcomeDAO.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/dos/ColumnDO.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/dos/TableDO.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/GeneratorService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/OutcomeService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/GeneratorServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/OutcomeServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/BDException.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/Constant.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/DateUtils.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/GenUtils.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/R.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/OutcomeVo.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/config/generator.properties" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/Controller.java.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/Dao.java.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/Mapper.java.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/Mapper.xml.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/Service.java.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/ServiceImpl.java.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/edit.js.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/list.js.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/resources/templates/menu.sql.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/outcome/outcomeList.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/edit.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/list.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/outcome.js" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/SSM_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/SSM_war_exploded.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zywork_test_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/zywork_test_war_exploded.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8d0fb8c1-0690-484d-917c-f47ae8b14dd3.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
+    <list default="true" id="6a5a346d-4c75-4470-b146-75ef20938da4" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cn_afterturn_easypoi_annotation_3_0_3.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cn_afterturn_easypoi_base_3_0_3.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cn_afterturn_easypoi_web_3_0_3.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_16_0_1.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_asm_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_3_1_1_RELEASE.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/test1.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/IncomeVo.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/05738865-801d-48d3-a3b2-ba47ef893d55.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/05738865-801d-48d3-a3b2-ba47ef893d55.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_javax_mail_1_5_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_6.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__top_cflwork_cflwork_common_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/SSM/SSM.iml" afterPath="$PROJECT_DIR$/SSM/SSM.iml" />
-      <change beforePath="$PROJECT_DIR$/SSM/pom.xml" afterPath="$PROJECT_DIR$/SSM/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/BusinessManServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/BusinessManServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CashAccountsServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CashAccountsServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CashSubjectServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CashSubjectServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CharSayServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CharSayServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CharServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CharServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CheckerServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CheckerServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CodeServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CodeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CompanyServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CompanyServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ContractMasterServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ContractMasterServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ContractServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ContractServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationAccountsServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationAccountsServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationCompanyServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationCompanyServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationSubjectServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationSubjectServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationWebsiteServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CooperationWebsiteServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CustomerOrderOTAServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CustomerOrderOTAServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CustomerOrderServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/CustomerOrderServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/EmployeeServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/EmployeeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HotelManagerServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HotelManagerServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HotelServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HotelServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HotelTypeServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HotelTypeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseFactPayServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseFactPayServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseOthersItemServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseOthersItemServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseRentPayServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseRentPayServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseTypeServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseTypeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/KeyInServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/KeyInServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/LandlordServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/LandlordServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ModuleServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ModuleServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/OrderItemsServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/OrderItemsServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/PaymentTypeServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/PaymentTypeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/PermissionServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/PermissionServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/PriceItemServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/PriceItemServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/RentPayServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/RentPayServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/RolePermissionServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/RolePermissionServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/RoleServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/RoleServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ServiceSubjectServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ServiceSubjectServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/TemplateServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/TemplateServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/UserRoleServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/UserRoleServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/UserServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/VerifcodeServiceImpl.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/VerifcodeServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/SSM/src/main/resources/mapper/cashSubjectDAOMapper.xml" afterPath="$PROJECT_DIR$/SSM/src/main/resources/mapper/cashSubjectDAOMapper.xml" />
-      <change beforePath="$PROJECT_DIR$/cflwork-bootstrap/cflwork-bootstrap.iml" afterPath="$PROJECT_DIR$/cflwork-bootstrap/cflwork-bootstrap.iml" />
-      <change beforePath="$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/index.jsp" afterPath="$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/index.jsp" />
+      <change beforePath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/BusinessVo.java" afterPath="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/BusinessVo.java" />
       <change beforePath="$PROJECT_DIR$/cflwork-common/cflwork-common.iml" afterPath="$PROJECT_DIR$/cflwork-common/cflwork-common.iml" />
-      <change beforePath="$PROJECT_DIR$/cflwork-common/src/main/java/top/cflwork/dao/BaseDAO.java" afterPath="$PROJECT_DIR$/cflwork-common/src/main/java/top/cflwork/dao/BaseDAO.java" />
-      <change beforePath="$PROJECT_DIR$/cflwork-common/src/main/java/top/cflwork/service/BaseService.java" afterPath="$PROJECT_DIR$/cflwork-common/src/main/java/top/cflwork/service/BaseService.java" />
+      <change beforePath="$PROJECT_DIR$/cflwork-common/pom.xml" afterPath="$PROJECT_DIR$/cflwork-common/pom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/SSH2/target/" />
     <ignored path="$PROJECT_DIR$/SSH1/target/" />
@@ -133,133 +66,22 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="hotelmanager@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="hotelmanager@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="hotelmanager@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="hotelmanager: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GeneratorController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/GeneratorController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
-              <caret line="66" column="17" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="aspring-quartz.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/config/aspring-quartz.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-504">
-              <caret line="15" column="52" lean-forward="false" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GenUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/GenUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="31" column="47" lean-forward="false" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SSM/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="80" column="48" lean-forward="false" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/generator/edit.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-541">
-              <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/generator/list.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#3;n#form#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cashAccounts.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/cashAccounts.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="259" column="1" lean-forward="false" selection-start-line="259" selection-start-column="1" selection-end-line="259" selection-end-column="1" />
-              <folding>
-                <marker date="1534817770299" expanded="true" signature="1913:1924" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="2015:2024" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="2502:2513" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="2600:2609" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="2937:2946" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="3069:3080" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="3201:3213" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="5049:5059" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="5306:5317" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="5593:5602" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="6309:6320" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="6581:6592" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="6860:6871" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="7057:7066" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="7312:7323" ph="..." />
-                <marker date="1534817770299" expanded="true" signature="7553:7562" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cashAccountsList.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/moneyItems/cashAccountsList.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="284" column="86" lean-forward="false" selection-start-line="284" selection-start-column="66" selection-end-line="284" selection-end-column="86" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/list.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="102" column="21" lean-forward="false" selection-start-line="102" selection-start-column="21" selection-end-line="102" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/edit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="22" column="33" lean-forward="false" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -271,8 +93,8 @@
         <option value="Interface" />
         <option value="BpmnFile" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -369,10 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseOthersItemServiceImpl.java" />
-        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseRentPayServiceImpl.java" />
-        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseServiceImpl.java" />
-        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/HouseTypeServiceImpl.java" />
         <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/KeyInServiceImpl.java" />
         <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/ModuleServiceImpl.java" />
         <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/impl/OrderItemsServiceImpl.java" />
@@ -420,6 +238,10 @@
         <option value="$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/generator/edit.jsp" />
         <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/GeneratorController.java" />
         <option value="$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/generator/list.jsp" />
+        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/BusinessVo.java" />
+        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/IncomeVo.java" />
+        <option value="$PROJECT_DIR$/cflwork-common/pom.xml" />
+        <option value="$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/test1.java" />
       </list>
     </option>
   </component>
@@ -471,6 +293,139 @@
     <option name="width" value="1782" />
     <option name="height" value="975" />
   </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Abstraction issuesJava</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Correctness</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Correctness &gt; Messages</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Security</id>
+          </State>
+          <State>
+            <id>Android Lint for Kotlin</id>
+          </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>CodeSpring CoreSpring</id>
+          </State>
+          <State>
+            <id>Control flow issuesGroovy</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>Google Web Toolkit issues</id>
+          </State>
+          <State>
+            <id>GrailsGroovy</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>Guice Inspections</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Invalid elementsCSS</id>
+          </State>
+          <State>
+            <id>JBoss Seam issues</id>
+          </State>
+          <State>
+            <id>JSP Inspections</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java EE issues</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Javadoc issuesJava</id>
+          </State>
+          <State>
+            <id>Kotlin</id>
+          </State>
+          <State>
+            <id>Numeric issuesJava</id>
+          </State>
+          <State>
+            <id>OSGi</id>
+          </State>
+          <State>
+            <id>Play</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>Properties FilesJava</id>
+          </State>
+          <State>
+            <id>Security issuesJava</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
+          <State>
+            <id>Spring</id>
+          </State>
+          <State>
+            <id>Spring BootSpring</id>
+          </State>
+          <State>
+            <id>Spring CoreSpring</id>
+          </State>
+          <State>
+            <id>TestNGJava</id>
+          </State>
+          <State>
+            <id>Threading issuesGroovy</id>
+          </State>
+          <State>
+            <id>Threading issuesJava</id>
+          </State>
+          <State>
+            <id>Thymeleaf</id>
+          </State>
+          <State>
+            <id>UI Form Problems</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>NonSerializableWithSerialVersionUIDField</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -489,14 +444,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="RLHotel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cflwork-common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RLHotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="SSM" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -515,25 +474,25 @@
               <item name="SSM" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RLHotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="SSM" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="top" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="power.mode.ii" />
+    <property name="settings.editor.selected.configurable" value="CgSupport" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -551,11 +510,11 @@
       <recent name="top.zywork.dos" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\idea\RLHotel\SSM\src\main\java\top\cflwork\vo" />
       <recent name="C:\Users\DELL\Desktop\RLHotel\cflwork-bootstrap\web\WEB-INF\views" />
       <recent name="C:\Users\DELL\Desktop\RLHotel\cflwork-bootstrap\web\static\js\pageJs" />
       <recent name="C:\Users\DELL\Desktop\RLHotel\SSM\src\main\resources\mapper" />
       <recent name="C:\Users\DELL\Desktop\RLHotel\SSM\src\main\java\top\cflwork\controller" />
-      <recent name="C:\Users\DELL\Desktop\RLHotel\SSM\src\main\java\top\cflwork\service\impl" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DELL\Desktop\RLHotel\cflwork-bootstrap\web\WEB-INF\views\generator" />
@@ -1204,7 +1163,11 @@
       <workItem from="1536714571503" duration="5080000" />
       <workItem from="1536720225230" duration="6237000" />
       <workItem from="1536731364072" duration="2866000" />
-      <workItem from="1536734307189" duration="2032000" />
+      <workItem from="1536734307189" duration="2845000" />
+      <workItem from="1536737245637" duration="1212000" />
+      <workItem from="1536738770539" duration="1092000" />
+      <workItem from="1536740288266" duration="2851000" />
+      <workItem from="1536798577994" duration="4062000" />
     </task>
     <task id="LOCAL-00001" summary="1、规划了实现房租信息查询的sql语句">
       <created>1514369426728</created>
@@ -1283,7 +1246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536635787414</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="1、加入了自动生成代码插件">
+      <created>1536736535331</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1536736535331</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1319,7 +1289,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="588220000" />
+    <option name="totallyTimeSpent" value="598250000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1334,29 +1304,28 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4938821" sideWeight="0.5063966" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17575084" sideWeight="0.50852877" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971296" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12526652" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0804904" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24147122" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.49524942" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47719687" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971296" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46162403" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17575084" sideWeight="0.4936034" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36707452" sideWeight="0.4914712" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2769744" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14232409" sideWeight="0.5047506" order="9" side_tool="true" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19296375" sideWeight="0.5047506" order="9" side_tool="true" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -1369,6 +1338,7 @@
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="BPMN Editor" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21318771" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46162403" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43270302" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2880259" sideWeight="0.5027153" order="11" side_tool="true" content_ui="tabs" />
@@ -1461,7 +1431,8 @@
     <MESSAGE value="1、修改店铺模块" />
     <MESSAGE value="1、修改登录页面，新增管理员，公司审核员，公司录入员操作" />
     <MESSAGE value="1、加入系统监控功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、加入系统监控功能" />
+    <MESSAGE value="1、加入了自动生成代码插件" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、加入了自动生成代码插件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1482,69 +1453,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/service/OutcomeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="18" column="98" lean-forward="false" selection-start-line="18" selection-start-column="98" selection-end-line="18" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/CooperationCompanyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1500">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/CooperationAccountsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="113" column="5" lean-forward="true" selection-start-line="92" selection-start-column="4" selection-end-line="113" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/mapper/cooperationAccuntsDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1650">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/mapper/CustomerOrderOTADAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/mapper/customerOrderDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2250">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/mapper/houseRentPayDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4545">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/mapper/outcomeMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1450">
-          <caret line="130" column="24" lean-forward="true" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/mapper/hotelDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="47" column="25" lean-forward="false" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/dao/OutcomeDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -1640,7 +1548,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1648,7 +1555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="15" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="31" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1691,7 +1597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1699,7 +1604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1714,7 +1618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1722,7 +1625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="725">
           <caret line="29" column="56" lean-forward="false" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1730,16 +1632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" column="35" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="109" selection-end-column="9" />
-          <folding>
-            <marker date="1536657264649" expanded="true" signature="503:666" ph="select ##fore... where" />
-            <marker date="1536657264649" expanded="true" signature="744:987" ph="select ##fore... where" />
-            <marker date="1536657264649" expanded="true" signature="1052:1179" ph="select count... order" />
-            <marker date="1536657264649" expanded="true" signature="2303:2359" ph="select * fro... where" />
-            <marker date="1536657264649" expanded="true" signature="3326:3891" ph="insert into " />
-            <marker date="1536657264649" expanded="true" signature="3985:4391" ph="update ${tab... " />
-            <marker date="1536657264649" expanded="true" signature="4445:4503" ph="update ${tab... set" />
-            <marker date="1536657264649" expanded="true" signature="4576:4634" ph="delete from where" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1747,56 +1639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
           <caret line="36" column="32" lean-forward="false" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
-          <folding>
-            <marker date="1534817769897" expanded="true" signature="4201:4290" ph="select id,ti... t_cash_subject" />
-            <marker date="1534817769897" expanded="true" signature="4386:4469" ph="select id,ti... t_hotel" />
-            <marker date="1534817769897" expanded="true" signature="4567:4656" ph="select id,ti... t_payment_type" />
-            <marker date="1534817769897" expanded="true" signature="4754:4816" ph="select * fro... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="4889:4933" ph="delete from t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="5011:5465" ph="select t.*,(... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="5023:5075" ph="select realn... t_user" />
-            <marker date="1534817769897" expanded="true" signature="5580:6128" ph="select t.*,(... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="5592:5644" ph="select realn... t_user" />
-            <marker date="1534817769897" expanded="true" signature="6187:6772" ph="select t.*,(... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="6199:6251" ph="select realn... t_user" />
-            <marker date="1534817769897" expanded="true" signature="6863:6946" ph="select * fro... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="7055:7292" ph="select count... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="7357:7643" ph="select count... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="7739:8152" ph="select count... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="8234:8649" ph="insert into t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="8703:8764" ph="update t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="8818:8876" ph="update t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="8965:9084" ph="update t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="9163:9450" ph="update t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="9627:9771" ph="update t_cash_accounts... " />
-            <marker date="1534817769897" expanded="true" signature="9900:10705" ph="select (sele... " />
-            <marker date="1534817769897" expanded="true" signature="10765:11567" ph="select (sele... " />
-            <marker date="1534817769897" expanded="true" signature="11659:11863" ph="select count... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="11945:12342" ph="select t.*,(... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="11957:12009" ph="select realn... t_user" />
-            <marker date="1534817769897" expanded="true" signature="13452:13666" ph="select count... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="13791:14305" ph="select t.*, t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="13812:13864" ph="select realn... t_user" />
-            <marker date="1534817769897" expanded="true" signature="14387:14710" ph="select count... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="14841:15403" ph="select t.*,(... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="14853:14905" ph="select realn... t_user" />
-            <marker date="1534817769897" expanded="true" signature="15566:16168" ph="select (sele... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="15588:15642" ph="select title... t_payment_type" />
-            <marker date="1534817769897" expanded="true" signature="15675:15794" ph="select ifnul... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="15859:15978" ph="select ifnul... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="16237:16655" ph="select (sele... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="16259:16313" ph="select title... t_payment_type" />
-            <marker date="1534817769897" expanded="true" signature="16346:16465" ph="select ifnul... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="16709:17113" ph="select (sele... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="16727:16781" ph="select title... t_payment_type" />
-            <marker date="1534817769897" expanded="true" signature="16810:16929" ph="select ifnul... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="17229:17951" ph="select (sele... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="17253:17307" ph="select title... t_payment_type" />
-            <marker date="1534817769897" expanded="true" signature="18027:18505" ph="select (sele... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="18051:18105" ph="select title... t_payment_type" />
-            <marker date="1534817769897" expanded="true" signature="18581:19061" ph="select (sele... t_cash_accounts" />
-            <marker date="1534817769897" expanded="true" signature="18605:18659" ph="select title... t_payment_type" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1804,101 +1646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
           <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <marker date="1534744426505" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1534744426505" expanded="false" signature="156:605" ph="..." />
-            <marker date="1534744426505" expanded="false" signature="1634:1645" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="1679:1685" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="1769:1801" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="1879:1933" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="2009:2036" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="2075:2086" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2101:2107" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2154:2165" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2179:2185" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2246:2257" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2296:2302" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="2308:2326" ph="/**...*/" />
-            <marker date="1534744426505" expanded="false" signature="2382:2393" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2425:2431" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2471:2482" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2510:2516" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2547:2558" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2601:2607" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2649:2660" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2702:2708" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2739:2750" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2793:2799" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2841:2852" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2894:2900" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="2934:3032" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="3100:3228" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="3307:3558" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="3618:3629" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="3676:3682" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="3744:3828" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="3904:4090" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="4167:4384" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="4452:4611" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="4658:4769" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="4797:5032" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="5117:5968" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="6016:6120" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="6174:6353" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="6424:8841" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="8923:9427" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="9515:9968" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="9551:9562" ph="{}" />
-            <marker date="1534744426505" expanded="true" signature="9670:9761" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="9870:9962" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="10001:10203" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="10267:15461" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="10531:10609" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="10654:10669" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="10698:10708" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="10774:10789" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="10830:10840" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="10884:10899" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="10927:10937" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="11001:11016" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="11055:11065" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="11108:11228" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="11288:11303" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="11338:11348" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="11429:11491" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="11574:11709" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="11815:12386" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="12456:12509" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="12556:13076" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="13143:13434" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="13506:14258" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="14319:15071" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="15130:15265" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="15333:15455" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="15529:19281" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="15971:15986" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="16048:16058" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="16127:16302" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="16360:17117" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="17176:17402" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="17449:17464" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="17489:17499" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="17540:17555" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="17580:17590" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="17632:17647" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="17673:17683" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="17729:17744" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="17774:17784" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="17836:18052" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="18106:18121" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="18178:18188" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="18245:18350" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="18410:18425" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="18456:18466" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="18530:18616" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="18679:19039" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="19056:19275" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1906,80 +1653,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
-          <folding>
-            <marker date="1534744426505" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1534744426505" expanded="false" signature="156:751" ph="..." />
-            <marker date="1534744426505" expanded="true" signature="1358:1625" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="1711:1791" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="1871:1987" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="2065:2135" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="2190:2384" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="2419:2430" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2482:2488" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2527:2538" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2561:2567" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="2602:2613" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="2636:2642" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="2697:2852" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="2922:3454" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="3518:3812" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="3874:4702" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="4771:4821" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="4907:5389" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="5444:5793" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="5863:6382" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="6444:6897" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="6961:7167" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="7238:7289" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="7377:7863" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="7896:7907" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="7928:7934" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="7981:8299" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="8332:8343" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="8364:8370" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="8417:8736" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="8764:9052" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="9089:9273" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="9303:9422" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="9460:9471" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="9500:9506" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="9530:9541" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="9563:9569" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="9595:9743" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="9777:9993" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="10040:10051" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="10076:10082" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="10115:10126" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="10147:10153" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="10189:10460" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="10516:10688" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="10744:10916" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="10960:11127" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="11180:11191" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="11212:11218" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="11285:11392" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="11418:11429" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="11448:11454" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="11503:12576" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="12634:13067" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="13107:13118" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="13172:13178" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="13215:13340" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="13376:13557" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="13649:13829" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="13873:14039" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="14070:14225" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="14270:14432" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="14472:14852" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="14885:14896" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="14917:14923" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="14969:14980" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="15005:15011" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="15039:15268" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="15310:15321" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="15381:15387" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="15438:15655" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1987,39 +1660,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-          <folding>
-            <marker date="1534744426505" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1534744426505" expanded="false" signature="156:337" ph="..." />
-            <marker date="1534744426505" expanded="true" signature="516:523" ph="{}" />
-            <marker date="1534744426505" expanded="true" signature="588:1052" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="1095:1106" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="1133:1139" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="1169:1180" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="1208:1214" ph=" }" />
-            <marker date="1534744426505" expanded="false" signature="1258:1269" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="1304:1310" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="1363:1454" ph="{...}" />
-            <marker date="1534744426505" expanded="true" signature="1480:1638" ph="{...}" />
-            <marker date="1534744426505" expanded="false" signature="1677:1688" ph=" { " />
-            <marker date="1534744426505" expanded="false" signature="1726:1732" ph=" }" />
-            <marker date="1534744426505" expanded="true" signature="1760:2518" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="80" column="48" lean-forward="false" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/util/GenUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
+        <state relative-caret-position="350">
           <caret line="31" column="47" lean-forward="false" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2027,7 +1674,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="33" column="124" lean-forward="false" selection-start-line="33" selection-start-column="83" selection-end-line="33" selection-end-column="124" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2035,91 +1681,146 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
+        <state relative-caret-position="2550">
           <caret line="102" column="21" lean-forward="false" selection-start-line="102" selection-start-column="21" selection-end-line="102" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SSM/src/main/resources/config/aspring-quartz.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-504">
+        <state relative-caret-position="375">
           <caret line="15" column="52" lean-forward="false" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/GeneratorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="66" column="17" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/edit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
+        <state relative-caret-position="550">
           <caret line="22" column="33" lean-forward="false" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/generator/edit.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-541">
+        <state relative-caret-position="425">
           <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/moneyItems/cashAccountsList.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
+        <state relative-caret-position="7100">
           <caret line="284" column="86" lean-forward="false" selection-start-line="284" selection-start-column="66" selection-end-line="284" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/static/js/pageJs/cashAccounts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
+        <state relative-caret-position="6475">
           <caret line="259" column="1" lean-forward="false" selection-start-line="259" selection-start-column="1" selection-end-line="259" selection-end-column="1" />
-          <folding>
-            <marker date="1534817770299" expanded="true" signature="1913:1924" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="2015:2024" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="2502:2513" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="2600:2609" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="2937:2946" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="3069:3080" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="3201:3213" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="5049:5059" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="5306:5317" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="5593:5602" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="6309:6320" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="6581:6592" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="6860:6871" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="7057:7066" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="7312:7323" ph="..." />
-            <marker date="1534817770299" expanded="true" signature="7553:7562" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cflwork-bootstrap/web/WEB-INF/views/generator/list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+        <state relative-caret-position="1000">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/GeneratorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="66" column="17" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/BusinessVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="23" selection-end-column="27" />
           <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#3;n#form#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/vo/IncomeVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="820">
+          <caret line="80" column="48" lean-forward="false" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cflwork-common/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="138" column="47" lean-forward="false" selection-start-line="138" selection-start-column="47" selection-end-line="138" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="114" column="1" lean-forward="true" selection-start-line="114" selection-start-column="1" selection-end-line="114" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/21f5a5dd/05738865-801d-48d3-a3b2-ba47ef893d55/hotelmanager.t_rent_pay">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/RentPayController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-400">
+          <caret line="30" column="11" lean-forward="true" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/21f5a5dd/05738865-801d-48d3-a3b2-ba47ef893d55/hotelmanager.t_char_say">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/21f5a5dd/05738865-801d-48d3-a3b2-ba47ef893d55/hotelmanager.t_cash_subject">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SSM/src/main/java/top/cflwork/controller/test1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="22" column="47" lean-forward="false" selection-start-line="22" selection-start-column="47" selection-end-line="22" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
