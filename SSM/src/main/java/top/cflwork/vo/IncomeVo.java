@@ -16,11 +16,11 @@ public class IncomeVo{
     private Long subjectId;
     private String incommeName;
     private String remark;
-    private java.sql.Date startTime;
-    private java.sql.Date endTime;
+    private Date startTime;
+    private Date endTime;
     private Double money;
     private Double dayMoney;
     private Integer incomeStatus;
-    private Integer isActive;
+    private Byte isActive;
     private Date createTime;
 }

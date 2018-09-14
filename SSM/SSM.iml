@@ -48,6 +48,7 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:16.0.1" level="project" />
     <orderEntry type="library" name="Maven: cn.afterturn:easypoi-web:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: cn.afterturn:easypoi-annotation:3.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.xiaoleilu:hutool-all:3.2.3" level="project" />
     <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.10" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />

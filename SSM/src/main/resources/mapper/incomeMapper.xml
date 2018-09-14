@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.cflwork.dao.IncomeDAO">
+    <!--########################################################################################################################-->
+    <select id="findIncomeListByCondition" parameterType="Income" resultType="Income">
+        select
+         <choose>
+             <when test="pager!=null and pager.includes!=null">
+                 <foreach collection="pager.includes" item="field" separator=",">
+                     T.${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(field)}
+                 </foreach>
+             </when>
+             <when test="pager!=null and pager.excludes!=null">
+                 <trim suffixOverrides=",">
+                         <if test="!pager.excludes.contains('id')">
+                             T.id,
+                         </if>
+                         <if test="!pager.excludes.contains('companyId')">
+                             T.company_id,
+                         </if>
+                         <if test="!pager.excludes.contains('hotelId')">
+                             T.hotel_id,
+                         </if>
+                         <if test="!pager.excludes.contains('subjectId')">
+                             T.subject_id,
+                         </if>
+                         <if test="!pager.excludes.contains('incommeName')">
+                             T.incomme_name,
+                         </if>
+                         <if test="!pager.excludes.contains('remark')">
+                             T.remark,
+                         </if>
+                         <if test="!pager.excludes.contains('startTime')">
+                             T.start_time,
+                         </if>
+                         <if test="!pager.excludes.contains('endTime')">
+                             T.end_time,
+                         </if>
+                         <if test="!pager.excludes.contains('money')">
+                             T.money,
+                         </if>
+                         <if test="!pager.excludes.contains('dayMoney')">
+                             T.day_money,
+                         </if>
+                         <if test="!pager.excludes.contains('incomeStatus')">
+                             T.income_status,
+                         </if>
+                         <if test="!pager.excludes.contains('isActive')">
+                             T.is_active,
+                         </if>
+                         <if test="!pager.excludes.contains('createTime')">
+                             T.create_time,
+                         </if>
+                 </trim>
+             </when>
+             <otherwise>
+                 T.*
+             </otherwise>
+         </choose>
+         from t_income T
+        <where>
+              <if test="companyId!=null">
+                 T.company_id=#{companyId}
+              </if>
+              <if test="hotelId!=null">
+                and T.hotel_id=#{hotelId}
+              </if>
+              <if test="subjectId!=null">
+                and T.subject_id=#{subjectId}
+              </if>
+              <if test="incommeName!=null">
+                and T.incomme_name=#{incommeName}
+              </if>
+              <if test="remark!=null">
+                and T.remark=#{remark}
+              </if>
+              <if test="startTime!=null">
+                and T.start_time=#{startTime}
+              </if>
+              <if test="endTime!=null">
+                and T.end_time=#{endTime}
+              </if>
+              <if test="money!=null">
+                and T.money=#{money}
+              </if>
+              <if test="dayMoney!=null">
+                and T.day_money=#{dayMoney}
+              </if>
+              <if test="incomeStatus!=null">
+                and T.income_status=#{incomeStatus}
+              </if>
+              <if test="isActive!=null">
+                and T.is_active=#{isActive}
+              </if>
+              <if test="createTime!=null">
+                and T.create_time=#{createTime}
+              </if>
+
+        </where>
+        <if test="pager!=null and pager.sortField!=null and pager.sortOrder!=null">
+            order by T.${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(pager.sortField)} ${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(pager.sortOrder)}
+        </if>
+        <if test="pager!=null and  pager.paging">
+            limit #{pager.beginRow},#{pager.pageSize}
+        </if>
+    </select>
+    <select id="findIncomeCountByCondition" parameterType="Income" resultType="long">
+        select count(*) from t_income
+        <where>
+              <if test="companyId!=null">
+                 company_id=#{companyId}
+              </if>
+              <if test="hotelId!=null">
+                and hotel_id=#{hotelId}
+              </if>
+              <if test="subjectId!=null">
+                and subject_id=#{subjectId}
+              </if>
+              <if test="incommeName!=null">
+                and incomme_name=#{incommeName}
+              </if>
+              <if test="remark!=null">
+                and remark=#{remark}
+              </if>
+              <if test="startTime!=null">
+                and start_time=#{startTime}
+              </if>
+              <if test="endTime!=null">
+                and end_time=#{endTime}
+              </if>
+              <if test="money!=null">
+                and money=#{money}
+              </if>
+              <if test="dayMoney!=null">
+                and day_money=#{dayMoney}
+              </if>
+              <if test="incomeStatus!=null">
+                and income_status=#{incomeStatus}
+              </if>
+              <if test="isActive!=null">
+                and is_active=#{isActive}
+              </if>
+              <if test="createTime!=null">
+                and create_time=#{createTime}
+              </if>
+        </where>
+    </select>
+    <select id="findIncomeById" resultType="Income">
+        select * from t_income where id=#{id}
+    </select>
+    <select id="findOneIncomeByCondition" parameterType="Income" resultType="Income">
+        select
+         <choose>
+             <when test="pager!=null and pager.includes!=null">
+                 <foreach collection="pager.includes" item="field" separator=",">
+                     T.${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(field)}
+                 </foreach>
+             </when>
+             <when test="pager!=null and pager.excludes!=null">
+                 <trim suffixOverrides=",">
+                         <if test="!pager.excludes.contains('id')">
+                             T.id,
+                         </if>
+                         <if test="!pager.excludes.contains('companyId')">
+                             T.company_id,
+                         </if>
+                         <if test="!pager.excludes.contains('hotelId')">
+                             T.hotel_id,
+                         </if>
+                         <if test="!pager.excludes.contains('subjectId')">
+                             T.subject_id,
+                         </if>
+                         <if test="!pager.excludes.contains('incommeName')">
+                             T.incomme_name,
+                         </if>
+                         <if test="!pager.excludes.contains('remark')">
+                             T.remark,
+                         </if>
+                         <if test="!pager.excludes.contains('startTime')">
+                             T.start_time,
+                         </if>
+                         <if test="!pager.excludes.contains('endTime')">
+                             T.end_time,
+                         </if>
+                         <if test="!pager.excludes.contains('money')">
+                             T.money,
+                         </if>
+                         <if test="!pager.excludes.contains('dayMoney')">
+                             T.day_money,
+                         </if>
+                         <if test="!pager.excludes.contains('incomeStatus')">
+                             T.income_status,
+                         </if>
+                         <if test="!pager.excludes.contains('isActive')">
+                             T.is_active,
+                         </if>
+                         <if test="!pager.excludes.contains('createTime')">
+                             T.create_time,
+                         </if>
+                 </trim>
+             </when>
+             <otherwise>
+                 T.*
+             </otherwise>
+         </choose>
+         from t_income T
+        <where>
+              <if test="companyId!=null">
+                 T.company_id=#{companyId}
+              </if>
+              <if test="hotelId!=null">
+                and T.hotel_id=#{hotelId}
+              </if>
+              <if test="subjectId!=null">
+                and T.subject_id=#{subjectId}
+              </if>
+              <if test="incommeName!=null">
+                and T.incomme_name=#{incommeName}
+              </if>
+              <if test="remark!=null">
+                and T.remark=#{remark}
+              </if>
+              <if test="startTime!=null">
+                and T.start_time=#{startTime}
+              </if>
+              <if test="endTime!=null">
+                and T.end_time=#{endTime}
+              </if>
+              <if test="money!=null">
+                and T.money=#{money}
+              </if>
+              <if test="dayMoney!=null">
+                and T.day_money=#{dayMoney}
+              </if>
+              <if test="incomeStatus!=null">
+                and T.income_status=#{incomeStatus}
+              </if>
+              <if test="isActive!=null">
+                and T.is_active=#{isActive}
+              </if>
+              <if test="createTime!=null">
+                and T.create_time=#{createTime}
+              </if>
+        </where>
+    </select>
+    <insert id="saveIncome" parameterType="Income">
+        insert into t_income
+         (
+            id,
+            company_id,
+            hotel_id,
+            subject_id,
+            incomme_name,
+            remark,
+            start_time,
+            end_time,
+            money,
+            day_money,
+            income_status,
+            is_active,
+            create_time
+        ) values
+         (
+                #{id}
+                ,
+                #{companyId}
+                ,
+                #{hotelId}
+                ,
+                #{subjectId}
+                ,
+                #{incommeName}
+                ,
+                #{remark}
+                ,
+                #{startTime}
+                ,
+                #{endTime}
+                ,
+                #{money}
+                ,
+                #{dayMoney}
+                ,
+                #{incomeStatus}
+                ,
+                #{isActive}
+                ,
+                now()
+                
+         )
+    </insert>
+    <update id="updateIncome" parameterType="Income">
+        update t_income
+        <set>
+                    <if test="companyId!=null ">
+                        company_id=#{companyId},
+                    </if>
+                    <if test="hotelId!=null ">
+                        hotel_id=#{hotelId},
+                    </if>
+                    <if test="subjectId!=null ">
+                        subject_id=#{subjectId},
+                    </if>
+                    <if test="incommeName!=null ">
+                        incomme_name=#{incommeName},
+                    </if>
+                    <if test="remark!=null ">
+                        remark=#{remark},
+                    </if>
+                    <if test="startTime!=null ">
+                        start_time=#{startTime},
+                    </if>
+                    <if test="endTime!=null ">
+                        end_time=#{endTime},
+                    </if>
+                    <if test="money!=null ">
+                        money=#{money},
+                    </if>
+                    <if test="dayMoney!=null ">
+                        day_money=#{dayMoney},
+                    </if>
+                    <if test="incomeStatus!=null ">
+                        income_status=#{incomeStatus},
+                    </if>
+                    <if test="isActive!=null ">
+                        is_active=#{isActive},
+                    </if>
+                    <if test="createTime!=null ">
+                        create_time=#{createTime}
+                    </if>
+          </set>
+         where id=#{id}
+    </update>
+    <delete id="deleteIncome" >
+        delete from t_income where id=#{id}
+    </delete>
+    <delete id="deleteIncomeByCondition" >
+        delete from t_income
+        <where>
+              <if test="id!=null">
+                 id=#{id}
+              </if>
+              <if test="companyId!=null">
+                and company_id=#{companyId}
+              </if>
+              <if test="hotelId!=null">
+                and hotel_id=#{hotelId}
+              </if>
+              <if test="subjectId!=null">
+                and subject_id=#{subjectId}
+              </if>
+              <if test="incommeName!=null">
+                and incomme_name=#{incommeName}
+              </if>
+              <if test="remark!=null">
+                and remark=#{remark}
+              </if>
+              <if test="startTime!=null">
+                and start_time=#{startTime}
+              </if>
+              <if test="endTime!=null">
+                and end_time=#{endTime}
+              </if>
+              <if test="money!=null">
+                and money=#{money}
+              </if>
+              <if test="dayMoney!=null">
+                and day_money=#{dayMoney}
+              </if>
+              <if test="incomeStatus!=null">
+                and income_status=#{incomeStatus}
+              </if>
+              <if test="isActive!=null">
+                and is_active=#{isActive}
+              </if>
+              <if test="createTime!=null">
+                and create_time=#{createTime}
+              </if>
+        </where>
+    </delete>
+    <insert id="batchSaveIncome" parameterType="Income">
+        INSERT INTO t_income (  id,  company_id,  hotel_id,  subject_id,  incomme_name,  remark,  start_time,  end_time,  money,  day_money,  income_status,  is_active,  create_time )
+        VALUES
+        <foreach collection="list" item="income" separator=",">
+            (  #{income.id},  #{income.companyId},  #{income.hotelId},  #{income.subjectId},  #{income.incommeName},  #{income.remark},  #{income.startTime},  #{income.endTime},  #{income.money},  #{income.dayMoney},  #{income.incomeStatus},  #{income.isActive},  #{income.createTime}  )
+        </foreach>
+    </insert>
+    <!--########################################################################################################################-->
+</mapper>
