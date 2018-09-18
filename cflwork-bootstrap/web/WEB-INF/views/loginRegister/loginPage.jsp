@@ -210,6 +210,8 @@
                 if(data.message.indexOf("成功")>-1){
                     layer.close(load);
                     location.href="<%=path%>/index";
+                }else{
+                    layer.close(load);
                 }
             },
             "json"

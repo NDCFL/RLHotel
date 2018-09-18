@@ -1,6 +1,9 @@
 package top.cflwork.controller;
 
 
+import com.xiaoleilu.hutool.date.DateUnit;
+import com.xiaoleilu.hutool.date.DateUtil;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,8 @@ import top.cflwork.query.StatusQuery;
 import top.cflwork.vo.UserVo;
 import javax.servlet.http.HttpSession;
 import javax.annotation.Resource;
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Param;
 import java.util.Date;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -91,14 +96,20 @@ public class OutcomeController {
 	*/
     @RequestMapping("/outcomeAddSave")
     @ResponseBody
+    @Validated
     public Message outcomeAddSave(OutcomeVo outcomeVo,HttpSession session) throws  Exception {
         try{
             UserVo userVo = (UserVo) session.getAttribute("userVo");
 			outcomeVo.setIsActive(ActiveStatusEnum.ACTIVE.getValue().byteValue());
 			outcomeVo.setCompanyId(userVo.getCompanyId());
+			outcomeVo.setStartTime(DateUtil.parse(outcomeVo.getTemp().split(" - ")[0],"yyyy-MM-dd"));
+            outcomeVo.setEndTime(DateUtil.parse(outcomeVo.getTemp().split(" - ")[1],"yyyy-MM-dd"));
+            long betweenDay = DateUtil.between(outcomeVo.getStartTime(), outcomeVo.getEndTime(), DateUnit.DAY);
+            outcomeVo.setDayMoney(outcomeVo.getMoney()/betweenDay);
 			outcomeService.save(outcomeVo);
             return  Message.success("新增成功!");
         }catch (Exception E){
+            E.printStackTrace();
             return Message.fail("新增失败!");
         }
 
@@ -126,9 +137,14 @@ public class OutcomeController {
     @ResponseBody
     public Message outcomeUpdateSave(OutcomeVo outcomeVo) throws  Exception{
         try{
+            outcomeVo.setStartTime(DateUtil.parse(outcomeVo.getTemp().split(" - ")[0],"yyyy-MM-dd"));
+            outcomeVo.setEndTime(DateUtil.parse(outcomeVo.getTemp().split(" - ")[1],"yyyy-MM-dd"));
+            long betweenDay = DateUtil.between(outcomeVo.getStartTime(), outcomeVo.getEndTime(), DateUnit.DAY);
+            outcomeVo.setDayMoney(outcomeVo.getMoney()/betweenDay);
 			outcomeService.update(outcomeVo);
             return  Message.success("修改成功!");
         }catch (Exception e){
+            e.printStackTrace();
             return Message.fail("修改失败!");
         }
     }

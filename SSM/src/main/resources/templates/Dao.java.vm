@@ -4,7 +4,8 @@ import ${package}.vo.${className}Vo;
 
 import java.util.List;
 import java.util.Map;
-
+import org.apache.ibatis.annotations.Param;
+import top.cflwork.query.PageQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import top.cflwork.dao.BaseDAO;

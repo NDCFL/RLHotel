@@ -30,24 +30,16 @@
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     #foreach($column in $columns)
 						#if($column.columnName != $pk.columnName)
-							<label class="col-sm-1 control-label">${column.comments}</label>
-							<div class="col-sm-2">
-								<input  id="${column.attrname}" name="${column.attrname}"  type="text" class="form-control" required="" aria-required="true">
+							<div class="panel-body form-group" style="margin-bottom:0px;">
+								<label class="col-sm-1 control-label">${column.comments}</label>
+								<div class="col-sm-2">
+									<input  id="${column.attrname}__" name="${column.attrname}"  type="text" class="form-control" required="" aria-required="true">
+								</div>
 							</div>
 						#end
 					#end
 					<div class="col-sm-1" style="width: 120px;margin-left: 100px" >
                         <button class="btn btn-primary" id="search_btn" style="width: 100px">查询</button>
-                    </div>
-                </div>
-                <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style="width:90px;line-height: 30px">创建时间</label>
-                    <div class="col-sm-1" style="width: 360px;margin-left: -20px" >
-                        <input type="text" class="form-control" style="width: 360px" name="createTime" id="test1"/>
-                    </div>
-                    <label class="col-sm-1 control-label" style="margin-left:60px;line-height: 30px;width:100px">分店名称</label>
-                    <div class="col-sm-1" style="width: 120px" >
-                        <input type="text" class="form-control" style="width: 160px;margin-left: -20px" id="hotelTitle" name="title"/>
                     </div>
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">

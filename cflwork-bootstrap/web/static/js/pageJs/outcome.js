@@ -35,26 +35,14 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            field: 'id',
-            title: '支出编号',
+            field: 'hotelVo.title',
+            title: '所属酒店',
             align: 'center',
             sortable: true
         },
         {
-            field: 'companyId',
-            title: '公司编号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'hotelId',
-            title: '酒店编号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'subjectId',
-            title: '支出科目编号',
+            field: 'cashSubjectVo.title',
+            title: '所属科目',
             align: 'center',
             sortable: true
         },
@@ -68,49 +56,76 @@ $('#mytab').bootstrapTable({
             field: 'remark',
             title: '支出备注',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal" title="点击查看备注" alt="点击查看备注" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')" style="color: #0d8ddb">点击查看备注</a>';
+            }
         },
         {
             field: 'startTime',
-            title: '开始支出时间',
+            title: '支出时间',
             align: 'center',
-            sortable: true
-        },
-        {
-            field: 'endTime',
-            title: '结束支出时间',
-            align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return formattimes(row.startTime)+"~"+formattimes(row.endTime);
+            }
         },
         {
             field: 'money',
             title: '支出总金额',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<span style="color: #0d8ddb" >￥'+value+'</span>';
+            }
         },
         {
             field: 'dayMoney',
             title: '日支出金额',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<span style="color: #0d8ddb" >￥'+value+'</span>';
+            }
         },
         {
             field: 'outcomeStatus',
             title: '支出结算状态',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color: #0d8ddb" >已支付</span>';
+                } else {
+                    //表示启用状态
+                    return '<span style="color: red">未支付</span>';
+                }
+            }
         },
         {
             field: 'isActive',
             title: '状态',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color: #0d8ddb" >启用</span>';
+                } else {
+                    //表示启用状态
+                    return '<span style="color: red">停用</span>';
+                }
+            }
         },
         {
             field: 'createTime',
             title: '创建时间',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value) {
+                return formattime(value);
+            }
         },
         {
             title: '操作',
@@ -160,7 +175,31 @@ function queryParams(params) {
         searchVal: title
     }
 }
+function  remarks(val) {
+    $("#remarks").html(val);
+}
+function  formattime(value) {
+    var date = new Date(value);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) + ' ' + (h<10?"0"+h:h) + ':' + (mi<10?"0"+mi:mi) + ':' + (ss<10?"0"+ss:ss);
 
+}
+function  formattimes(value) {
+    var date = new Date(value);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) ;
+
+}
 function del(id, status) {
     if (status == 0) {
         layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
@@ -190,6 +229,7 @@ function edit(name) {
     $.post("/outcome/findOutcome/" + name,
         function (data) {
             $("#updateform").autofill(data);
+            $("#test_2_").val(formattimes(data.startTime)+" - "+formattimes(data.endTime));
         },
         "json"
     );
@@ -242,6 +282,8 @@ $("#update").click(function () {
     );
 });
 $("#add").click(function () {
+    var times = $("#test_2").val();
+    var timeArray = times.split(" - ");
     $.post(
         "/outcome/outcomeAddSave",
         $("#formadd").serialize(),

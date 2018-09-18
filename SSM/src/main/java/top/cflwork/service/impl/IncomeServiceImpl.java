@@ -17,27 +17,27 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void save(IncomeVo incomeVo) {
-            incomeDAO.save(incomeVo);
+        incomeDAO.save(incomeVo);
     }
 
     @Override
     public void remove(IncomeVo incomeVo) {
-            incomeDAO.remove(incomeVo);
+        incomeDAO.remove(incomeVo);
     }
 
     @Override
     public void removeById(Long id) {
-            incomeDAO.removeById(id);
+        incomeDAO.removeById(id);
     }
 
     @Override
     public void update(IncomeVo incomeVo) {
-            incomeDAO.update(incomeVo);
+        incomeDAO.update(incomeVo);
     }
 
     @Override
     public void updateStatus(StatusQuery statusQuery) {
-            incomeDAO.updateStatus(statusQuery);
+        incomeDAO.updateStatus(statusQuery);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void removeMany(Long[] id) {
-            incomeDAO.removeMany(id);
+      incomeDAO.removeMany(id);
     }
 
     @Override

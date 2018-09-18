@@ -203,7 +203,7 @@ public class GenUtils {
         }
 
         if (template.contains("Mapper.xml.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + packageName + File.separator + className + "Mapper.xml";
+            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator +  className + "Mapper.xml";
         }
 
 //        if (template.contains("list.jsp.vm")) {
@@ -212,8 +212,7 @@ public class GenUtils {
 //            //				+ "modules" + File.separator + "generator" + File.separator + className.toLowerCase() + ".jsp";
 //        }
         if (template.contains("page.jsp.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
-                    + packageName + File.separator + classname + File.separator + classname+"List.jsp";
+            return "main" + File.separator + "resources" + File.separator  + "jsp" + File.separator + classname + File.separator + classname+"List.jsp";
         }
 //        if (template.contains("edit.jsp.vm")) {
 //            return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
@@ -226,7 +225,7 @@ public class GenUtils {
 //            //		+ "modules" + File.separator + "generator" + File.separator + className.toLowerCase() + ".js";
 //        }
         if (template.contains("js.js.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "static" + File.separator + "js"  + classname+".js";
+            return "main" + File.separator + "resources" + File.separator + "js" + File.separator + classname+".js";
         }
 //        if (template.contains("edit.js.vm")) {
 //            return "main" + File.separator + "resources" + File.separator + "static" + File.separator + "js" + File.separator

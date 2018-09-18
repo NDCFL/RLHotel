@@ -307,6 +307,9 @@
                             <li>
                                 <a class="J_menuItem" href="/outcome/outcomePage">支出</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="/income/incomePage">收入</a>
+                            </li>
                         </ul>
                     </li>
                 </shiro:hasAnyRoles>
@@ -858,7 +861,6 @@
 </div>
 <jsp:include page="common/js.jsp"></jsp:include>
 <script>
-    document.getElementById("updateHeadIcon").src=localStorage.getItem("icon");
     layui.use('upload', function() {
         var $ = layui.jquery
             , upload = layui.upload;

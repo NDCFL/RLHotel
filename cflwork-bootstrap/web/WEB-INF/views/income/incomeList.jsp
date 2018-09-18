@@ -13,14 +13,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酒店支出列表</title>
+    <title>酒店收入列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>酒店支出列表</h5>
+            <h5>酒店收入列表</h5>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
@@ -72,33 +72,33 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">支出名称：</label>
+                        <label class="col-sm-2 control-label">收入名称：</label>
                         <div class="col-sm-4">
-                            <input id="outcommeName" name="outcommeName" type="text" class="form-control" required=""
+                            <input id="incommeName" name="incommeName" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付状态：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" required  id="outcomeStatus" name="outcomeStatus">
+                            <select class="form-control" required  id="incomeStatus" name="incomeStatus">
                                 <option value="0">已支付</option>
                                 <option value="1">未支付</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">支出总额：</label>
+                        <label class="col-sm-2 control-label">收入总额：</label>
                         <div class="col-sm-4">
                             <input id="money" name="money" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">支出时间：</label>
+                        <label class="col-sm-2 control-label">收入时间：</label>
                         <div class="col-sm-4">
                             <input id="test_2" name="temp" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">支出备注：</label>
+                        <label class="col-sm-2 control-label">收入备注：</label>
                         <div class="col-sm-10">
                             <textarea id="remark" name="remark" type="text" class="form-control" required=""
                                       aria-required="true"></textarea>
@@ -181,33 +181,33 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">支出名称：</label>
+                        <label class="col-sm-2 control-label">收入名称：</label>
                         <div class="col-sm-4">
-                            <input id="outcommeName_" name="outcommeName" type="text" class="form-control" required=""
+                            <input id="incommeName_" name="incommeName" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付状态：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" required  id="outcomeStatus_" name="outcomeStatus">
+                            <select class="form-control" required  id="incomeStatus_" name="incomeStatus">
                                 <option value="0">已支付</option>
                                 <option value="1">未支付</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">支出总额：</label>
+                        <label class="col-sm-2 control-label">收入总额：</label>
                         <div class="col-sm-4">
                             <input id="money_" name="money" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">支出时间：</label>
+                        <label class="col-sm-2 control-label">收入时间：</label>
                         <div class="col-sm-4">
                             <input id="test_2_" name="temp" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">支出备注：</label>
+                        <label class="col-sm-2 control-label">收入备注：</label>
                         <div class="col-sm-10">
                             <textarea id="remark_" name="remark" type="text" class="form-control" required=""
                                       aria-required="true"></textarea>
@@ -233,7 +233,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title">
-                    支出备注
+                    收入备注
                 </h4>
             </div>
             <div class="modal-body" id="remarks">
@@ -244,7 +244,7 @@
 </div>
 <%--数据的修改结束--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
-<script src="<%=path%>/static/js/pageJs/outcome.js"></script>
+<script src="<%=path%>/static/js/pageJs/income.js"></script>
 </body>
 <script>
     laydate.render({

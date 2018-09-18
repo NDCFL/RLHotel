@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/${classname}/${classname}List",//要请求数据的文件路径
+    url: "/income/incomeList",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -34,20 +34,105 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'middle'
         },
-		#foreach($column in $columns)
-            {
-                field : '${column.attrname}',
-                title : '${column.comments}',
-                align: 'center',
-                sortable: true
-            },
-		#end
+        {
+            field: 'hotelVo.title',
+            title: '所属酒店',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'cashSubjectVo.title',
+            title: '所属科目',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'incommeName',
+            title: '收入名称',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'remark',
+            title: '收入备注',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<a   data-toggle="modal" title="点击查看备注" alt="点击查看备注" data-id="\'' + row.id + '\'" data-target="#remark_modal" onclick="return remarks(\'' + value + '\')" style="color: #0d8ddb">点击查看备注</a>';
+            }
+        },
+        {
+            field: 'startTime',
+            title: '收入时间',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return formattimes(row.startTime)+"~"+formattimes(row.endTime);
+            }
+        },
+        {
+            field: 'money',
+            title: '收入总金额',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<span style="color: #0d8ddb" >￥'+value+'</span>';
+            }
+        },
+        {
+            field: 'dayMoney',
+            title: '日收入金额',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<span style="color: #0d8ddb" >￥'+value+'</span>';
+            }
+        },
+        {
+            field: 'incomeStatus',
+            title: '收入结算状态',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color: #0d8ddb" >已支付</span>';
+                } else {
+                    //表示启用状态
+                    return '<span style="color: red">未支付</span>';
+                }
+            }
+        },
+        {
+            field: 'isActive',
+            title: '状态',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color: #0d8ddb" >启用</span>';
+                } else {
+                    //表示启用状态
+                    return '<span style="color: red">停用</span>';
+                }
+            }
+        },
+        {
+            field: 'createTime',
+            title: '创建时间',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return formattime(value);
+            }
+        },
         {
             title: '操作',
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="${classname}"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="income"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -90,6 +175,9 @@ function queryParams(params) {
         searchVal: title
     }
 }
+function  remarks(val) {
+    $("#remarks").html(val);
+}
 function  formattime(value) {
     var date = new Date(value);
     var y = date.getFullYear();
@@ -99,6 +187,7 @@ function  formattime(value) {
     var mi = date.getMinutes();
     var ss = date.getSeconds();
     return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) + ' ' + (h<10?"0"+h:h) + ':' + (mi<10?"0"+mi:mi) + ':' + (ss<10?"0"+ss:ss);
+
 }
 function  formattimes(value) {
     var date = new Date(value);
@@ -109,21 +198,8 @@ function  formattimes(value) {
     var mi = date.getMinutes();
     var ss = date.getSeconds();
     return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) ;
+
 }
-//查询按钮事件
-$('#search_btn').click(function(){
-    $('#mytab').bootstrapTable(
-        'refresh',
-        {
-            url: '/${classname}/find${className}List',
-            query:{
-                #foreach($column in $columns)
-                    ${column.attrname}:$("#${column.attrname}__").val(),
-                #end
-            }
-        }
-    );
-})
 function del(id, status) {
     if (status == 0) {
         layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
@@ -132,7 +208,7 @@ function del(id, status) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/${classname}/delete${className}/' + id,
+            url: '/income/deleteIncome/' + id,
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -148,28 +224,31 @@ function del(id, status) {
         });
     });
 }
+
 function edit(name) {
-    $.post("/${classname}/find${className}/" + name,
+    $.post("/income/findIncome/" + name,
         function (data) {
             $("#updateform").autofill(data);
+            $("#test_2_").val(formattimes(data.startTime)+" - "+formattimes(data.endTime));
         },
         "json"
     );
 }
+
 function updatestatus(id, status) {
-    $.post("/${classname}/updateStatus/" + id + "/" + status,
+    $.post("/income/updateStatus/" + id + "/" + status,
         function (data) {
-            if(status==0){
-                if(data.message=="ok"){
-                    layer.alert("已启用", {icon:6});
-                }else{
-                    layer.alert("操作失败", {icon:6});
+            if (status == 0) {
+                if (data.message == "ok") {
+                    layer.alert("已启用", {icon: 6});
+                } else {
+                    layer.alert("操作失败", {icon: 6});
                 }
-            }else{
-                if(data.message=="ok"){
-                    layer.alert("已停用", {icon:5});
-                }else{
-                    layer.alert("操作失败", {icon:5});
+            } else {
+                if (data.message == "ok") {
+                    layer.alert("已停用", {icon: 5});
+                } else {
+                    layer.alert("操作失败", {icon: 5});
                 }
             }
             refush();
@@ -177,16 +256,19 @@ function updatestatus(id, status) {
         "json"
     );
 }
+
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/${classname}/${classname}List'});
+    $('#mytab').bootstrapTable('refresh', {url: '/income/incomeList'});
 })
+
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/${classname}/${classname}List'});
+    $('#mytab').bootstrapTable('refresh', {url: '/income/incomeList'});
 }
+
 $("#update").click(function () {
     $.post(
-        "/${classname}/${classname}UpdateSave",
+        "/income/incomeUpdateSave",
         $("#updateform").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
@@ -200,8 +282,10 @@ $("#update").click(function () {
     );
 });
 $("#add").click(function () {
+    var times = $("#test_2").val();
+    var timeArray = times.split(" - ");
     $.post(
-        "/${classname}/${classname}AddSave",
+        "/income/incomeAddSave",
         $("#formadd").serialize(),
         function (data) {
             if (data.message == "新增成功!") {
@@ -214,6 +298,7 @@ $("#add").click(function () {
         }, "json"
     );
 });
+
 function deleteMany11() {
     var isactivity = "";
     var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
@@ -240,7 +325,7 @@ function deleteMany11() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
         $.post(
-            "/${classname}/deleteMany${className}",
+            "/income/deleteManyIncome",
             {
                 "manyId": $("#deleteId").val()
             },
@@ -256,42 +341,44 @@ function deleteMany11() {
         );
     });
 }
-function deleteMany(){
-    var isactivity="";
-    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
-        if(row.isActive==0){
-            isactivity+=row.isActive;
+
+function deleteMany() {
+    var isactivity = "";
+    var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
+        if (row.isActive == 0) {
+            isactivity += row.isActive;
         }
-        return row.id ;
+        return row.id;
     });
-    if(row==""){
+    if (row == "") {
         layer.msg('修改失败，请勾选数据!', {
-            icon : 2,
-            time : 3000
+            icon: 2,
+            time: 3000
         });
-        return ;
+        return;
     }
     $("#statusId").val(row);
     $("#updateStatus").modal('show');
 
 }
+
 $("#updateSta").click(function () {
-    layer.confirm('确认要执行批量修改收支科目状态吗？',function(index){
+    layer.confirm('确认要执行批量修改收支科目状态吗？', function (index) {
         $.post(
-            "/${classname}/deleteMany${className}",
+            "/income/deleteManyIncome",
             {
-                "manyId":$("#statusId").val(),
-                "status":$("#status").val()
+                "manyId": $("#statusId").val(),
+                "status": $("#status").val()
             },
-            function(data){
-                if(data.message=="修改成功!"){
-                    layer.alert(data.message, {icon:6});
+            function (data) {
+                if (data.message == "修改成功!") {
+                    layer.alert(data.message, {icon: 6});
                     refush();
-                }else{
-                    layer.alert(data.message, {icon:6});
+                } else {
+                    layer.alert(data.message, {icon: 6});
                     refush();
                 }
-            },"json"
+            }, "json"
         );
     });
 });
