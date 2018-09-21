@@ -43,8 +43,17 @@
                 <div class="form-row">
                     <span class="ipt-wrap"><i class="icon-sign-pwd"></i><input type="password" class="ipt ipt-pwd required" ka="signin-password" placeholder="密码" id="loginpassword" name="password" /></span>
                 </div>
-                <div class="form-row row-code">
-
+                <div class="form-row row-code ">
+                    <div id="vaptchaContainer" class="" >
+                        <div class="vaptcha-init-main ipt">
+                            <div class="vaptcha-init-loading">
+                                <a href="/" target="_blank">
+                                    <img src="https://cdn.vaptcha.com/vaptcha-loading.gif" />
+                                </a>
+                                <span class="vaptcha-text">Vaptcha启动中...</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-btn">
                     <button type="button" id="login" class="btn">登录</button>
@@ -176,8 +185,10 @@
 </div>
 <script src="https://login.zhipin.com/v2/web/geek/js/lib/jquery-1.12.2.min.js"></script>
 <script src="<%=path%>/static/js/plugins/layer/layer.js"></script>
+<script src="https://cdn.vaptcha.com/v2.js"></script>
 <input type="hidden" id="page_key_name" value="cpc_user_sign_up" />
 <script type="text/javascript">
+    var pass = false;
     function register(){
         //document.getElementById("pwd").style.display="none";
         //document.getElementById("register").style.display="block";
@@ -187,40 +198,61 @@
         document.getElementById("pwd").style.display="block";
         document.getElementById("register").style.display="none";
     }
-    $("#login").click(function(){
-        var loginphone = $("#loginphone").val();
-        var loginpassword = $("#loginpassword").val();
-        if(loginphone==''){
-            $(".tip-error").html("登陆账号不能为空");
-            return;
-        }
-        if(loginpassword==''){
-            $(".tip-error").html("密码不能为空");
-            return;
-        }
-        var load=layer.load(0, {shade: false});
-        $.post(
-            "/user/getInfo",
-            {
-                phone:loginphone,
-                password:loginpassword
-            },
-            function(data) {
-                $(".tip-error").html(data.message);
-                if(data.message.indexOf("成功")>-1){
-                    layer.close(load);
-                    location.href="<%=path%>/index";
-                }else{
-                    layer.close(load);
-                }
-            },
-            "json"
-        );
-    });
+    vaptcha({
+        //配置参数
+        vid: '5ba4ae54fc650e8ed0de13e1',
+        type: 'click',
+        container: '#vaptchaContainer'
+    }).then(function (vaptchaObj) {
+        vaptchaObj.render()
+        vaptchaObj.listen('pass', function() {
+            pass = true;
+        })
+        $('#login').on('click',function(){
+            var loginphone = $("#loginphone").val();
+            var loginpassword = $("#loginpassword").val();
+            if(loginphone==''){
+                $(".tip-error").html("登陆账号不能为空");
+                return;
+            }
+            if(loginpassword==''){
+                $(".tip-error").html("密码不能为空");
+                return;
+            }
+            if(!vaptchaObj.getToken() || !pass){
+                $(".tip-error").html("人机验证不通过");
+                return;
+            }
+            var load=layer.load(0, {shade: false});
+            $.post(
+                "/user/getInfo",
+                {
+                    phone:loginphone,
+                    password:loginpassword
+                },
+                function(data) {
+                    $(".tip-error").html(data.message);
+                    if(data.message.indexOf("成功")>-1){
+                        layer.close(load);
+                        location.href="<%=path%>/index";
+                    }else{
+                        layer.close(load);
+                    }
+                },
+                "json"
+            );
+        })
+        $('#reset').on('click',function(){
+            //执行验证前需要先判断验证实例是否加载完成
+            vaptchaObj.reset();
+        })
+    })
+
     $("#registerbtn").click(function(){
         alert("asdfs");
         layer.alert('见到你真的很高兴', {icon: 6});
     });
+
 </script>
 </body>
 </html>
