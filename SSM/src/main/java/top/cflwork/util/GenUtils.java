@@ -1,6 +1,7 @@
 package top.cflwork.util;
 
 
+import com.xiaoleilu.hutool.http.HttpUtil;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -24,7 +25,6 @@ import java.util.zip.ZipOutputStream;
  * 代码生成器   工具类
  */
 public class GenUtils {
-
 
     public static List<String> getTemplates() {
         List<String> templates = new ArrayList<String>();

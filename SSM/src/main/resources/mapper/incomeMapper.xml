@@ -44,18 +44,13 @@
     </select>
     <select id="listPages" resultMap="IncomeMap">
         select
-        t.id,t.company_id,t.hotel_id,t.subject_id,t.incomme_name,t.remark,t.start_time,t.end_time,t.money,t.day_money,t.income_status,t.is_active,t.create_time
+        t.id,t.company_id,t.hotel_id,t.subject_id,t.incomme_name,t.remark,t.start_time,t.end_time,t.money,t.day_money,t.income_status,t.is_active,t.create_time,
+        h.title,c.title as ctitle
         from t_income t,t_hotel h, t_cash_subject c where t.hotel_id=h.id and t.subject_id=c.id
-        <if test="incomeVo.id != null and incomeVo.id != ''">
-            and t.id = #{incomeVo.id}
-        </if>
-        <if test="incomeVo.companyId != null and incomeVo.companyId != ''">
-            and t.company_id = #{incomeVo.companyId}
-        </if>
-        <if test="incomeVo.hotelId != null and incomeVo.hotelId != ''">
+        <if test="incomeVo.hotelId != null">
             and t.hotel_id = #{incomeVo.hotelId}
         </if>
-        <if test="incomeVo.subjectId != null and incomeVo.subjectId != ''">
+        <if test="incomeVo.subjectId != null">
             and t.subject_id = #{incomeVo.subjectId}
         </if>
         <if test="incomeVo.incommeName != null and incomeVo.incommeName != ''">
@@ -64,30 +59,27 @@
         <if test="incomeVo.remark != null and incomeVo.remark != ''">
             and t.remark = #{incomeVo.remark}
         </if>
-        <if test="incomeVo.startTime != null and incomeVo.startTime != ''">
-            and t.start_time = #{incomeVo.startTime}
-        </if>
-        <if test="incomeVo.endTime != null and incomeVo.endTime != ''">
-            and t.end_time = #{incomeVo.endTime}
-        </if>
         <if test="incomeVo.money != null and incomeVo.money != ''">
             and t.money = #{incomeVo.money}
         </if>
         <if test="incomeVo.dayMoney != null and incomeVo.dayMoney != ''">
             and t.day_money = #{incomeVo.dayMoney}
         </if>
-        <if test="incomeVo.incomeStatus != null and incomeVo.incomeStatus != ''">
+        <if test="incomeVo.incomeStatus != null">
             and t.income_status = #{incomeVo.incomeStatus}
         </if>
-        <if test="incomeVo.isActive != null and incomeVo.isActive != ''">
+        <if test="incomeVo.isActive != null">
             and t.is_active = #{incomeVo.isActive}
+        </if>
+        <if test="incomeVo.createTime != null and incomeVo.createTime != ''">
+            and t.create_time BETWEEN #{incomeVo.createTime} and #{incomeVo.endTime}
         </if>
         <choose>
             <when test="incomeVo.sort != null and incomeVo.sort.trim() != ''">
                 order by t.${incomeVo.sort} t.${incomeVo.order}
             </when>
             <otherwise>
-                order by t.incomeVo.id desc
+                order by t.create_time desc
             </otherwise>
         </choose>
         <if test="pageQuery.pageNo != null and pageQuery.pageSize != null">
@@ -99,16 +91,10 @@
     </select>
     <select id="counts" resultType="long">
         select count(t.id) from t_income t,t_hotel h, t_cash_subject c where t.hotel_id=h.id and t.subject_id=c.id
-        <if test="incomeVo.id != null and incomeVo.id != ''">
-            and t.id = #{incomeVo.id}
-        </if>
-        <if test="incomeVo.companyId != null and incomeVo.companyId != ''">
-            and t.company_id = #{incomeVo.companyId}
-        </if>
-        <if test="incomeVo.hotelId != null and incomeVo.hotelId != ''">
+        <if test="incomeVo.hotelId != null">
             and t.hotel_id = #{incomeVo.hotelId}
         </if>
-        <if test="incomeVo.subjectId != null and incomeVo.subjectId != ''">
+        <if test="incomeVo.subjectId != null">
             and t.subject_id = #{incomeVo.subjectId}
         </if>
         <if test="incomeVo.incommeName != null and incomeVo.incommeName != ''">
@@ -117,33 +103,27 @@
         <if test="incomeVo.remark != null and incomeVo.remark != ''">
             and t.remark = #{incomeVo.remark}
         </if>
-        <if test="incomeVo.startTime != null and incomeVo.startTime != ''">
-            and t.start_time = #{incomeVo.startTime}
-        </if>
-        <if test="incomeVo.endTime != null and incomeVo.endTime != ''">
-            and t.end_time = #{incomeVo.endTime}
-        </if>
         <if test="incomeVo.money != null and incomeVo.money != ''">
             and t.money = #{incomeVo.money}
         </if>
         <if test="incomeVo.dayMoney != null and incomeVo.dayMoney != ''">
             and t.day_money = #{incomeVo.dayMoney}
         </if>
-        <if test="incomeVo.incomeStatus != null and incomeVo.incomeStatus != ''">
+        <if test="incomeVo.incomeStatus != null">
             and t.income_status = #{incomeVo.incomeStatus}
         </if>
-        <if test="incomeVo.isActive != null and incomeVo.isActive != ''">
+        <if test="incomeVo.isActive != null">
             and t.is_active = #{incomeVo.isActive}
         </if>
         <if test="incomeVo.createTime != null and incomeVo.createTime != ''">
-            and t.create_time = #{incomeVo.createTime}
+            and t.create_time BETWEEN #{incomeVo.createTime} and #{incomeVo.endTime}
         </if>
         <choose>
             <when test="incomeVo.sort != null and incomeVo.sort.trim() != ''">
                 order by t.${incomeVo.sort} ${incomeVo.order}
             </when>
             <otherwise>
-                order by t.incomeVo.id desc
+                order by t.id desc
             </otherwise>
         </choose>
     </select>

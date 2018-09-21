@@ -80,6 +80,7 @@ public class IncomeController {
             pageQuery.setPageNo(pagingBean.getStartIndex());
             pagingBean.setTotal(incomeService.counts(pageQuery,incomeVo));
             pagingBean.setrows(incomeService.listPages(pageQuery,incomeVo));
+            System.out.println(incomeVo.getIsActive()+"===================");
             return pagingBean;
         }catch (Exception e){
             e.printStackTrace();

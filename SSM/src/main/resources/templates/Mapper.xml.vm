@@ -36,7 +36,7 @@
                 order by t.${${classname}Vo.sort} t.${${classname}Vo.order}
             </when>
             <otherwise>
-                order by t.${classname}Vo.${pk.columnName} desc
+                order by t.${pk.columnName} desc
             </otherwise>
         </choose>
         <if test="pageQuery.pageNo != null and pageQuery.pageSize != null">
@@ -61,7 +61,7 @@
                 order by t.${${classname}Vo.sort} ${${classname}Vo.order}
             </when>
             <otherwise>
-                order by t.${classname}Vo.${pk.columnName} desc
+                order by t.${pk.columnName} desc
             </otherwise>
         </choose>
     </select>

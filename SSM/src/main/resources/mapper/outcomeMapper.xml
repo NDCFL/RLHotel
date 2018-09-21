@@ -44,50 +44,42 @@
     </select>
     <select id="listPages" resultMap="OutcomeMap">
         select
-        t.id,t.company_id,t.hotel_id,t.subject_id,t.outcomme_name,t.remark,t.start_time,t.end_time,t.money,t.day_money,t.outcome_status,t.is_active,t.create_time
+        t.id,t.company_id,t.hotel_id,t.subject_id,t.outcomme_name,t.remark,t.start_time,t.end_time,t.money,t.day_money,t.outcome_status,t.is_active,t.create_time,
+        h.title,c.title as ctitle
         from t_outcome t,t_hotel h, t_cash_subject c where t.hotel_id=h.id and t.subject_id=c.id
-            <if test="outcomeVo.id != null and outcomeVo.id != ''">
-                and t.id = #{outcomeVo.id}
-            </if>
-            <if test="outcomeVo.companyId != null and outcomeVo.companyId != ''">
-                and t.company_id = #{outcomeVo.companyId}
-            </if>
-            <if test="outcomeVo.hotelId != null and outcomeVo.hotelId != ''">
-                and t.hotel_id = #{outcomeVo.hotelId}
-            </if>
-            <if test="outcomeVo.subjectId != null and outcomeVo.subjectId != ''">
-                and t.subject_id = #{outcomeVo.subjectId}
-            </if>
-            <if test="outcomeVo.outcommeName != null and outcomeVo.outcommeName != ''">
-                and t.outcomme_name = #{outcomeVo.outcommeName}
-            </if>
-            <if test="outcomeVo.remark != null and outcomeVo.remark != ''">
-                and t.remark = #{outcomeVo.remark}
-            </if>
-            <if test="outcomeVo.startTime != null and outcomeVo.startTime != ''">
-                and t.start_time = #{outcomeVo.startTime}
-            </if>
-            <if test="outcomeVo.endTime != null and outcomeVo.endTime != ''">
-                and t.end_time = #{outcomeVo.endTime}
-            </if>
-            <if test="outcomeVo.money != null and outcomeVo.money != ''">
-                and t.money = #{outcomeVo.money}
-            </if>
-            <if test="outcomeVo.dayMoney != null and outcomeVo.dayMoney != ''">
-                and t.day_money = #{outcomeVo.dayMoney}
-            </if>
-            <if test="outcomeVo.outcomeStatus != null and outcomeVo.outcomeStatus != ''">
-                and t.outcome_status = #{outcomeVo.outcomeStatus}
-            </if>
-            <if test="outcomeVo.isActive != null and outcomeVo.isActive != ''">
-                and t.is_active = #{outcomeVo.isActive}
-            </if>
+        <if test="outcomeVo.hotelId != null">
+            and t.hotel_id = #{outcomeVo.hotelId}
+        </if>
+        <if test="outcomeVo.subjectId != null">
+            and t.subject_id = #{outcomeVo.subjectId}
+        </if>
+        <if test="outcomeVo.outcommeName != null and outcomeVo.outcommeName != ''">
+            and t.outcomme_name = #{outcomeVo.outcommeName}
+        </if>
+        <if test="outcomeVo.remark != null and outcomeVo.remark != ''">
+            and t.remark = #{outcomeVo.remark}
+        </if>
+        <if test="outcomeVo.money != null and outcomeVo.money != ''">
+            and t.money = #{outcomeVo.money}
+        </if>
+        <if test="outcomeVo.dayMoney != null and outcomeVo.dayMoney != ''">
+            and t.day_money = #{outcomeVo.dayMoney}
+        </if>
+        <if test="outcomeVo.outcomeStatus != null">
+            and t.outcome_status = #{outcomeVo.outcomeStatus}
+        </if>
+        <if test="outcomeVo.isActive != null">
+            and t.is_active = #{outcomeVo.isActive}
+        </if>
+        <if test="outcomeVo.createTime != null and outcomeVo.createTime != ''">
+            and t.create_time BETWEEN #{outcomeVo.createTime} and #{outcomeVo.endTime}
+        </if>
         <choose>
             <when test="outcomeVo.sort != null and outcomeVo.sort.trim() != ''">
                 order by t.${outcomeVo.sort} t.${outcomeVo.order}
             </when>
             <otherwise>
-                order by t.outcomeVo.id desc
+                order by t.id desc
             </otherwise>
         </choose>
         <if test="pageQuery.pageNo != null and pageQuery.pageSize != null">
@@ -99,57 +91,45 @@
     </select>
     <select id="counts" resultType="long">
         select count(t.id) from t_outcome t,t_hotel h, t_cash_subject c where t.hotel_id=h.id and t.subject_id=c.id
-            <if test="outcomeVo.id != null and outcomeVo.id != ''">
-                and t.id = #{outcomeVo.id}
-            </if>
-            <if test="outcomeVo.companyId != null and outcomeVo.companyId != ''">
-                and t.company_id = #{outcomeVo.companyId}
-            </if>
-            <if test="outcomeVo.hotelId != null and outcomeVo.hotelId != ''">
-                and t.hotel_id = #{outcomeVo.hotelId}
-            </if>
-            <if test="outcomeVo.subjectId != null and outcomeVo.subjectId != ''">
-                and t.subject_id = #{outcomeVo.subjectId}
-            </if>
-            <if test="outcomeVo.outcommeName != null and outcomeVo.outcommeName != ''">
-                and t.outcomme_name = #{outcomeVo.outcommeName}
-            </if>
-            <if test="outcomeVo.remark != null and outcomeVo.remark != ''">
-                and t.remark = #{outcomeVo.remark}
-            </if>
-            <if test="outcomeVo.startTime != null and outcomeVo.startTime != ''">
-                and t.start_time = #{outcomeVo.startTime}
-            </if>
-            <if test="outcomeVo.endTime != null and outcomeVo.endTime != ''">
-                and t.end_time = #{outcomeVo.endTime}
-            </if>
-            <if test="outcomeVo.money != null and outcomeVo.money != ''">
-                and t.money = #{outcomeVo.money}
-            </if>
-            <if test="outcomeVo.dayMoney != null and outcomeVo.dayMoney != ''">
-                and t.day_money = #{outcomeVo.dayMoney}
-            </if>
-            <if test="outcomeVo.outcomeStatus != null and outcomeVo.outcomeStatus != ''">
-                and t.outcome_status = #{outcomeVo.outcomeStatus}
-            </if>
-            <if test="outcomeVo.isActive != null and outcomeVo.isActive != ''">
-                and t.is_active = #{outcomeVo.isActive}
-            </if>
-            <if test="outcomeVo.createTime != null and outcomeVo.createTime != ''">
-                and t.create_time = #{outcomeVo.createTime}
-            </if>
-            <choose>
-                <when test="outcomeVo.sort != null and outcomeVo.sort.trim() != ''">
-                    order by t.${outcomeVo.sort} ${outcomeVo.order}
-                </when>
-                <otherwise>
-                    order by t.outcomeVo.id desc
-                </otherwise>
-            </choose>
+        <if test="outcomeVo.hotelId != null">
+            and t.hotel_id = #{outcomeVo.hotelId}
+        </if>
+        <if test="outcomeVo.subjectId != null">
+            and t.subject_id = #{outcomeVo.subjectId}
+        </if>
+        <if test="outcomeVo.outcommeName != null and outcomeVo.outcommeName != ''">
+            and t.outcomme_name = #{outcomeVo.outcommeName}
+        </if>
+        <if test="outcomeVo.remark != null and outcomeVo.remark != ''">
+            and t.remark = #{outcomeVo.remark}
+        </if>
+        <if test="outcomeVo.money != null and outcomeVo.money != ''">
+            and t.money = #{outcomeVo.money}
+        </if>
+        <if test="outcomeVo.dayMoney != null and outcomeVo.dayMoney != ''">
+            and t.day_money = #{outcomeVo.dayMoney}
+        </if>
+        <if test="outcomeVo.outcomeStatus != null">
+            and t.outcome_status = #{outcomeVo.outcomeStatus}
+        </if>
+        <if test="outcomeVo.isActive != null">
+            and t.is_active = #{outcomeVo.isActive}
+        </if>
+        <if test="outcomeVo.createTime != null and outcomeVo.createTime != ''">
+            and t.create_time BETWEEN #{outcomeVo.createTime} and #{outcomeVo.endTime}
+        </if>
+        <choose>
+            <when test="outcomeVo.sort != null and outcomeVo.sort.trim() != ''">
+                order by t.${outcomeVo.sort} ${outcomeVo.order}
+            </when>
+            <otherwise>
+                order by t.id desc
+            </otherwise>
+        </choose>
     </select>
 
     <insert id="save" parameterType="top.cflwork.vo.OutcomeVo" useGeneratedKeys="true" keyProperty="id">
-        insert into t_outcome (
+        outsert outto t_outcome (
         company_id,                                                                 hotel_id,                                                                 subject_id,                                                                 outcomme_name,                                                                 remark,                                                                 start_time,                                                                 end_time,                                                                 money,                                                                 day_money,                                                                 outcome_status,                                                                 is_active,                                                                 create_time                                  ) values (
         #{companyId},
         #{hotelId},
@@ -212,7 +192,7 @@
         delete from t_outcome where id = #{value}
     </delete>
     <delete id="removeMany">
-        delete from t_outcome where id in
+        delete from t_outcome where id out
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

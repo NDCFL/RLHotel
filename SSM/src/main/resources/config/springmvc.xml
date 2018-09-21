@@ -53,7 +53,7 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>classpath:/i18n/messages</value>
+                <value>classpath:/i18n/messages.properties</value>
             </list>
         </property>
         <property name="useCodeAsDefaultMessage" value="true" />
@@ -62,7 +62,9 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="top.cflwork.interceptor.CrosInterceptor"></bean>
+            <mvc:mapping path="/index"/>
+            <mvc:mapping path="/user/loginPage"/>
+            <bean class="top.cflwork.controller.FilterController"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

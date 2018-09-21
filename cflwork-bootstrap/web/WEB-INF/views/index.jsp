@@ -186,6 +186,13 @@
                         <span class="fa arrow"></span>
                     </a>
                 </li>
+                <li>
+                    <a class="J_menuItem" href="<%=path%>/cashSubject/cashSubjectPage">
+                        <i class="glyphicon glyphicon-star"></i>
+                        <span class="nav-label"> 酒店总科目</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                </li>
                 <shiro:hasAnyRoles name="总管理员,管理员">
                     <li>
                         <a href="javascript:void(0);">
@@ -261,6 +268,12 @@
                             <li>
                                 <a class="J_menuItem" href="<%=path%>/rentPay/rentPayPage">分成管理</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/outcome/outcomePage">酒店支出管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<%=path%>/income/incomePage">酒店收入管理</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -303,12 +316,6 @@
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/generator/table">代码生成</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/outcome/outcomePage">支出</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="/income/incomePage">收入</a>
                             </li>
                         </ul>
                     </li>

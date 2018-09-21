@@ -24,6 +24,7 @@ public class OutcomeVo implements Serializable {
     private String order;
 
     //支出编号
+    @NotNull
     private Long id;
     //公司编号
     private Long companyId;

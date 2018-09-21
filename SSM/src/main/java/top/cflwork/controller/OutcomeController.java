@@ -3,6 +3,9 @@ package top.cflwork.controller;
 
 import com.xiaoleilu.hutool.date.DateUnit;
 import com.xiaoleilu.hutool.date.DateUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.context.annotation.RequestScope;
 import top.cflwork.vo.CooperationAccountsVo;
 import top.cflwork.vo.OutcomeVo;
 import top.cflwork.service.OutcomeService;
@@ -122,6 +126,8 @@ public class OutcomeController {
 	*/
     @RequestMapping("/findOutcome/{id}")
     @ResponseBody
+    @Validated
+    @RequiresRoles(value={"总管理员","店长"},logical= Logical.OR)
     public OutcomeVo findOutcome(@PathVariable("id") long id){
 		OutcomeVo outcomeVo = outcomeService.getById(id);
         return outcomeVo;

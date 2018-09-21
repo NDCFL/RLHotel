@@ -28,6 +28,49 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                        <div class="col-sm-2" >
+                            <input type="text" class="form-control"   name="createTime" id="test__2"/>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">所属酒店</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required  id="hotel_id" name="hotelId">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">结算状态</label>
+                        <div class="col-sm-2"  >
+                            <select  class="form-control" id="incomeStatus__" style="" name="incomeStatus">
+                                <option value="">全部</option>
+                                <option value="0">已支付</option>
+                                <option value="1">未支付</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label" style=" margin-top:5px">收支科目</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" required  id="subjectId" name="subjectId">
+                                <option value="">全部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label" style="margin-top: 5px">状态</label>
+                        <div class="col-sm-2"  >
+                            <select class="form-control" style="" id="isActive__" name="isActive">
+                                <option value="">全部</option>
+                                <option value="0">启用</option>
+                                <option value="1">禁用</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label"  style=" margin-top:5px;">收入备注</label>
+                        <div class="col-sm-2" >
+                            <input type="text" class="form-control" style="" name="remark" id="remark__"/>
+                        </div>
+                        <div class="col-sm-3" style="text-align: center;margin: auto" >
+                            <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
+                        </div>
+                    </div>
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
                         <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default"
@@ -248,7 +291,7 @@
 </body>
 <script>
     laydate.render({
-        elem: '#test_2_'//指定元素，
+        elem: '#test__2'//指定元素，
         ,type: 'date'
         ,range: true
     });

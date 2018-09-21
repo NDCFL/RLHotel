@@ -259,7 +259,25 @@ function updatestatus(id, status) {
 
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/income/incomeList'});
+    var times = $("#test__2").val();
+    var start,end;
+    if(!times){
+        start = null;
+        end = null;
+    }
+    $('#mytab').bootstrapTable('refresh', {
+        url: '/income/findIncomeList',
+        query:{
+            isActive:$("#isActive__").val(),
+            createTime:start,
+            endTime:end,
+            money:$("#money__").val(),
+            subjectId:$("#subjectId").val(),
+            remark:$("#remark__").val(),
+            incomeStatus:$("#incomeStatus__").val(),
+            hotelId:$("#hotel_id").val()
+        }
+    });
 })
 
 function refush() {

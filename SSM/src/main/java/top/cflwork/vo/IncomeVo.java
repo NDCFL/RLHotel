@@ -22,7 +22,6 @@ public class IncomeVo implements Serializable {
     private String sort;
     //排序规则
     private String order;
-
     //收入编号
     private Long id;
     //公司编号
