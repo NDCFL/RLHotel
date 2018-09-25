@@ -3,6 +3,7 @@ package top.cflwork.controller;
 
 import com.xiaoleilu.hutool.date.DateUnit;
 import com.xiaoleilu.hutool.date.DateUtil;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
@@ -123,11 +124,16 @@ public class IncomeController {
      */
     @RequestMapping("/findIncome/{id}")
     @ResponseBody
+    @Validated
     public IncomeVo findIncome(@PathVariable("id") long id){
         IncomeVo incomeVo = incomeService.getById(id);
         return incomeVo;
     }
 
+//    @Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次
+//    public void test(){
+//        System.out.println("我是定时任务===========");
+//    }
     /**
      * 修改操作
      * param  接受对象

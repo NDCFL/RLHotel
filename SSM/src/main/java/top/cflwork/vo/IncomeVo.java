@@ -23,6 +23,7 @@ public class IncomeVo implements Serializable {
     //排序规则
     private String order;
     //收入编号
+    @NotNull
     private Long id;
     //公司编号
     private Long companyId;

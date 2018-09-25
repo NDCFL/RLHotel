@@ -29,7 +29,7 @@ public class FilterController implements HandlerInterceptor {
         Object user = request.getSession().getAttribute("userVo");
         String path = request.getRequestURL().toString();
         if (user == null) {
-            if(path.contains("/index") || path.contains("user/loginPage") || path.contains("user/getInfo")){
+            if(path.contains("/index") || path.contains("user/loginPage") || path.contains("user/getInfo") || path.contains("")){
                 return true;
             }
             System.out.println("尚未登录，调到登录页面");
