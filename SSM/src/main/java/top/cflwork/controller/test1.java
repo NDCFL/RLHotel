@@ -2,6 +2,7 @@ package top.cflwork.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import com.xiaoleilu.hutool.json.JSONUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import top.cflwork.service.CashSubjectService;
@@ -41,4 +42,9 @@ public class test1 {
         return ExcelExportUtil.exportExcel(new ExportParams("学生列表","学生"),
                 CashSubjectVo.class,cashSubjectService.listAll() );
     }
+
+    public static void main(String[] args) {
+        System.out.println(JSONUtil.parse(""));
+    }
+
 }

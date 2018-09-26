@@ -61,17 +61,7 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '签约年限',
-            field: 'payTime',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                return '<span style="color:green">'+value+'年</span>';
-            }
-        }
-        ,
-        {
-            title: '付款方式',
+            title: '支付周期',
             field: 'payType',
             align: 'center',
             sortable: true,
@@ -91,62 +81,62 @@ $('#mytab').bootstrapTable({
                 }
             }
         }
-        /*,
-        {
-            title: '每期应付',
-            field: 'firstPay',
-            align: 'center',
-            sortable: true,
-            formatter: function (value) {
-                if((value+"").indexOf(".")>0){
-                    return '<span style="color:green">$'+(value+"").substring(0,parseInt((value+"").indexOf(".")+3))+'</span>';
-                }else if((value+"").indexOf(".")<=0){
-                    return '<span style="color:green">$'+(value+"")+'</span>';
-                }
-
-            }
-        }*/
         ,
         {
-            title: '开始支付时间',
-            field: 'payPeriodStart',
+            title: '分成方式',
+            field: 'payMoneyType',
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d ;
+                return '<span style="color:green">'+value+'年</span>';
             }
-        },
+        }
+        ,
         {
-            title: '结束支付时间',
+            title: '分成比例',
+            field: 'payProportion',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:green">'+value*100+'%</span>';
+            }
+        }
+        ,
+        {
+            title: '分成比例',
             field: 'payPeriodEnd',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
-                var date = new Date(value);
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var mi = date.getMinutes();
-                var ss = date.getSeconds();
-                return y + '-' + m + '-' + d;
+            formatter: function (value, row, index) {
+                return formattime(value);
             }
         },
-
+        {
+            title: '未支付总额',
+            field: 'sum_pay',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<span style="color:green">￥'+value+'</span>';
+            }
+        },
+        {
+            title: '合同到期时间',
+            field: 'factPayTimeEnd',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return formattimes(value);
+            }
+        }
+        ,
         {
             title: '创建时间',
             field: 'createTime',
             align: 'center',
             sortable: true,
-            formatter: function (value) {
-                return getdate(value);
+            formatter: function (value, row, index) {
+                return formattime(value);
             }
         }
         ,
@@ -241,8 +231,8 @@ function edit(name) {
     $.post("/rentPay/findRentPay/" + name,
         function (data) {
             $("#updateform").autofill(data);
-            $("#test_3").val(getdate(data.firstPayTime));
-            $("#test_4").val(getdate(data.payPeriodStart));
+            $("#test_3").val(formattime(data.firstPayTime));
+            $("#test_4").val(formattime(data.payPeriodStart));
         },
         "json"
     );
@@ -367,13 +357,26 @@ function deleteMany() {
         );
     });
 }
-function getdate(value) {
-    var date = new Date(parseInt(value));
+
+function  formattime(value) {
+    var date = new Date(value);
     var y = date.getFullYear();
     var m = date.getMonth() + 1;
     var d = date.getDate();
     var h = date.getHours();
     var mi = date.getMinutes();
     var ss = date.getSeconds();
-    return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + ss;
+    return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) + ' ' + (h<10?"0"+h:h) + ':' + (mi<10?"0"+mi:mi) + ':' + (ss<10?"0"+ss:ss);
+
+}
+function  formattimes(value) {
+    var date = new Date(value);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mi = date.getMinutes();
+    var ss = date.getSeconds();
+    return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) ;
+
 }

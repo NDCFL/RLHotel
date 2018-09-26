@@ -322,53 +322,6 @@
                     </h4>
                     <hr/>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">面积</label>
-                        <div class="col-sm-3">
-                            <input  name="area" min="0" placeholder="房间面积" max="100" type="text" class="form-control" required="" aria-required="true">
-                        </div>
-                        <label class="col-sm-1 control-label">楼层</label>
-                        <div class="col-sm-3">
-                            <input  name="houseCount" min="0" placeholder="房间楼层" max="100" type="number" class="form-control" required="" aria-required="true">
-                        </div>
-                        <label class="col-sm-1 control-label">装修</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="zhuangxiu">
-                                <option value="0">毛坯</option>
-                                <option value="1">简装</option>
-                                <option value="2">精装</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">水电</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="shuidian">
-                                <option value="0">商水商电</option>
-                                <option value="1">民水民电</option>
-                                <option value="2">商水民电</option>
-                                <option value="3">民水商电</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1 control-label">空调</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="kongtiao">
-                                <option value="0">有</option>
-                                <option value="1">无</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1 control-label">供暖</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="gongnuan">
-                                <option value="0">有</option>
-                                <option value="1">无</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">物业</label>
-                        <div class="col-sm-3">
-                            <input  name="wuye" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
-                        </div>
                         <label class="col-sm-1 control-label">结算状态：</label>
                         <div class="col-sm-3">
                             <select class="form-control"  required name="isCash">
@@ -479,53 +432,6 @@
                     </h4>
                     <hr/>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">面积</label>
-                        <div class="col-sm-3">
-                            <input  name="area" min="0" placeholder="房间面积" max="100" type="text" class="form-control" required="" aria-required="true">
-                        </div>
-                        <label class="col-sm-1 control-label">楼层</label>
-                        <div class="col-sm-3">
-                            <input  name="houseCount" min="0" placeholder="房间楼层" max="100" type="number" class="form-control" required="" aria-required="true">
-                        </div>
-                        <label class="col-sm-1 control-label">装修</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="zhuangxiu">
-                                <option value="0">毛坯</option>
-                                <option value="1">简装</option>
-                                <option value="2">精装</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">水电</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="shuidian">
-                                <option value="0">商水商电</option>
-                                <option value="1">民水民电</option>
-                                <option value="2">商水民电</option>
-                                <option value="3">民水商电</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1 control-label">空调</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="kongtiao">
-                                <option value="0">有</option>
-                                <option value="1">无</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1 control-label">供暖</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="gongnuan">
-                                <option value="0">有</option>
-                                <option value="1">无</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">物业</label>
-                        <div class="col-sm-3">
-                            <input  name="wuye" min="0" placeholder="物业费用/平米" max="100" type="text" class="form-control" required="" aria-required="true">
-                        </div>
                         <label class="col-sm-1 control-label">结算状态：</label>
                         <div class="col-sm-3">
                             <select class="form-control"  required name="isCash">
@@ -618,6 +524,8 @@
                 $("#masterId").select2({
                     data: data
                 })
+                $("#select2-master_Id-container").remove();
+                $("#select2-masterId-container").remove();
             },
             "json"
         );
