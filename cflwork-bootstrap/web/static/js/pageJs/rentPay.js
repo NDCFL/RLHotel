@@ -88,7 +88,11 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value) {
-                return '<span style="color:green">'+value+'年</span>';
+                if(value==0){
+                    return '<span>有成本</span>';
+                }else if(value==1){
+                    return '<span>无成本</span>';
+                }
             }
         }
         ,
@@ -103,7 +107,17 @@ $('#mytab').bootstrapTable({
         }
         ,
         {
-            title: '分成比例',
+            title: '房间面积',
+            field: 'area',
+            align: 'center',
+            sortable: true,
+            formatter: function (value) {
+                return '<span style="color:green">'+value+'平米</span>';
+            }
+        }
+        ,
+        {
+            title: '当前支付时间',
             field: 'payPeriodEnd',
             align: 'center',
             sortable: true,
@@ -113,7 +127,7 @@ $('#mytab').bootstrapTable({
         },
         {
             title: '未支付总额',
-            field: 'sum_pay',
+            field: 'sumPay',
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
@@ -147,10 +161,10 @@ $('#mytab').bootstrapTable({
             formatter: function (value, row, index) {
                 if (value == 0) {
                     //表示启用状态
-                    return '<i class="btn btn-primary" >启用</i>';
+                    return '<span style="color: #0d8ddb" >启用</span>';
                 } else {
                     //表示启用状态
-                    return '<i class="btn btn-danger">停用</i>';
+                    return '<span style="color: red">停用</i>';
                 }
             }
         }
@@ -228,11 +242,12 @@ function del(rentPayid, status) {
     });
 }
 function edit(name) {
+    alert("999999999999");
     $.post("/rentPay/findRentPay/" + name,
         function (data) {
             $("#updateform").autofill(data);
-            $("#test_3").val(formattime(data.firstPayTime));
-            $("#test_4").val(formattime(data.payPeriodStart));
+            $("#test3").val(formattimes(data.payPeriodStart));
+            $("#test4").val(formattimes(data.factPayTimeStart));
         },
         "json"
     );

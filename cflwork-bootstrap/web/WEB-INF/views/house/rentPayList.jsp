@@ -15,6 +15,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分成房租列表</title>
     <jsp:include page="../common/bootstraptablecss.jsp"></jsp:include>
+    <style>
+        .innerbox {
+            height: 150px;
+            overflow-x: scroll;
+            white-space: nowrap;
+        }
+
+        /*滚动条样式*/
+        .innerbox::-webkit-scrollbar { /*滚动条整体样式*/
+            width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px;
+        }
+
+        .innerbox::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .innerbox::-webkit-scrollbar-track { /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+        }
+
+        .innerbox1 {
+            height: 100%;
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            margin-left: 10px;
+        }
+
+        .title1 {
+            height: 30%;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            line-height: 40px;
+            border-bottom: solid 1px #ccc;
+        }
+
+        .title2 {
+            height: 30%;
+            width: 100%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+        }
+
+        .title3 {
+            height: 30%;
+            width: 76%;
+            color: #908c8c;
+            text-align: center;
+            font-size: 14px;
+            margin: auto;
+
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="col-lg-12">
@@ -23,88 +82,101 @@
             <h5>分成房租明细统计</h5>
         </div>
         <div class="ibox-content">
-            <div class="row">
-                <div class="col-xs-2">
-                    <div style="margin-top: 5%">
-                        <div style="float: left;">
-                            <p>待结算总额</p>
-                            <p>&nbsp;</p>
-                            <p>3000</p>
-                            <hr/>
-                            <p>结算总收益</p>
+            <div class="row" style="height: 260px">
+                <div class="col-xs-3" style="height: 100%;border-right: solid 1px #87cbcc">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="label label-info pull-right"></span>
+                            <h5>营收或成本录入</h5>
                         </div>
-                        <div style="float: right">
-                            <p>待结算总额</p>
-                            <p>&nbsp;</p>
-                            <p>6000</p>
-                            <hr/>
-                            <p>当前应付合计</p>
+                        <div class="ibox-content">
+                            <div style="height: 40px;width: 100%;line-height: 40px">
+                                当前有<span style="color: red">n</span>个店面未录入营收数据
+                            </div>
+                            <div style="width: 100%;height:120px;">
+                                <div class="col-xs-6">
+                                    <div style="width: 120px;height: 120px;border: solid 3px #009fed;border-radius: 100%;font-size: 40px;font-weight: bold;color: #009fed;text-align: center;margin: auto">
+                                        营收录入
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div style="width: 120px;height: 120px;border: solid 3px #3db901;border-radius: 100%;font-size: 40px;font-weight: bold;color: #3db901;text-align: center;margin: auto">
+                                        成本录入
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 100%;height:40px;">
+                                <div class="col-xs-6"
+                                     style="text-align: center;line-height: 45px;color: #69696b;font-size: 16px;">
+                                    查看详情
+                                </div>
+                                <div class="col-xs-6"
+                                     style="text-align: center;line-height: 45px;color: #69696b;font-size: 16px;">
+                                    查看详情
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-2">
-                    <small class="stats-label" >
-                        <input  name="payTime" min="0" max="100" onchange="addCount(this.value);" placeholder="签约年限" type="date" class="form-control" required="" aria-required="true">
-                    </small>
-                    <hr/>
-                    <p class="stats-label">费用合计</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">单间每月</p>
-                </div>
-                <div style="float:left;width: 1px;height: 200px; background: #87CBCA;"></div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>水费</h4></small>
-                    <hr/>
-                    <p class="stats-label">0</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">900</p>
-                </div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>物业费</h4></small>
-                    <hr/>
-                    <p class="stats-label">6000</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">888</p>
-                </div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>空调费</h4></small>
-                    <hr/>
-                    <p class="stats-label">3000</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">800</p>
-                </div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>宽带</h4></small>
-                    <hr/>
-                    <p class="stats-label">8000</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">800</p>
-                </div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>供暖费</h4></small>
-                    <hr/>
-                    <p class="stats-label">1000</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">60</p>
-                </div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>布草洗涤</h4></small>
-                    <hr/>
-                    <p class="stats-label">3000</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">200</p>
-                </div>
-                <div class="col-xs-1" style="margin-top:1%">
-                    <small class="stats-label" ><h4>合计</h4></small>
-                    <hr/>
-                    <p class="stats-label">30000</p>
-                    <p class="stats-label">&nbsp;</p>
-                    <p class="stats-label">100</p>
+                <div class="col-xs-9" style="height: 100%">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="label label-info pull-right"></span>
+                            <h5>营收或成本录入</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div style="width: 100%;height: 40px;">
+                                <div style="height: 40px;width: 40%;text-align: right;margin: auto;float: right">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <input type="text" id="test5" class="form-control"
+                                                   placeholder="选择起始时间">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" onchange="getPayList();" id="hotelId__"
+                                                    required name="hotelId">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 100%;height:150px;">
+                                <div class="col-xs-10 innerbox" id="payList">
+                                    <div class="innerbox1" v-for="site in sites">
+                                        <div class="title1">
+                                            <b>{{site.title}}</b>
+                                        </div>
+                                        <div class="title2">
+                                            ￥{{site.money}}
+                                        </div>
+                                        <div class="title3">
+                                            <div style="white-space: normal;">
+                                                {{site.endTime | formatTime }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2" style="height: 100%">
+                                    <div class="col-xs-12"
+                                         style="height: 40%;text-align: center;font-size: 20px;line-height:40px;font-weight: bold">
+                                        合计
+                                    </div>
+                                    <div class="col-xs-12"
+                                         style="height: 40%;text-align: center;color: red;font-size: 30px;line-height: 100px"
+                                         id="sumMoney">
+                                        0.00
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<%--统计各项数据--%>
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-2">
@@ -127,7 +199,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>房源总数</h5>
+                    <h5>分成房源总数/间</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="houseTotal"></h1>
@@ -141,13 +213,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>待结算总额</h5>
+                    <h5>分成房源总面积/平米</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="dfPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>待结算总额</small>
+                    <small>总面积/平米</small>
                 </div>
             </div>
         </div>
@@ -155,13 +227,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>当前应付</h5>
+                    <h5>今日单平收益/元</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="monthPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>当前应付</small>
+                    <small>单平收益/元</small>
                 </div>
             </div>
         </div>
@@ -169,13 +241,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>每间/每月</h5>
+                    <h5>当前应结算房源总数/间</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="houseMonthPayMoney">0</h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>每间/每月</small>
+                    <small>结算房源总数/间</small>
                 </div>
             </div>
         </div>
@@ -183,13 +255,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>每间/每天</h5>
+                    <h5>当前可结算分成总额/元</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins" id="houseDayPayMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
-                    <small>每间/每天</small>
+                    <small>分成总额/元</small>
                 </div>
             </div>
         </div>
@@ -229,13 +301,14 @@
 
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
                 <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
                 </button>
-                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
+                <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default"
+                        style="display: block;">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
                 </button>
                 <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                 </button>
             </div>
         </div>
@@ -256,10 +329,6 @@
             </div>
             <form class="form-horizontal" method="post" id="formadd">
                 <div class="modal-body">
-                    <h4 class="modal-title" id="webAddTitle1">
-                        签约信息
-                    </h4>
-                    <hr/>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">业主姓名：</label>
                         <div class="col-sm-4">
@@ -281,19 +350,23 @@
 
                             </select>
                         </div>
-                        <label class="col-sm-2 control-label">支付总金额：</label>
+                        <label class="col-sm-2 control-label">分成方式：</label>
                         <div class="col-sm-4">
-                            <input  name="totalPay" min="0" placeholder="支付总金额" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <select class="form-control" required name="payMoneyType">
+                                <option value="0">有成本</option>
+                                <option value="1">无成本</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">签约年限：</label>
                         <div class="col-sm-4">
-                            <input  name="payTime" min="0" max="100"  placeholder="签约年限" type="number" class="form-control" required="" aria-required="true">
+                            <input name="payTime" min="0" max="100" placeholder="签约年限" type="number"
+                                   class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付类型：</label>
                         <div class="col-sm-4">
-                            <select class="form-control"  required name="payType">
+                            <select class="form-control" required name="payType">
                                 <option value="1">1/月付</option>
                                 <option value="2">2/月付</option>
                                 <option value="3">3/月付</option>
@@ -306,39 +379,43 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">首次支付日期：</label>
                         <div class="col-sm-4">
-                            <input  name="firstPayTime"  minlength="2" id="test2"  maxlength="20" type="date" value="" class="form-control" required="" aria-required="true">
+                            <input name="payPeriodStart" minlength="2" id="test2" maxlength="20" placeholder="请输入首次支付时间"
+                                   type="text" value="" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">合同开始日期：</label>
                         <div class="col-sm-4">
-                            <input  name="payPeriodStart"  minlength="2"  maxlength="20" type="date" id="test1" value="" class="form-control"  required="" aria-required="true">
+                            <input name="factPayTimeStart" minlength="2" maxlength="20" type="text"
+                                   placeholder="请输入合同开始日期" id="test1" value="" class="form-control" required=""
+                                   aria-required="true">
                         </div>
                     </div>
-                    <div class="form-group" id="house_count">
-
-                    </div>
-                    <hr/>
-                    <h4 class="modal-title" id="webAddTitle2">
-                        房源信息
-                    </h4>
-                    <hr/>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">结算状态：</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="isCash">
+                        <label class="col-sm-2 control-label">结算状态：</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" required name="isCash">
                                 <option value="0">未结算</option>
                                 <option value="1">已结算</option>
                             </select>
                         </div>
-                        <label class="col-sm-1 control-label">保底房租</label>
-                        <div class="col-sm-3">
-                            <input  name="baodiPay" min="0" placeholder="保底房租" max="100" type="text" class="form-control" required="" aria-required="true">
+                        <label class="col-sm-2 control-label">房间面积：</label>
+                        <div class="col-sm-4">
+                            <input name="area" min="0" placeholder="房间面积" max="100" type="text" class="form-control"
+                                   required="" aria-required="true">
                         </div>
                     </div>
-                    <hr/>
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">分成比例</label>
+                        <div class="col-sm-4">
+                            <input name="payProportion" min="0" placeholder="分成比例" max="1" type="number"
+                                   class="form-control" required="" aria-required="true">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">备注</label>
                         <div class="col-sm-11">
-                            <textarea  name="description" placeholder="备注" minlength="2" id="reason1"  value="" class="form-control" required="" aria-required="true"></textarea>
+                            <textarea name="description" placeholder="备注" minlength="2" id="reason1" value=""
+                                      class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>
@@ -353,7 +430,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<input type="hidden" value=""  id="deleteId"/>
+<input type="hidden" value="" id="deleteId"/>
 <%--网站新增结束--%>
 <%--网站信息的修改--%>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -368,11 +445,8 @@
                 </h4>
             </div>
             <form class="form-horizontal" method="post" id="updateform">
+                <input type="hidden" name="id">
                 <div class="modal-body">
-                    <h4 class="modal-title" >
-                        签约信息
-                    </h4>
-                    <hr/>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">业主姓名：</label>
                         <div class="col-sm-4">
@@ -382,7 +456,7 @@
                         </div>
                         <label class="col-sm-2 control-label">房源归属：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" onchange="getHouse(this.value);" id="hotelId" required name="hotelId">
+                            <select class="form-control" id="hotelId" required name="hotelId">
 
                             </select>
                         </div>
@@ -394,19 +468,23 @@
 
                             </select>
                         </div>
-                        <label class="col-sm-2 control-label">支付总金额：</label>
+                        <label class="col-sm-2 control-label">分成方式：</label>
                         <div class="col-sm-4">
-                            <input  name="totalPay" min="0" placeholder="支付总金额" max="100" type="number" class="form-control" required="" aria-required="true">
+                            <select class="form-control" required name="payMoneyType">
+                                <option value="0">有成本</option>
+                                <option value="1">无成本</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">签约年限：</label>
                         <div class="col-sm-4">
-                            <input  name="payTime" min="0" max="100" onchange="addCount(this.value);" placeholder="签约年限" type="number" class="form-control" required="" aria-required="true">
+                            <input name="payTime" min="0" max="100" placeholder="签约年限" type="number"
+                                   class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">支付类型：</label>
                         <div class="col-sm-4">
-                            <select class="form-control"  required name="payType">
+                            <select class="form-control" required name="payType">
                                 <option value="1">1/月付</option>
                                 <option value="2">2/月付</option>
                                 <option value="3">3/月付</option>
@@ -419,47 +497,52 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">首次支付日期：</label>
                         <div class="col-sm-4">
-                            <input  name="firstPayTime"   id="test_3"  type="date" value="" class="form-control" required="" aria-required="true">
+                            <input name="payPeriodStart" minlength="2" id="test3" maxlength="20" placeholder="请输入首次支付时间"
+                                   type="text" value="" class="form-control" required="" aria-required="true">
                         </div>
                         <label class="col-sm-2 control-label">合同开始日期：</label>
                         <div class="col-sm-4">
-                            <input  name="payPeriodStart"  minlength="2"  id="test_4" maxlength="20" type="date" class="form-control"  value=""  required="" aria-required="true">
+                            <input name="factPayTimeStart" minlength="2" maxlength="20" type="text"
+                                   placeholder="请输入合同开始日期" id="test4" value="" class="form-control" required=""
+                                   aria-required="true">
                         </div>
-
                     </div>
-                    <h4 class="modal-title" id="">
-                        房源信息
-                    </h4>
-                    <hr/>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">结算状态：</label>
-                        <div class="col-sm-3">
-                            <select class="form-control"  required name="isCash">
+                        <label class="col-sm-2 control-label">结算状态：</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" required name="isCash">
                                 <option value="0">未结算</option>
                                 <option value="1">已结算</option>
                             </select>
                         </div>
-                        <label class="col-sm-1 control-label">保底房租</label>
-                        <div class="col-sm-3">
-                            <input  name="baodiPay" min="0" placeholder="保底房租" max="100" type="text" class="form-control" required="" aria-required="true">
+                        <label class="col-sm-2 control-label">房间面积：</label>
+                        <div class="col-sm-4">
+                            <input name="area" min="0" placeholder="房间面积" max="100" type="text" class="form-control"
+                                   required="" aria-required="true">
                         </div>
                     </div>
-                    <hr/>
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">分成比例</label>
+                        <div class="col-sm-4">
+                            <input name="payProportion" min="0" placeholder="分成比例" max="1" type="number"
+                                   class="form-control" required="" aria-required="true">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">备注</label>
                         <div class="col-sm-11">
-                            <textarea  name="description" placeholder="备注" minlength="2"  value="" class="form-control" required="" aria-required="true"></textarea>
+                            <textarea name="description" placeholder="备注" minlength="2" id="description" value=""
+                                      class="form-control" required="" aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                   <!--
-                     <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
+                    <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
                         确认修改
                     </button>
-                   -->
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -479,7 +562,8 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">本期应还金额</label>
                         <div class="col-sm-8">
-                            <input  id="first_pay" name="firstPay" min="0"  max="100" type="text" class="form-control" required="" value="" aria-required="true">
+                            <input id="first_pay" name="firstPay" min="0" max="100" type="text" class="form-control"
+                                   required="" value="" aria-required="true">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -495,9 +579,10 @@
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/rentPay.js"></script>
 <script src="<%=path%>/static/js/select2.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
 </body>
 <script>
-    lay('#version').html('-v'+ laydate.v);
+    lay('#version').html('-v' + laydate.v);
     //执行一个laydate实例
     laydate.render({
         elem: '#test1' //指定元素
@@ -511,9 +596,16 @@
     laydate.render({
         elem: '#test4' //指定元素
     });
-</script>
-<script>
-    $(function() {
+    laydate.render({
+        elem: '#test5' //指定元素
+        , type: 'date'
+        , range: true
+        ,done: function(value, date, endDate){
+            $("#test5").val(value);
+            getPayList();
+        }
+    });
+    $(function () {
         $.post(
             "/houseRentPay/getContractMaster",
             function (data) {
@@ -542,11 +634,15 @@
                 $("#hotelId_").select2({
                     data: data
                 })
+                $("#hotelId__").select2({
+                    data: data
+                })
                 $("#select2-hotel_Id-container").remove();
                 $("#select2-hotelId-container").remove();
                 $("#select2-hotelId_-container").remove();
+                $("#select2-hotelId__-container").remove();
                 $.post(
-                    "/rentPay/getHouse/"+data[0].id,
+                    "/rentPay/getHouse/" + data[0].id,
                     function (data) {
                         $("#houseId").select2({
                             data: data
@@ -554,17 +650,19 @@
                         $("#house_Id").select2({
                             data: data
                         })
+                        $("#select2-houseId-container").remove();
+                        $("#select2-house_Id-container").remove();
                     },
                     "json"
                 );
             },
             "json"
         );
-
     });
+
     function getHouse(id) {
         $.post(
-            "/rentPay/getHouse/"+id,
+            "/rentPay/getHouse/" + id,
             function (data) {
                 $("#houseId").select2({
                     data: data
@@ -578,36 +676,120 @@
             "json"
         );
     }
-</script>
-<script>
+
     $(function () {
         getHotelInfo();
     });
+
     function getInfo(id) {
         getHotelInfo();
     }
-    function getHotelInfo(){
+
+    function getHotelInfo() {
         var hotelId = $("#hotelId_").val();
         $.post(
             "<%=path%>/rentPay/hotelInfo",
             {
-                "hotelId":hotelId
+                "hotelId": hotelId
             },
             function (data) {
                 $("#houseTotal").html(data.houseTotal);//房源总数
-                $("#dfPayMoney").html("￥"+data.dfPayMoney);//代付资金
-                $("#monthPayMoney").html("￥"+data.monthPayMoney);//代付资金
-                $("#houseMonthPayMoney").html("￥"+data.houseMonthPayMoney);//每间每月
-                $("#houseDayPayMoney").html("￥"+data.houseDayPayMoney);//每间，每天
-                $("#chaoqiPayMoney").html("￥"+data.chaoqiPayMoney);//超期未付
-                $("#fiveDayPayMoney").html("￥"+data.fiveDayPayMoney);//近5日待付
-                $("#thisMonthPayMoney").html("￥"+data.thisMonthPayMoney);//本月应付
-                $("#thisMonthPayAll").html("￥"+data.thisMonthPayAll);//本月已付租金总额
-                $("#thisMonthNotPay").html("￥"+data.thisMonthNotPay);//本月待付
-                $("#nextMonthPay").html("￥"+data.nextMonthPay);//次月应付
+                $("#dfPayMoney").html("￥" + data.dfPayMoney);//代付资金
+                $("#monthPayMoney").html("￥" + data.monthPayMoney);//代付资金
+                $("#houseMonthPayMoney").html("￥" + data.houseMonthPayMoney);//每间每月
+                $("#houseDayPayMoney").html("￥" + data.houseDayPayMoney);//每间，每天
+                $("#chaoqiPayMoney").html("￥" + data.chaoqiPayMoney);//超期未付
+                $("#fiveDayPayMoney").html("￥" + data.fiveDayPayMoney);//近5日待付
+                $("#thisMonthPayMoney").html("￥" + data.thisMonthPayMoney);//本月应付
+                $("#thisMonthPayAll").html("￥" + data.thisMonthPayAll);//本月已付租金总额
+                $("#thisMonthNotPay").html("￥" + data.thisMonthNotPay);//本月待付
+                $("#nextMonthPay").html("￥" + data.nextMonthPay);//次月应付
             },
             "json"
         );
     }
+
+    getPayList();
+    var vm = new Vue({
+        el: '#payList',
+        data: {
+            sites: ''
+        }
+    })
+
+    function getPayList() {
+        var times = $("#test5").val();
+        var timeArray = times.split(" - ");
+        $.post(
+            "/rentPay/getSubjectMoney",
+            {
+                "time1": timeArray[0],
+                "time2": timeArray[1],
+                "hotelId": $("#hotelId__").val()
+            },
+            function (data) {
+                console.log(data);
+                vm.$data.sites = data;
+                var moneys = 0.0;
+                for (var i = 0; i < data.length; i++) {
+                    moneys = parseFloat(moneys) + parseFloat(data[i].money);
+                }
+                $("#sumMoney").text("￥"+moneys);
+            }, "json"
+        );
+    }
+
+    Vue.filter('formatTime', function (value) {
+        var times = $("#test5").val();
+        var timeArray = times.split(" - ");
+        var date = new Date(value);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        var h = date.getHours();
+        var mi = date.getMinutes();
+        var ss = date.getSeconds();
+        if(!timeArray[0]){
+            if(value<new Date().getTime()){
+                return getTimes()+"起"+y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d)+"止";
+            }else if(value>new Date().getTime()){
+                return getTimes()+"起"+formattimes(new Date())+"止";
+            }
+        }else{
+            if(value<new Date(timeArray[1]).getTime()){
+                return timeArray[0]+"起"+y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d)+"止";
+            }else if(value>new Date(timeArray[1]).getTime()){
+                return timeArray[0]+"起"+timeArray[1]+"止";
+            }
+        }
+
+    });
+    function  getTimes() {
+        var date = new Date();
+        var y = date.getFullYear();
+        var m = date.getMonth() -2;
+        var d = date.getDate();
+        var h = date.getHours();
+        var mi = date.getMinutes();
+        var ss = date.getSeconds();
+        return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) ;
+
+    }
+    $("#test5").val(getTimes()+" - "+formattimes(new Date()));
+    function  defauleTime() {
+        var date = new Date();
+        var y = date.getFullYear();
+        var m = date.getMonth() -2;
+        var d = date.getDate();
+        var h = date.getHours();
+        var mi = date.getMinutes();
+        var ss = date.getSeconds();
+        var mm = date.getMonth()+1;
+        return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d)+" - "+y + '-' + (mm+3<10?"0"+mm:mm) + '-' + (d<10?"0"+d:d) ;
+
+    }
+    $('#test5').bind('input propertychange', function() {
+        alert("-------------");
+    });
 </script>
 </html>

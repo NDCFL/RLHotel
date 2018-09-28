@@ -7,6 +7,7 @@ import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.RentPayService;
 import top.cflwork.vo.HouseRentVo;
+import top.cflwork.vo.RentPayMoneyVo;
 import top.cflwork.vo.RentPayVo;
 import top.cflwork.vo.Select2Vo;
 
@@ -95,5 +96,10 @@ public class RentPayServiceImpl implements RentPayService{
     @Override
     public List<Select2Vo> getHouse(PageQuery pageQuery) {
         return rentPayDAO.getHouse(pageQuery);
+    }
+
+    @Override
+    public List<RentPayMoneyVo> getSubjectMoney(RentPayMoneyVo rentPayMoneyVo) {
+        return rentPayDAO.getSubjectMoney(rentPayMoneyVo);
     }
 }
