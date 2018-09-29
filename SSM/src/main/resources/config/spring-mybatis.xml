@@ -49,7 +49,6 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
@@ -65,7 +64,7 @@
         <aop:pointcut id="serviceMethods" expression="execution(* top.cflwork.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
-
+    <!-- 系统操作日志配置  end -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

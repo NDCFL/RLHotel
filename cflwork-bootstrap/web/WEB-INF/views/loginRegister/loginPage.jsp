@@ -236,6 +236,9 @@
                         layer.close(load);
                         location.href="<%=path%>/index";
                     }else{
+                        vaptchaObj.reset();
+                        $("#loginphone").val("");
+                        $("#loginpassword").val("");
                         layer.close(load);
                     }
                 },

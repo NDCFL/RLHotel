@@ -203,7 +203,7 @@ public class GenUtils {
         }
 
         if (template.contains("Mapper.xml.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator +  className + "Mapper.xml";
+            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator +  className + "DAOMapper.xml";
         }
 
 //        if (template.contains("list.jsp.vm")) {

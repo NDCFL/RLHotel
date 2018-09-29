@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
+import top.cflwork.util.Log;
 import top.cflwork.vo.CooperationAccountsVo;
 import top.cflwork.vo.IncomeVo;
 import top.cflwork.service.IncomeService;
@@ -54,6 +55,7 @@ public class IncomeController {
      * @return  返回分页结果
      * @throws Exception
      */
+    @Log("查看成本接口")
     @RequestMapping("incomeList")
     @ResponseBody
     public PagingBean incomeList(int pageSize, int pageIndex, String searchVal, HttpSession session) throws  Exception{

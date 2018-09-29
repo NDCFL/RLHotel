@@ -9,18 +9,18 @@
             and (t.id like concat('%${searchVal}%'))
         </if>
     </sql>
-    <select id="getById" resultMap="${className}Map" parameterType="long">
+    <select id="getById" resultMap="${classname}Map" parameterType="long">
         select #foreach($column in $columns)`t.$column.columnName`#if($velocityCount != $columns.size()),#end#end
         from ${tableName} t where t.${pk.columnName} = #{value}
     </select>
-    <select id="listPage" resultMap="${className}Map">
+    <select id="listPage" resultMap="${classname}Map">
         select #foreach($column in $columns)`t.$column.columnName`#if($velocityCount != $columns.size()),#end#end from ${tableName} t where t.company_id = #{companyId} <include refid="search"></include> order by t.create_time desc limit #{pageNo}, #{pageSize}
     </select>
     <select id="count" resultType="long">
         select count(t.id) from ${tableName} t where t.company_id = #{companyId}  <include refid="search"></include> order by t.create_time desc
     </select>
 
-    <select id="listPages" resultMap="${className}Map">
+    <select id="listPages" resultMap="${classname}Map">
         select #foreach($column in $columns)`t.$column.columnName`#if($velocityCount != $columns.size()),#end#end
         from ${tableName} t
         <where>
@@ -43,7 +43,7 @@
             limit #{pageQuery.pageNo}, #{pageQuery.pageSize}
         </if>
     </select>
-    <select id="listAll" resultMap="${className}Map">
+    <select id="listAll" resultMap="${classname}Map">
         select * from ${tableName} where company_id=#{companyId}
     </select>
     <select id="counts" resultType="long">

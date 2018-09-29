@@ -3,10 +3,12 @@
 
     <diskStore path="java.io.tmpdir/cflwork-shiro-ehcache"/>
 
-    <!-- 默认缓存 -->
-    <defaultCache maxElementsInMemory="1000" eternal="false"
-                  overflowToDisk="true" timeToIdleSeconds="300" timeToLiveSeconds="180"
-                  diskPersistent="false" diskExpiryThreadIntervalSeconds="120" />
+    <defaultCache eternal="false" maxElementsInMemory="1000"
+                  overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+                  timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU"/>
+    <cache name="user" eternal="false" maxElementsInMemory="10000"
+           overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+           timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
 
     <!-- 登录记录缓存 -->
     <cache name="passwordRetryCache"

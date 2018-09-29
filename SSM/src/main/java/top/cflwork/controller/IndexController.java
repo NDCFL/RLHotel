@@ -59,6 +59,7 @@ public class IndexController {
             session.setAttribute("userRole",userRoleVo);
             return "index";
         }catch (Exception e){
+            e.printStackTrace();
             return "loginRegister/loginPage";
         }
     }

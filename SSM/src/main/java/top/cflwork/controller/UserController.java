@@ -2,7 +2,7 @@ package top.cflwork.controller;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -19,6 +19,7 @@ import top.cflwork.query.UserAccountPasswordQuery;
 import top.cflwork.service.RoleService;
 import top.cflwork.service.UserRoleService;
 import top.cflwork.service.UserService;
+import top.cflwork.util.Log;
 import top.cflwork.vo.*;
 
 import javax.annotation.Resource;
@@ -36,15 +37,13 @@ import java.util.Map;
 @Controller
 @RequestMapping("user")
 public class UserController {
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     private UserService userService;
     @Resource
     private UserRoleService userRoleService;
     @Resource
     private RoleService roleService;
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @RequestMapping("regPage")
     public String regPage() {
         return "loginRegister/regPage";
@@ -58,7 +57,6 @@ public class UserController {
     @RequestMapping("userReg")
     public String userReg(UserVo userVo, HttpServletRequest request) {
         try {
-            logger.info("手机号码为：" + userVo.getPhone() + "的用户正在通过IP为" + request.getRemoteAddr() + "的设备进行注册操作，当前时间为：" + Calendar.getInstance().getTime());
             //使用shiro进行md5加密
             userVo.setGender((byte) 0);
             userVo.setIsActive((byte) 0);
@@ -121,6 +119,7 @@ public class UserController {
         return result;
 
     }
+    @Log("用户登录")
     @RequestMapping("getInfo")
     @ResponseBody
     public Message getInfo(String phone,String password) {
@@ -133,11 +132,18 @@ public class UserController {
                 session.setAttribute("userVo", userVo);
                 return  Message.success("验证成功");
             }else{
-                return  Message.success("账号或密码输入有误,或已被禁用");
+                return  Message.fail("账号或密码输入有误,或已被禁用");
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            return  Message.fail("账号或密码输入有误,或已被禁用");
+        } catch (DisabledAccountException dax) {
+            return Message.fail(phone + " 用户已经被禁用！");
+        } catch (ExcessiveAttemptsException eae) {
+            return Message.fail(" 用户登录次数过多，有暴力破解的嫌疑！");
+        } catch (AccountException ae) {
+            return Message.fail(" 帐号或密码错误！");
+        } catch (AuthenticationException ae) {
+            return Message.fail("身份认证失败！");
+        } catch (Exception e) {
+            return Message.fail("登录认证错误！");
         }
     }
 
@@ -161,8 +167,8 @@ public class UserController {
     }
 
     @RequestMapping("exit")
+    @Log("退出登录")
     public String exit(HttpSession session) {
-        session.invalidate();
         return "loginRegister/loginPage";
     }
 
