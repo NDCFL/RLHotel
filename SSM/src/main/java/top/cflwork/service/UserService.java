@@ -35,4 +35,5 @@ public interface UserService extends BaseService<UserVo> {
     UserVo findByPhone(String phone);
     List<Select2Vo> getUser(Long companyId);
     void updateHeadIcon(UserVo userVo);
+    UserVo findUserById(Long id);
 }

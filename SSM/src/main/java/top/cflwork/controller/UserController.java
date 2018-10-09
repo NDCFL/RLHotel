@@ -325,6 +325,19 @@ public class UserController {
             return Message.fail("删除失败!");
         }
     }
+    @RequestMapping("/findUser/{id}")
+    @ResponseBody
+    public UserVo findUser(@PathVariable("id") Long id) throws Exception {
+        try {
+            if(id==null){
+                return null;
+            }
+            return userService.findUserById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     private synchronized String getFileName(String filename) {
         int position = filename.lastIndexOf(".");
         String ext = filename.substring(position);

@@ -37,5 +37,6 @@ public interface UserDAO extends BaseDAO<UserVo> {
     List<UserVo> landlordListPage(@Param("pageQuery") PageQuery pageQuery,@Param("title") String title);
     List<Select2Vo> getUser(Long companyId);
     void updateHeadIcon(UserVo userVo);
+    UserVo findUserById(Long id);
 
 }

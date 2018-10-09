@@ -92,6 +92,11 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
+    public UserVo findUserById(Long id) {
+        return userDAO.findUserById(id);
+    }
+
+    @Override
     public void save(UserVo userVo) {
         userDAO.save(userVo);
     }

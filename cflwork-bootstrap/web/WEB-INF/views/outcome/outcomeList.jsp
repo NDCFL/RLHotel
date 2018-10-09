@@ -81,6 +81,10 @@
                                 data-target="#webAdd">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                         </button>
+                        <%--<button id="btn_dowm" type="button" class="btn btn-default" data-toggle="modal"--%>
+                                <%--data-target="#webDown">--%>
+                            <%--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>导入--%>
+                        <%--</button>--%>
                     </div>
                 </div>
             </div>
@@ -285,6 +289,26 @@
         </div><!-- /.modal -->
     </div>
 </div>
+<div class="modal fade" id="webDown" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    导入导出操作
+                </h4>
+            </div>
+            <div class="modal-body" >
+                <p>
+                    <a type="button" class="btn btn-default btn-lg" href="/outcome/downLoadModule">导入模板</a>
+                    <button type="button" class="btn btn-primary btn-lg " id="test3">导入数据</button>
+                </p>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
 <%--数据的修改结束--%>
 <jsp:include page="../common/bootstraptablejs.jsp"></jsp:include>
 <script src="<%=path%>/static/js/pageJs/outcome.js"></script>
@@ -353,6 +377,19 @@
             "json"
 
         );
+    });
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //指定允许上传的文件类型
+        upload.render({
+            elem: '#test3'
+            , url: '/outcome/upfile'
+            , accept: 'file' //普通文件
+            , done: function (res) {
+                console.log(res)
+            }
+        });
     });
 </script>
 </html>

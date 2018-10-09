@@ -937,6 +937,12 @@
             }
         });
     });
+    $.post(
+        "/user/findUser/${userVo.id}",
+        function (data) {
+            $("#updateHeadIcon").attr("src",data.headicon);
+        },"json"
+    );
 </script>
 </body>
 </html>

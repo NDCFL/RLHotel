@@ -1,38 +1,47 @@
 package top.cflwork.controller;
 
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import com.xiaoleilu.hutool.date.DateUnit;
 import com.xiaoleilu.hutool.date.DateUtil;
+import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.context.annotation.RequestScope;
-import top.cflwork.vo.CooperationAccountsVo;
-import top.cflwork.vo.OutcomeVo;
-import top.cflwork.service.OutcomeService;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import top.cflwork.common.Message;
 import top.cflwork.common.PagingBean;
 import top.cflwork.enums.ActiveStatusEnum;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
+import top.cflwork.service.OutcomeService;
+import top.cflwork.vo.FileVo;
+import top.cflwork.vo.OutcomeVo;
 import top.cflwork.vo.UserVo;
-import javax.servlet.http.HttpSession;
-import javax.annotation.Resource;
-import javax.validation.Valid;
 
-import org.apache.ibatis.annotations.Param;
-import java.util.Date;
-import org.springframework.web.bind.annotation.InitBinder;
+import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * 酒店的支出表，记录哪个公司旗下的哪个酒店，的支出明细
  * 
@@ -222,6 +231,77 @@ public class OutcomeController {
             return  Message.fail("fail");
         }
     }
+    /**
+     * 导出
+     * @return 返回结果
+     * @throws Exception
+     */
+    @RequestMapping("/download")
+    public void download(HttpServletResponse response){
+        response.setHeader("content-Type", "application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment;filename=outcome.xls");
+        try (ServletOutputStream s = response.getOutputStream()) {
+            List<OutcomeVo> outcomeList = outcomeService.listAll();
+            System.out.println(outcomeList.size()+"===================");
+            Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("支出模板","支出"),
+                    OutcomeVo.class, outcomeList);
+            workbook.write(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 导出模板
+     * @return 返回结果
+     * @throws Exception
+     */
+    @RequestMapping("/downLoadModule")
+    public void downLoadModule(HttpServletResponse response){
+        response.setHeader("content-Type", "application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment;filename=outcome.xls");
+        try (ServletOutputStream s = response.getOutputStream()) {
+            List<OutcomeVo> outcomeList = new ArrayList<>();
+            OutcomeVo outcome = new OutcomeVo();
+            outcome.setOutcommeName("支出名称");
+            outcome.setRemark("备注");
+            outcomeList.add(outcome);
+            Workbook workbook =  ExcelExportUtil.exportExcel(new ExportParams("支出导入模板","支出"),
+                    OutcomeVo.class, outcomeList);
+            workbook.write(s);
+        } catch (Exception e) {
+
+        }
+    }
+
+    /**
+     * 导出
+     * @return 返回结果
+     * @throws Exception
+     */
+    @RequestMapping("/upfile")
+    @ResponseBody
+    public FileVo upfile(MultipartFile file, HttpServletRequest request){
+        FileVo fileVo = new FileVo();
+        try (InputStream is = file.getInputStream()){
+            Map<String,Object> result = new HashMap<>();
+            ImportParams params = new ImportParams();
+            params.setTitleRows(1);
+            params.setHeadRows(1);
+            List<OutcomeVo> list = ExcelImportUtil.importExcel(is,OutcomeVo.class, params);
+            System.out.println(list.size()+"======================"+list.get(0).getHotelId());
+            //这里获取到数据，进行存储
+            fileVo.setData(null);
+            fileVo.setCode(0);
+        }catch (Exception e){
+            e.printStackTrace();
+            fileVo.setCode(1);
+        }
+        fileVo.setMsg("上传成功!");
+        return  fileVo;
+    }
+
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

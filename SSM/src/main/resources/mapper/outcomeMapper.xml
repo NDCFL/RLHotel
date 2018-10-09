@@ -86,8 +86,8 @@
             limit #{pageQuery.pageNo}, #{pageQuery.pageSize}
         </if>
     </select>
-    <select id="listAll" resultMap="OutcomeMap">
-        select * from t_outcome where company_id=#{companyId}
+    <select id="listAll" resultType="top.cflwork.vo.OutcomeVo">
+        select * from t_outcome
     </select>
     <select id="counts" resultType="long">
         select count(t.id) from t_outcome t,t_hotel h, t_cash_subject c where t.hotel_id=h.id and t.subject_id=c.id

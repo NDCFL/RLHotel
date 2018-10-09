@@ -1,14 +1,7 @@
 package top.cflwork.controller;
 
-import cn.afterturn.easypoi.excel.ExcelExportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
-import com.xiaoleilu.hutool.json.JSONUtil;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import top.cflwork.service.CashSubjectService;
-import top.cflwork.service.RentPayService;
-import top.cflwork.vo.CashSubjectVo;
-
 import javax.annotation.Resource;
 
 @Controller("test1")
@@ -38,13 +31,62 @@ public class test1 {
          mergeRely	        int[]	         {}	合并单元格依赖关系,比如第二列合并是基于第一列 则{1}就可以了
          mergeVertical	    boolean	         fasle	纵向合并内容相同的单元格
      */
-    public Workbook test() {
-        return ExcelExportUtil.exportExcel(new ExportParams("学生列表","学生"),
-                CashSubjectVo.class,cashSubjectService.listAll() );
-    }
-
     public static void main(String[] args) {
-        System.out.println(JSONUtil.parse(""));
+//        Integer.toHexString(1 & 0xff);
+        /*
+        String num = "020A0210002657076E03";
+        String head = num.substring(0,2);//前面的是数据头，固定两位
+        String length = num.substring(2,4);//数据包长度 ID--0A    IC--09
+        String type = num.substring(4,6);//卡类型 ID--0A    IC--09
+
+        //判断卡类型，如果是09则是IC卡,如果是OA是ID卡类型 数据包 0A --- 02
+        if((length.equals("0A") && type.equals("02")) || (length.equals("0a") && type.equals("02"))){
+            //处理ID卡号
+            getIDCardNo(num.substring(6,num.length()));
+
+        }else if(length.equals("09")  && type.equals("01")){
+            //处理IC卡号 09-----01
+            getICCardNo(num.substring(6,num.length()));
+        }*/
     }
 
+
+    //解密ID卡号
+    public static String getIDCardNo(String srcNum) {
+        String card = srcNum.substring(2,10);//卡号数据取8位
+        String bcc = srcNum.substring(10,12);//bcc校验方法
+        System.out.println(card+"======"+srcNum);
+        String ICCardNumber = Integer.parseInt(card,16)+"";
+        String lastNumber = "";
+        if(ICCardNumber.length()<10){
+            for(int i=0;i<10-ICCardNumber.length();i++){
+                lastNumber = lastNumber+"0";
+            }
+            lastNumber = lastNumber+ICCardNumber;
+        }else{
+            lastNumber = ICCardNumber;
+        }
+        System.out.println("IC卡号："+lastNumber);
+
+        return lastNumber;
+    }
+    //解密IC卡号
+    public static String getICCardNo(String srcNum) {
+        String card = srcNum.substring(0,8);//卡号数据取8位
+        String bcc = srcNum.substring(8,10);//bcc校验方法
+        System.out.println(bcc+"======"+srcNum);
+        String ICCardNumber = Integer.parseInt(card,16)+"";
+        String lastNumber = "";
+        if(ICCardNumber.length()<10){
+            for(int i=1;i<10-ICCardNumber.length();i++){
+                lastNumber = lastNumber+"0";
+            }
+            lastNumber = lastNumber+ICCardNumber;
+        }else{
+          lastNumber = ICCardNumber;
+        }
+        System.out.println("IC卡号："+lastNumber);
+
+        return lastNumber;
+    }
 }

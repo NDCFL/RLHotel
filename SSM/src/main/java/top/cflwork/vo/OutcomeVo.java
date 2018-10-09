@@ -1,5 +1,6 @@
 package top.cflwork.vo;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -25,10 +26,13 @@ public class OutcomeVo implements Serializable {
 
     //支出编号
     @NotNull
+    @Excel(name = "支出编号",orderNum = "0")
     private Long id;
     //公司编号
+    @Excel(name = "公司编号", orderNum = "1")
     private Long companyId;
     //酒店编号
+    @Excel(name = "酒店编号", orderNum = "2")
     private Long hotelId;
     //支出科目编号
     private Long subjectId;
